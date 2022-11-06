@@ -1,0 +1,101 @@
+/*******************************
+        Theme Overrides
+*******************************/
+
+.portal-top {
+  .ui.secondary.segment.breadcrumbs {
+    padding: 0;
+    border: none;
+    margin: 0;
+    background: transparent;
+  }
+
+  .ui.breadcrumb {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.7rem 1.2rem !important;
+    background: @primaryColor;
+    border-radius: 4px;
+
+    .divider {
+      display: none;
+    }
+
+    > .section:not(:first-child) {
+      padding-left: 1.3em;
+
+      &:before {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        display: block;
+        width: 10px;
+        height: 10px;
+        border-right: 3px solid @secondaryColor;
+        border-bottom: 3px solid @secondaryColor;
+        content: '';
+        transform: translate(-50%, -50%) rotate(-45deg);
+      }
+    }
+
+    .section {
+      position: relative;
+      display: inline-block;
+      color: @white;
+      font-size: 0.875rem;
+      font-weight: bolder;
+    }
+
+    > .section:not(:first-of-type) {
+      margin-left: 1.2em;
+    }
+
+    a.section,
+    .section.active {
+      color: @white;
+    }
+
+    .section.active {
+      font-weight: normal;
+    }
+
+    .home.icon {
+      margin-right: 0;
+    }
+  }
+}
+
+body.has-hero-image {
+  .portal-top {
+    .ui.secondary.segment.breadcrumbs {
+      @media only screen and (min-width: @largestMobileScreen) {
+        position: absolute !important;
+        bottom: -20px;
+        padding-left: 1.8em;
+      }
+      @media only screen and (max-width: @largestMobileScreen) {
+        margin-bottom: 3em;
+
+        .ui.container {
+          margin: 0 !important;
+        }
+      }
+    }
+  }
+}
+
+body:not(.has-hero-image) {
+  .portal-top {
+    .ui.secondary.segment.breadcrumbs {
+      margin: 1em 0;
+    }
+  }
+}
+
+body.view-editview,
+body.view-addview,
+body.cms-ui {
+  .ui.secondary.segment.breadcrumbs {
+    display: none;
+  }
+}

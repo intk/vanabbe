@@ -1,0 +1,66 @@
+/*******************************
+         Form Overrides
+*******************************/
+.ui.form input:not([type]),
+.ui.form input[type='date'],
+.ui.form input[type='datetime-local'],
+.ui.form input[type='email'],
+.ui.form input[type='number'],
+.ui.form input[type='password'],
+.ui.form input[type='search'],
+.ui.form input[type='tel'],
+.ui.form input[type='time'],
+.ui.form input[type='text'],
+.ui.form input[type='file'],
+.ui.form input[type='url'] {
+  font-family: @pageFont;
+}
+
+.ui.form {
+  background-color: @white;
+}
+
+.view-viewview .block.form {
+  .ui.form input:not([type]):focus,
+  .ui.form input[type='date']:focus,
+  .ui.form input[type='datetime-local']:focus,
+  .ui.form input[type='email']:focus,
+  .ui.form input[type='number']:focus,
+  .ui.form input[type='password']:focus,
+  .ui.form input[type='search']:focus,
+  .ui.form input[type='tel']:focus,
+  .ui.form input[type='time']:focus,
+  .ui.form input[type='text']:focus,
+  .ui.form input[type='file']:focus,
+  .ui.form input[type='url']:focus {
+    // border-bottom: 1px solid @primaryColor;
+    color: @darkgrey;
+  }
+
+  // .ui.grid.column > .row > .column {
+  //   padding: 0;
+  // }
+
+  .ui.segment {
+    padding: 0;
+    border: unset;
+    margin: 0 !important;
+    box-shadow: unset;
+  }
+
+  .ui.input {
+    align-items: center;
+  }
+
+  @media only screen and (max-width: 480px) {
+    .ui.grid.column > .row {
+      margin: 1rem 0;
+    }
+
+    .four.wide.column,
+    .eight.wide.column,
+    .wrapper {
+      width: 100% !important;
+    }
+  }
+}

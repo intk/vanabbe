@@ -1,0 +1,14 @@
+/********   Container Overrides   ********/
+
+#main .ui.grid > .column:not(.row),
+#main .ui.grid > .row > .column {
+  // padding-right: 1em;
+  // padding-left: 1em;
+}
+
+// fix for login page dialog
+#main #page-login .ui.grid > .column:not(.row),
+#main #page-login .ui.grid > .row > .column {
+  padding-right: 1em;
+  padding-left: 1em;
+}

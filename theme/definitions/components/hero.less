@@ -1,0 +1,63 @@
+@type: 'component';
+@element: 'hero';
+
+@import (multiple) '../../theme.config';
+
+.herosection {
+  position: relative;
+}
+
+.header-bg.ui.container {
+  margin: 0;
+}
+
+.herosection-content-image {
+  height: 100%;
+  min-height: @heroSectionContentImageMinHeight;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-top-left-radius: @defaultBorderRadius;
+  border-top-right-radius: @defaultBorderRadius;
+  box-shadow: 0px 0px 43px 0px rgba(2, 2, 2, 0.1);
+}
+
+.herosection .content-wrapper {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  left: 0;
+  padding: 0 1.8em;
+  margin: @heroSectionContentMargin;
+  color: @heroSectionContentColor;
+  transform: translateY(-50%);
+}
+
+.herosection .content-wrapper.caption {
+  top: auto;
+  bottom: 1.3em;
+}
+
+.herosection .content-image-caption {
+  font-size: @heroSectionContentImageCaptionFontSize;
+  opacity: @heroSectionContentImageCaptionOpacity;
+}
+
+.content-title {
+  margin: 0.8em 0 !important;
+}
+
+// .herosection-missing-image {
+//   min-height: 6em;
+// }
+
+// .herosection-content-image-overlay {
+//   position: absolute;
+//   top: 0;
+//   left: 0;
+//   width: 100%;
+//   height: 100%;
+//   background: @heroSectionContentImageOverlayBackground;
+// }
+
+.loadUIOverrides();

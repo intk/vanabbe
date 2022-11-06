@@ -1,0 +1,47 @@
+/********   Button Overrides   ********/
+
+.ui.button {
+  .isBtn();
+}
+
+.ui.button.primary {
+  border-color: @primaryColor;
+}
+
+.ui.basic.button {
+  font-weight: 800;
+
+  &:hover {
+    background: transparent !important;
+  }
+}
+
+.link-more {
+  a {
+    margin: 0;
+    .isBtn();
+  }
+}
+
+.ui.secondary.buttons .button,
+.ui.secondary.button {
+  background-color: @darkGreen;
+
+  &:hover {
+    background-color: @darkGreen;
+  }
+}
+
+// p.buttonSec {
+//   a {
+//     .isBtn();
+//   }
+// }
+
+// .ui.button.btn-block.primary {
+//   .isBtn();
+// }
+
+// .ui.button.btn-block.secondary {
+//   .isBtnSec();
+// }

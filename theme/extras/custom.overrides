@@ -1,0 +1,122 @@
+/********   Customn Overrides   ********/
+
+@import './document.less';
+@import './listing.less';
+@import './footer.less';
+@import './search.less';
+@import './toc.less';
+@import './scrolltotop.less';
+@import './animations.less';
+@import './blocks.less';
+@import './event.less';
+
+// @import './navigation.less';
+
+// hide the breadcrumbs on view pages
+// .ui.breadcrumbs {
+//   display: none;
+// }
+
+.view-viewview.has-image {
+  #main > .breadcrumbs {
+    display: none !important;
+  }
+}
+
+.ui.dimmer {
+  background: rgba(0, 0, 0, 0.8);
+}
+
+// clear floats for edit view
+
+body.cms-ui {
+  h3 {
+    max-width: 100%;
+    float: none;
+  }
+
+  p,
+  ol,
+  ul,
+  table {
+    margin-left: unset;
+  }
+
+  .herosection {
+    .ui.container {
+      display: none;
+    }
+  }
+}
+
+#toolbar {
+  .toolbar {
+    z-index: 101;
+  }
+
+  .toolbar-content {
+    z-index: 102;
+  }
+}
+
+body.not-found-page {
+  #main {
+    height: 100%;
+  }
+
+  #view {
+    display: flex;
+    height: 100%;
+    align-items: center;
+  }
+
+  .big-heading {
+    margin-top: 1em;
+  }
+
+  .footer,
+  .footer-bottom,
+  .portal-top,
+  .ui.secondary.segment.breadcrumbs {
+    display: none !important;
+  }
+
+  .view-wrapper {
+    padding: 4rem 0;
+
+    .grid {
+      align-items: center;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+      margin: 0 auto;
+    }
+
+    .ui.button {
+      margin: 1.5rem 0;
+    }
+  }
+}
+
+// White space in blocks chooser CMS
+.blocks-chooser .ui.accordion .title ~ .content,
+.blocks-chooser .ui.accordion .accordion .title ~ .content {
+  display: contents !important;
+}
+
+// headline-with-listing (used for agenda)
+.headline-with-listing {
+  h5 {
+    font-family: @fontName;
+    font-size: clamp(1.75rem, 3.75vw, 4.063rem);
+    line-height: clamp(2.1rem, 3.75vw, 4.063rem);
+    text-transform: uppercase;
+  }
+}
+
+// fix block chooser, broken by volto-block-style stretch styling
+body:not(.view-editview):not(.document_wide_view):not(.is-anonymous) main {
+  overflow: unset;
+}

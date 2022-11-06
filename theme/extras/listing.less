@@ -1,0 +1,265 @@
+@cardBg: transparent;
+
+.listing-card {
+  .image-container {
+    .link-img-wrapper {
+      display: block;
+    }
+
+    img {
+      width: 100%;
+      min-width: 100%;
+      height: 100% !important;
+      object-fit: cover;
+      object-position: center;
+    }
+  }
+}
+
+.listing-card.default-card {
+  .card-details {
+    display: flex;
+
+    .title {
+      text-align: center;
+    }
+  }
+}
+
+.listing-card.default-card,
+.listing-card.newsitem-card {
+  background-color: @cardBg;
+
+  &:hover img {
+    opacity: 0.5;
+  }
+
+  a {
+    display: block;
+  }
+
+  .animateBackgroundImage();
+
+  .image-container {
+    border-radius: 10px;
+
+    .link-img-wrapper {
+      height: 418px;
+      background: #000;
+    }
+  }
+
+  .card-details {
+    position: relative;
+    z-index: 1;
+    min-height: 6rem;
+    padding: 2.2rem 2rem;
+    margin-top: -80px;
+    margin-right: 20px;
+    margin-bottom: 1.7rem;
+    margin-left: 20px;
+    background: @white;
+    border-radius: 4px;
+    box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.15);
+    -webkit-transition: all 400ms ease-in-out;
+    -moz-transition: all 400ms ease-in-out;
+    -o-transition: all 400ms ease-in-out;
+    -ms-transition: all 400ms ease-in-out;
+    transition: all 400ms ease-in-out;
+
+    .verticalAlign();
+
+    .title {
+      .elipsisOverflow(2);
+    }
+
+    .card-link {
+      min-height: 60px;
+    }
+
+    .title {
+      width: 100%;
+      min-height: 57px;
+      margin: auto 0;
+      color: @blue;
+      font-size: 1.375rem;
+      font-weight: @font-weight-8;
+    }
+
+    .title:hover,
+    .title > a:hover {
+      color: @primaryColor;
+    }
+
+    .description {
+      display: -webkit-box;
+      overflow: hidden;
+      min-height: 55px;
+      margin-bottom: 0;
+      -webkit-box-orient: vertical;
+      color: @darkGreen;
+      font-size: 0.875rem;
+      -webkit-line-clamp: 2;
+      text-overflow: ellipsis;
+    }
+
+    time {
+      display: block;
+      margin-bottom: 0.5rem;
+      color: @primaryColor;
+      font-size: 00.875rem;
+      font-weight: @font-weight-5;
+    }
+  }
+}
+
+.event-card {
+  position: relative;
+  margin-top: 30px;
+
+  .image-container {
+    position: relative;
+    z-index: 0;
+    overflow: hidden;
+    height: 100%;
+    max-height: 50%;
+    border-radius: 4px;
+
+    .link-img-wrapper {
+      height: 350px;
+    }
+  }
+
+  .card-details {
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 0 1.5rem 1.5rem 1.5rem;
+    background: linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0),
+      rgba(39, 48, 75, 0.85882)
+    );
+    color: @white;
+
+    .title {
+      display: -webkit-box;
+      overflow: hidden;
+      min-height: 58px;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+      text-overflow: ellipsis;
+    }
+
+    .title,
+    .title a {
+      color: @white;
+      font-size: 1.375rem;
+      font-weight: 700;
+    }
+
+    .title:hover,
+    .title > a:hover {
+      color: @primaryColor;
+    }
+  }
+
+  .event-details {
+    .horizontalAlign();
+    padding-top: 7px;
+    color: #fff5ec;
+    font-size: 0.875rem;
+
+    > span:not(:last-child) {
+      margin-right: 15px;
+    }
+
+    i.icon {
+      color: @primaryColor;
+    }
+  }
+
+  .date-box {
+    position: absolute;
+    z-index: 8;
+    top: -30px;
+    left: 2.5rem;
+    display: flex;
+    min-width: 90px;
+    min-height: 90px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: @white;
+    border-radius: 10px;
+    color: @darkGreen;
+    font-size: 1.875rem;
+    font-weight: @font-weight-7;
+    line-height: 1;
+
+    span {
+      display: block;
+      padding-top: 3px;
+      color: @blue;
+      font-size: 1rem;
+      font-weight: @font-weight-7;
+    }
+  }
+}
+
+/********   Listings   ********/
+.listing-item img {
+  margin-right: unset;
+}
+
+#content-core {
+  & > .listings {
+    margin-top: 2em;
+
+    .grid.listings {
+    }
+  }
+}
+
+.listing {
+  margin: 3em 0;
+
+  h2.headline {
+    display: none !important;
+  }
+
+  .link-more {
+    a {
+      text-decoration: none;
+      .outlinedBtn(@lightBrown, @darkerGrey);
+    }
+  }
+
+  .slider-bottom {
+    margin-top: 2em;
+    text-align: center;
+  }
+}
+
+.listing-block-header {
+  margin-bottom: 1.5em;
+
+  h2 {
+    margin-bottom: 0 !important;
+    .bigHeading(@primaryColor);
+
+    @media only screen and (min-width: @largestTabletScreen) {
+      max-width: 50% !important;
+    }
+  }
+
+  @media only screen and (min-width: @largestTabletScreen) {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+}

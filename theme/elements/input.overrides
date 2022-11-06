@@ -1,0 +1,11 @@
+// .ui.input > input::placeholder {
+//     color: red !important;
+// }
+
+// .ui.input > input::selection {
+//     color: blue !important;
+// }
+
+.ui.input > input:focus {
+    color: @black !important;
+}

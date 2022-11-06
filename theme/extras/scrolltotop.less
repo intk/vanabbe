@@ -1,0 +1,31 @@
+.scroll-to-top {
+  position: fixed;
+  z-index: 9;
+  right: 25px;
+  bottom: 25px;
+
+  > .ui.button {
+    display: flex;
+    width: 60px;
+    height: 60px;
+    align-items: center;
+    margin: 0;
+    background-color: @secondaryColor;
+    border-radius: 7px;
+    color: @white;
+
+    @media only screen and (max-width: @largestMobileScreen) {
+      width: 40px;
+      height: 40px;
+
+      .icon {
+        font-size: 1em;
+      }
+    }
+
+    &:hover {
+      background-color: @secondaryColor;
+      color: @white;
+    }
+  }
+}

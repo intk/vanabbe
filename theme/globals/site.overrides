@@ -1,0 +1,96 @@
+/********   Site Overrides   ********/
+
+// .debug(@googleFontRequest);
+
+.loadUtrechtFonts();
+
+html {
+  font-size: @fontSize;
+
+  @media only screen and (max-width: @largestSmallMonitor) {
+    font-size: 15px;
+  }
+}
+
+body {
+  position: relative;
+  background: @pageBackground;
+  color: @textColor;
+  font-family: @pageFont;
+  font-size: 1rem;
+  font-weight: @font-weight-4;
+}
+
+h1 {
+  color: @primaryColor;
+  font-size: @h1;
+  font-weight: @font-weight-8;
+}
+
+h2 {
+  color: @primaryColor;
+  font-size: @h2;
+  font-weight: @headerFontWeight;
+}
+
+h3 {
+  color: @blue;
+  font-size: @h3;
+  font-weight: @headerFontWeight;
+}
+
+h4 {
+  font-size: @h4;
+  font-weight: @headerFontWeight;
+}
+
+h5 {
+  font-size: @h5;
+  font-weight: @headerFontWeight;
+}
+
+p {
+  font-size: @fontSize;
+}
+
+ol,
+ul {
+  li {
+    margin-bottom: 0.6rem;
+  }
+}
+
+p {
+  line-height: @lineHeight;
+}
+
+a {
+  color: #333;
+  text-decoration: none;
+  transition: all 400ms ease-in-out !important;
+
+  &:hover {
+    color: #666;
+    text-decoration: none;
+  }
+
+  &:focus {
+    outline: none;
+    text-decoration: none;
+  }
+}
+
+ul.styled-slate {
+  padding: 0;
+
+  li {
+    list-style-type: none;
+
+    &:before {
+      margin-right: 1em;
+      color: @tertiaryColor;
+      content: '\f105';
+      font-family: 'Icons';
+    }
+  }
+}
