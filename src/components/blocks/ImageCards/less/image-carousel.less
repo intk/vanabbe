@@ -1,0 +1,157 @@
+@type: 'extra';
+@element: 'custom';
+
+@import (multiple, reference, optional) '../../theme.config';
+
+#page-document {
+  // float elements to left
+  & > .image-carousel {
+    // max-width: @leftColumnSize;
+    margin-left: @leftColumnSize;
+  }
+
+  & > .image-carousel.image-carousel-imageCards {
+    // max-width: @leftColumnSize;
+    margin-left: unset;
+  }
+}
+
+.image-carousel {
+  position: relative;
+  margin: 2em 0;
+
+  .slick-list {
+    margin: 0 -0.8em !important;
+  }
+
+  .slick-track {
+    display: flex !important;
+  }
+
+  .slick-slide {
+    height: inherit !important;
+    padding: 1rem !important;
+
+    .ui.card {
+      width: 100%;
+      height: 100%;
+    }
+
+    > div {
+      // equal height cards in slider
+      height: 100%;
+    }
+  }
+
+  .slide-img {
+    position: relative;
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    justify-content: center;
+
+    &:after {
+      z-index: 1;
+    }
+
+    .slide-caption {
+      position: absolute;
+      z-index: 2;
+      top: 50%;
+      right: 0;
+      left: 0;
+      max-width: 650px;
+      padding: 0 1.8em;
+      transform: translateY(-50%);
+
+      p {
+        color: #fff5ec;
+      }
+    }
+
+    .ui.placeholder {
+      width: 100%;
+      height: 100%;
+      min-height: 250px;
+    }
+
+    .card-link {
+      height: 100%;
+    }
+
+    a:not(.card-link) {
+      display: flex;
+      max-width: 100%;
+      max-height: 100%;
+      flex-direction: column;
+      justify-content: center;
+      margin: 0 auto;
+    }
+
+    img.bg-image {
+      width: 100%;
+      height: 100%;
+      max-height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  .slick-arrow {
+    z-index: 1;
+    left: 0px;
+    display: unset !important;
+    width: 50%;
+    height: 100%;
+    text-align: left;
+
+    &.slick-next {
+      right: 0px;
+      left: unset;
+      text-align: right;
+    }
+
+    &.slick-prev:before {
+      padding-left: 0.3rem;
+    }
+
+    &.slick-prev:before,
+    &.slick-next:before {
+      padding-right: 0.3rem;
+      color: white;
+      font-family: @mediumFont;
+      font-size: 3rem;
+      text-shadow: 0px 0px 10px rgba(0, 0, 0, 0.9);
+    }
+  }
+}
+
+.image-carousel.default-carousel {
+  .big-carousel {
+    .slider-nav {
+      @media only screen and (min-width: @largestTabletScreen) {
+        position: absolute;
+        z-index: 2;
+        top: 50%;
+        right: 0;
+        left: auto;
+        max-width: 650px;
+        padding: 0 1.8em;
+        transform: translateY(-50%);
+
+        i.circular.icon {
+          .circularIcon(@white);
+        }
+      }
+    }
+  }
+
+  .slide-overlay {
+    .slideOverlay(left);
+  }
+}
+
+@media only screen and (max-width: @largestTabletScreen) {
+  .slide-title {
+    font-size: 25px;
+  }
+}

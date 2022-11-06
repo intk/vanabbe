@@ -1,0 +1,10 @@
+api
+.storybook
+cron
+build
+data
+node_modules
+omelette
+.env
+*.log
+*.yml

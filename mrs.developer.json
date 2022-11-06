@@ -1,0 +1,32 @@
+{
+  "volto-slate": {
+    "url": "git@github.com:eea/volto-slate.git",
+    "https": "https://github.com/eea/volto-slate.git",
+    "branch": "styled_compatibility",
+    "develop": false,
+    "path": "src"
+  },
+  "volto-block-image-cards": {
+    "url": "git@github.com:eea/volto-block-image-cards.git",
+    "https": "https://github.com/eea/volto-block-image-cards.git",
+    "package": "@eeacms/volto-block-image-cards",
+    "branch": "discreet_carousel_volto16",
+    "develop": true,
+    "path": "src"
+  },
+  "volto-block-style": {
+    "url": "git@github.com:eea/volto-block-style.git",
+    "https": "https://github.com/eea/volto-block-style.git",
+    "package": "@eeacms/volto-block-style",
+    "branch": "develop",
+    "develop": true,
+    "path": "src"
+  },
+  "volto-form-block": {
+    "url": "git@github.com:collective/volto-form-block.git",
+    "https": "https://github.com/collective/volto-form-block.git",
+    "branch": "field_extenders_placeholders",
+    "develop": true,
+    "path": "src"
+  }
+}

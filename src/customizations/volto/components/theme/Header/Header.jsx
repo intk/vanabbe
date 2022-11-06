@@ -1,0 +1,102 @@
+// Customized to use the HeroSection
+
+import React from 'react';
+import { InView } from 'react-intersection-observer';
+import { useSelector } from 'react-redux';
+import {
+  LanguageSelector,
+  Logo,
+  Navigation,
+  SearchWidget,
+} from '@plone/volto/components';
+import { Button } from 'semantic-ui-react';
+import { BodyClass, isCmsUi } from '@plone/volto/helpers';
+import { HeroSection } from '@package/components'; // , StickyHeader
+import cx from 'classnames';
+import usePreviewImage from './usePreviewImage';
+import { useLocation } from 'react-router-dom';
+
+const Header = (props) => {
+  const { navigationItems } = props;
+  const { pathname } = useLocation();
+
+  const content = useSelector((state) => state.content.data);
+
+  const previewImage = usePreviewImage(pathname);
+
+  const previewImageUrl = previewImage?.scales?.huge?.download;
+  // const contentImageCaption = content?.image_caption;
+
+  const contentType = content?.['@type'];
+  const isHomePage = contentType === 'Plone Site' || contentType === 'LRF';
+  const cmsView = isCmsUi(pathname);
+  const homePageView = isHomePage && !cmsView;
+  const [inView, setInView] = React.useState();
+
+  return (
+    <div className="portal-top">
+      {homePageView && <BodyClass className="homepage-view" />}
+      {!cmsView && <BodyClass className="has-image" />}
+      <div
+        className={cx(
+          'header-wrapper',
+          homePageView ? 'homepage' : 'contentpage',
+          inView ? 'header-in-view' : 'header-out-of-view fadeInDown',
+        )}
+        role="banner"
+      >
+        <div className="header">
+          <div
+            className={`logo-nav-wrapper ${
+              homePageView ? 'home-nav' : 'page-nav'
+            }`}
+          >
+            <div className="logo">
+              <Logo />
+            </div>
+
+            <div className="right-section">
+              <div className="computer large screen widescreen only">
+                <Navigation pathname={pathname} navigation={navigationItems} />
+              </div>
+
+              <div className="header-tools">
+                <div className="search-wrapper">
+                  <SearchWidget pathname={pathname} />
+                </div>
+                <div className="header-donate">
+                  <Button primary>Donate</Button>
+                </div>
+                <LanguageSelector />
+                <div className="mobile tablet only">
+                  <Navigation
+                    pathname={pathname}
+                    navigation={navigationItems}
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="header-spacer"></div>
+      <InView
+        as="div"
+        className="header-visibility-sensor"
+        onChange={(inView, entry) => setInView(inView)}
+      >
+        {' '}
+      </InView>
+
+      {!(cmsView || isHomePage) && (
+        <div className="header-bg">
+          <div className="header-container">
+            <HeroSection image_url={previewImageUrl} content={content} />
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default Header;

@@ -1,0 +1,79 @@
+// const SocialLinks = () => (
+//   <>
+//     <a href="https://facebook.com">
+//       <img
+//         height="auto"
+//         title="Facebook"
+//         src={FacebookLogo}
+//         alt="Facebook"
+//         className="logo-social"
+//       />
+//     </a>
+//     <a href="https://instagram.com">
+//       <img
+//         height="auto"
+//         title="Instagram"
+//         src={InstagramLogo}
+//         alt="Instagram"
+//         className="logo-social"
+//       />
+//     </a>
+//     <a href="https://youtube.com">
+//       <img
+//         height="auto"
+//         title="YouTube"
+//         src={YouTubeLogo}
+//         alt="YouTube"
+//         className="logo-social"
+//       />
+//     </a>
+//     <a href="https://twitter.com">
+//       <img
+//         height="auto"
+//         title="Twitter"
+//         src={TwitterLogo}
+//         alt="Twitter"
+//         className="logo-social"
+//       />
+//     </a>
+//     <a href="https://linkedin.com">
+//       <img
+//         height="auto"
+//         title="LinkedIn"
+//         src={LinkedInLogo}
+//         alt="LinkedIn"
+//         className="logo-social"
+//       />
+//     </a>
+//   </>
+// );
+
+// const Address = () => (
+//   <ul className="footer-contact">
+//     <li>
+//       <Icon name="map marker alternate" size="small" />
+//       <p>
+//         Envato Pty Ltd, 13/2 Elizabeth St <br />
+//         Melbourne VIC 3000, Australia
+//       </p>
+//     </li>
+//     <li>
+//       <Icon name="phone" size="small" />
+//       <p>
+//         <a href="tel:+1234567899">+1234567899</a>
+//       </p>
+//     </li>
+//     <li>
+//       <Icon name="mail outline" size="small" />
+//       <p>
+//         <a href="mailto:info@hoperaise.com">info@hoperaise.com</a>
+//       </p>
+//     </li>
+//     <li>
+//       <Icon name="clock outline" size="small" />
+//       <p>Mon-Fri / 9:00 AM - 19:00 PM</p>
+//     </li>
+//   </ul>
+// );
+
+

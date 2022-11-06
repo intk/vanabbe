@@ -1,0 +1,17 @@
+@type: 'extra';
+@element: 'custom';
+
+@import (multiple, reference, optional) '../../theme.config';
+
+#view .quoteBlock-wrapper {
+  min-height: 3em;
+  padding-left: 5.5rem;
+  margin: 3.5em 0;
+  background: url('./quotes.svg') no-repeat top left;
+
+  p {
+    color: @darkGreen;
+    font-size: 1.3rem;
+    font-weight: @font-weight-6;
+  }
+}

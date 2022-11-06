@@ -1,0 +1,24 @@
+version: "3"
+
+services:
+  plone:
+    ports:
+      - "8080:8080"
+    tty: true
+    stdin_open: true
+    command: cat
+    environment:
+      CORS_ALLOW_ORIGIN: "http://localhost:3000"
+      SECURITY_POLICY_IMPLEMENTATION: "C"
+      VERBOSE_SECURITY: "off"
+      DEFAULT_ZPUBLISHER_ENCODING: "utf-8"
+      DEBUG_MODE: "off"
+      ZODB_CACHE_SIZE: "50000"
+    # entrypoint: sh -c "tail -f /dev/null"
+  frontend:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      DEBUG: "superagent"
+      DEBUG_HPM: "debug"
