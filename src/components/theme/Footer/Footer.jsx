@@ -220,13 +220,13 @@ export function Footer(props) {
         <div className="footer-bottom">
           <div className="ui container">
             <div role="list" class="ui horizontal inverted list">
-              <div role="listitem" class="item">
+              <div role="listitem" className="item">
                 <Copyright />
               </div>
-              <div role="listitem" class="item">
+              <div role="listitem" className="item">
                 <FooterLinks globalId="siteActions" />
               </div>
-              <div role="listitem" class="item">
+              <div role="listitem" className="item">
                 <Login />
               </div>
             </div>
