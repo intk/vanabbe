@@ -4,10 +4,9 @@ import { FormattedMessage, injectIntl } from 'react-intl'; // defineMessages
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { Icon } from 'semantic-ui-react';
-import { RenderBlocks, Icon as VoltoIcon } from '@plone/volto/components';
+import { RenderBlocks } from '@plone/volto/components';
 
 import defaultIcon from '@package/icons/link.svg';
-import LogoImage from '@package/icons/logo.svg';
 import FacebookLogo from '@package/static/facebook.svg';
 import InstagramLogo from '@package/static/instagram.svg';
 import TwitterLogo from '@package/static/twiter.svg';
@@ -23,7 +22,7 @@ const Login = () => {
 
   return token ? (
     <Link aria-label="login" to="/logout">
-      Logout
+      <FormattedMessage id="Logout" defaultMessage="Logout" />
     </Link>
   ) : (
     <Link
@@ -37,7 +36,7 @@ const Login = () => {
           : ''
       }`}
     >
-      Log in
+      <FormattedMessage id="Log in" defaultMessage="Log in" />
     </Link>
   );
 };

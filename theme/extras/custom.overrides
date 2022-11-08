@@ -2,11 +2,11 @@
          Custom Overrides
 *******************************/
 
+@import './animations.less';
 @import './document.less';
 @import './listing.less';
 @import './footer.less';
 @import './search.less';
-@import './animations.less';
 @import './blocks.less';
 @import './event.less';
 @import './header.less';

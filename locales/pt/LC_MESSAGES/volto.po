@@ -1,6 +1,6 @@
 # Translators:
 # Emanuel de Jesus <emanuel.angelo@gmail.com>, 2019
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: Plone\n"
@@ -18,3 +18,135 @@ msgstr ""
 "Language-Code: pt\n"
 "Language-Name: Portuguese\n"
 "Preferred-Encodings: utf-8\n"
+
+#: components/blocks/ActionLinks/schema
+# defaultMessage: Action
+msgid "Action"
+msgstr ""
+
+#: components/blocks/ActionLinks/schema
+# defaultMessage: Actions
+msgid "Actions"
+msgstr ""
+
+#: components/blocks/Image/ImageBlockEdit
+# defaultMessage: Browse the site, drop an image, or type an URL
+msgid "Browse the site, drop an image, or type an URL"
+msgstr ""
+
+#: components/blocks/Button/schema
+# defaultMessage: Button
+msgid "Button"
+msgstr ""
+
+#: components/blocks/Facts/schema
+# defaultMessage: Card
+msgid "Card"
+msgstr ""
+
+#: components/blocks/Facts/schema
+# defaultMessage: Cards
+msgid "Cards"
+msgstr ""
+
+#: components/theme/Navigation/Navigation
+# defaultMessage: Close menu
+msgid "Close menu"
+msgstr ""
+
+#: components/blocks/ActionLinks/schema
+#: components/blocks/Facts/schema
+# defaultMessage: Action link
+msgid "LinkTo"
+msgstr ""
+
+#: components/theme/Footer/Footer
+# defaultMessage: Log in
+msgid "Log in"
+msgstr ""
+
+#: components/theme/Footer/Footer
+# defaultMessage: Logout
+msgid "Logout"
+msgstr ""
+
+#: components/theme/Navigation/Navigation
+# defaultMessage: Open menu
+msgid "Open menu"
+msgstr ""
+
+#: components/theme/SearchWidget/SearchWidget
+# defaultMessage: Search
+msgid "Search"
+msgstr ""
+
+#: components/blocks/SiteData/schema
+# defaultMessage: Global site settings
+msgid "SiteData"
+msgstr ""
+
+#: components/blocks/SiteData/schema
+# defaultMessage: Social Links
+msgid "SocialLinks"
+msgstr ""
+
+#: components/blocks/Quote/EditBlockWrapper
+# defaultMessage: Unknown Block {block}
+msgid "Unknown Block"
+msgstr ""
+
+#: components/blocks/ImageCards/SplashyCarousel
+# defaultMessage: Watch The Video
+msgid "Watch The Video"
+msgstr ""
+
+#: components/blocks/SiteData/schema
+# defaultMessage: Address
+msgid "address"
+msgstr ""
+
+#: components/blocks/Quote/EditBlockWrapper
+# defaultMessage: delete
+msgid "delete"
+msgstr ""
+
+#: components/blocks/SiteData/schema
+# defaultMessage: Email
+msgid "email"
+msgstr ""
+
+#: components/blocks/Facts/schema
+# defaultMessage: Icon
+msgid "icon"
+msgstr ""
+
+#: components/blocks/Facts/schema
+# defaultMessage: Image
+msgid "image"
+msgstr ""
+
+#: components/blocks/Facts/schema
+# defaultMessage: Destination for the call to action button
+msgid "linkToDescription"
+msgstr ""
+
+#: components/blocks/SiteData/schema
+# defaultMessage: Open hours
+msgid "openHours"
+msgstr ""
+
+#: components/blocks/SiteData/schema
+# defaultMessage: Phone
+msgid "phone"
+msgstr ""
+
+#: components/blocks/Facts/schema
+# defaultMessage: SubTitle
+msgid "subtitle"
+msgstr ""
+
+#: components/blocks/ActionLinks/schema
+#: components/blocks/Facts/schema
+# defaultMessage: Title
+msgid "title"
+msgstr ""

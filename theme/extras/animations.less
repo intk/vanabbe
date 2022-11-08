@@ -61,3 +61,25 @@
   animation-delay: @delay + 0.1s;
   -webkit-transition-delay: @delay + 0.1s;
 }
+
+@keyframes slideInDownMenu {
+  0% {
+    -webkit-transform: translateY(100%);
+    transform: translateY(100%);
+    visibility: visible;
+  }
+
+  100% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+  }
+}
+
+.slideInDownMenu() {
+  -webkit-animation-duration: 0.2s;
+  animation-duration: 0.2s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+  -webkit-animation-name: slideInDownMenu;
+  animation-name: slideInDownMenu;
+}

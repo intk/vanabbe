@@ -3,38 +3,12 @@
  * @module components/theme/View/EventView
  */
 
-import RenderBlocks from '@plone/volto/components/theme/View/RenderBlocks';
 import React from 'react';
 import PropTypes from 'prop-types';
-import { defineMessages, injectIntl } from 'react-intl';
-import { flattenHTMLToAppURL } from '@plone/volto/helpers';
-import { Container, Image, Segment, Grid, Icon } from 'semantic-ui-react';
-import { hasBlocksData } from '@plone/volto/helpers';
-import { expandToBackendURL } from '@plone/volto/helpers';
-
-import {
-  When,
-  Recurrence,
-} from '@plone/volto/components/theme/View/EventDatesInfo';
-
-const messages = defineMessages({
-  what: {
-    id: 'event_what',
-    defaultMessage: 'What',
-  },
-  allDates: {
-    id: 'event_alldates',
-    defaultMessage: 'All dates',
-  },
-  attendees: {
-    id: 'event_attendees',
-    defaultMessage: 'Attendees',
-  },
-  visitWebsite: {
-    id: 'visit_external_website',
-    defaultMessage: 'Visit external website',
-  },
-});
+import { hasBlocksData, flattenHTMLToAppURL } from '@plone/volto/helpers';
+import { Image, Grid } from 'semantic-ui-react';
+import RenderBlocks from '@plone/volto/components/theme/View/RenderBlocks';
+import { EventDetails } from '@plone/volto/components';
 
 const EventTextfieldView = ({ content }) => (
   <React.Fragment>
@@ -66,149 +40,50 @@ const EventTextfieldView = ({ content }) => (
  * @returns {string} Markup of the component.
  */
 const EventView = (props) => {
-  const { intl, content } = props;
+  const { content } = props;
 
   return (
-    <Container id="page-document" className="view-wrapper event-view">
+    <div id="page-document" className="ui container viewwrapper event-view">
       <Grid>
-        <Grid.Column computer={8} tablet={12}>
-          <div className="events-container">
-            <div className="events-content">
-              {hasBlocksData(content) ? (
-                <RenderBlocks {...props} />
-              ) : (
-                <EventTextfieldView {...props} />
-              )}
-            </div>
-          </div>
+        <Grid.Column width={7} className="mobile hidden">
+          {hasBlocksData(content) ? (
+            <RenderBlocks {...props} />
+          ) : (
+            <EventTextfieldView {...props} />
+          )}
         </Grid.Column>
-        <Grid.Column computer={4} tablet={12}>
-          <div className="event-details">
-            <Segment className="details">
-              <div className="event-single-listing pattern-green">
-                <h3>Event Info</h3>
-
-                <ul className="event-listing">
-                  <li title="Date">
-                    <Icon name="clock outline" size="large" />
-                    <When
-                      start={content.start}
-                      end={content.end}
-                      whole_day={content.whole_day}
-                      open_end={content.open_end}
-                    />
-                  </li>
-                  {content.location && (
-                    <li title="Location">
-                      <Icon name="map marker alternate" size="large" />
-                      <p>{content.location}</p>
-                    </li>
-                  )}
-
-                  {content.subjects.length > 0 && (
-                    <li title="Subject">
-                      <Icon name="images outline" size="large" />
-                      <p>
-                        {content.subjects.map((subject, i) => (
-                          <React.Fragment key={i}>
-                            {subject}
-                            {i < content.subjects.length - 1 ? ', ' : ''}
-                          </React.Fragment>
-                        ))}
-                      </p>
-                    </li>
-                  )}
-
-                  <li>
-                    <Icon name="calendar alternate" size="large" />
-                    <p>
-                      <a
-                        className="ics-download"
-                        target="_blank"
-                        rel="noreferrer"
-                        href={`${expandToBackendURL(content['@id'])}/ics_view`}
-                      >
-                        Add event to calendar
-                      </a>
-                    </p>
-                  </li>
-
-                  {content.recurrence && (
-                    <li title="All dates" className="dates">
-                      <Icon name="sync" size="large" />
-                      <Recurrence
-                        recurrence={content.recurrence}
-                        start={content.start}
-                      />
-                    </li>
-                  )}
-                </ul>
-              </div>
-
-              <div className="event-single-listing pattern-orange">
-                <h3>Organizer</h3>
-                <ul className="event-listing">
-                  {content.contact_name && (
-                    <li title="Contact">
-                      <Icon name="user circle" size="large" />
-
-                      <p>{content.contact_name}</p>
-                    </li>
-                  )}
-
-                  {content.contact_email && (
-                    <li title="E-mail">
-                      <Icon name="mail outline" size="large" />
-                      <p>
-                        <a href={`mailto:${content.contact_email}`}>
-                          {content.contact_email}
-                        </a>
-                      </p>
-                    </li>
-                  )}
-
-                  {content.contact_phone && (
-                    <li title="Phone">
-                      <Icon name="phone" size="large" />
-                      <p>{content.contact_phone}</p>
-                    </li>
-                  )}
-
-                  {content.event_url && (
-                    <li title="Website">
-                      <Icon name="globe" size="large" />
-                      <p>
-                        <a
-                          href={content.event_url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          {intl.formatMessage(messages.visitWebsite)}
-                        </a>
-                      </p>
-                    </li>
-                  )}
-
-                  {content.attendees.length > 0 && (
-                    <li title="Attendees">
-                      <Icon name="users" size="large" />
-                      <p>
-                        {content.attendees.map((attendee, i) => (
-                          <React.Fragment key={i}>
-                            {attendee}
-                            {i < content.attendees.length - 1 ? ', ' : ''}
-                          </React.Fragment>
-                        ))}
-                      </p>
-                    </li>
-                  )}
-                </ul>
-              </div>
-            </Segment>
-          </div>
+        <Grid.Column width={5} className="mobile hidden">
+          <EventDetails content={content} />
+        </Grid.Column>
+        <Grid.Column width={12} only="mobile">
+          {hasBlocksData(content) ? (
+            <>
+              <RenderBlocks
+                {...props}
+                content={{
+                  ...content,
+                  blocks_layout: {
+                    items: props.content.blocks_layout.items.slice(0, 1),
+                  },
+                }}
+              />
+              <EventDetails content={content} display_as="div" />
+              <RenderBlocks
+                {...props}
+                content={{
+                  ...content,
+                  blocks_layout: {
+                    items: props.content.blocks_layout.items.slice(1),
+                  },
+                }}
+              />
+            </>
+          ) : (
+            <EventTextfieldView {...props} />
+          )}
         </Grid.Column>
       </Grid>
-    </Container>
+    </div>
   );
 };
 
@@ -239,4 +114,4 @@ EventView.propTypes = {
   }).isRequired,
 };
 
-export default injectIntl(EventView);
+export default EventView;
