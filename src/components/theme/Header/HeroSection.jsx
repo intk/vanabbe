@@ -10,32 +10,34 @@ function HeroSection(props) {
   const location = useLocation();
 
   return (
-    <Container>
-      {title && <h1 className="content-title">{title}</h1>}
-      <div className="herosection">
-        <div className="herosection-content-wrapper">
-          {image_url ? (
-            <>
-              <BodyClass className="has-hero-image" />
-              <div
-                className="herosection-content-image document-image"
-                style={{
-                  backgroundImage: `url(${image_url})`,
-                }}
-              />
-            </>
-          ) : (
-            <div className="herosection-missing-image"></div>
-          )}
-        </div>
-        <div className="caption content-wrapper">
-          {preview_caption && (
-            <p className="content-image-caption">{preview_caption}</p>
-          )}
-        </div>
-      </div>
+    <>
       <Breadcrumbs pathname={location.pathname} />
-    </Container>
+      <Container>
+        {title && <h1 className="content-title">{title}</h1>}
+        <div className="herosection">
+          <div className="herosection-content-wrapper">
+            {image_url ? (
+              <>
+                <BodyClass className="has-hero-image" />
+                <div
+                  className="herosection-content-image document-image"
+                  style={{
+                    backgroundImage: `url(${image_url})`,
+                  }}
+                />
+              </>
+            ) : (
+              <div className="herosection-missing-image"></div>
+            )}
+          </div>
+          <div className="caption content-wrapper">
+            {preview_caption && (
+              <p className="content-image-caption">{preview_caption}</p>
+            )}
+          </div>
+        </div>
+      </Container>
+    </>
   );
 }
 

@@ -125,31 +125,6 @@
   }
 }
 
-.image-carousel.default-carousel {
-  .big-carousel {
-    .slider-nav {
-      @media only screen and (min-width: @largestTabletScreen) {
-        position: absolute;
-        z-index: 2;
-        top: 50%;
-        right: 0;
-        left: auto;
-        max-width: 650px;
-        padding: 0 1.8em;
-        transform: translateY(-50%);
-
-        i.circular.icon {
-          .circularIcon(@white);
-        }
-      }
-    }
-  }
-
-  .slide-overlay {
-    .slideOverlay(left);
-  }
-}
-
 @media only screen and (max-width: @largestTabletScreen) {
   .slide-title {
     font-size: 25px;

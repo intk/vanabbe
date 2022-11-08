@@ -56,14 +56,14 @@ const SearchWidgetWrapper = (props) => {
       <PopupMenu open={showPopup} onClose={() => setShowPopup(false)}>
         <div className="hover-menu search-widget">
           <div className="hover-menu-inner">{children}</div>
-          <div className="close-search">
+          {/* <div className="close-search">
             <Icon
               className="close-popup"
               onClick={() => setShowPopup(false)}
               name={closeSVG}
               size="35px"
             />
-          </div>
+          </div> */}
         </div>
       </PopupMenu>
     </div>

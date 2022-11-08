@@ -4,10 +4,11 @@
  */
 
 import { defineMessages, useIntl } from 'react-intl';
+import { Image } from 'semantic-ui-react';
 import { useSelector } from 'react-redux';
 import config from '@plone/volto/registry';
-import { Icon, UniversalLink } from '@plone/volto/components';
-import LogoImage from '@package/icons/logo.svg';
+import { UniversalLink } from '@plone/volto/components';
+import LogoImage from '@plone/volto/components/theme/Logo/Logo.svg';
 
 const messages = defineMessages({
   site: {
@@ -36,7 +37,11 @@ const Logo = () => {
       href={settings.isMultilingual ? `/${lang}` : '/'}
       title={intl.formatMessage(messages.site)}
     >
-      <Icon name={LogoImage} size="100px" color="#da281b" />
+      <Image
+        src={LogoImage}
+        alt={intl.formatMessage(messages.plonesite)}
+        title={intl.formatMessage(messages.plonesite)}
+      />
     </UniversalLink>
   );
 };

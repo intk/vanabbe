@@ -25,10 +25,10 @@
 
 .ui.secondary.buttons .button,
 .ui.secondary.button {
-  background-color: @darkGreen;
+  background-color: @teal;
 
   &:hover {
-    background-color: @darkGreen;
+    background-color: @teal;
   }
 }
 

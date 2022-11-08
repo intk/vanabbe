@@ -4,21 +4,21 @@
        Fonts
 --------------------*/
 
-@fontName: 'Nunito';
-@headerFontName: 'Playfair+Display';
+@fontName: 'Roboto';
+@fontSmoothing: antialiased;
 
-@headerFont: 'Playfair Display', sans-serif;
-@pageFont: 'Nunito', sans-serif;
+@headerFont: @fontName, Arial, 'Helvetica Neue', Helvetica, sans-serif;
+@pageFont: @fontName, Arial, 'Helvetica Neue', Helvetica, sans-serif;
 
-@importGoogleFonts: true;
 @googleFontName: @fontName;
-@googleFontSizes: '300,400,500,600,700,400italic,700italic,800';
+@importGoogleFonts: true;
+@googleFontSizes: '300,400,500,700,400italic,700italic&display=swap';
 @googleSubset: 'latin';
 
 @googleProtocol: 'https://';
-@googleFontRequest: '@{googleFontName}:@{googleFontSizes}|@{headerFontName}:@{googleFontSizes}';
+@googleFontRequest: '@{googleFontName}:@{googleFontSizes}&subset=@{googleSubset}';
 
-@bold: bold;
+@bold: @font-weight-7;
 @normal: normal;
 
 @boldFont: @headerFont;
@@ -43,7 +43,7 @@
 @emSize: 16px;
 
 /* The size of page text  */
-@fontSize: 1rem;
+@fontSize: 16px;
 
 @sidebarWidth: 375px;
 @collapsedWidth: 20px;
@@ -54,48 +54,63 @@
 
 @headerFontWeight: @font-weight-5;
 
-@h1: 2.8rem;
-@h2: 1.438rem;
-@h3: 1.25rem;
-@h4: 1.125rem;
-@h5: 1rem;
-@h6: 0.875rem;
+@h1: unit((44 / @fontSize), rem);
+@h2: unit((32 / @fontSize), rem);
+@h3: unit((26 / @fontSize), rem);
+@h4: unit((20 / @fontSize), rem);
+@h5: unit((18 / @fontSize), rem);
+@h6: unit((16 / @fontSize), rem);
 
 /*-------------------
     Brand Colors
 --------------------*/
 
-@primaryColor: @yellow;
-@secondaryColor: @brown;
-@tertiaryColor: @darkGreen;
+@primaryColor: @blue;
+@secondaryColor: @darkGrey;
 
 /*-------------------
       Site Colors
 --------------------*/
-@black: #000000;
-@darkgrey: #4e4d4b;
-@darkerGrey: #282424;
-@lightergrey: #f1f1f1;
-@pink: #ef12a6;
-@blueLight: #28b9f7;
-@greenLight: #97cc0a;
-@grey: #636886;
-@yellow: #d59b2d;
-@blue: #27304b;
-@brown: #5a3a31;
-@darkGreen: #477763;
-@lightGreen: #01865f;
-@darkBlue: #1a233d;
-@lightBrown: #716d6c;
 
-@cycleColors: @pink, @yellow, @blueLight, @greenLight;
+/*---  Colors  ---*/
+@orange: #ff9933;
+@yellow: #f2eb49;
+@olive: #78ab66;
+@green: #51aa55;
+@teal: #00928f;
+@blue: #007eb1;
+@violet: #6667ab;
+@purple: #a530b8;
+@pink: #f255d0;
+@red: #b83230;
+@brown: #ab8766;
+@grey: #808285;
+@black: #000000;
+
+/*---  Light Colors  ---*/
+@lightOlive: #c9eab1;
+@lightGrey: #878f93;
+
+/*---   Neutrals  ---*/
+@fullBlack: #000000;
+@offWhite: #f9fafb;
+@darkWhite: #f3f4f5;
+@midWhite: #dcddde;
+@white: #ffffff;
+@darkGrey: #444;
+
+/*--- Colored Backgrounds ---*/
+@redBackground: #f5c1c1;
+@tealBackground: #edf1f2;
+@blueBackground: #f2f6f8;
+@purpleBackground: #b8c6c8;
 
 /*-------------------
         Page
 --------------------*/
 
-@pageBackground: #f8f4f3;
-@textColor: @grey;
+@pageBackground: @white;
+@textColor: @darkGrey;
 @lineHeight: 1.9;
 
 /*-------------------
@@ -103,6 +118,19 @@
 --------------------*/
 
 @defaultBorderRadius: 10px;
+
+/*-------------------
+     Breakpoints
+--------------------*/
+
+@mobileBreakpoint: 320px;
+@mobileLandscapeBreakpoint: 480px;
+@tabletBreakpoint: 768px;
+@contentBreakpoint: 835px;
+@computerBreakpoint: 992px;
+@smallMonitorBreakpoint: 1024px;
+@largeMonitorBreakpoint: 1200px;
+@siteBreakpoint: 1400px;
 
 /*-------------------
       Other
@@ -120,130 +148,6 @@
   width: calc(100% - @sidebar);
 }
 
-.animate(@property) {
-  transition: @property 0.4s ease-in-out;
-}
-
-.animateCssTransition(@className) {
-  .@{className}-enter {
-    opacity: 0;
-  }
-  .@{className}-enter-active {
-    opacity: 1;
-    transition: opacity 200ms;
-  }
-  .@{className}-exit {
-    opacity: 1;
-  }
-  .@{className}-exit-active {
-    opacity: 0;
-    transition: opacity 200ms;
-  }
-}
-
-.cycleBackground() {
-  @len: length(@cycleColors);
-
-  // repeat the colors for every nth child
-  each(@cycleColors,  {
-    &:nth-child(@{len}n+@{index}) {
-      background-image: linear-gradient(90deg, @value 50%, @white 50%) ;
-    }
-  });
-}
-
-.innerCycleBorder(@margin, @side) {
-  @len: length(@cycleColors);
-
-  // repeat the colors for every nth child
-  each(@cycleColors,  {
-    &:nth-child(@{len}n+@{index}):@{side} {
-      border-@{margin}-color: @value !important;
-    }
-  });
-}
-
-.cycleBorder(@margin) {
-  & when (@margin = top) {
-    .innerCycleBorder(@margin, before);
-  }
-
-  & when (@margin = bottom) {
-    .innerCycleBorder(@margin, after);
-  }
-}
-
-.cycleBorderNoside(@margin) {
-  @len: length(@cycleColors);
-
-  // repeat the colors for every nth child
-  each(@cycleColors,  {
-    &:nth-child(@{len}n+@{index}) {
-      border-@{margin}-color: @value !important;
-    }
-  });
-}
-
-.innerBorderAnimate(@startColor, @endColor, @size, @margin, @side) {
-  border-@{margin}: @size @startColor solid;
-
-  &:@{side} {
-    display: block;
-    border-@{margin}: solid @size @endColor;
-    margin-@{margin}: -@size;
-    content: '';
-    transform: scaleX(0);
-    transform-origin: 0% 50%;
-    transition: transform 250ms ease-in-out;
-  }
-
-  &:hover:@{side} {
-    transform: scaleX(1);
-    transform-origin: 0% 50%;
-  }
-}
-
-.animateBorder(@startColor, @endColor, @size, @margin) {
-  @side: after;
-
-  & when (@margin = bottom) {
-    @side: after;
-
-    .innerBorderAnimate(@startColor, @endColor, @size, @margin, @side);
-  }
-
-  & when (@margin = top) {
-    @side: before;
-    .innerBorderAnimate(@startColor, @endColor, @size, @margin, @side);
-  }
-}
-
-.animateBackgroundImage() {
-  // needs an element like:
-  //
-  // div.listing-card (.animateBackgroundImage())
-  //  div.image-container
-  //    a
-  //      img
-
-  .image-container {
-    overflow: hidden;
-    position: relative;
-    height: 100%;
-    z-index: 0;
-    max-height: 50%;
-  }
-
-  img {
-    // See https://w3bits.com/css-image-hover-zoom/
-    transition: transform 0.2s ease;
-  }
-
-  &:hover img {
-    transform: scale(1.1);
-  }
-}
-
 @toReset: background-color, margin, padding, color, border, border-radius;
 
 .resetStyle() {
@@ -252,181 +156,11 @@
   });
 }
 
-.greenLined() {
-  .animateBorder(@greenLight, @white, 4px, bottom);
-}
-
-.blueLined() {
-  // border-bottom: 4px @blueLight solid;
-
-  .animateBorder(@blueLight, @white, 4px, bottom);
-}
-
-.circularIcon(@color) {
-  width: 52px !important;
-  height: 52px !important;
-  padding: 0.8em 0em !important;
-  box-shadow: 0em 0em 0em 0.1em @color inset;
-  font-size: 1.3rem;
-  color: @color;
-
-  &:hover {
-    box-shadow: 0em 0em 0em 0.1em @primaryColor inset;
-    color: @primaryColor;
-  }
-}
-
-.outlinedBtn(@color, @hoverColor) {
-  .isBtn();
-
-  color: @color;
-  background-color: transparent;
-  border: 2px solid @color;
-
-  &:hover {
-    color: @hoverColor;
-    border: 2px solid @hoverColor;
-  }
-}
-
 .isBtn() {
   &:extend(.ui.button);
   &:extend(.ui.primary.button);
   &:hover:extend(.ui.primary.button:hover) {
   }
-
-  padding: 0.719rem 1.9rem;
-  border-radius: 60px;
-  display: inline-flex;
-  justify-content: center;
-  font-family: @headerFont;
-  font-size: 1rem;
-  line-height: 1.5;
-  cursor: pointer;
-  min-height: 1em;
-  text-shadow: none;
-  font-weight: 800;
-  text-align: center;
-  border: 1px solid transparent;
-  box-shadow: none;
-}
-
-// .isBtnSec() {
-//   .resetStyle();
-//   display: inline-block;
-//   color: @black;
-//   cursor: pointer;
-//   font-size: 1.563rem;
-//   padding: 1.3rem 2rem 1rem 2rem;
-//   background: @white;
-//   // background-image: linear-gradient(90deg, @blueLight 50%, @white 50%);
-//   position: relative;
-//   background-size: 300%;
-//   background-position: 100%;
-//   transition: 1s, font-size 0.2s;
-
-//   &:hover,
-//   &:hover:after {
-//     background-position: 0;
-//   }
-//   &:after {
-//     content: '';
-//     position: absolute;
-//     top: 0;
-//     bottom: 0;
-//     left: 0;
-//     right: 0;
-//     //background: linear-gradient(90deg, @blueLight 50%, transparent 50%);
-//     z-index: -1;
-//     background-size: 300%;
-//     background-position: 100%;
-//     transition: 1s, font-size 0.2s;
-//   }
-// }
-
-.fullWidthOnMobile() {
-  @media only screen and (max-width: @largestMobileScreen) {
-    width: 100%;
-  }
-}
-
-.bigHeading(@color) {
-  color: @color;
-  font-size: 2.8rem;
-  position: relative;
-  font-weight: 800;
-  margin-bottom: 3rem;
-  font-family: @headerFont;
-
-  @media only screen and (max-width: @largestMobileScreen) {
-    font-size: 1.95rem;
-  }
-}
-
-.smallHeading(@color) {
-  color: @color;
-  font-family: @headerFont;
-  position: relative;
-  text-transform: capitalize;
-  margin-bottom: 15px;
-  display: block;
-  font-size: 1.2rem;
-  font-weight: 600;
-
-  @media (max-width: @largestMobileScreen) {
-    padding-left: 60px;
-  }
-
-  &:after {
-    position: absolute;
-    content: '';
-    height: 2px;
-    width: 41px;
-    background: @color;
-    top: 50%;
-    left: -60px;
-    transform: translateY(-50%);
-
-    @media (max-width: @largestMobileScreen) {
-      left: 0;
-    }
-  }
-}
-
-.fontSizeSecondary() {
-  font-size: clamp(0.875rem, 2.25vw, 1.125rem);
-  line-height: clamp(1.026rem, 2.25vw, 1.318rem);
-}
-
-.h1Text() {
-  font-size: clamp(2rem, 4.25vw, 4.06rem);
-  line-height: clamp(2.4rem, 4.25vw, 4.875rem);
-}
-
-.h2Text() {
-  font-size: clamp(1.75rem, 3.75vw, 4.063rem);
-  line-height: clamp(2.1rem, 3.75vw, 4.063rem);
-}
-
-.h3Text() {
-  font-size: clamp(1.75rem, 3.25vw, 2.813rem);
-  line-height: clamp(2.1rem, 3.25vw, 2.813rem);
-}
-
-.h4Text() {
-  font-size: clamp(1.125rem, 2.75vw, 1.75rem);
-  line-height: clamp(1.35rem, 2.75vw, 2.1rem);
-}
-
-.h5Text() {
-  font-size: clamp(1rem, 2vw, 1.25rem);
-  // line-height: clamp(1.35rem, 2.75vw, 2.1rem);
-}
-
-.pText() {
-  font-size: clamp(1rem, 2.25vw, 1.375rem);
-  letter-spacing: 0.02em;
-  line-height: clamp(1.3rem, 2.25vw, 1.788rem);
 }
 
 .darkOverlay() {

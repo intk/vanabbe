@@ -72,11 +72,13 @@ const SocialLink = ({ href = '', title = '' }) => {
 };
 
 export const SocialLinks = ({ socialLinks = [] }) =>
-  socialLinks?.length
-    ? socialLinks.map((l, i) => (
-        <SocialLink key={`${l.href}-${i}`} href={l.href} title={l.title} />
-      ))
-    : 'No social links defined';
+  socialLinks?.length ? (
+    socialLinks.map((l, i) => (
+      <SocialLink key={`${l.href}-${i}`} href={l.href} title={l.title} />
+    ))
+  ) : (
+    <div className="footer-info">No social links defined</div>
+  );
 
 export const Address = ({ address, phone, email, openHours }) => (
   <ul className="footer-contact">
@@ -134,9 +136,7 @@ const NewsletterDetails = () => (
   </>
 );
 
-const Copyright = () => (
-  <p> © Copyright Animal Rights {new Date().getFullYear()}</p>
-);
+const Copyright = () => <p> © Copyright {new Date().getFullYear()}</p>;
 
 const useFooter = () => {
   const currentLang = useSelector((state) => state.intl.locale);
@@ -195,13 +195,13 @@ export function Footer(props) {
 
   return (
     <>
-      <div className="footer">
+      <div className="ui footer inverted segment grey">
         <div className="footer-bottom-left">
           <FooterImage />
           <div className="footer-bottom-address">
-            <div className="footer-logo">
+            {/* <div className="footer-logo">
               <VoltoIcon name={LogoImage} size="60px" color="#fff" />
-            </div>
+            </div> */}
             <Address {...siteData} />
             <div className="footer-social">
               <SocialLinks {...siteData} />
@@ -211,7 +211,7 @@ export function Footer(props) {
 
         <div className="footer-bottom-right">
           <div className="footer-subscribe">
-            <NewsletterDetails />
+            {/* <NewsletterDetails /> */}
             <div className="footer-extra">
               <FooterBlocks
                 excludeIds={config.settings.actionBlockIds}
@@ -224,13 +224,19 @@ export function Footer(props) {
             <FooterLinks globalId="footerLinks" />
           </div>
         </div>
-      </div>
-      <div className="footer-bottom">
-        <div className="ui container">
-          <Copyright />
-          <div className="site-actions">
-            <FooterLinks globalId="siteActions" />
-            <Login />
+        <div className="footer-bottom">
+          <div className="ui container">
+            <div role="list" class="ui horizontal inverted list">
+              <div role="listitem" class="item">
+                <Copyright />
+              </div>
+              <div role="listitem" class="item">
+                <FooterLinks globalId="siteActions" />
+              </div>
+              <div role="listitem" class="item">
+                <Login />
+              </div>
+            </div>
           </div>
         </div>
       </div>

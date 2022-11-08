@@ -7,7 +7,7 @@ import AttachedImageWidget from './components/widgets/AttachedImageWidget';
 import installBlocks from './components/blocks';
 import MultipleContentView from './components/theme/View/MultipleContentView';
 import ListingView from './components/theme/View/ListingView';
-import { ScrollToTop } from '@package/components';
+// import { ScrollToTop } from '@package/components';
 // import Layouts from '@plone/volto/constants/Layouts';
 import { getContent } from '@plone/volto/actions';
 import installFooter from './footer';
@@ -159,10 +159,10 @@ export default function applyConfig(config) {
       match: '',
       component: CookieBanner,
     },
-    {
-      match: '',
-      component: ScrollToTop,
-    },
+    // {
+    //   match: '',
+    //   component: ScrollToTop,
+    // },
   ];
 
   config.blocks.initialBlocks = {

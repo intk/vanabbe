@@ -56,24 +56,13 @@ const Header = (props) => {
             </div>
 
             <div className="right-section">
-              <div className="computer large screen widescreen only">
-                <Navigation pathname={pathname} navigation={navigationItems} />
-              </div>
-
+              <Navigation pathname={pathname} navigation={navigationItems} />
               <div className="header-tools">
+                <div className="computer large screen widescreen only"></div>
                 <div className="search-wrapper">
                   <SearchWidget pathname={pathname} />
                 </div>
-                <div className="header-donate">
-                  <Button primary>Donate</Button>
-                </div>
                 <LanguageSelector />
-                <div className="mobile tablet only">
-                  <Navigation
-                    pathname={pathname}
-                    navigation={navigationItems}
-                  />
-                </div>
               </div>
             </div>
           </div>
