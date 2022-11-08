@@ -68,7 +68,6 @@ const Header = (props) => {
           </div>
         </div>
       </div>
-      <div id="header-spacer"></div>
       <InView
         as="div"
         className="header-visibility-sensor"

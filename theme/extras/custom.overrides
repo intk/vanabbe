@@ -1,4 +1,6 @@
-/********   Customn Overrides   ********/
+/*******************************
+         Custom Overrides
+*******************************/
 
 @import './document.less';
 @import './listing.less';
@@ -7,8 +9,7 @@
 @import './animations.less';
 @import './blocks.less';
 @import './event.less';
-
-// @import './navigation.less';
+@import './header.less';
 
 .view-viewview.has-image {
   #main > .breadcrumbs {

@@ -17,7 +17,7 @@ body {
   background: @pageBackground;
   color: @textColor;
   font-family: @pageFont;
-  font-size: 1rem;
+  font-size: @fontSize;
   font-weight: @font-weight-4;
 }
 

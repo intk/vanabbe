@@ -113,28 +113,22 @@ export const Address = ({ address, phone, email, openHours }) => (
   </ul>
 );
 
-const NewsletterDetails = () => (
-  <>
-    {/* <p>
-      <FormattedMessage
-        id="joinOurMailing"
-        defaultMessage="Join our mailing list to stay up to date on everything that happens at the park"
-      />
-    </p> */}
-    <h3>
-      <FormattedMessage id="Newsletter" defaultMessage="Newsletter" />
-    </h3>
-    <h2>
-      <FormattedMessage
-        id="Get Update Every Week"
-        defaultMessage="Get Update Every Week"
-      />
-    </h2>
-    <a className="ui button subscribe" href="/en/newsletter">
-      <FormattedMessage id="Subscribe Now" defaultMessage="Subscribe Now" />
-    </a>
-  </>
-);
+// const NewsletterDetails = () => (
+//   <>
+//     <h3>
+//       <FormattedMessage id="Newsletter" defaultMessage="Newsletter" />
+//     </h3>
+//     <h2>
+//       <FormattedMessage
+//         id="Get Update Every Week"
+//         defaultMessage="Get Update Every Week"
+//       />
+//     </h2>
+//     <a className="ui button subscribe" href="/en/newsletter">
+//       <FormattedMessage id="Subscribe Now" defaultMessage="Subscribe Now" />
+//     </a>
+//   </>
+// );
 
 const Copyright = () => <p> © Copyright {new Date().getFullYear()}</p>;
 
