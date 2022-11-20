@@ -60,7 +60,7 @@ def to_dict(rec):
             try:
                 out[name] = int(out[name])
             except ValueError:
-                print("Unable to convert to int:", name, rec)
+                print("Unable to convert to int:", name, out[name])
                 del out[name]
 
     return out
