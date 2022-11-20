@@ -1,0 +1,6 @@
+[report]
+include =
+    src/intk/*
+omit =
+    */test*
+    */upgrades/*
