@@ -48,7 +48,7 @@ def to_dict(rec):
     print(out.keys())
     return out
 
-def import_author(rec):
+def import_artwork(rec):
     """<dc_record>
 <ccObjectID>344</ccObjectID>
 <AuthorBio authorID="977">1864 Banka (RI) - 1942 Amersfoort (NL)</AuthorBio>
@@ -88,7 +88,7 @@ def import_author(rec):
             shutil.copyfileobj(r.raw, f)
 
 
-def import_book(rec):
+def import_publication(rec):
     """<dc_record>
 <ccObjectID>2:63445</ccObjectID>
 <bookAnnotation>Met bibliografie</bookAnnotation>
@@ -125,9 +125,9 @@ def make_record(rec):
 
     info = to_dict(rec)
     if rec.xpath('./AuthorBio'):
-        import_author(info)
+        import_artwork(info)
     else:
-        import_book(info)
+        import_publication(info)
 
 
 def scroll():

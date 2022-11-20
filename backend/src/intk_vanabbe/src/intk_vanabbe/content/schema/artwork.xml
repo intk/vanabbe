@@ -1,0 +1,113 @@
+<model xmlns:i18n="http://xml.zope.org/namespaces/i18n" xmlns:marshal="http://namespaces.plone.org/supermodel/marshal" xmlns:form="http://namespaces.plone.org/supermodel/form" xmlns:security="http://namespaces.plone.org/supermodel/security" xmlns:indexer="http://namespaces.plone.org/supermodel/indexer" xmlns:lingua="http://namespaces.plone.org/supermodel/lingua" xmlns:users="http://namespaces.plone.org/supermodel/users" xmlns="http://namespaces.plone.org/supermodel/schema">
+  <schema>
+    <field name="ccObjectID" type="zope.schema.TextLine" lingua:independent="true">
+      <description/>
+      <title>ccObjectID</title>
+    </field>
+    <field name="authorBio" type="zope.schema.Text" lingua:independent="true">
+      <description/>
+      <required>False</required>
+      <title>AuthorBio</title>
+    </field>
+    <field name="authorBirthDate" type="zope.schema.Int" lingua:independent="true">
+      <description/>
+      <required>False</required>
+      <title>authorBirthDate</title>
+    </field>
+    <field name="authorDeathDate" type="zope.schema.Int" lingua:independent="true">
+      <description/>
+      <required>False</required>
+      <title>authorDeathDate</title>
+    </field>
+    <field name="authorID" type="zope.schema.TextLine" lingua:independent="true">
+      <description/>
+      <required>False</required>
+      <title>authorID</title>
+    </field>
+    <field name="authorName" type="zope.schema.TextLine" lingua:independent="true">
+      <description/>
+      <required>False</required>
+      <title>authorName</title>
+    </field>
+    <field name="authorSortName" type="zope.schema.TextLine" lingua:independent="true">
+      <description/>
+      <required>False</required>
+      <title>authorSortName</title>
+    </field>
+    <field name="authorURL" type="zope.schema.URI" lingua:independent="true">
+      <description/>
+      <required>False</required>
+      <title>authorURL</title>
+    </field>
+    <field name="authorURLTitle" type="zope.schema.TextLine">
+      <description/>
+      <required>False</required>
+      <title>authorURLTitle</title>
+    </field>
+    <field name="ccIdentifier" type="zope.schema.TextLine" lingua:independent="true">
+      <description/>
+      <required>False</required>
+      <title>ccIdentifier</title>
+    </field>
+    <field name="ccIndexName" type="zope.schema.TextLine" lingua:independent="true">
+      <description/>
+      <required>False</required>
+      <title>ccIndexName</title>
+    </field>
+    <field name="dimensions" type="zope.schema.TextLine" lingua:independent="true">
+      <description/>
+      <required>False</required>
+      <title>Dimensions</title>
+    </field>
+    <field name="objectCreationDate" type="zope.schema.TextLine" lingua:independent="true">
+      <description/>
+      <required>False</required>
+      <title>objectCreationDate</title>
+    </field>
+    <field name="objectCreationDateFrom" type="zope.schema.Int" lingua:independent="true">
+      <description/>
+      <required>False</required>
+      <title>objectCreationDateFrom</title>
+    </field>
+    <field name="objectCreationDateTo" type="zope.schema.Int" lingua:independent="true">
+      <description/>
+      <required>False</required>
+      <title>objectCreationDateTo</title>
+    </field>
+    <field name="objectDescription" type="zope.schema.Text">
+      <description/>
+      <required>False</required>
+      <title>objectDescription</title>
+    </field>
+    <field name="objectID" type="zope.schema.TextLine" lingua:independent="true">
+      <description/>
+      <required>False</required>
+      <title>objectID</title>
+    </field>
+    <field name="objectMedium" type="zope.schema.TextLine">
+      <description/>
+      <required>False</required>
+      <title>objectMedium</title>
+    </field>
+    <field name="objectCredit" type="zope.schema.TextLine" lingua:independent="true">
+      <description/>
+      <required>False</required>
+      <title>objectCredit</title>
+    </field>
+    <field name="objectTitle" type="zope.schema.Text" lingua:independent="true">
+      <description/>
+      <required>False</required>
+      <title>objectTitle</title>
+    </field>
+    <field name="objectYearPurchase" type="zope.schema.Int" lingua:independent="true">
+      <description/>
+      <required>False</required>
+      <title>objectYearPurchase</title>
+    </field>
+    <field name="recordnumber" type="zope.schema.TextLine" lingua:independent="true">
+      <description/>
+      <required>False</required>
+      <title>recordnumber</title>
+    </field>
+  </schema>
+</model>
