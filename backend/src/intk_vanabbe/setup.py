@@ -44,10 +44,10 @@ setup(
     zip_safe=False,
     python_requires=">=3.8",
     install_requires=[
-        "setuptools",
-        "Plone",
-        "prettyconf",
-        "plone.api",
+        # "setuptools",
+        # "Plone",
+        # "prettyconf",
+        # "plone.api",
     ],
     extras_require={
         "test": [

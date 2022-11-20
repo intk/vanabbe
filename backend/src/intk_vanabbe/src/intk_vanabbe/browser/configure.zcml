@@ -12,4 +12,11 @@
       type="plone"
       />
 
+  <browser:page
+    name="import_vubis"
+    class=".importer.ImportVubis"
+    permission="cmf.ManagePortal"
+    for="*"
+    />
+
 </configure>

@@ -1,12 +1,18 @@
 """ Importer for TMS/VUBIS
 
-This week I was researching how we can sync data with their systems. As far as I understand, all data (TMS and VUBIS) comes from a combined XML.
+This week I was researching how we can sync data with their systems. As far as
+I understand, all data (TMS and VUBIS) comes from a combined XML.
 The XML follows an open standard that is described here:
 https://www.openarchives.org/pmh/
 http://62.221.199.184:17718/action=get&command=search&query=*=*&fields=*&range=1-100
-Here on top of the XML data you’ll see that the index counts: 103.598 records in total. If I’m informed correctly, for the current website this data is downloaded with a script, I guess requesting the data in step, first range 1-1000, then 1001-2001, and so on. It’s strongly advised not to request more than 1.000 at once, to keep the data stream working smoothly.  
+Here on top of the XML data you’ll see that the index counts: 103.598 records in total.
+If I’m informed correctly, for the current website this data is downloaded with a script,
+I guess requesting the data in step, first range 1-1000, then 1001-2001, and so on. It’s
+strongly advised not to request more than 1.000 at once, to keep the data stream working
+smoothly.  
 This might be the most straight forward method for your company as well.
-The XML is updated once every 24 hours. The fresh XML will be ready each day around 4:30 in the morning.
+The XML is updated once every 24 hours. The fresh XML will be ready each day around 4:30
+in the morning.
 
 """
 
@@ -48,7 +54,8 @@ def to_dict(rec):
     print(out.keys())
     return out
 
-def import_artwork(rec):
+
+def _import_artwork(rec):
     """<dc_record>
 <ccObjectID>344</ccObjectID>
 <AuthorBio authorID="977">1864 Banka (RI) - 1942 Amersfoort (NL)</AuthorBio>
@@ -83,12 +90,12 @@ def import_artwork(rec):
 
     img_url = IMAGE_BASE_URL % filename
 
-    with requests.get(img_url, stream=True) as r:
-        with open(local_filename, 'wb') as f:
-            shutil.copyfileobj(r.raw, f)
+    with requests.get(img_url, stream=True) as req:
+        with open(local_filename, 'wb') as file:
+            shutil.copyfileobj(req.raw, file)
 
 
-def import_publication(rec):
+def _import_publication(rec):
     """<dc_record>
 <ccObjectID>2:63445</ccObjectID>
 <bookAnnotation>Met bibliografie</bookAnnotation>
@@ -119,22 +126,10 @@ def import_publication(rec):
     pass
 
 
-def make_record(rec):
-    """ Converts an etree fragment to a Python object
-    """
-
-    info = to_dict(rec)
-    if rec.xpath('./AuthorBio'):
-        import_artwork(info)
-    else:
-        import_publication(info)
-
-
-def scroll():
+def scroll(import_artwork, import_publication, max_records=10):
     """ Fetch information from URL
     """
     cur = 1
-    max_records = 10    # 0000000000000
 
     while cur < max_records:
         url = BASE_URL % (cur, cur + BATCH_SIZE)
@@ -148,8 +143,11 @@ def scroll():
         # print(doc.xpath('//dc_record'))
 
         for rec in doc.xpath('%s/records/record/data/dc_record' % ROOT):
-            make_record(rec)
-            break
+            info = to_dict(rec)
+            if rec.xpath('./AuthorBio'):
+                import_artwork(info)
+            else:
+                import_publication(info)
 
 
 if __name__ == "__main__":
