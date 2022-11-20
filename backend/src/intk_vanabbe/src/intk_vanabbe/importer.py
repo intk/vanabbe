@@ -54,7 +54,6 @@ def to_dict(rec):
         else:
             out[k] = text
 
-    print(out.keys())
     for name in INT_FIELDS:
         if name in out:
             try:
@@ -137,31 +136,31 @@ def scroll(import_artwork, import_publication, max_records=10):
 
     while cur < max_records:
         url = BASE_URL % (cur, cur + BATCH_SIZE)
-        print(url)
         resp = requests.get(url)
         cur = cur + BATCH_SIZE + 1
         doc = lxml.etree.fromstring(resp.text.encode('utf-8'))
-        max_recs = doc.xpath('number(%s/request/count/text())' % ROOT)
-        print(max_recs)
-        # print(resp.text)
-        # print(doc.xpath('//dc_record'))
+        max_records = int(doc.xpath('number(%s/request/count/text())' % ROOT))
 
         for rec in doc.xpath('%s/records/record/data/dc_record' % ROOT):
             info = to_dict(rec)
 
             filename = info.get('objectImage')
             if filename:
-                local_filename = os.path.join(FILE_REPO, filename)
-                if os.path.isfile(local_filename):
-                    print("File already exists", local_filename)
-                    # raise ValueError("File already exists", local_filename)
+                if isinstance(filename, str):
+                    filename = [filename]
+                info['objectImage'] = []
+                for fname in filename:
+                    local_filename = os.path.join(FILE_REPO, fname)
+                    if os.path.isfile(local_filename):
+                        print("File already exists", local_filename)
+                        # raise ValueError("File already exists", local_filename)
 
-                img_url = IMAGE_BASE_URL % filename
+                    img_url = IMAGE_BASE_URL % fname
 
-                with requests.get(img_url, stream=True) as req:
-                    with open(local_filename, 'wb') as file:
-                        shutil.copyfileobj(req.raw, file)
-                info['objectImage'] = os.path.abspath(local_filename)
+                    with requests.get(img_url, stream=True) as req:
+                        with open(local_filename, 'wb') as file:
+                            shutil.copyfileobj(req.raw, file)
+                    info['objectImage'].append(os.path.abspath(local_filename))
 
             if rec.xpath('./AuthorBio'):
                 import_artwork(info)

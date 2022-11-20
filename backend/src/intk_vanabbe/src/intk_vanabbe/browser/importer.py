@@ -8,6 +8,15 @@ from plone.protect.interfaces import IDisableCSRFProtection
 from Products.Five.browser import BrowserView
 from zope.interface import alsoProvides
 
+import logging
+
+
+logger = logging.getLogger("vubis")
+
+
+def path(obj):
+    return obj.abolute_url(relative=1)
+
 
 class ImportVubis(BrowserView):
     """ Vubis import on demand, for debugging
@@ -21,29 +30,36 @@ class ImportVubis(BrowserView):
 
     def import_artwork(self, rec):
         container = self.context
-        fname = rec.pop('objectImage', None)
-
-        # TODO: create images as children
-        if fname:
-            with open(fname, 'rb') as stream:
-                imagefield = NamedBlobImage(
-                    data=stream,
-                    contentType="image/jpeg",
-                    filename=fname.rsplit('/', 1)[-1]
-                )
-                rec['preview_image'] = imagefield
+        filenames = rec.pop('objectImage', None)
 
         obj = content.create(
             type='artwork',
             id=rec['ccObjectID'], title=rec['ccObjectID'],
             container=container, **rec)
 
-        print("Imported", obj)
+        if filenames:
+            for fname in filenames:
+                with open(fname, 'rb') as stream:
+                    fid = fname.rsplit('/', 1)[-1]
+                    imagefield = NamedBlobImage(
+                        data=stream,
+                        contentType="image/jpeg",
+                        filename=fid)
+                    image = content.create(
+                        type='Image', id=fid, title=fid, image=imagefield,
+                        container=obj)
+
+                    print("Created image", path(image))
+
+        print("Imported artwork: ", path(obj))
 
     def import_publication(self, rec):
         container = self.context
-        obj = content.create(
-            type='publication',
-            id=rec['ccObjectID'], title=rec['ccObjectID'],
-            container=container, **rec)
-        print("Imported", obj)
+        try:
+            obj = content.create(
+                type='publication',
+                id=rec['ccObjectID'], title=rec['ccObjectID'],
+                container=container, **rec)
+            print("Imported publication", path(obj))
+        except Exception:
+            logger.exception("Unable to import publication")
