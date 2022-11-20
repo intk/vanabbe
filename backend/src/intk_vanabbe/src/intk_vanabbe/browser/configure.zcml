@@ -1,0 +1,15 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:plone="http://namespaces.plone.org/plone"
+    i18n_domain="intk_vanabbe"
+    >
+
+  <!-- Publish static files -->
+  <plone:static
+      directory="static"
+      name="intk_vanabbe"
+      type="plone"
+      />
+
+</configure>

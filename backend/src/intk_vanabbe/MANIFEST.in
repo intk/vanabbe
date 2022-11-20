@@ -1,0 +1,6 @@
+graft src/intk_vanabbe
+graft docs
+include *.rst
+include *.md
+include *.cfg
+global-exclude *.pyc

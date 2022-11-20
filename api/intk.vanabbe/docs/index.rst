@@ -1,5 +1,0 @@
-============
-intk.vanabbe
-============
-
-User documentation

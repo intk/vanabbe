@@ -1,4 +1,0 @@
-graft src/intk
-graft docs
-include *.rst
-global-exclude *.pyc

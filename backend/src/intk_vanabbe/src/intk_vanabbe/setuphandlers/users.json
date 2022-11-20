@@ -1,0 +1,19 @@
+{
+  "portal": [
+    {
+      "email": "collective@plone.org",
+      "properties": {
+        "fullname": "VanAbbe",
+        "location": "World"
+      },
+      "groups": [
+      ],
+      "roles": [
+        "Member"
+      ],
+      "username": "vanabbe-p6"
+    }
+  ],
+    "team": [
+  ]
+}

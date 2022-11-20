@@ -30,10 +30,10 @@ services:
     environment:
       ZEO_ADDRESS: zeo:8100
       ADDONS: "collective.volto.dropdownmenu collective.volto.cookieconsent collective.volto.formsupport"
-      DEVELOP: "/app/api/collective.previewimage /app/api/intk.vannabe"
+      DEVELOP: "/app/api/collective.previewimage /app/api/intk.vanabbe"
     volumes:
       - cache:/data
-      - ./api:/app/api
+      - ./backend/src:/app/src
     labels:
       ofelia.enabled: "true"
       ofelia.job-exec.monthly-pack.schedule: "0 0 0 1 * *"

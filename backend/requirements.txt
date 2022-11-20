@@ -1,0 +1,9 @@
+-c constraints.txt
+-e src/intk_vanabbe[test]
+-e src/collective.previewimage
+
+zope.testrunner
+
+# Add required add-ons
+# (Ideally add them in setup.py for intk_vanabbe)
+# collective.easyform

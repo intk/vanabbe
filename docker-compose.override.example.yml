@@ -2,6 +2,7 @@ version: "3"
 
 services:
   plone:
+    build: ./backend
     ports:
       - "8080:8080"
     tty: true
@@ -14,7 +15,7 @@ services:
       DEFAULT_ZPUBLISHER_ENCODING: "utf-8"
       DEBUG_MODE: "off"
       ZODB_CACHE_SIZE: "50000"
-    # entrypoint: sh -c "tail -f /dev/null"
+    entrypoint: sh -c "tail -f /dev/null"
   frontend:
     build: .
     ports:
