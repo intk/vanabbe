@@ -34,6 +34,9 @@ FILE_REPO = "./files"
 if not os.path.isdir(FILE_REPO):
     os.makedirs(FILE_REPO)
 
+INT_FIELDS = ["bookDatePublished", "recordnumber", "authorBirthDate", "authorDeathDate",
+        "objectCreationDateFrom", "objectCreationDateTo", "objectYearPurchase"]
+
 
 def to_dict(rec):
     """ Convert a record to a dict
@@ -52,6 +55,14 @@ def to_dict(rec):
             out[k] = text
 
     print(out.keys())
+    for name in INT_FIELDS:
+        if name in out:
+            try:
+                out[name] = int(out[name])
+            except ValueError:
+                print("Unable to convert to int:", name, rec)
+                del out[name]
+
     return out
 
 
@@ -85,15 +96,8 @@ def _import_artwork(rec):
     #         'objectCreationDate', 'objectCredit', 'objectID', 'objectImage',
     #         'objectIsVisible', 'objectMedium', 'objectTitle', 'objectYearPurchase',
     #         'recordnumber']
-    filename = rec['objectImage']
-    local_filename = os.path.join(FILE_REPO, filename)
 
-    img_url = IMAGE_BASE_URL % filename
-
-    with requests.get(img_url, stream=True) as req:
-        with open(local_filename, 'wb') as file:
-            shutil.copyfileobj(req.raw, file)
-
+    pass
 
 def _import_publication(rec):
     """<dc_record>
@@ -144,6 +148,21 @@ def scroll(import_artwork, import_publication, max_records=10):
 
         for rec in doc.xpath('%s/records/record/data/dc_record' % ROOT):
             info = to_dict(rec)
+
+            filename = info.get('objectImage')
+            if filename:
+                local_filename = os.path.join(FILE_REPO, filename)
+                if os.path.isfile(local_filename):
+                    print("File already exists", local_filename)
+                    # raise ValueError("File already exists", local_filename)
+
+                img_url = IMAGE_BASE_URL % filename
+
+                with requests.get(img_url, stream=True) as req:
+                    with open(local_filename, 'wb') as file:
+                        shutil.copyfileobj(req.raw, file)
+                info['objectImage'] = os.path.abspath(local_filename)
+
             if rec.xpath('./AuthorBio'):
                 import_artwork(info)
             else:

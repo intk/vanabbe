@@ -34,7 +34,7 @@
       <required>False</required>
       <title>authorSortName</title>
     </field>
-    <field name="authorURL" type="zope.schema.URI" lingua:independent="true">
+    <field name="authorURL" type="zope.schema.Text" lingua:independent="true">
       <description/>
       <required>False</required>
       <title>authorURL</title>
@@ -84,7 +84,7 @@
       <required>False</required>
       <title>objectID</title>
     </field>
-    <field name="objectMedium" type="zope.schema.TextLine">
+    <field name="objectMedium" type="zope.schema.Text">
       <description/>
       <required>False</required>
       <title>objectMedium</title>
