@@ -18,6 +18,13 @@ def path(obj):
     return obj.absolute_url(relative=1)
 
 
+def convert_lists_to_text(rec):
+    for k, v in rec.items():
+        if isinstance(v, list):
+            rec[k] = "\n".join(v)
+
+    return rec
+
 class ImportVubis(BrowserView):
     """ Vubis import on demand, for debugging
     """
@@ -35,6 +42,8 @@ class ImportVubis(BrowserView):
     def import_artwork(self, rec):
         container = self.context
         filenames = rec.pop('objectImage', None)
+
+        rec = convert_lists_to_text(rec)
 
         obj = content.create(
             type='artwork',
