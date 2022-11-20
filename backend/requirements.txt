@@ -9,3 +9,4 @@ zope.testrunner
 # collective.easyform
 
 collective.volto.cookieconsent
+requests

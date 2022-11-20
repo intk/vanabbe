@@ -1,2 +1,6 @@
 -c constraints.txt
 src/intk_vanabbe
+
+collective.volto.cookieconsent
+lxml
+requests
