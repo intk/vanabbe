@@ -11,7 +11,9 @@ The XML is updated once every 24 hours. The fresh XML will be ready each day aro
 """
 
 import lxml.etree
+import os
 import requests
+import shutil
 
 
 BASE_URL = "http://62.221.199.184:17718/action=get&command=search"\
@@ -19,6 +21,12 @@ BASE_URL = "http://62.221.199.184:17718/action=get&command=search"\
 BATCH_SIZE = 100
 
 ROOT = "//collectionConnection-resultset"
+IMAGE_BASE_URL = "https://vanabbemuseum.nl/fileadmin/files/collectie/%s"
+
+FILE_REPO = "./files"
+
+if not os.path.isdir(FILE_REPO):
+    os.makedirs(FILE_REPO)
 
 
 def to_dict(rec):
@@ -70,7 +78,14 @@ def import_author(rec):
     #         'objectCreationDate', 'objectCredit', 'objectID', 'objectImage',
     #         'objectIsVisible', 'objectMedium', 'objectTitle', 'objectYearPurchase',
     #         'recordnumber']
-    pass
+    filename = rec['objectImage']
+    local_filename = os.path.join(FILE_REPO, filename)
+
+    img_url = IMAGE_BASE_URL % filename
+
+    with requests.get(img_url, stream=True) as r:
+        with open(local_filename, 'wb') as f:
+            shutil.copyfileobj(r.raw, f)
 
 
 def import_book(rec):
@@ -108,12 +123,11 @@ def make_record(rec):
     """ Converts an etree fragment to a Python object
     """
 
-    d = to_dict(rec)
-    print(d)
+    info = to_dict(rec)
     if rec.xpath('./AuthorBio'):
-        import_author(rec)
+        import_author(info)
     else:
-        import_book(rec)
+        import_book(info)
 
 
 def scroll():
