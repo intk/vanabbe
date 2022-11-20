@@ -15,7 +15,7 @@ logger = logging.getLogger("vubis")
 
 
 def path(obj):
-    return obj.abolute_url(relative=1)
+    return obj.absolute_url(relative=1)
 
 
 class ImportVubis(BrowserView):
@@ -24,8 +24,12 @@ class ImportVubis(BrowserView):
 
     def __call__(self):
         alsoProvides(self.request, IDisableCSRFProtection)
+        form = self.request.form
 
-        scroll(self.import_artwork, self.import_publication)
+        scroll(
+            self.import_artwork, self.import_publication,
+            max_records=form.get('max', 1000)
+        )
         return "done"
 
     def import_artwork(self, rec):
@@ -39,17 +43,20 @@ class ImportVubis(BrowserView):
 
         if filenames:
             for fname in filenames:
-                with open(fname, 'rb') as stream:
-                    fid = fname.rsplit('/', 1)[-1]
-                    imagefield = NamedBlobImage(
-                        data=stream,
-                        contentType="image/jpeg",
-                        filename=fid)
-                    image = content.create(
-                        type='Image', id=fid, title=fid, image=imagefield,
-                        container=obj)
+                try:
+                    with open(fname, 'rb') as stream:
+                        fid = fname.rsplit('/', 1)[-1]
+                        imagefield = NamedBlobImage(
+                            data=stream,
+                            contentType="image/jpeg",
+                            filename=fid)
+                        image = content.create(
+                            type='Image', id=fid, title=fid, image=imagefield,
+                            container=obj)
 
-                    print("Created image", path(image))
+                        print("Created image", path(image))
+                except Exception:
+                    logger.exception("Could not import image %s", fname)
 
         print("Imported artwork: ", path(obj))
 

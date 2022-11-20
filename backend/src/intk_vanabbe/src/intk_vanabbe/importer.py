@@ -20,6 +20,7 @@ import lxml.etree
 import os
 import requests
 import shutil
+import transaction
 
 
 BASE_URL = "http://62.221.199.184:17718/action=get&command=search"\
@@ -133,15 +134,18 @@ def scroll(import_artwork, import_publication, max_records=10):
     """ Fetch information from URL
     """
     cur = 1
+    count = 0
 
     while cur < max_records:
         url = BASE_URL % (cur, cur + BATCH_SIZE)
         resp = requests.get(url)
         cur = cur + BATCH_SIZE + 1
         doc = lxml.etree.fromstring(resp.text.encode('utf-8'))
-        max_records = int(doc.xpath('number(%s/request/count/text())' % ROOT))
+        # max_records = int(doc.xpath('number(%s/request/count/text())' % ROOT))
 
         for rec in doc.xpath('%s/records/record/data/dc_record' % ROOT):
+            print("Count: ", count)
+            count += 1
             info = to_dict(rec)
 
             filename = info.get('objectImage')
@@ -166,6 +170,9 @@ def scroll(import_artwork, import_publication, max_records=10):
                 import_artwork(info)
             else:
                 import_publication(info)
+
+            if count % 100 == 0:
+                transaction.savepoint()
 
 
 if __name__ == "__main__":
