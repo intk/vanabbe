@@ -1,0 +1,129 @@
+<model xmlns:i18n="http://xml.zope.org/namespaces/i18n" xmlns:marshal="http://namespaces.plone.org/supermodel/marshal" xmlns:form="http://namespaces.plone.org/supermodel/form" xmlns:security="http://namespaces.plone.org/supermodel/security" xmlns:indexer="http://namespaces.plone.org/supermodel/indexer" xmlns:lingua="http://namespaces.plone.org/supermodel/lingua" xmlns:users="http://namespaces.plone.org/supermodel/users" xmlns="http://namespaces.plone.org/supermodel/schema">
+  <schema>
+    <field name="ccObjectID" type="zope.schema.TextLine" lingua:independent="true">
+      <description/>
+      <required>False</required>
+      <title>ccObjectID</title>
+    </field>
+    <field name="bookAnnotation" type="zope.schema.TextLine" lingua:independent="true">
+      <description/>
+      <required>False</required>
+      <title>bookAnnotation</title>
+    </field>
+    <field name="bookauthorName" type="zope.schema.Text" lingua:independent="true">
+      <description/>
+      <required>False</required>
+      <title>bookauthorName</title>
+    </field>
+    <field name="bookBarcode" type="zope.schema.Text" lingua:independent="true">
+      <description/>
+      <required>False</required>
+      <title>bookBarcode</title>
+    </field>
+    <field name="bookBBCode" type="zope.schema.TextLine" lingua:independent="true">
+      <description/>
+      <required>False</required>
+      <title>bookBBCode</title>
+    </field>
+    <field name="bookBbnummer" type="zope.schema.TextLine" lingua:independent="true">
+      <description/>
+      <required>False</required>
+      <title>bookBbnummer</title>
+    </field>
+    <field name="bookBinding" type="zope.schema.TextLine" lingua:independent="true">
+      <description/>
+      <required>False</required>
+      <title>bookBinding</title>
+    </field>
+    <field name="bookCity" type="zope.schema.TextLine" lingua:independent="true">
+      <description/>
+      <required>False</required>
+      <title>bookCity</title>
+    </field>
+    <field name="bookCountry" type="zope.schema.TextLine" lingua:independent="true">
+      <description/>
+      <required>False</required>
+      <title>bookCountry</title>
+    </field>
+    <field name="bookDatePublished" type="zope.schema.Int" lingua:independent="true">
+      <description/>
+      <required>False</required>
+      <title>bookDatePublished</title>
+    </field>
+    <field name="bookDescription" type="zope.schema.TextLine" lingua:independent="true">
+      <description/>
+      <required>False</required>
+      <title>bookDescription</title>
+    </field>
+    <field name="bookIllustrations" type="zope.schema.Text" lingua:independent="true">
+      <description/>
+      <required>False</required>
+      <title>bookIllustrations</title>
+    </field>
+    <field name="bookPublisher" type="zope.schema.TextLine" lingua:independent="true">
+      <description/>
+      <required>False</required>
+      <title>bookPublisher</title>
+    </field>
+    <field name="bookShelfmark" type="zope.schema.TextLine" lingua:independent="true">
+      <description/>
+      <required>False</required>
+      <title>bookShelfmark</title>
+    </field>
+    <field name="bookSubTitle" type="zope.schema.TextLine" lingua:independent="true">
+      <description/>
+      <required>False</required>
+      <title>BookSubTitle</title>
+    </field>
+    <field name="bookTitle" type="zope.schema.TextLine" lingua:independent="true">
+      <description/>
+      <required>False</required>
+      <title>BookTitle</title>
+    </field>
+    <field name="bookVubisid" type="zope.schema.TextLine" lingua:independent="true">
+      <description/>
+      <required>False</required>
+      <title>bookVubisid</title>
+    </field>
+    <field name="ccIdentifier" type="zope.schema.TextLine" lingua:independent="true">
+      <description/>
+      <required>False</required>
+      <title>ccIdentifier</title>
+    </field>
+    <field name="ccindexnameccIndexName" type="zope.schema.TextLine" lingua:independent="true">
+      <description/>
+      <required>False</required>
+      <title>ccIndexName</title>
+    </field>
+    <field name="recordnumber" type="zope.schema.Int" lingua:independent="true">
+      <description/>
+      <required>False</required>
+      <title>recordnumber</title>
+    </field>
+    <field name="vubisID" type="zope.schema.TextLine" lingua:independent="true">
+      <description/>
+      <required>False</required>
+      <title>VubisID</title>
+    </field>
+    <field name="bookLanguage" type="zope.schema.Text" lingua:independent="true">
+      <description/>
+      <required>False</required>
+      <title>bookLanguage</title>
+    </field>
+    <field name="bookStream" type="zope.schema.TextLine" lingua:independent="true">
+      <description/>
+      <required>False</required>
+      <title>bookStream</title>
+    </field>
+    <field name="bookArtist" type="zope.schema.Text">
+      <description/>
+      <required>False</required>
+      <title>bookArtist</title>
+    </field>
+    <field name="bookTitle_ALT" type="zope.schema.TextLine" lingua:independent="true">
+      <description/>
+      <required>False</required>
+      <title>BookTitle_ALT</title>
+    </field>
+  </schema>
+</model>
