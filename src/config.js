@@ -16,16 +16,16 @@ import { getBaseUrl } from '@plone/volto/helpers';
 import { getNavigation } from '@plone/volto/actions';
 // import defaultFieldSchema from 'volto-form-block/fieldSchema';
 
-import TagManager from 'react-gtm-module';
+// import TagManager from 'react-gtm-module';
 
 // All your imports required for the config here BEFORE this line
 import '@plone/volto/config';
 
-const tagManagerArgs = {
-  gtmId: 'GTM-T8SF8PJ',
-};
+// const tagManagerArgs = {
+//   gtmId: 'GTM-T8SF8PJ',
+// };
 
-__CLIENT__ && !__DEVELOPMENT__ && TagManager.initialize(tagManagerArgs);
+// __CLIENT__ && !__DEVELOPMENT__ && TagManager.initialize(tagManagerArgs);
 
 export default function applyConfig(config) {
   // Add here your project's configuration here by modifying `config` accordingly
@@ -167,9 +167,9 @@ export default function applyConfig(config) {
 
   config.blocks.initialBlocks = {
     ...config.blocks.initialBlocks,
-    Document: ['title', 'description'],
-    Event: ['title', 'description'],
-    'News Item': ['title', 'description'],
+    Document: ['title', 'description', 'text'],
+    Event: ['title', 'description', 'text'],
+    'News Item': ['title', 'description', 'text'],
   };
 
   config.blocks.initialBlocksFocus = {
