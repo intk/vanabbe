@@ -26,7 +26,7 @@ const DefaultView = (props) => {
   const { content, location } = props;
   const path = getBaseUrl(location?.pathname || '');
 
-  const description = content?.description;
+  // const description = content?.description;
   const hasLeadImage = content?.preview_image;
   const filteredContent = hasLeadImage
     ? filterBlocks(content, ['title', 'description'])
@@ -35,11 +35,11 @@ const DefaultView = (props) => {
   return hasBlocksData(content) ? (
     <div id="page-document" className="ui container">
       <div className="content-container">
-        <div className="content-wrapper">
+        {/* <div className="content-wrapper">
           {description && (
             <p className={'content-description'}>{description}</p>
           )}
-        </div>
+        </div> */}
         <RenderBlocks {...props} path={path} content={filteredContent} />
       </div>
     </div>

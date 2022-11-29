@@ -7,9 +7,6 @@
 @fontName: 'Roboto';
 @fontSmoothing: antialiased;
 
-@headerFont: @fontName, Arial, 'Helvetica Neue', Helvetica, sans-serif;
-@pageFont: @fontName, Arial, 'Helvetica Neue', Helvetica, sans-serif;
-
 @googleFontName: @fontName;
 @importGoogleFonts: true;
 @googleFontSizes: '300,400,500,700,400italic,700italic&display=swap';
@@ -18,22 +15,15 @@
 @googleProtocol: 'https://';
 @googleFontRequest: '@{googleFontName}:@{googleFontSizes}&subset=@{googleSubset}';
 
-@bold: @font-weight-7;
+/* Theme fonts  */
+@mediumFont: 'Neue Haas Grotesk Medium';
+@regularFont: 'Neue Haas Grotesk Regular';
+@italicFont: 'Neue Haas Grotesk Italic';
+
+@headerFont: @mediumFont, Arial, 'Helvetica Neue', Helvetica, sans-serif;
+@pageFont: @mediumFont, Arial, 'Helvetica Neue', Helvetica, sans-serif;
+
 @normal: normal;
-
-@boldFont: @headerFont;
-@mediumFont: @fontName;
-@lightFont: @pageFont;
-
-@font-weight-1: 100;
-@font-weight-2: 200;
-@font-weight-3: 300;
-@font-weight-4: 400;
-@font-weight-5: 500;
-@font-weight-6: 600;
-@font-weight-7: 700;
-@font-weight-8: 800;
-@font-weight-9: 900;
 
 /*-------------------
       Base Sizes
@@ -43,7 +33,7 @@
 @emSize: 16px;
 
 /* The size of page text  */
-@fontSize: 16px;
+@fontSize: 20px;
 
 @sidebarWidth: 375px;
 @collapsedWidth: 20px;
@@ -52,13 +42,11 @@
   Page Heading
 ---------------*/
 
-@headerFontWeight: @font-weight-5;
-
-@h1: unit((44 / @fontSize), rem);
-@h2: unit((32 / @fontSize), rem);
-@h3: unit((26 / @fontSize), rem);
-@h4: unit((20 / @fontSize), rem);
-@h5: unit((18 / @fontSize), rem);
+@h1: unit((80 / @fontSize), rem);
+@h2: unit((44 / @fontSize), rem);
+@h3: unit((40 / @fontSize), rem);
+@h4: unit((36 / @fontSize), rem);
+@h5: unit((28 / @fontSize), rem);
 @h6: unit((16 / @fontSize), rem);
 
 /*-------------------
@@ -71,6 +59,8 @@
 /*-------------------
       Site Colors
 --------------------*/
+
+@darkGrey: #1a1313;
 
 /*---  Colors  ---*/
 @orange: #ff9933;

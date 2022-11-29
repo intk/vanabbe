@@ -27,3 +27,9 @@
 body:not(.view-editview):not(.document_wide_view):not(.is-anonymous) main {
   overflow: unset;
 }
+
+// Fix font family in toolbar
+#toolbar .pastanaga-menu-list li a,
+#toolbar .pastanaga-menu-list li button {
+  font-family: @pageFont;
+}

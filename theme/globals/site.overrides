@@ -2,13 +2,13 @@
 
 // .debug(@googleFontRequest);
 
-.loadUtrechtFonts();
+.loadVanabbeFonts();
 
 html {
   font-size: @fontSize;
 
   @media only screen and (max-width: @largestSmallMonitor) {
-    font-size: 15px;
+    font-size: 18px;
   }
 }
 
@@ -18,35 +18,38 @@ body {
   color: @textColor;
   font-family: @pageFont;
   font-size: @fontSize;
-  font-weight: @font-weight-4;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: unset !important;
 }
 
 h1 {
   color: @primaryColor;
   font-size: @h1;
-  font-weight: @font-weight-8;
 }
 
 h2 {
   color: @primaryColor;
   font-size: @h2;
-  font-weight: @headerFontWeight;
 }
 
 h3 {
   color: @blue;
   font-size: @h3;
-  font-weight: @headerFontWeight;
 }
 
 h4 {
   font-size: @h4;
-  font-weight: @headerFontWeight;
 }
 
 h5 {
   font-size: @h5;
-  font-weight: @headerFontWeight;
 }
 
 p {

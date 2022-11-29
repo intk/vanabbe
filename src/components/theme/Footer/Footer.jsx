@@ -219,7 +219,7 @@ export function Footer(props) {
         </div>
         <div className="footer-bottom">
           <div className="ui container">
-            <div role="list" class="ui horizontal inverted list">
+            <div role="list" className="ui horizontal inverted list">
               <div role="listitem" className="item">
                 <Copyright />
               </div>
