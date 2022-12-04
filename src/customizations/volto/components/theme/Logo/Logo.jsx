@@ -8,7 +8,7 @@ import { Image } from 'semantic-ui-react';
 import { useSelector } from 'react-redux';
 import config from '@plone/volto/registry';
 import { UniversalLink } from '@plone/volto/components';
-import LogoImage from '@plone/volto/components/theme/Logo/Logo.svg';
+import LogoImage from './vanabbe.svg';
 
 const messages = defineMessages({
   site: {
@@ -33,16 +33,20 @@ const Logo = () => {
   const intl = useIntl();
 
   return (
-    <UniversalLink
-      href={settings.isMultilingual ? `/${lang}` : '/'}
-      title={intl.formatMessage(messages.site)}
-    >
-      <Image
-        src={LogoImage}
-        alt={intl.formatMessage(messages.plonesite)}
-        title={intl.formatMessage(messages.plonesite)}
-      />
-    </UniversalLink>
+    <div className="logo-wrapper">
+      <div className="logo">
+        <UniversalLink
+          href={settings.isMultilingual ? `/${lang}` : '/'}
+          title={intl.formatMessage(messages.site)}
+        >
+          <Image
+            src={LogoImage}
+            alt={intl.formatMessage(messages.plonesite)}
+            title={intl.formatMessage(messages.plonesite)}
+          />
+        </UniversalLink>
+      </div>
+    </div>
   );
 };
 

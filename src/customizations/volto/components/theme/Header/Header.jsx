@@ -34,9 +34,14 @@ const Header = (props) => {
   const [inView, setInView] = React.useState();
 
   return (
-    <div className="portal-top">
+    <div
+      className={cx('portal-top', homePageView ? 'homepage' : 'contentpage')}
+    >
       {homePageView && <BodyClass className="homepage-view" />}
       {!cmsView && <BodyClass className="has-image" />}
+      <div className={`${homePageView ? 'home-nav' : 'page-nav'}`}>
+        <Logo />
+      </div>
       <div
         className={cx(
           'header-wrapper',
@@ -51,10 +56,6 @@ const Header = (props) => {
               homePageView ? 'home-nav' : 'page-nav'
             }`}
           >
-            <div className="logo">
-              <Logo />
-            </div>
-
             <div className="right-section">
               <Navigation pathname={pathname} navigation={navigationItems} />
               <div className="header-tools">
