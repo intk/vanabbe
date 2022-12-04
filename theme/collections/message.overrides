@@ -1,0 +1,12 @@
+/*******************************
+        Message Overrides
+*******************************/
+
+.ui.icon.message {
+  flex-direction: row !important;
+
+  > .icon:not(.close) {
+    align-self: center;
+    margin-top: 0;
+  }
+}

@@ -25,6 +25,33 @@ import '@plone/volto/config';
 //   gtmId: 'GTM-T8SF8PJ',
 // };
 
+const THEMES = [
+  { name: 'Default', value: 'default' },
+  { name: 'Yellow', value: 'yellow' },
+  { name: 'Beige', value: 'beige' },
+  { name: 'Sunny', value: 'sunny' },
+  { name: 'Blue', value: 'blue' },
+  { name: 'Dandelion', value: 'dandelion' },
+  { name: 'Latte', value: 'latte' },
+  { name: 'Bubbles', value: 'bubbles' },
+  { name: 'Misty', value: 'misty' },
+  { name: 'Lavender', value: 'lavender' },
+  { name: 'Topaz', value: 'topaz' },
+  { name: 'Almond', value: 'almond' },
+  { name: 'Aqua', value: 'aqua' },
+  { name: 'Orange', value: 'orange' },
+  { name: 'Peach', value: 'peach' },
+  { name: 'Marine', value: 'marine' },
+  { name: 'Snow', value: 'snow' },
+  { name: 'Summer', value: 'summer' },
+  { name: 'Lime', value: 'lime' },
+  { name: 'Mint', value: 'mint' },
+  { name: 'Rose', value: 'rose' },
+  { name: 'Olive', value: 'olive' },
+  { name: 'Melon', value: 'melon' },
+  { name: 'Sand', value: 'sand' },
+];
+
 // __CLIENT__ && !__DEVELOPMENT__ && TagManager.initialize(tagManagerArgs);
 
 export default function applyConfig(config) {
@@ -43,6 +70,8 @@ export default function applyConfig(config) {
     ['footerLinks', 'Footer Links'],
     ['siteActions', 'Site Actions'],
   ];
+
+  config.settings.siteThemes = THEMES;
 
   config.blocks.blocksConfig.title.view = () => null;
   config.blocks.groupBlocksOrder.push({ id: 'site', title: 'Site' });
@@ -167,9 +196,9 @@ export default function applyConfig(config) {
 
   config.blocks.initialBlocks = {
     ...config.blocks.initialBlocks,
-    Document: ['title', 'description', 'text'],
-    Event: ['title', 'description', 'text'],
-    'News Item': ['title', 'description', 'text'],
+    Document: ['title', 'siteTheme', 'description', 'text'],
+    Event: ['title', 'siteTheme', 'description', 'text'],
+    'News Item': ['title', 'siteTheme', 'description', 'text'],
   };
 
   config.blocks.initialBlocksFocus = {

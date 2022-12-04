@@ -30,17 +30,14 @@ h6 {
 }
 
 h1 {
-  color: @primaryColor;
   font-size: @h1;
 }
 
 h2 {
-  color: @primaryColor;
   font-size: @h2;
 }
 
 h3 {
-  color: @blue;
   font-size: @h3;
 }
 
@@ -54,4 +51,26 @@ h5 {
 
 p {
   font-size: @fontSize;
+}
+
+.documentDescription {
+  color: inherit !important;
+}
+
+#page-edit .ui.form,
+#page-controlpanel .ui.form {
+  background-color: @white;
+}
+
+#page-contents {
+  #content-core {
+    background-color: @white;
+  }
+}
+
+.content-area {
+  main,
+  #view {
+    height: 100%;
+  }
 }

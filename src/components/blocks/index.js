@@ -6,6 +6,7 @@ import installImageCards from './ImageCards';
 import installListingBlock from './Listing';
 import installQuoteBlock from './Quote';
 import installSiteDataBlock from './SiteData';
+import installSiteThemeBlock from './SiteTheme';
 
 import HeroView from './Hero/HeroView';
 import { compose } from 'redux';
@@ -22,6 +23,7 @@ const installBlocks = (config) => {
     installButtonBlock,
     installActionLinks,
     installSiteDataBlock,
+    installSiteThemeBlock,
   )(config);
 };
 

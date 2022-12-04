@@ -10,6 +10,7 @@
 @import './blocks.less';
 @import './event.less';
 @import './header.less';
+@import './themes.less';
 
 .view-viewview.has-image {
   #main > .breadcrumbs {
