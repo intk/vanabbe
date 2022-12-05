@@ -48,8 +48,8 @@ msgid "Cards"
 msgstr ""
 
 #: components/theme/Navigation/Navigation
-# defaultMessage: Close menu
-msgid "Close menu"
+# defaultMessage: Close
+msgid "Close"
 msgstr ""
 
 #: components/blocks/ActionLinks/schema
@@ -69,8 +69,8 @@ msgid "Logout"
 msgstr ""
 
 #: components/theme/Navigation/Navigation
-# defaultMessage: Open menu
-msgid "Open menu"
+# defaultMessage: Menu
+msgid "Menu"
 msgstr ""
 
 #: components/theme/SearchWidget/SearchWidget
@@ -81,6 +81,11 @@ msgstr ""
 #: components/blocks/SiteData/schema
 # defaultMessage: Global site settings
 msgid "SiteData"
+msgstr ""
+
+#: components/blocks/SiteTheme/schema
+# defaultMessage: Global site settings
+msgid "SiteTheme"
 msgstr ""
 
 #: components/blocks/SiteData/schema
@@ -141,6 +146,16 @@ msgstr ""
 #: components/blocks/Facts/schema
 # defaultMessage: SubTitle
 msgid "subtitle"
+msgstr ""
+
+#: components/blocks/SiteTheme/schema
+# defaultMessage: Select a theme for this page
+msgid "themeDescription"
+msgstr ""
+
+#: components/blocks/SiteTheme/schema
+# defaultMessage: Theme
+msgid "themeTitle"
 msgstr ""
 
 #: components/blocks/ActionLinks/schema

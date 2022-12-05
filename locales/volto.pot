@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Plone\n"
-"POT-Creation-Date: 2022-11-08T13:45:09.054Z\n"
+"POT-Creation-Date: 2022-12-05T13:23:42.783Z\n"
 "Last-Translator: Plone i18n <plone-i18n@lists.sourceforge.net>\n"
 "Language-Team: Plone i18n <plone-i18n@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -44,8 +44,8 @@ msgid "Cards"
 msgstr ""
 
 #: components/theme/Navigation/Navigation
-# defaultMessage: Close menu
-msgid "Close menu"
+# defaultMessage: Close
+msgid "Close"
 msgstr ""
 
 #: components/blocks/ActionLinks/schema
@@ -65,8 +65,8 @@ msgid "Logout"
 msgstr ""
 
 #: components/theme/Navigation/Navigation
-# defaultMessage: Open menu
-msgid "Open menu"
+# defaultMessage: Menu
+msgid "Menu"
 msgstr ""
 
 #: components/theme/SearchWidget/SearchWidget
@@ -77,6 +77,11 @@ msgstr ""
 #: components/blocks/SiteData/schema
 # defaultMessage: Global site settings
 msgid "SiteData"
+msgstr ""
+
+#: components/blocks/SiteTheme/schema
+# defaultMessage: Global site settings
+msgid "SiteTheme"
 msgstr ""
 
 #: components/blocks/SiteData/schema
@@ -137,6 +142,16 @@ msgstr ""
 #: components/blocks/Facts/schema
 # defaultMessage: SubTitle
 msgid "subtitle"
+msgstr ""
+
+#: components/blocks/SiteTheme/schema
+# defaultMessage: Select a theme for this page
+msgid "themeDescription"
+msgstr ""
+
+#: components/blocks/SiteTheme/schema
+# defaultMessage: Theme
+msgid "themeTitle"
 msgstr ""
 
 #: components/blocks/ActionLinks/schema
