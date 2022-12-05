@@ -9,6 +9,6 @@
     Dropdown
  ---------------*/
 
-.ui.simple.dropdown:hover > .menu {
-  display: block;
-}
+// .ui.simple.dropdown:hover > .menu {
+//   display: block;
+// }

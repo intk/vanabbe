@@ -9,3 +9,10 @@
 .link-more a {
   .isBtn();
 }
+
+.ui.basic.buttons .button:hover,
+.ui.basic.button:hover,
+.ui.basic.button:active,
+.ui.basic.button:focus {
+  background-color: transparent !important;
+}

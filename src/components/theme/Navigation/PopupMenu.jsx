@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import cx from 'classnames';
 import { doesNodeContainClick } from 'semantic-ui-react/dist/commonjs/lib';
 
-const DEFAULT_TIMEOUT = 500;
+// const DEFAULT_TIMEOUT = 500;
 
 const PopupMenu = (props) => {
   const { children, open, onClose, className } = props;
@@ -30,8 +30,8 @@ const PopupMenu = (props) => {
 
   return (
     <CSSTransition
+      // timeout={DEFAULT_TIMEOUT}
       in={open}
-      timeout={DEFAULT_TIMEOUT}
       classNames="popup-menu"
       unmountOnExit
     >

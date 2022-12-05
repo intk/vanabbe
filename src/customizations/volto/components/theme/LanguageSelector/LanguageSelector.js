@@ -13,8 +13,6 @@ import cx from 'classnames';
 import { find, map } from 'lodash';
 
 import { Helmet, langmap, flattenToAppURL } from '@plone/volto/helpers';
-import { Icon } from '@plone/volto/components';
-import globeSVG from '@plone/volto/icons/globe.svg';
 
 import config from '@plone/volto/registry';
 
@@ -39,11 +37,10 @@ const LanguageSelector = (props) => {
   return settings.isMultilingual ? (
     <div className="language-selector">
       <Dropdown
-        direction="left"
+        direction="right"
         trigger={
           <span>
-            <Icon name={globeSVG} size="20px" />
-            <span>{currentLang.toUpperCase()}</span>
+            <span>{currentLang}</span>
           </span>
         }
       >

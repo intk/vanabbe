@@ -9,7 +9,6 @@ import {
   Navigation,
   SearchWidget,
 } from '@plone/volto/components';
-import { Button } from 'semantic-ui-react';
 import { BodyClass, isCmsUi } from '@plone/volto/helpers';
 import { HeroSection } from '@package/components'; // , StickyHeader
 import cx from 'classnames';
@@ -51,21 +50,14 @@ const Header = (props) => {
         role="banner"
       >
         <div className="header">
-          <div
-            className={`logo-nav-wrapper ${
-              homePageView ? 'home-nav' : 'page-nav'
-            }`}
-          >
-            <div className="right-section">
-              <Navigation pathname={pathname} navigation={navigationItems} />
-              <div className="header-tools">
-                <div className="computer large screen widescreen only"></div>
-                <div className="search-wrapper">
-                  <SearchWidget pathname={pathname} />
-                </div>
-                <LanguageSelector />
-              </div>
+          <div className="left-section">
+            <div className="header-tools">
+              <LanguageSelector />
             </div>
+          </div>
+          <div className="right-section">
+            <SearchWidget pathname={pathname} />
+            <Navigation pathname={pathname} navigation={navigationItems} />
           </div>
         </div>
       </div>

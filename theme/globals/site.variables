@@ -60,6 +60,9 @@
       Site Colors
 --------------------*/
 
+@smokeWhite: #f2eef8;
+@wood: #655353;
+
 @darkGrey: #1a1313;
 
 /*---  Colors  ---*/

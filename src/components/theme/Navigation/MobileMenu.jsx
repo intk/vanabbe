@@ -1,0 +1,95 @@
+import React from 'react';
+import { NavLink } from 'react-router-dom';
+import { Icon } from '@plone/volto/components';
+import config from '@plone/volto/registry';
+import { Menu, Dropdown } from 'semantic-ui-react';
+
+import { Link } from 'react-router-dom';
+// import cx from 'classnames';
+
+import downKeySVG from '@plone/volto/icons/down-key.svg';
+import rightKeySVG from '@plone/volto/icons/right-key.svg';
+import upKeySVG from '@plone/volto/icons/up-key.svg';
+
+const HOME = ['', '/', '/en', '/nl'];
+
+const MenuItem = ({ item, lang }) => {
+  const [isOpened, setIsOpened] = React.useState(false);
+
+  const { settings } = config;
+
+  return item ? (
+    <Dropdown
+      item
+      className="firstLevel"
+      onClick={() => setIsOpened(!isOpened)}
+      open={isOpened}
+      trigger={
+        <div className="item-wrapper">
+          <NavLink
+            to={item.url === '' ? '/' : item.url}
+            activeClassName="active"
+            exact={
+              settings.isMultilingual
+                ? item.url === `/${lang}`
+                : item.url === ''
+            }
+          >
+            {item.title}
+          </NavLink>
+          {isOpened ? (
+            <Icon name={upKeySVG} size="24px" />
+          ) : (
+            <Icon name={downKeySVG} size="24px" />
+          )}
+        </div>
+      }
+    >
+      <Dropdown.Menu>
+        {item.items.map((subitem, y) => {
+          return (
+            <Dropdown
+              key={y}
+              className="secondLevel"
+              simple
+              item
+              trigger={
+                <Link to={subitem.url === '' ? '/' : subitem.url}>
+                  {subitem.title}
+                  {subitem.items.length > 0 && (
+                    <Icon name={rightKeySVG} size="23px" />
+                  )}
+                </Link>
+              }
+            ></Dropdown>
+          );
+        })}
+      </Dropdown.Menu>
+    </Dropdown>
+  ) : (
+    <div className="ui item simple dropdown firstLevel">
+      <Link to={item.url === '' ? '/' : item.url} key={item.url}>
+        {item.title}
+      </Link>
+    </div>
+  );
+};
+
+export default function MobileMenu(props) {
+  const { items, lang } = props;
+
+  return (
+    <Menu
+      stackable
+      pointing
+      secondary
+      className="mobile tablet only mobile-menu"
+    >
+      {items
+        .filter((item) => HOME.indexOf(item.url) === -1)
+        .map((item, i) => {
+          return <MenuItem item={item} lang={lang} key={i} />;
+        })}
+    </Menu>
+  );
+}

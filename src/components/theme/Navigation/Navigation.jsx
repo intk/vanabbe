@@ -3,52 +3,41 @@
  * @module components/theme/Navigation/Navigation
  */
 
-import { isMatch } from 'lodash';
-
 import React from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { defineMessages, injectIntl } from 'react-intl';
-import cx from 'classnames';
-// import { getBaseUrl, hasApiExpander } from '@plone/volto/helpers';
-// import config from '@plone/volto/registry';
-import { getNavigation } from '@plone/volto/actions';
 import { useLocation } from 'react-router-dom';
+import { Button } from 'semantic-ui-react';
+import { getNavigation } from '@plone/volto/actions';
+import { BodyClass } from '@plone/volto/helpers';
 
-import TopLevelItems from './TopLevelItems';
-import MobileNavItems from './MobileNavItems';
+import DesktopMenu from './DesktopMenu';
+import MobileMenu from './MobileMenu';
+import PopupMenu from './PopupMenu';
 
 const messages = defineMessages({
   closeMobileMenu: {
-    id: 'Close menu',
-    defaultMessage: 'Close menu',
+    id: 'Close',
+    defaultMessage: 'Close',
   },
   openMobileMenu: {
-    id: 'Open menu',
-    defaultMessage: 'Open menu',
+    id: 'Menu',
+    defaultMessage: 'Menu',
   },
 });
 
-function isActive(url, pathname) {
-  return (
-    (url === '' && pathname === '/') ||
-    (url !== '' && isMatch(pathname.split('/'), url.split('/')))
-  );
-}
-
-// function LocalDimmer({ active }) {
-//   return active ? (
-//     <div className="ui dimmer" style={{ display: 'block' }}></div>
-//   ) : null;
-// }
-
 function Navigation({ pathname, intl, items, lang }) {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState();
+  const [isOpened, setIsOpened] = React.useState(false);
   const location = useLocation();
 
   React.useEffect(() => {
-    setIsMobileMenuOpen(false);
+    setIsOpened(false);
   }, [location]);
+
+  function handleClick(e) {
+    setIsOpened((isOpened) => !isOpened);
+  }
 
   // We don't want to trigger getNavigation from the Component
   // See https://github.com/plone/volto/pull/2751/files
@@ -62,45 +51,26 @@ function Navigation({ pathname, intl, items, lang }) {
 
   return (
     <nav className="navigation" id="navigation" aria-label="navigation">
-      {/* <LocalDimmer active={isMobileMenuOpen} /> */}
-      <div className="hamburger-wrapper mobile tablet only">
-        <button
-          className={cx('hamburger hamburger--spin', {
-            'is-active': isMobileMenuOpen,
-          })}
-          aria-label={
-            isMobileMenuOpen
-              ? intl.formatMessage(messages.closeMobileMenu)
-              : intl.formatMessage(messages.openMobileMenu)
-          }
-          title={
-            isMobileMenuOpen
-              ? intl.formatMessage(messages.closeMobileMenu)
-              : intl.formatMessage(messages.openMobileMenu)
-          }
-          type="button"
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-        >
-          <span className="hamburger-box">
-            <span className="hamburger-inner" />
-          </span>
-        </button>
-      </div>
+      {isOpened && <BodyClass className="open-menu" />}
 
-      <TopLevelItems
-        items={items}
-        lang={lang}
-        closeMobileMenu={() => setIsMobileMenuOpen(false)}
-      />
+      <Button
+        basic
+        onClick={handleClick}
+        aria-label={intl.formatMessage(messages.openMobileMenu)}
+      >
+        {isOpened ? (
+          <>{intl.formatMessage(messages.closeMobileMenu)}</>
+        ) : (
+          <>{intl.formatMessage(messages.openMobileMenu)}</>
+        )}
+      </Button>
 
-      <MobileNavItems
-        lang={lang}
-        items={items}
-        open={isMobileMenuOpen}
-        closeMobileMenu={() => setIsMobileMenuOpen(false)}
-        isActive={isActive}
-        pathname={pathname}
-      />
+      <PopupMenu open={isOpened}>
+        <div className="popup-menu-inner">
+          <DesktopMenu items={items} lang={lang} />
+          <MobileMenu items={items} lang={lang} />
+        </div>
+      </PopupMenu>
     </nav>
   );
 }

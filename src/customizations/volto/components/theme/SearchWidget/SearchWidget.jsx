@@ -48,10 +48,11 @@ const SearchWidgetWrapper = (props) => {
   return (
     <div id="global-search-widget">
       <Button
+        basic
         aria-label={intl.formatMessage(messages.search)}
         onClick={() => setShowPopup(true)}
       >
-        <Icon name={zoomSVG} size="24px" />
+        {intl.formatMessage(messages.search)}
       </Button>
       <PopupMenu open={showPopup} onClose={() => setShowPopup(false)}>
         <div className="hover-menu search-widget">

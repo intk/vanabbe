@@ -7,6 +7,50 @@ body {
   color: var(--text-color, #444);
 }
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: unset !important;
+}
+
+h1 {
+  font-size: @h1;
+}
+
+h2 {
+  font-size: @h2;
+}
+
+h3 {
+  font-size: @h3;
+}
+
+h4 {
+  font-size: @h4;
+}
+
+h5 {
+  font-size: @h5;
+}
+
+p {
+  font-size: @fontSize;
+}
+
+.documentDescription {
+  color: inherit !important;
+}
+
+a {
+  &:hover {
+    text-decoration: underline;
+    text-underline-offset: 7px;
+  }
+}
+
 .ui.container {
   max-width: 70% !important;
 }
