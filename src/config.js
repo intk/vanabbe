@@ -50,6 +50,18 @@ const THEMES = [
   { name: 'Olive', value: 'olive' },
   { name: 'Melon', value: 'melon' },
   { name: 'Sand', value: 'sand' },
+  { name: 'Lemon', value: 'lemon' },
+  { name: 'Ivory', value: 'ivory' },
+  { name: 'Turquoise', value: 'turquoise' },
+  { name: 'Light green', value: 'light-green' },
+  { name: 'Pink', value: 'pink' },
+  { name: 'Flamingo', value: 'flamingo' },
+  { name: 'Sky', value: 'sky' },
+  { name: 'Cyan', value: 'cyan' },
+  { name: 'Lilac', value: 'lilac' },
+  { name: 'Blush pink', value: 'blush-pink' },
+  { name: 'Smoke', value: 'smoke' },
+  { name: 'Pale green', value: 'pale-green' },
 ];
 
 // __CLIENT__ && !__DEVELOPMENT__ && TagManager.initialize(tagManagerArgs);
