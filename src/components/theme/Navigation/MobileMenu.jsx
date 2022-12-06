@@ -1,14 +1,10 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
+import { Menu, Dropdown } from 'semantic-ui-react';
 import { Icon } from '@plone/volto/components';
 import config from '@plone/volto/registry';
-import { Menu, Dropdown } from 'semantic-ui-react';
-
-import { Link } from 'react-router-dom';
-// import cx from 'classnames';
 
 import downKeySVG from '@plone/volto/icons/down-key.svg';
-import rightKeySVG from '@plone/volto/icons/right-key.svg';
 import upKeySVG from '@plone/volto/icons/up-key.svg';
 
 const HOME = ['', '/', '/en', '/nl'];
@@ -38,9 +34,9 @@ const MenuItem = ({ item, lang }) => {
             {item.title}
           </NavLink>
           {isOpened ? (
-            <Icon name={upKeySVG} size="24px" />
+            <Icon name={upKeySVG} size="40px" />
           ) : (
-            <Icon name={downKeySVG} size="24px" />
+            <Icon name={downKeySVG} size="40px" />
           )}
         </div>
       }
@@ -56,9 +52,6 @@ const MenuItem = ({ item, lang }) => {
               trigger={
                 <Link to={subitem.url === '' ? '/' : subitem.url}>
                   {subitem.title}
-                  {subitem.items.length > 0 && (
-                    <Icon name={rightKeySVG} size="23px" />
-                  )}
                 </Link>
               }
             ></Dropdown>

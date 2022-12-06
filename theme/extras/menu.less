@@ -5,11 +5,13 @@
 /* Font size */
 @menuFirstLevelFontSize: 16px;
 @menuSecondLevelFontSize: 22px;
+@menuTabletFirstLevelFontSize: 20px;
+@menuTabletSecondLevelFontSize: 24px;
 
 .popup-menu {
   position: fixed;
   z-index: 9;
-  top: 62px;
+  top: 0;
   left: 0;
   width: 100%;
   height: 100%;
@@ -55,21 +57,56 @@
   }
 }
 
-.mobile.only.ui.secondary.pointing.mobile-menu {
+/*-----------------------------------------------
+   Mobile menu
+------------------------------------------------*/
+
+.ui.secondary.pointing.mobile-menu {
   display: block;
+  padding: 1.5em;
   border-bottom: none;
+  margin-top: @mobileSidebarHeight;
+
+  .active.item,
+  a {
+    color: @menuTextColor;
+  }
+
+  .item.firstLevel {
+    padding: 0.5em 0 !important;
+    border-bottom: none;
+    font-size: @menuTabletFirstLevelFontSize !important;
+  }
 
   .ui.dropdown {
-    > .item {
-      display: block !important;
+    display: block !important;
+
+    .item {
+      &:hover {
+        background: none !important;
+      }
     }
 
-    .item.firstLevel {
-      font-size: @menuFirstLevelFontSize !important;
+    .menu {
+      > .item.secondLevel:first-child {
+        padding-top: 1em !important;
+      }
+
+      > .item.secondLevel:last-child {
+        padding-bottom: 2em !important;
+      }
     }
 
     .item.secondLevel {
-      font-size: @menuSecondLevelFontSize !important;
+      padding: 0.5em 0 !important;
+      border-bottom: none;
+      font-size: @menuTabletSecondLevelFontSize !important;
+    }
+
+    .menu.transition {
+      position: relative;
+      margin: 0 !important;
+      box-shadow: none !important;
     }
   }
 
@@ -77,6 +114,7 @@
     .item-wrapper {
       display: flex;
       width: 100%;
+      align-items: center;
       justify-content: space-between;
     }
 
@@ -84,5 +122,47 @@
       border: none;
       background-color: transparent;
     }
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  body.has-toolbar.open-menu {
+    .header {
+      top: calc(@mobileSidebarHeight);
+    }
+
+    .ui.secondary.pointing.mobile-menu {
+      margin-top: calc(@mobileSidebarHeight + 50px);
+    }
+  }
+
+  body.has-toolbar-collapsed.open-menu {
+    .header {
+      top: calc(@collapsedSidebarWidth);
+    }
+  }
+}
+
+.open-menu {
+  .header {
+    position: absolute;
+    z-index: 10;
+    top: 0;
+    right: 0;
+    left: 0;
+  }
+}
+
+@media only screen and (max-width: @largestMobileScreen) {
+  .mobile-menu {
+    left: 0 !important;
+    width: 100% !important;
+  }
+}
+
+@media only screen and (max-width: @largestMobileScreen) {
+  .mobile-menu {
+    left: 0;
+    width: 100%;
   }
 }

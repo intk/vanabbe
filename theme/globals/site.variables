@@ -36,7 +36,8 @@
 @fontSize: 20px;
 
 @sidebarWidth: 375px;
-@collapsedWidth: 20px;
+@collapsedSidebarWidth: 20px;
+@mobileSidebarHeight: 100px;
 
 /*--------------
   Page Heading
