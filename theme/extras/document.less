@@ -18,6 +18,10 @@ body {
   color: var(--text-color, #444);
 }
 
+p {
+  font-size: @desktopBodyFontSize;
+}
+
 h1,
 h2,
 h3,
@@ -28,27 +32,82 @@ h6 {
 }
 
 h1 {
-  font-size: @h1;
+  font-size: @desktopH1;
+  line-height: @bigLineHeight;
 }
 
 h2 {
-  font-size: @h2;
+  font-size: @desktopH2;
+  line-height: @mediumLineHeight;
 }
 
 h3 {
-  font-size: @h3;
+  font-size: @desktopH3;
+  line-height: @smallLineHeight;
 }
 
 h4 {
-  font-size: @h4;
+  font-size: @desktopH4;
+  line-height: @smallLineHeight;
 }
 
 h5 {
-  font-size: @h5;
+  font-size: @desktopH5;
+  line-height: @smallLineHeight;
 }
 
-p {
-  font-size: @fontSize;
+@media only screen and (min-width: @widescreenMonitorBreakpoint) {
+  p {
+    font-size: @desktopLargeBodyFontSize;
+  }
+}
+
+@media only screen and (max-width: @largestTabletScreen) {
+  h1 {
+    font-size: @tabletH1;
+  }
+
+  h2 {
+    font-size: @tabletH2;
+  }
+
+  h3 {
+    font-size: @tabletH3;
+  }
+
+  h4 {
+    font-size: @tabletH4;
+  }
+
+  h5 {
+    font-size: @tabletH5;
+  }
+
+  p {
+    font-size: @tabletBodyFontSize;
+  }
+}
+
+@media only screen and (max-width: @largestMobileScreen) {
+  h1 {
+    font-size: @mobileH1;
+  }
+
+  h2 {
+    font-size: @mobileH2;
+  }
+
+  h3 {
+    font-size: @mobileH3;
+  }
+
+  h4 {
+    font-size: @mobileH4;
+  }
+
+  h5 {
+    font-size: @mobileH5;
+  }
 }
 
 .documentDescription {
@@ -67,5 +126,5 @@ a {
 // }
 
 .controlpanel .ui .grid h3 {
-  font-size: @h6;
+  font-size: @desktopH5;
 }
