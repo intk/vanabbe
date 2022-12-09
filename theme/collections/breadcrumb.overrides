@@ -2,10 +2,6 @@
         Breadcrumb Overrides
 *******************************/
 
-body.view-editview,
-body.view-addview,
-body.cms-ui {
-  .ui.secondary.segment.breadcrumbs {
-    display: none;
-  }
+.ui.secondary.segment.breadcrumbs {
+  display: none;
 }
