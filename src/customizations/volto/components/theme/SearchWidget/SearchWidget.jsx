@@ -1,15 +1,11 @@
 import React from 'react';
 import { defineMessages, useIntl } from 'react-intl';
 import { Button } from 'semantic-ui-react';
-import { Icon } from '@plone/volto/components';
 
 import PopupMenu from '@package/components/theme/Navigation/PopupMenu';
 import SearchWidget from '@package/components/theme/SearchWidget/SearchWidget';
 
 import { useLocation } from 'react-router-dom';
-
-import zoomSVG from '@plone/volto/icons/zoom.svg';
-import closeSVG from '@plone/volto/icons/clear.svg';
 
 const messages = defineMessages({
   search: {
@@ -57,14 +53,6 @@ const SearchWidgetWrapper = (props) => {
       <PopupMenu open={showPopup} onClose={() => setShowPopup(false)}>
         <div className="hover-menu search-widget">
           <div className="hover-menu-inner">{children}</div>
-          {/* <div className="close-search">
-            <Icon
-              className="close-popup"
-              onClick={() => setShowPopup(false)}
-              name={closeSVG}
-              size="35px"
-            />
-          </div> */}
         </div>
       </PopupMenu>
     </div>
