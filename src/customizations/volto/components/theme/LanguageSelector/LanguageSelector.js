@@ -6,17 +6,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { defineMessages, useIntl } from 'react-intl';
 import { Dropdown } from 'semantic-ui-react';
-
 import { useSelector } from 'react-redux';
-import cx from 'classnames';
 import { find, map } from 'lodash';
-
+import cx from 'classnames';
 import { Helmet, langmap, flattenToAppURL } from '@plone/volto/helpers';
+import { capitalize } from '@package/utils';
 
 import config from '@plone/volto/registry';
-
-import { defineMessages, useIntl } from 'react-intl';
 
 const messages = defineMessages({
   switchLanguageTo: {
@@ -40,7 +38,7 @@ const LanguageSelector = (props) => {
         direction="right"
         trigger={
           <span>
-            <span>{currentLang}</span>
+            <span>{capitalize(langmap[currentLang].nativeName)}</span>
           </span>
         }
       >
