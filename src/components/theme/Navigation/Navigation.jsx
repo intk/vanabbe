@@ -11,6 +11,7 @@ import { useLocation } from 'react-router-dom';
 import { Button } from 'semantic-ui-react';
 import { getNavigation } from '@plone/volto/actions';
 import { BodyClass } from '@plone/volto/helpers';
+import { Logo } from '@plone/volto/components';
 
 import DesktopMenu from './DesktopMenu';
 import MobileMenu from './MobileMenu';
@@ -70,6 +71,7 @@ function Navigation({ pathname, intl, items, lang }) {
           <DesktopMenu items={items} lang={lang} />
           <MobileMenu items={items} lang={lang} />
         </div>
+        <Logo />
       </PopupMenu>
     </nav>
   );

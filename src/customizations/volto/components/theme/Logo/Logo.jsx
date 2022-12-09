@@ -4,20 +4,15 @@
  */
 
 import { defineMessages, useIntl } from 'react-intl';
-import { Image } from 'semantic-ui-react';
 import { useSelector } from 'react-redux';
 import config from '@plone/volto/registry';
-import { UniversalLink } from '@plone/volto/components';
-import LogoImage from './vanabbe.svg';
+import { UniversalLink, Icon } from '@plone/volto/components';
+import logoImage from '../../../../../icons/vanabbe.svg';
 
 const messages = defineMessages({
   site: {
-    id: 'Site',
-    defaultMessage: 'Site',
-  },
-  plonesite: {
-    id: 'Plone Site',
-    defaultMessage: 'Plone Site',
+    id: 'Go to the homepage of Van Abbemuseum',
+    defaultMessage: 'Go to the homepage of Van Abbemuseum',
   },
 });
 
@@ -39,11 +34,7 @@ const Logo = () => {
           href={settings.isMultilingual ? `/${lang}` : '/'}
           title={intl.formatMessage(messages.site)}
         >
-          <Image
-            src={LogoImage}
-            alt={intl.formatMessage(messages.plonesite)}
-            title={intl.formatMessage(messages.plonesite)}
-          />
+          <Icon name={logoImage} size="80px" />
         </UniversalLink>
       </div>
     </div>

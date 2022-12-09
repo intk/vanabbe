@@ -48,10 +48,6 @@
   Page Heading
 ---------------*/
 
-@bigLineHeight: 1.1;
-@mediumLineHeight: 1.2;
-@smallLineHeight: 1.3;
-
 @desktopH1: unit((80 / @emSize), rem);
 @desktopH2: unit((52 / @emSize), rem);
 @desktopH3: unit((28 / @emSize), rem);
@@ -122,10 +118,19 @@
 /*-------------------
         Page
 --------------------*/
-
 @pageBackground: @white;
+
+/*-------------------
+      Typography
+--------------------*/
+
 @textColor: @darkGrey;
-@lineHeight: 1.9;
+
+/*---   Line height  ---*/
+@smallLineHeight: 1.1;
+@mediumLineHeight: 1.2;
+@bigLineHeight: 1.3;
+@largeLineHeight: 2.6;
 
 /*-------------------
     Border Radius
@@ -166,7 +171,7 @@
 @leftColumnSize: 30%;
 @rightColumnSize: 70%;
 
-.stickyHeaderWidth(@toolbar, @sidebar) {
+.dynamicContentWidth(@toolbar, @sidebar) {
   left: @toolbar;
   width: calc(100% - @sidebar);
 }

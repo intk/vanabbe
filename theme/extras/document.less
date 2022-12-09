@@ -32,8 +32,9 @@ h6 {
 }
 
 h1 {
+  margin-bottom: var(--space-sm);
   font-size: @desktopH1;
-  line-height: @bigLineHeight;
+  line-height: @smallLineHeight;
 }
 
 h2 {
@@ -43,17 +44,22 @@ h2 {
 
 h3 {
   font-size: @desktopH3;
-  line-height: @smallLineHeight;
+  line-height: @bigLineHeight;
 }
 
 h4 {
   font-size: @desktopH4;
-  line-height: @smallLineHeight;
+  line-height: @bigLineHeight;
 }
 
 h5 {
   font-size: @desktopH5;
-  line-height: @smallLineHeight;
+  line-height: @bigLineHeight;
+}
+
+ul li {
+  font-size: @desktopBodyFontSize;
+  line-height: 46px;
 }
 
 @media only screen and (min-width: @widescreenMonitorBreakpoint) {
@@ -86,6 +92,11 @@ h5 {
   p {
     font-size: @tabletBodyFontSize;
   }
+
+  ul li {
+    font-size: @tabletBodyFontSize;
+    line-height: 42px;
+  }
 }
 
 @media only screen and (max-width: @largestMobileScreen) {
@@ -107,6 +118,10 @@ h5 {
 
   h5 {
     font-size: @mobileH5;
+  }
+
+  ul li {
+    font-family: @regularFont;
   }
 }
 

@@ -4,6 +4,51 @@
 
 @headerMaxWidth: 1400px;
 
+/* Logo */
+.homepage {
+  .logo img {
+    width: 408px;
+  }
+}
+
+.logo-wrapper {
+  .logo {
+    position: fixed;
+    top: 50%;
+    right: 0;
+    transform: translate(-50%, 0);
+  }
+
+  .logo,
+  .logo a {
+    display: inline-block;
+    color: var(--text-color);
+  }
+}
+
+/* Popup menu logo */
+.open-menu {
+  .logo-wrapper {
+    display: flex;
+    margin-top: 2em;
+
+    .logo {
+      position: relative;
+      top: auto;
+      padding: 1.5em;
+      margin-left: auto;
+      transform: none;
+    }
+
+    .logo,
+    .logo a {
+      color: @wood;
+    }
+  }
+}
+
+/* Header */
+
 .header-container {
   position: relative;
 }
@@ -16,31 +61,13 @@
   left: 0;
 }
 
-.homepage {
-  .logo img {
-    width: 408px;
-  }
-}
-
-.logo-wrapper {
-  // width: 100%;
-  // height: 100%;
-
-  .logo {
-    position: fixed;
-    // position: absolute;
-    top: 50%;
-    right: 0;
-    transform: translate(-50%, 0);
-  }
-}
-
 .header-wrapper {
   .header {
-    .horizontalAlign();
     width: 100%;
-    padding: 0 1.5em;
+    margin-bottom: var(--space-xl);
+    // padding: 0 1.5em;
     background-color: var(--background-color);
+    .horizontalAlign();
 
     .ui.container {
       display: flex;
@@ -115,7 +142,7 @@
 
 body.has-toolbar.has-sidebar {
   .header-wrapper.header-out-of-view {
-    .stickyHeaderWidth(@toolbarWidth, (@toolbarWidth + @sidebarWidth));
+    .dynamicContentWidth(@toolbarWidth, (@toolbarWidth + @sidebarWidth));
   }
 }
 
@@ -123,7 +150,7 @@ body.has-toolbar.has-sidebar-collapsed {
   .header-wrapper.header-out-of-view,
   .mobile-menu,
   .popup-menu {
-    .stickyHeaderWidth(@toolbarWidth, (@toolbarWidth + @collapsedSidebarWidth));
+    .dynamicContentWidth(@toolbarWidth, (@toolbarWidth + @collapsedSidebarWidth));
   }
 }
 
@@ -131,7 +158,7 @@ body.has-toolbar:not(.has-sidebar):not(.has-sidebar-collapsed) {
   .header-wrapper.header-out-of-view,
   .mobile-menu,
   .popup-menu {
-    .stickyHeaderWidth(@toolbarWidth, @toolbarWidth);
+    .dynamicContentWidth(@toolbarWidth, @toolbarWidth);
   }
 }
 
@@ -139,7 +166,7 @@ body.has-toolbar-collapsed.has-sidebar {
   .header-wrapper.header-out-of-view,
   .mobile-menu,
   .popup-menu {
-    .stickyHeaderWidth(@toolbarWidthMin, (@sidebarWidth + @collapsedSidebarWidth));
+    .dynamicContentWidth(@toolbarWidthMin, (@sidebarWidth + @collapsedSidebarWidth));
   }
 }
 
@@ -147,7 +174,7 @@ body.has-toolbar-collapsed.has-sidebar-collapsed {
   .header-wrapper.header-out-of-view,
   .mobile-menu,
   .popup-menu {
-    .stickyHeaderWidth(@toolbarWidthMin, (@toolbarWidthMin + @collapsedSidebarWidth));
+    .dynamicContentWidth(@toolbarWidthMin, (@toolbarWidthMin + @collapsedSidebarWidth));
   }
 }
 
@@ -155,7 +182,44 @@ body.has-toolbar-collapsed:not(.has-sidebar):not(.has-sidebar-collapsed) {
   .header-wrapper.header-out-of-view,
   .mobile-menu,
   .popup-menu {
-    .stickyHeaderWidth(@toolbarWidthMin, @toolbarWidthMin);
+    .dynamicContentWidth(@toolbarWidthMin, @toolbarWidthMin);
+  }
+}
+
+//////////
+body.has-toolbar.has-sidebar.open-menu {
+  .header-wrapper > .header {
+    .dynamicContentWidth(@toolbarWidth, (@toolbarWidth + @sidebarWidth));
+  }
+}
+
+body.has-toolbar.has-sidebar-collapsed.open-menu {
+  .header-wrapper > .header {
+    .dynamicContentWidth(@toolbarWidth, (@toolbarWidth + @collapsedSidebarWidth));
+  }
+}
+
+body.has-toolbar:not(.has-sidebar):not(.has-sidebar-collapsed).open-menu {
+  .header-wrapper > .header {
+    .dynamicContentWidth(@toolbarWidth, @toolbarWidth);
+  }
+}
+
+body.has-toolbar-collapsed.has-sidebar.open-menu {
+  .header-wrapper > .header {
+    .dynamicContentWidth(@toolbarWidthMin, (@sidebarWidth + @collapsedSidebarWidth));
+  }
+}
+
+body.has-toolbar-collapsed.has-sidebar-collapsed.open-menu {
+  .header-wrapper > .header {
+    .dynamicContentWidth(@toolbarWidthMin, (@toolbarWidthMin + @collapsedSidebarWidth));
+  }
+}
+
+body.has-toolbar-collapsed:not(.has-sidebar):not(.has-sidebar-collapsed).open-menu {
+  .header-wrapper > .header {
+    .dynamicContentWidth(@toolbarWidthMin, @toolbarWidthMin);
   }
 }
 
@@ -163,7 +227,7 @@ body.has-toolbar-collapsed:not(.has-sidebar):not(.has-sidebar-collapsed) {
   .header-wrapper.header-out-of-view,
   .mobile-menu,
   .popup-menu {
-    .stickyHeaderWidth(0px, 0px) !important;
+    .dynamicContentWidth(0px, 0px) !important;
   }
 
   body.has-toolbar {
