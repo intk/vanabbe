@@ -1,0 +1,8 @@
+/*******************************
+         Segment Overrides
+*******************************/
+
+.ui.basic.segment.content-area {
+  padding: 0;
+  margin: 0;
+}
