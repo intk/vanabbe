@@ -30,12 +30,12 @@
 .open-menu {
   .logo-wrapper {
     display: flex;
-    margin-top: 2em;
+    margin-top: auto;
+    margin-bottom: 1.5em;
 
     .logo {
       position: relative;
       top: auto;
-      padding: 1.5em;
       margin-left: auto;
       transform: none;
     }
@@ -53,6 +53,17 @@
   position: relative;
 }
 
+.header-tools {
+  display: flex;
+  align-items: center;
+  font-size: @smallFontSize;
+  gap: 1em;
+
+  .ui.button {
+    font-size: @smallFontSize;
+  }
+}
+
 .header-out-of-view {
   position: fixed;
   z-index: 100;
@@ -64,8 +75,9 @@
 .header-wrapper {
   .header {
     width: 100%;
+    padding-top: 1em;
+    padding-bottom: 1em;
     margin-bottom: var(--space-xl);
-    // padding: 0 1.5em;
     background-color: var(--background-color);
     .horizontalAlign();
 
@@ -77,10 +89,10 @@
       display: flex;
       align-items: flex-end;
       margin-left: auto;
-      gap: 1.3em;
+      gap: 1.5em;
 
       .ui.button {
-        color: @wood !important;
+        color: var(--text-color) !important;
         font-size: 22px;
         text-transform: uppercase;
       }
@@ -94,7 +106,7 @@
 
 .language-selector {
   display: flex;
-  color: @secondaryColor;
+  color: var(--text-color);
   cursor: pointer;
 
   .ui.dropdown {
@@ -148,7 +160,7 @@ body.has-toolbar.has-sidebar {
 
 body.has-toolbar.has-sidebar-collapsed {
   .header-wrapper.header-out-of-view,
-  .mobile-menu,
+  .mobile-popup-menu,
   .popup-menu {
     .dynamicContentWidth(@toolbarWidth, (@toolbarWidth + @collapsedSidebarWidth));
   }
@@ -156,7 +168,7 @@ body.has-toolbar.has-sidebar-collapsed {
 
 body.has-toolbar:not(.has-sidebar):not(.has-sidebar-collapsed) {
   .header-wrapper.header-out-of-view,
-  .mobile-menu,
+  .mobile-popup-menu,
   .popup-menu {
     .dynamicContentWidth(@toolbarWidth, @toolbarWidth);
   }
@@ -164,7 +176,7 @@ body.has-toolbar:not(.has-sidebar):not(.has-sidebar-collapsed) {
 
 body.has-toolbar-collapsed.has-sidebar {
   .header-wrapper.header-out-of-view,
-  .mobile-menu,
+  .mobile-popup-menu,
   .popup-menu {
     .dynamicContentWidth(@toolbarWidthMin, (@sidebarWidth + @collapsedSidebarWidth));
   }
@@ -172,7 +184,7 @@ body.has-toolbar-collapsed.has-sidebar {
 
 body.has-toolbar-collapsed.has-sidebar-collapsed {
   .header-wrapper.header-out-of-view,
-  .mobile-menu,
+  .mobile-popup-menu,
   .popup-menu {
     .dynamicContentWidth(@toolbarWidthMin, (@toolbarWidthMin + @collapsedSidebarWidth));
   }
@@ -180,7 +192,7 @@ body.has-toolbar-collapsed.has-sidebar-collapsed {
 
 body.has-toolbar-collapsed:not(.has-sidebar):not(.has-sidebar-collapsed) {
   .header-wrapper.header-out-of-view,
-  .mobile-menu,
+  .mobile-popup-menu,
   .popup-menu {
     .dynamicContentWidth(@toolbarWidthMin, @toolbarWidthMin);
   }
@@ -225,7 +237,7 @@ body.has-toolbar-collapsed:not(.has-sidebar):not(.has-sidebar-collapsed).open-me
 
 @media only screen and (max-width: 767px) {
   .header-wrapper.header-out-of-view,
-  .mobile-menu,
+  .mobile-popup-menu,
   .popup-menu {
     .dynamicContentWidth(0px, 0px) !important;
   }
@@ -240,6 +252,10 @@ body.has-toolbar-collapsed:not(.has-sidebar):not(.has-sidebar-collapsed).open-me
     .header-wrapper.header-out-of-view {
       top: 20px;
     }
+  }
+
+  body.open-menu .header {
+    .dynamicContentWidth(0px, 0px) !important;
   }
 }
 

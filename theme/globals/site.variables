@@ -39,11 +39,6 @@
 @collapsedSidebarWidth: 20px;
 @mobileSidebarHeight: 100px;
 
-@desktopLargeBodyFontSize: 22px;
-@desktopBodyFontSize: 18px;
-@tabletBodyFontSize: 16px;
-@mobileBodyFontSize: 14px;
-
 /*--------------
   Page Heading
 ---------------*/
@@ -77,7 +72,7 @@
       Site Colors
 --------------------*/
 
-@smokeWhite: #f2eef8;
+@pearl: #f2eef8;
 @wood: #655353;
 
 @darkGrey: #1a1313;
@@ -125,6 +120,16 @@
 --------------------*/
 
 @textColor: @darkGrey;
+
+@largeFontSize: unit((22 / @emSize), rem);
+@bigFontSize: unit((18 / @emSize), rem);
+@mediumFontSize: unit((16 / @emSize), rem);
+@smallFontSize: unit((14 / @emSize), rem);
+
+@desktopLargeBodyFontSize: @largeFontSize;
+@desktopBodyFontSize: @bigFontSize;
+@tabletBodyFontSize: @mediumFontSize;
+@mobileBodyFontSize: @smallFontSize;
 
 /*---   Line height  ---*/
 @smallLineHeight: 1.1;
@@ -188,8 +193,25 @@
   &:extend(.ui.button);
   &:extend(.ui.primary.button);
   &:hover:extend(.ui.primary.button:hover) {
+    .resetStyle();
   }
+  .resetStyle();
+  font-weight: normal;
+  border-radius: 0 !important;
 }
+
+// .outlinedBtn(@color, @hoverColor) {
+//   .isBtn();
+
+//   color: @color;
+//   background-color: transparent;
+//   border: 2px solid @color;
+
+//   &:hover {
+//     color: @hoverColor;
+//     border: 2px solid @hoverColor;
+//   }
+// }
 
 .darkOverlay() {
   position: absolute;

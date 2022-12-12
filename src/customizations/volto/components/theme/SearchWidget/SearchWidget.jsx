@@ -45,6 +45,7 @@ const SearchWidgetWrapper = (props) => {
     <div id="global-search-widget">
       <Button
         basic
+        className="big-button"
         aria-label={intl.formatMessage(messages.search)}
         onClick={() => setShowPopup(true)}
       >

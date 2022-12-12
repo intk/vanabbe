@@ -76,7 +76,7 @@ export default function MobileMenu(props) {
       stackable
       pointing
       secondary
-      className="mobile tablet only mobile-menu"
+      className="mobile tablet only mobile-popup-menu"
     >
       {items
         .filter((item) => HOME.indexOf(item.url) === -1)

@@ -1,12 +1,13 @@
-/* Colors */
-@menuBackgroundColor: @smokeWhite;
-@menuTextColor: @wood;
-
 /* Font size */
 @menuFirstLevelFontSize: 16px;
 @menuSecondLevelFontSize: 22px;
 @menuTabletFirstLevelFontSize: 20px;
 @menuTabletSecondLevelFontSize: 24px;
+
+body.open-menu {
+  --text-color: @wood !important;
+  --background-color: @pearl !important;
+}
 
 .popup-menu {
   position: fixed;
@@ -15,7 +16,13 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: @menuBackgroundColor;
+  background-color: var(--background-color);
+}
+
+.popup-menu-inner {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
 }
 
 .open-menu {
@@ -23,18 +30,18 @@
 
   .header {
     padding: 1em 1.5em;
-    background-color: @menuBackgroundColor;
+    background-color: var(--background-color);
   }
 }
 
-.popup-menu-inner {
+.popup-inner {
   padding: 0 1.5em;
 }
 
 .ui.list.main-menu {
   display: flex;
   margin-top: 190px;
-  color: @menuTextColor;
+  color: var(--text-color);
   gap: 3em;
 
   .item {
@@ -42,7 +49,7 @@
   }
 
   a {
-    color: @menuTextColor;
+    color: var(--text-color);
   }
 
   .item.firstLevel {
@@ -62,15 +69,15 @@
    Mobile menu
 ------------------------------------------------*/
 
-.ui.secondary.pointing.mobile-menu {
+.ui.secondary.pointing.mobile-popup-menu {
   display: block;
-  padding: 1.5em;
+  padding: 1.5em 0;
   border-bottom: none;
   margin-top: @mobileSidebarHeight;
 
   .active.item,
   a {
-    color: @menuTextColor;
+    color: var(--text-color);
   }
 
   .item.firstLevel {
@@ -132,7 +139,7 @@
       top: calc(@mobileSidebarHeight);
     }
 
-    .ui.secondary.pointing.mobile-menu {
+    .ui.secondary.pointing.mobile-popup-menu {
       margin-top: calc(@mobileSidebarHeight + 50px);
     }
   }
@@ -155,14 +162,14 @@
 }
 
 @media only screen and (max-width: @largestMobileScreen) {
-  .mobile-menu {
+  .mobile-popup-menu {
     left: 0 !important;
     width: 100% !important;
   }
 }
 
 @media only screen and (max-width: @largestMobileScreen) {
-  .mobile-menu {
+  .mobile-popup-menu {
     left: 0;
     width: 100%;
   }

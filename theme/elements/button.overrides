@@ -6,6 +6,31 @@
   .isBtn();
 }
 
+.ui.primary.button {
+  padding: calc(0.9em - 2px);
+  border: 2px solid var(--text-color);
+  background-color: transparent;
+  color: var(--text-color);
+}
+
+.ui.primary.button:not(.basic):hover,
+.ui.primary.button:not(.basic):active {
+  padding: calc(0.9em - 3px);
+  border: 3px solid var(--text-color);
+  background-color: transparent;
+  color: var(--text-color);
+}
+
+.ui.button.big-button {
+  padding-bottom: 3px;
+  border-bottom: 2px solid transparent;
+  background-color: transparent;
+
+  &:hover {
+    border-color: var(--text-color);
+  }
+}
+
 .link-more a {
   .isBtn();
 }

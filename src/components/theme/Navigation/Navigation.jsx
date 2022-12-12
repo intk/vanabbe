@@ -56,6 +56,7 @@ function Navigation({ pathname, intl, items, lang }) {
 
       <Button
         basic
+        className="big-button"
         onClick={handleClick}
         aria-label={intl.formatMessage(messages.openMobileMenu)}
       >
@@ -67,11 +68,11 @@ function Navigation({ pathname, intl, items, lang }) {
       </Button>
 
       <PopupMenu open={isOpened}>
-        <div className="popup-menu-inner">
+        <div className="popup-inner popup-menu-inner">
           <DesktopMenu items={items} lang={lang} />
           <MobileMenu items={items} lang={lang} />
+          <Logo />
         </div>
-        <Logo />
       </PopupMenu>
     </nav>
   );

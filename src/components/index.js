@@ -4,3 +4,4 @@ export ResponsiveContainer from './theme/ResponsiveContainer/ResponsiveContainer
 export { FormattedDate } from './FormattedDate/FormattedDate';
 export ScrollToTop from './theme/ScrollToTop/ScrollToTop';
 export ListingBlockHeader from './blocks/Listing/ListingBlockHeader';
+export ContrastToggle from './theme/ContrastToggle/ContrastToggle';
