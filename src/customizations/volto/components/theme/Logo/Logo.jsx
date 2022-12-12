@@ -22,7 +22,8 @@ const messages = defineMessages({
  * @param {Object} intl Intl object
  * @returns {string} Markup of the component.
  */
-const Logo = () => {
+const Logo = (props) => {
+  const { size = '80px' } = props;
   const { settings } = config;
   const lang = useSelector((state) => state.intl.locale);
   const intl = useIntl();
@@ -34,7 +35,7 @@ const Logo = () => {
           href={settings.isMultilingual ? `/${lang}` : '/'}
           title={intl.formatMessage(messages.site)}
         >
-          <Icon name={logoImage} size="80px" />
+          <Icon name={logoImage} size={size} />
         </UniversalLink>
       </div>
     </div>

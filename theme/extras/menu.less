@@ -4,9 +4,14 @@
 @menuTabletFirstLevelFontSize: 20px;
 @menuTabletSecondLevelFontSize: 24px;
 
+body[data-theme='contrast-mode'].open-menu {
+  --text-color: #000;
+  --background-color: #fff;
+}
+
 body.open-menu {
-  --text-color: @wood !important;
-  --background-color: @pearl !important;
+  --text-color: @wood;
+  --background-color: @pearl;
 }
 
 .popup-menu {

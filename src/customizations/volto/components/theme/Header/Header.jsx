@@ -56,8 +56,8 @@ const Header = (props) => {
               <div className="header-tools">
                 <Button primary>Tickets</Button>
                 <div>
-                  <LanguageSelector />
                   <ContrastToggle />
+                  <LanguageSelector />
                 </div>
               </div>
             </div>

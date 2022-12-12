@@ -71,7 +71,7 @@ function Navigation({ pathname, intl, items, lang }) {
         <div className="popup-inner popup-menu-inner">
           <DesktopMenu items={items} lang={lang} />
           <MobileMenu items={items} lang={lang} />
-          <Logo />
+          <Logo size="100px" />
         </div>
       </PopupMenu>
     </nav>

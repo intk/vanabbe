@@ -1,16 +1,22 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './style.less';
+import { useAtom } from 'jotai';
+import { contrastModeAtom } from './../../../state';
 
 const ContrastToggle = () => {
-  const [toggle, setToggle] = useState(false);
+  const [contrastMode, setContrastMode] = useAtom(contrastModeAtom);
 
-  const onToggle = () => setToggle(!toggle);
+  const toggleContrastMode = () => setContrastMode(!contrastMode);
 
   return (
     <div className="contrast-toggle">
       Contrast
       <label className="toggle-switch">
-        <input type="checkbox" checked={toggle} onChange={onToggle} />
+        <input
+          type="checkbox"
+          checked={contrastMode}
+          onChange={toggleContrastMode}
+        />
         <span className="switch" />
       </label>
     </div>
