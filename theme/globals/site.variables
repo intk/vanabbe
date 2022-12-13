@@ -114,6 +114,7 @@
         Page
 --------------------*/
 @pageBackground: @white;
+@pagePadding: 40px;
 
 /*-------------------
       Typography

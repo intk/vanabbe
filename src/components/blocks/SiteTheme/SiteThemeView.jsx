@@ -10,8 +10,8 @@ const getRandomTheme = (themes) => {
 };
 
 const SiteThemeView = (props) => {
-  const { siteThemes } = config.settings;
   const { theme } = props.data;
+  const { siteThemes } = config.settings;
   const [siteTheme, setSiteTheme] = React.useState('default');
   const [contrastMode] = useAtom(contrastModeAtom);
 
@@ -24,14 +24,14 @@ const SiteThemeView = (props) => {
     } else {
       setSiteTheme('default');
     }
-  }, [contrastMode, theme, siteTheme]);
+  }, [contrastMode, theme]);
 
   React.useEffect(() => {
     document.body.setAttribute('data-theme', siteTheme);
   }, [siteTheme]);
 
   const handleTheme = (e) => {
-    if (e.currentTarget !== e.target && !contrastMode) return;
+    if (e.currentTarget !== e.target || contrastMode) return;
     setSiteTheme(getRandomTheme(siteThemes));
   };
 
