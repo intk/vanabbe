@@ -11,7 +11,8 @@ import { useLocation } from 'react-router-dom';
 import { Button } from 'semantic-ui-react';
 import { getNavigation } from '@plone/volto/actions';
 import { BodyClass } from '@plone/volto/helpers';
-import { Logo } from '@plone/volto/components';
+import { LanguageSelector, Logo } from '@plone/volto/components';
+import { ContrastToggle } from '@package/components';
 
 import DesktopMenu from './DesktopMenu';
 import MobileMenu from './MobileMenu';
@@ -71,7 +72,15 @@ function Navigation({ pathname, intl, items, lang }) {
         <div className="popup-inner popup-menu-inner">
           <DesktopMenu items={items} lang={lang} />
           <MobileMenu items={items} lang={lang} />
-          <Logo size="100px" />
+          <div className="popup-bottom">
+            <div>
+              <div className="mobile tablet only">
+                <ContrastToggle />
+                <LanguageSelector />
+              </div>
+            </div>
+            <Logo size="100px" />
+          </div>
         </div>
       </PopupMenu>
     </nav>

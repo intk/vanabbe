@@ -14,6 +14,13 @@ body.open-menu {
   --background-color: @pearl;
 }
 
+.logo-wrapper {
+  .logo,
+  .logo a {
+    color: var(--text-color) !important;
+  }
+}
+
 .popup-menu {
   position: fixed;
   z-index: 9;
@@ -145,7 +152,7 @@ body.open-menu {
     }
 
     .ui.secondary.pointing.mobile-popup-menu {
-      margin-top: calc(@mobileSidebarHeight + 50px);
+      margin-top: calc(@mobileSidebarHeight + 80px);
     }
   }
 
@@ -156,26 +163,9 @@ body.open-menu {
   }
 }
 
-.open-menu {
-  .header-wrapper > .header {
-    position: absolute;
-    z-index: 10;
-    top: 0;
-    right: 0;
-    left: 0;
-  }
-}
-
 @media only screen and (max-width: @largestMobileScreen) {
   .mobile-popup-menu {
     left: 0 !important;
     width: 100% !important;
-  }
-}
-
-@media only screen and (max-width: @largestMobileScreen) {
-  .mobile-popup-menu {
-    left: 0;
-    width: 100%;
   }
 }

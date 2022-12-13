@@ -56,8 +56,10 @@ const Header = (props) => {
               <div className="header-tools">
                 <Button primary>Tickets</Button>
                 <div>
-                  <ContrastToggle />
-                  <LanguageSelector />
+                  <div className="computer large screen widescreen only">
+                    <ContrastToggle />
+                    <LanguageSelector />
+                  </div>
                 </div>
               </div>
             </div>
@@ -67,6 +69,7 @@ const Header = (props) => {
             </div>
           </div>
         </div>
+
         <InView
           as="div"
           className="header-visibility-sensor"
