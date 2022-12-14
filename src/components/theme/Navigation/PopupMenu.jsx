@@ -42,7 +42,7 @@ const PopupMenu = (props) => {
               }}
               ref={asideElement}
               key="popupmenu"
-              className={cx('popup-menu', className)}
+              className={cx('popup-menu full_width', className)}
               style={{ overflowY: 'auto' }}
             >
               {children}

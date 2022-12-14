@@ -37,6 +37,7 @@ const SiteThemeSchema = ({ intl }) => {
         title: intl.formatMessage(messages.themeTitle),
         description: intl.formatMessage(messages.themeDescription),
         choices: themes,
+        default: 'default',
       },
     },
     required: [],

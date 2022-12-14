@@ -3,6 +3,12 @@
 
 @import (multiple) '../../theme.config';
 
+.hero-section {
+  > .ui.grid {
+    margin-top: 0 !important;
+  }
+}
+
 .herosection {
   position: relative;
 }
@@ -19,7 +25,7 @@
   background-size: cover;
   border-top-left-radius: @defaultBorderRadius;
   border-top-right-radius: @defaultBorderRadius;
-  box-shadow: 0px 0px 43px 0px rgba(2, 2, 2, 0.1);
+  // box-shadow: 0px 0px 43px 0px rgba(2, 2, 2, 0.1);
 }
 
 .herosection .content-wrapper {

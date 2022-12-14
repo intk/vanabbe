@@ -6,17 +6,41 @@
 
 /* Logo */
 .logo-wrapper {
+  position: fixed;
+  z-index: 9;
+  top: 50%;
+  right: 0 !important;
+  width: 100%;
+  max-width: 1280px;
+  padding-right: 40px !important;
+  padding-left: 40px !important;
+
+  @media only screen and (max-width: 600px) {
+    padding-right: 16px !important;
+    padding-left: 16px !important;
+
+    .page-logo {
+      margin-right: 0;
+    }
+  }
+
+  // right: 0;
+  // right: @oneWide;
+  margin: 0 auto;
+  // transform: translate(-50%, 0);
+
   .logo {
-    position: fixed;
-    top: 50%;
-    right: 0;
-    transform: translate(-50%, 0);
   }
 
   .logo,
   .logo a {
     display: inline-block;
   }
+}
+
+.page-logo {
+  margin-right: 18px;
+  text-align: right;
 }
 
 .open-menu {
@@ -52,6 +76,25 @@
 
 /* Header */
 
+.header {
+  font-size: @smallFontSize;
+
+  > .ui.grid {
+    width: 100%;
+  }
+
+  .ui.button {
+    // width: 100%;
+    font-size: @smallFontSize;
+  }
+}
+
+#global-search-widget {
+  .ui.button {
+    text-align: right;
+  }
+}
+
 .header-container {
   position: relative;
 }
@@ -82,25 +125,31 @@
     padding-bottom: 1em;
     margin-bottom: var(--space-xl);
     background-color: var(--background-color);
-    .horizontalAlign();
+    // .horizontalAlign();
 
     .ui.container {
       display: flex;
     }
 
-    .right-section {
-      display: flex;
-      align-items: flex-end;
-      margin-left: auto;
-      gap: 1.5em;
+    // .right-section {
+    //   display: flex;
+    //   align-items: flex-end;
+    //   margin-left: auto;
+    //   gap: 1.5em;
 
-      .ui.button {
-        color: var(--text-color) !important;
-        font-size: 22px;
-        text-transform: uppercase;
-      }
-    }
+    //   .ui.button {
+    //     color: var(--text-color) !important;
+    //     font-size: 22px;
+    //     text-transform: uppercase;
+    //   }
+    // }
   }
+}
+
+.ui.button.big-button {
+  color: var(--text-color) !important;
+  font-size: 22px;
+  text-transform: uppercase;
 }
 
 /*-----------------------------------------------
@@ -148,6 +197,7 @@
   a.selected,
   a:hover {
     color: @primaryColor;
+    font-weight: normal;
   }
 
   svg {
@@ -156,47 +206,37 @@
 }
 
 body.has-toolbar.has-sidebar {
-  .header-wrapper.header-out-of-view {
+  .full_width {
     .dynamicContentWidth(@toolbarWidth, (@toolbarWidth + @sidebarWidth));
   }
 }
 
 body.has-toolbar.has-sidebar-collapsed {
-  .header-wrapper.header-out-of-view,
-  .mobile-popup-menu,
-  .popup-menu {
+  .full_width {
     .dynamicContentWidth(@toolbarWidth, (@toolbarWidth + @collapsedSidebarWidth));
   }
 }
 
 body.has-toolbar:not(.has-sidebar):not(.has-sidebar-collapsed) {
-  .header-wrapper.header-out-of-view,
-  .mobile-popup-menu,
-  .popup-menu {
+  .full_width {
     .dynamicContentWidth(@toolbarWidth, @toolbarWidth);
   }
 }
 
 body.has-toolbar-collapsed.has-sidebar {
-  .header-wrapper.header-out-of-view,
-  .mobile-popup-menu,
-  .popup-menu {
+  .full_width {
     .dynamicContentWidth(@toolbarWidthMin, (@sidebarWidth + @collapsedSidebarWidth));
   }
 }
 
 body.has-toolbar-collapsed.has-sidebar-collapsed {
-  .header-wrapper.header-out-of-view,
-  .mobile-popup-menu,
-  .popup-menu {
+  .full_width {
     .dynamicContentWidth(@toolbarWidthMin, (@toolbarWidthMin + @collapsedSidebarWidth));
   }
 }
 
 body.has-toolbar-collapsed:not(.has-sidebar):not(.has-sidebar-collapsed) {
-  .header-wrapper.header-out-of-view,
-  .mobile-popup-menu,
-  .popup-menu {
+  .full_width {
     .dynamicContentWidth(@toolbarWidthMin, @toolbarWidthMin);
   }
 }
@@ -239,9 +279,7 @@ body.has-toolbar-collapsed:not(.has-sidebar):not(.has-sidebar-collapsed).open-me
 }
 
 @media only screen and (max-width: @tabletBreakpoint) {
-  .header-wrapper.header-out-of-view,
-  .mobile-popup-menu,
-  .popup-menu {
+  .full_width {
     .dynamicContentWidth(0px, 0px) !important;
   }
 
@@ -262,11 +300,9 @@ body.has-toolbar-collapsed:not(.has-sidebar):not(.has-sidebar-collapsed).open-me
   }
 }
 
-@media only screen and (max-width: @mobileLandscapeBreakpoint) {
-  .logo-wrapper {
-    .logo svg {
-      height: 40px !important;
-    }
+@media only screen and (max-width: @largestMobileScreen) {
+  .logo svg {
+    height: 40px !important;
   }
 }
 

@@ -9,7 +9,7 @@ import {
   Navigation,
   SearchWidget,
 } from '@plone/volto/components';
-import { Container, Button } from 'semantic-ui-react';
+import { Container, Button, Grid } from 'semantic-ui-react';
 import { BodyClass, isCmsUi } from '@plone/volto/helpers';
 import { HeroSection, ContrastToggle } from '@package/components'; // , StickyHeader
 import cx from 'classnames';
@@ -40,19 +40,25 @@ const Header = (props) => {
       >
         {homePageView && <BodyClass className="homepage-view" />}
         {!cmsView && <BodyClass className="has-image" />}
-        <div className={`${homePageView ? 'home-nav' : 'page-nav'}`}>
-          <Logo />
+
+        <div className="logo-wrapper fixed-logo full_width">
+          <div className={`${homePageView ? 'home-logo' : 'page-logo'}`}>
+            <Logo />
+          </div>
         </div>
+
         <div
           className={cx(
             'header-wrapper',
             homePageView ? 'homepage' : 'contentpage',
-            inView ? 'header-in-view' : 'header-out-of-view fadeInDown',
+            inView
+              ? 'header-in-view'
+              : 'header-out-of-view fadeInDown full_width',
           )}
           role="banner"
         >
           <div className="header">
-            <div className="left-section">
+            {/* <div className="left-section">
               <div className="header-tools">
                 <Button primary>Tickets</Button>
                 <div>
@@ -66,6 +72,36 @@ const Header = (props) => {
             <div className="right-section">
               <SearchWidget pathname={pathname} />
               <Navigation pathname={pathname} navigation={navigationItems} />
+            </div> */}
+            <div className={`${inView ? '' : 'ui container'}`}>
+              <Grid>
+                <Grid.Row>
+                  <Grid.Column computer={1} tablet={2} mobile={2}>
+                    <Button primary>Tickets</Button>
+                  </Grid.Column>
+                  <Grid.Column only="computer large screen" width={2}>
+                    <div>
+                      <ContrastToggle />
+                      <LanguageSelector />
+                    </div>
+                  </Grid.Column>
+                  <Grid.Column computer={6} tablet={6} mobile={4}></Grid.Column>
+                  <Grid.Column
+                    computer={2}
+                    tablet={2}
+                    mobile={4}
+                    style={{ textAlign: 'right' }}
+                  >
+                    <SearchWidget pathname={pathname} />
+                  </Grid.Column>
+                  <Grid.Column>
+                    <Navigation
+                      pathname={pathname}
+                      navigation={navigationItems}
+                    />
+                  </Grid.Column>
+                </Grid.Row>
+              </Grid>
             </div>
           </div>
         </div>

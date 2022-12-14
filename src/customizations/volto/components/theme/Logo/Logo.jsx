@@ -29,15 +29,13 @@ const Logo = (props) => {
   const intl = useIntl();
 
   return (
-    <div className="logo-wrapper">
-      <div className="logo">
-        <UniversalLink
-          href={settings.isMultilingual ? `/${lang}` : '/'}
-          title={intl.formatMessage(messages.site)}
-        >
-          <Icon name={logoImage} size={size} />
-        </UniversalLink>
-      </div>
+    <div className="logo">
+      <UniversalLink
+        href={settings.isMultilingual ? `/${lang}` : '/'}
+        title={intl.formatMessage(messages.site)}
+      >
+        <Icon name={logoImage} size={size} />
+      </UniversalLink>
     </div>
   );
 };

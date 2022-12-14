@@ -35,3 +35,15 @@
     padding-left: (@mobileGutterWidth / 2);
   }
 }
+
+.column-offset-1-left {
+  margin-left: @oneWide;
+}
+
+.column-offset-1-right {
+  margin-right: @oneWide;
+}
+
+.column-offset-2 {
+  margin-left: @twoWide;
+}

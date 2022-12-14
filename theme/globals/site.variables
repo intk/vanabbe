@@ -194,7 +194,6 @@
   &:extend(.ui.button);
   &:extend(.ui.primary.button);
   &:hover:extend(.ui.primary.button:hover) {
-    .resetStyle();
   }
   .resetStyle();
   font-weight: normal;

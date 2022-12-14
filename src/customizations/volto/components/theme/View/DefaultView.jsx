@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { RenderBlocks } from '@plone/volto/components';
-import { Container } from 'semantic-ui-react';
+import { Container, Grid } from 'semantic-ui-react';
 
 import { hasBlocksData, getBaseUrl } from '@plone/volto/helpers';
 
@@ -40,7 +40,28 @@ const DefaultView = (props) => {
             <p className={'content-description'}>{description}</p>
           )}
         </div> */}
-        <RenderBlocks {...props} path={path} content={filteredContent} />
+
+        <Grid>
+          <Grid.Row>
+            <Grid.Column className="column-offset-1-right">
+              <div className="content-wrapper">
+                <Grid>
+                  <Grid.Row>
+                    <Grid.Column className="column-offset-1-left column-offset-1-right">
+                      <div className="blocks-wrapper">
+                        <RenderBlocks
+                          {...props}
+                          path={path}
+                          content={filteredContent}
+                        />
+                      </div>
+                    </Grid.Column>
+                  </Grid.Row>
+                </Grid>
+              </div>
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>
       </div>
     </div>
   ) : (
