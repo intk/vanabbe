@@ -8,3 +8,5 @@ omelette
 .env
 *.log
 *.yml
+backend
+docker-compose.yml
