@@ -44,6 +44,6 @@
   margin-right: @oneWide;
 }
 
-.column-offset-2 {
+.column-offset-2-left {
   margin-left: @twoWide;
 }

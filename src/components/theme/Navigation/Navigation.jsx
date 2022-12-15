@@ -79,7 +79,7 @@ function Navigation({ pathname, intl, items, lang }) {
                 <LanguageSelector />
               </div>
             </div>
-            <Logo size="100px" />
+            <Logo height="100px" />
           </div>
         </div>
       </PopupMenu>

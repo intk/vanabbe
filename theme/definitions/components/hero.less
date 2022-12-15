@@ -3,7 +3,7 @@
 
 @import (multiple) '../../theme.config';
 
-.hero-section {
+.herosection-wrapper {
   > .ui.grid {
     margin-top: 0 !important;
   }
@@ -25,7 +25,6 @@
   background-size: cover;
   border-top-left-radius: @defaultBorderRadius;
   border-top-right-radius: @defaultBorderRadius;
-  // box-shadow: 0px 0px 43px 0px rgba(2, 2, 2, 0.1);
 }
 
 .herosection .content-wrapper {
@@ -47,6 +46,14 @@
 .herosection .content-image-caption {
   font-size: @heroSectionContentImageCaptionFontSize;
   opacity: @heroSectionContentImageCaptionOpacity;
+}
+
+.herosection-wrapper {
+  @media only screen and (max-width: @largestTabletScreen) {
+    .column-offset-1-left {
+      margin-left: 0;
+    }
+  }
 }
 
 .loadUIOverrides();

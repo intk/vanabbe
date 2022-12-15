@@ -2,38 +2,21 @@
          Container Overrides
 *******************************/
 
-// .ui.container {
-//   padding: 0 2.5rem;
-// }
-
-@maxWidth: 1280px;
-
 /* All Sizes */
 #main .ui.container {
   display: block;
   width: 100% !important;
-  max-width: @maxWidth !important;
-  padding-right: @pagePadding !important;
-  padding-left: @pagePadding !important;
-  margin-right: auto !important;
-  margin-left: auto !important;
+  max-width: @contentMaxWidth !important;
+  padding-right: @desktopPadding !important;
+  padding-left: @desktopPadding !important;
 
   > .ui.container {
     padding: 0 !important;
   }
 
-  @media only screen and (max-width: 600px) {
-    padding-right: 16px !important;
-    padding-left: 16px !important;
+  @media only screen and (max-width: @largestTabletScreen) {
+    padding-right: @mobilePadding !important;
+    padding-left: @mobilePadding !important;
+    margin: 0 auto !important;
   }
-}
-
-.content-wrapper {
-  width: 100%;
-  padding: @pagePadding 0;
-  background-color: @white;
-}
-
-.blocks-wrapper {
-  max-width: 790px;
 }

@@ -30,9 +30,9 @@
 @computerWidth: @computerBreakpoint - (@computerMinimumGutter * 2) - @scrollbarWidth;
 @computerGutter: auto;
 
-// @largeMonitorWidth: @laptopMonitorBreakpoint - (@largeMonitorMinimumGutter * 2) - @scrollbarWidth;
+// @largeMonitorWidth: @contentMaxWidth - (@largeMonitorMinimumGutter * 2) - @scrollbarWidth;
 @largeMonitorMinimumGutter: (@emSize  * 2);
-@largeMonitorWidth: @laptopMonitorBreakpoint;
+@largeMonitorWidth: @contentMaxWidth;
 @largeMonitorGutter: auto;
 
 /* Coupling (Add Negative Margin to container size) */

@@ -2,45 +2,22 @@
             Header
 *******************************/
 
-@headerMaxWidth: 1400px;
-
 /* Logo */
 .logo-wrapper {
-  position: fixed;
-  z-index: 9;
-  top: 50%;
-  right: 0 !important;
-  width: 100%;
-  max-width: 1280px;
-  padding-right: 40px !important;
-  padding-left: 40px !important;
+  // align fixed position logo to the right
+  direction: rtl;
 
-  @media only screen and (max-width: 600px) {
-    padding-right: 16px !important;
-    padding-left: 16px !important;
+  .fixed-logo {
+    position: fixed;
+    z-index: 9;
+    top: 50%;
 
-    .page-logo {
-      margin-right: 0;
+    .logo,
+    .logo a {
+      display: inline-block;
+      color: var(--text-color);
     }
   }
-
-  // right: 0;
-  // right: @oneWide;
-  margin: 0 auto;
-  // transform: translate(-50%, 0);
-
-  .logo {
-  }
-
-  .logo,
-  .logo a {
-    display: inline-block;
-  }
-}
-
-.page-logo {
-  margin-right: 18px;
-  text-align: right;
 }
 
 .open-menu {
@@ -52,7 +29,6 @@
     left: 0;
   }
 
-  /* Popup menu logo */
   .popup-bottom {
     display: flex;
     align-items: flex-end;
@@ -84,7 +60,6 @@
   }
 
   .ui.button {
-    // width: 100%;
     font-size: @smallFontSize;
   }
 }
@@ -103,7 +78,7 @@
   display: flex;
   align-items: center;
   font-size: @smallFontSize;
-  gap: 1em;
+  gap: 1.5em;
 
   .ui.button {
     font-size: @smallFontSize;
@@ -120,29 +95,35 @@
 
 .header-wrapper {
   .header {
-    width: 100%;
     padding-top: 1em;
     padding-bottom: 1em;
     margin-bottom: var(--space-xl);
     background-color: var(--background-color);
-    // .horizontalAlign();
+
+    .header-section {
+      display: flex;
+      width: 100%;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
 
     .ui.container {
       display: flex;
     }
 
-    // .right-section {
-    //   display: flex;
-    //   align-items: flex-end;
-    //   margin-left: auto;
-    //   gap: 1.5em;
+    .right-section {
+      display: flex;
+      align-items: flex-end;
+      margin-left: auto;
+      gap: 1.5em;
 
-    //   .ui.button {
-    //     color: var(--text-color) !important;
-    //     font-size: 22px;
-    //     text-transform: uppercase;
-    //   }
-    // }
+      .ui.button {
+        color: var(--text-color) !important;
+        font-size: 22px;
+        text-transform: uppercase;
+      }
+    }
   }
 }
 
@@ -241,7 +222,6 @@ body.has-toolbar-collapsed:not(.has-sidebar):not(.has-sidebar-collapsed) {
   }
 }
 
-//////////
 body.has-toolbar.has-sidebar.open-menu {
   .header-wrapper > .header {
     .dynamicContentWidth(@toolbarWidth, (@toolbarWidth + @sidebarWidth));

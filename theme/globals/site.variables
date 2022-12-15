@@ -114,7 +114,8 @@
         Page
 --------------------*/
 @pageBackground: @white;
-@pagePadding: 40px;
+@desktopPadding: 40px;
+@mobilePadding: 16px;
 
 /*-------------------
       Typography
@@ -161,10 +162,9 @@
 @computerBreakpoint: 992px;
 @smallMonitorBreakpoint: 1024px;
 @largeMonitorBreakpoint: 1200px;
-@laptopMonitorBreakpoint: 1280px;
 @widescreenMonitorBreakpoint: 1800px;
 
-@siteBreakpoint: 1400px;
+@contentMaxWidth: 1280px;
 
 /*-------------------
       Other

@@ -10,7 +10,7 @@ function HeroSection(props) {
   // const location = useLocation();
 
   return (
-    <div className="hero-section">
+    <div className="herosection-wrapper">
       {/* <Breadcrumbs pathname={location.pathname} /> */}
 
       <Grid>
