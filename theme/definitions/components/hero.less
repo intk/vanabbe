@@ -34,7 +34,7 @@
 }
 
 .herosection .content-image-caption {
-  padding: 20px 0;
+  padding: calc(@desktopPadding / 2) @desktopPadding;
   color: var(--text-color);
   font-size: @heroSectionContentImageCaptionFontSize;
 }
@@ -53,6 +53,7 @@
 
 .content-description {
   margin-bottom: var(--space-xl) !important;
+  font-size: @extraFontSize;
 }
 
 .loadUIOverrides();

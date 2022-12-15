@@ -38,11 +38,13 @@ h1 {
 }
 
 h2 {
+  margin-bottom: var(--space-lg);
   font-size: @desktopH2;
   line-height: @mediumLineHeight;
 }
 
 h3 {
+  margin-top: var(--space-md);
   font-size: @desktopH3;
   line-height: @bigLineHeight;
 }
@@ -142,10 +144,13 @@ a {
 
 .content-wrapper {
   width: 100%;
-  padding: @desktopPadding 0;
-  // background-color: @white;
+  min-height: 600px;
 }
 
 .blocks-wrapper {
-  max-width: 790px;
+  section {
+    padding: @desktopPadding;
+    padding-right: @oneWide;
+    background-color: @white;
+  }
 }

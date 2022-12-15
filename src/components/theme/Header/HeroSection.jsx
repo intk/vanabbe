@@ -44,9 +44,7 @@ function HeroSection(props) {
               </div>
               <div className="caption">
                 {preview_caption && (
-                  <p className="content-image-caption column-offset-1-left">
-                    {preview_caption}
-                  </p>
+                  <p className="content-image-caption">{preview_caption}</p>
                 )}
               </div>
             </div>

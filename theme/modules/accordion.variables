@@ -1,0 +1,49 @@
+/*******************************
+           Accordion
+*******************************/
+
+/* Title */
+
+/* Icon */
+
+/* Child Accordion */
+
+/* Content */
+
+/*-------------------
+       Coupling
+--------------------*/
+
+/*-------------------
+       States
+--------------------*/
+
+@activeIconTransform: none;
+
+/*-------------------
+      Variations
+--------------------*/
+
+/* Styled */
+@styledBorderRadius: 0;
+@styledBoxShadow: none;
+
+/* Content */
+
+/* Child Content */
+
+/* Styled Title */
+@styledTitleFontWeight: @normal;
+@styledTitleColor: @teal;
+@styledTitleBorder: none;
+@styledTitlePadding: 1.5em 0;
+
+/* Styled Title States */
+@styledTitleHoverBackground: transparent;
+@styledTitleHoverColor: @teal;
+@styledActiveTitleBackground: transparent;
+@styledActiveTitleColor: @teal;
+
+/* Styled Child Title States */
+
+/* Inverted */

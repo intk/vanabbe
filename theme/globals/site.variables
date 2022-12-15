@@ -123,6 +123,7 @@
 
 @textColor: @darkGrey;
 
+@extraFontSize: unit((28 / @emSize), rem);
 @largeFontSize: unit((22 / @emSize), rem);
 @bigFontSize: unit((18 / @emSize), rem);
 @mediumFontSize: unit((16 / @emSize), rem);

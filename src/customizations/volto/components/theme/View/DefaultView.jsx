@@ -47,7 +47,7 @@ const DefaultView = (props) => {
               <div className="content-wrapper">
                 <Grid>
                   <Grid.Row>
-                    <Grid.Column className="column-offset-1-left column-offset-1-right">
+                    <Grid.Column>
                       <div className="blocks-wrapper">
                         <RenderBlocks
                           {...props}
