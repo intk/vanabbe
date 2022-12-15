@@ -27,25 +27,16 @@
   border-top-right-radius: @defaultBorderRadius;
 }
 
-.herosection .content-wrapper {
-  position: absolute;
-  top: 50%;
-  right: 0;
-  left: 0;
-  padding: 0 1.8em;
-  margin: @heroSectionContentMargin;
-  color: @heroSectionContentColor;
-  transform: translateY(-50%);
-}
-
-.herosection .content-wrapper.caption {
-  top: auto;
-  bottom: 1.3em;
+.herosection {
+  .caption {
+    background-color: @white;
+  }
 }
 
 .herosection .content-image-caption {
+  padding: 20px 0;
+  color: var(--text-color);
   font-size: @heroSectionContentImageCaptionFontSize;
-  opacity: @heroSectionContentImageCaptionOpacity;
 }
 
 .herosection-wrapper {
@@ -54,6 +45,14 @@
       margin-left: 0;
     }
   }
+}
+
+.content-title {
+  margin-bottom: var(--space-sm);
+}
+
+.content-description {
+  margin-bottom: var(--space-xl) !important;
 }
 
 .loadUIOverrides();

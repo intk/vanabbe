@@ -5,3 +5,4 @@ export { FormattedDate } from './FormattedDate/FormattedDate';
 export ScrollToTop from './theme/ScrollToTop/ScrollToTop';
 export ListingBlockHeader from './blocks/Listing/ListingBlockHeader';
 export ContrastToggle from './theme/ContrastToggle/ContrastToggle';
+export OpenHours from './theme/OpenHours/OpenHours';

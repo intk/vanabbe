@@ -1,19 +1,20 @@
+import loadable from '@loadable/component';
 import CookieBanner from 'volto-cookie-banner/CookieBannerContainer';
 import { MultilingualWidget } from 'volto-multilingual-widget';
 
-// import installStyleMenu from 'volto-slate/editor/plugins/StyleMenu';
-import loadable from '@loadable/component';
-import AttachedImageWidget from './components/widgets/AttachedImageWidget';
+import { getContent, getNavigation } from '@plone/volto/actions';
+import { getBaseUrl } from '@plone/volto/helpers';
+
 import installBlocks from './components/blocks';
+import installFooter from './footer';
+
+import AttachedImageWidget from './components/widgets/AttachedImageWidget';
 import MultipleContentView from './components/theme/View/MultipleContentView';
 import ListingView from './components/theme/View/ListingView';
-// import { ScrollToTop } from '@package/components';
-// import Layouts from '@plone/volto/constants/Layouts';
-import { getContent } from '@plone/volto/actions';
-import installFooter from './footer';
 import installExpressMiddleware from './express-middleware';
-import { getBaseUrl } from '@plone/volto/helpers';
-import { getNavigation } from '@plone/volto/actions';
+
+// import installStyleMenu from 'volto-slate/editor/plugins/StyleMenu';
+// import { ScrollToTop } from '@package/components';
 // import defaultFieldSchema from 'volto-form-block/fieldSchema';
 
 // import TagManager from 'react-gtm-module';

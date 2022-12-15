@@ -1,7 +1,7 @@
 import React from 'react';
-import './style.less';
 import { useAtom } from 'jotai';
 import { contrastModeAtom } from './../../../state';
+import './style.less';
 
 const ContrastToggle = () => {
   const [contrastMode, setContrastMode] = useAtom(contrastModeAtom);

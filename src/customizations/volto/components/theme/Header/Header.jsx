@@ -9,9 +9,9 @@ import {
   Navigation,
   SearchWidget,
 } from '@plone/volto/components';
-import { Container, Button, Grid } from 'semantic-ui-react';
+import { Container, Button } from 'semantic-ui-react';
 import { BodyClass, isCmsUi } from '@plone/volto/helpers';
-import { HeroSection, ContrastToggle } from '@package/components'; // , StickyHeader
+import { HeroSection, ContrastToggle, OpenHours } from '@package/components'; // , StickyHeader
 import cx from 'classnames';
 import usePreviewImage from './usePreviewImage';
 import { useLocation } from 'react-router-dom';
@@ -63,11 +63,13 @@ const Header = (props) => {
                 <div className="left-section">
                   <div className="header-tools">
                     <Button primary>Tickets</Button>
-                    <div>
-                      <div className="computer large screen widescreen only">
-                        <ContrastToggle />
-                        <LanguageSelector />
-                      </div>
+
+                    <div className="computer large screen widescreen only">
+                      <OpenHours />
+                    </div>
+                    <div className="computer large screen widescreen only">
+                      <ContrastToggle />
+                      <LanguageSelector />
                     </div>
                   </div>
                 </div>
