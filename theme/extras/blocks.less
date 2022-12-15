@@ -1,3 +1,27 @@
 /*******************************
              Blocks
 *******************************/
+
+// .block .block:not(.inner)::before {
+//   z-index: 1;
+// }
+
+.section-block,
+.blocks-wrapper section {
+  padding: @desktopPadding @oneWide @desktopPadding 0;
+  background-color: @white;
+}
+
+.blocks-wrapper {
+  section {
+    > * {
+      margin-left: calc(@oneWide + 0.6rem);
+    }
+
+    > .image-carousel,
+    .quoteBlock-wrapper {
+      padding: @desktopPadding;
+      margin-left: 0;
+    }
+  }
+}
