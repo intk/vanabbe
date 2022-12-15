@@ -39,3 +39,10 @@ body:not(.view-editview):not(.document_wide_view):not(.is-anonymous) main {
 .ui.button.full-size-sidenav-btn {
   border: none;
 }
+
+// Hide logo on edit view
+body.view-editview {
+  .logo-wrapper {
+    display: none;
+  }
+}
