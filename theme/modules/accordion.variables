@@ -36,12 +36,11 @@
 @styledTitleFontWeight: @normal;
 @styledTitleColor: @teal;
 @styledTitleBorder: none;
-@styledTitlePadding: 1.5em 0;
 
 /* Styled Title States */
-@styledTitleHoverBackground: transparent;
+@styledTitleHoverBackground: @darkWhite;
 @styledTitleHoverColor: @teal;
-@styledActiveTitleBackground: transparent;
+@styledActiveTitleBackground: @darkWhite;
 @styledActiveTitleColor: @teal;
 
 /* Styled Child Title States */

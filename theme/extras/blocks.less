@@ -6,6 +6,40 @@
 //   z-index: 1;
 // }
 
+/*-----------------------------------------------
+   Accordion block
+------------------------------------------------*/
+.accordion-block {
+  .ui.styled.accordion,
+  .ui.styled.accordion .accordion {
+    background: transparent;
+  }
+
+  .ui.styled.accordion {
+    border-top: 1px solid var(--text-color) !important;
+  }
+
+  .ui.styled.accordion .title,
+  .ui.styled.accordion .accordion .title {
+    background: transparent;
+    color: var(--text-color);
+  }
+
+  .ui.styled.accordion .active.title,
+  .ui.styled.accordion .title:hover {
+    color: var(--text-color);
+  }
+
+  .ui.styled.accordion .content,
+  .ui.styled.accordion .accordion .content {
+    padding: 1.5em @oneWide;
+  }
+}
+
+/*-----------------------------------------------
+   Group block
+------------------------------------------------*/
+
 .section-block,
 .blocks-wrapper section {
   padding: @desktopPadding @oneWide @desktopPadding 0;

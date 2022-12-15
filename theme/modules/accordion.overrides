@@ -1,31 +1,3 @@
 /*******************************
         Accordion Overrides
 *******************************/
-
-.ui.styled.accordion,
-.ui.styled.accordion .accordion {
-  background: @styledActiveTitleBackground;
-  border-radius: @styledBorderRadius;
-  box-shadow: @styledBoxShadow;
-}
-
-.ui.styled.accordion {
-  border-top: 1px solid var(--text-color) !important;
-}
-
-.ui.styled.accordion .title,
-.ui.styled.accordion .accordion .title {
-  padding: @styledTitlePadding;
-  background: @styledActiveTitleBackground;
-  color: var(--text-color);
-}
-
-.ui.styled.accordion .active.title,
-.ui.styled.accordion .title:hover {
-  color: var(--text-color);
-}
-
-.ui.styled.accordion .content,
-.ui.styled.accordion .accordion .content {
-  padding: 1.5em @oneWide;
-}
