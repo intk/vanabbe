@@ -9,6 +9,7 @@ import installListingBlock from './Listing';
 import installQuoteBlock from './Quote';
 import installSiteDataBlock from './SiteData';
 import installSiteThemeBlock from './SiteTheme';
+import installContentDividerBlock from './ContentDivider';
 
 import HeroView from './Hero/HeroView';
 
@@ -36,6 +37,7 @@ const installBlocks = (config) => {
     installActionLinks,
     installSiteDataBlock,
     installSiteThemeBlock,
+    installContentDividerBlock,
   )(config);
 };
 

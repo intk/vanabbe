@@ -40,9 +40,22 @@ body:not(.view-editview):not(.document_wide_view):not(.is-anonymous) main {
   border: none;
 }
 
-// Hide logo on edit view
-body.view-editview {
+body.view-editview,
+body.view-addview,
+.section-controlpanel,
+.section-contents,
+.section-login,
+.section-passwordreset {
   .logo-wrapper {
     display: none;
   }
+}
+
+
+#main .view-wrapper.not-found {
+  padding-right: @twoWide !important;
+}
+
+#toolbar .toolbar-content {
+  z-index: 99;
 }

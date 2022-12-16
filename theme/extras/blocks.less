@@ -36,26 +36,19 @@
   }
 }
 
-/*-----------------------------------------------
-   Group block
-------------------------------------------------*/
-
-.section-block,
-.blocks-wrapper section {
-  padding: @desktopPadding @oneWide @desktopPadding 0;
-  background-color: @white;
-}
-
 .blocks-wrapper {
-  section {
-    > * {
-      margin-left: calc(@oneWide + 0.6rem);
-    }
+  padding-top: @desktopPadding;
+  padding-bottom: @desktopPadding;
+  background-color: @white;
 
-    > .image-carousel,
-    .quoteBlock-wrapper {
-      padding: @desktopPadding;
-      margin-left: 0;
-    }
+  > * {
+    padding-right: @twoWide;
+    padding-left: calc(@oneWide + 0.6rem);
+  }
+
+  > .image-carousel,
+  > .quoteBlock-wrapper {
+    padding-right: @desktopPadding;
+    padding-left: @desktopPadding;
   }
 }

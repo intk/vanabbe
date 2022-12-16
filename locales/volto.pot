@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Plone\n"
-"POT-Creation-Date: 2022-12-05T13:23:42.783Z\n"
+"POT-Creation-Date: 2022-12-16T20:27:16.239Z\n"
 "Last-Translator: Plone i18n <plone-i18n@lists.sourceforge.net>\n"
 "Language-Team: Plone i18n <plone-i18n@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -69,9 +69,29 @@ msgstr ""
 msgid "Menu"
 msgstr ""
 
+#: components/theme/OpenHours/OpenHours
+# defaultMessage: Morgen open
+msgid "Morgen open"
+msgstr ""
+
+#: components/blocks/ContentDivider/ContentDividerEdit
+# defaultMessage: No background applied after this divider
+msgid "No background applied after this divider"
+msgstr ""
+
 #: components/theme/SearchWidget/SearchWidget
 # defaultMessage: Search
 msgid "Search"
+msgstr ""
+
+#: components/blocks/SiteTheme/SiteThemeEdit
+# defaultMessage: Select page theme
+msgid "Select page theme"
+msgstr ""
+
+#: components/blocks/SiteTheme/SiteThemeEdit
+# defaultMessage: Selected theme
+msgid "Selected theme"
 msgstr ""
 
 #: components/blocks/SiteData/schema
@@ -97,6 +117,11 @@ msgstr ""
 #: components/blocks/ImageCards/SplashyCarousel
 # defaultMessage: Watch The Video
 msgid "Watch The Video"
+msgstr ""
+
+#: components/blocks/ContentDivider/ContentDividerEdit
+# defaultMessage: White background applied before this divider
+msgid "White background applied before this divider"
 msgstr ""
 
 #: components/blocks/SiteData/schema

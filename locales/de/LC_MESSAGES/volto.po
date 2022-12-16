@@ -82,9 +82,29 @@ msgstr ""
 msgid "Menu"
 msgstr ""
 
+#: components/theme/OpenHours/OpenHours
+# defaultMessage: Morgen open
+msgid "Morgen open"
+msgstr ""
+
+#: components/blocks/ContentDivider/ContentDividerEdit
+# defaultMessage: No background applied after this divider
+msgid "No background applied after this divider"
+msgstr ""
+
 #: components/theme/SearchWidget/SearchWidget
 # defaultMessage: Search
 msgid "Search"
+msgstr ""
+
+#: components/blocks/SiteTheme/SiteThemeEdit
+# defaultMessage: Select page theme
+msgid "Select page theme"
+msgstr ""
+
+#: components/blocks/SiteTheme/SiteThemeEdit
+# defaultMessage: Selected theme
+msgid "Selected theme"
 msgstr ""
 
 #: components/blocks/SiteData/schema
@@ -110,6 +130,11 @@ msgstr ""
 #: components/blocks/ImageCards/SplashyCarousel
 # defaultMessage: Watch The Video
 msgid "Watch The Video"
+msgstr ""
+
+#: components/blocks/ContentDivider/ContentDividerEdit
+# defaultMessage: White background applied before this divider
+msgid "White background applied before this divider"
 msgstr ""
 
 #: components/blocks/SiteData/schema

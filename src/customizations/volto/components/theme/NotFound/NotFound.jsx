@@ -15,7 +15,7 @@ import { withServerErrorCode } from '@plone/volto/helpers/Utils/Utils';
  * @returns {string} Markup of the not found page.
  */
 const NotFound = () => (
-  <Container className="view-wrapper">
+  <Container className="view-wrapper not-found">
     <h1>
       <FormattedMessage
         id="This page does not seem to exist…"

@@ -78,7 +78,7 @@ const ImageCarousel = (props) => {
   React.useEffect(() => setIsClient(true), []);
   const {
     cards = [],
-    height = '233px',
+    height = '507px',
     itemsPerRow = 4,
     hideNavigationDots = false,
     autoplay = false,
@@ -142,6 +142,8 @@ const ImageCarousel = (props) => {
     ],
   );
   // const currentSlide = getSlideIndex(sliderRef, slideIndex, carouselSettings);
+
+  console.log('ssss', itemsPerRow);
 
   return !cards.length ? (
     editable ? (

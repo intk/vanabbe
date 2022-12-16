@@ -1,8 +1,8 @@
 import React from 'react';
 import { Grid } from 'semantic-ui-react'; //Container
+import { BodyClass } from '@plone/volto/helpers';
 // import { Breadcrumbs } from '@plone/volto/components';
 // import { useLocation } from 'react-router-dom';
-import { BodyClass } from '@plone/volto/helpers';
 
 function HeroSection(props) {
   const { image_url, content } = props;
@@ -15,7 +15,7 @@ function HeroSection(props) {
 
       <Grid>
         <Grid.Row>
-          <Grid.Column className="column-offset-1-left">
+          <Grid.Column className="column-offset-1-left column-offset-1-right">
             {title && <h1 className="content-title">{title}</h1>}
             {description && (
               <p className="content-description">{description}</p>

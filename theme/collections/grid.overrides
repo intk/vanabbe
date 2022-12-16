@@ -36,6 +36,8 @@
   }
 }
 
+
+
 .column-offset-1-left {
   margin-left: @oneWide;
 }
@@ -46,4 +48,8 @@
 
 .column-offset-2-left {
   margin-left: @twoWide;
+}
+
+.column-offset-2-right {
+  margin-right: @twoWide;
 }
