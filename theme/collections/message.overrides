@@ -10,3 +10,9 @@
     margin-top: 0;
   }
 }
+
+.ui.message {
+  .ui.header {
+    justify-content: unset;
+  }
+}

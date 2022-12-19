@@ -97,8 +97,8 @@ const ImageCarousel = (props) => {
       infinite: true,
       slidesToShow,
       slidesToScroll: 1,
-      dots: itemsPerRow > 1 && !hideNavigationDots,
-      autoplay: itemsPerRow > 1 && autoplay && !editable,
+      dots: !hideNavigationDots,
+      autoplay: autoplay && !editable,
       autoplaySpeed,
       fade: false,
       useTransform: false,
@@ -132,18 +132,9 @@ const ImageCarousel = (props) => {
         },
       ],
     }),
-    [
-      autoplay,
-      autoplaySpeed,
-      editable,
-      hideNavigationDots,
-      itemsPerRow,
-      slidesToShow,
-    ],
+    [autoplay, autoplaySpeed, editable, hideNavigationDots, slidesToShow],
   );
   // const currentSlide = getSlideIndex(sliderRef, slideIndex, carouselSettings);
-
-  console.log('ssss', itemsPerRow);
 
   return !cards.length ? (
     editable ? (
@@ -169,7 +160,7 @@ const ImageCarousel = (props) => {
                 style={{ width: `${parentWidth}px`, margin: '0 auto' }}
                 className={cx({ 'big-carousel': parseInt(itemsPerRow) === 1 })}
               >
-                {cards.length > itemsPerRow && (
+                {/* {cards.length > itemsPerRow && (
                   <div className="slider-carousel-navigation">
                     <div className="ui container">
                       <SliderNavigation
@@ -180,7 +171,7 @@ const ImageCarousel = (props) => {
                       />
                     </div>
                   </div>
-                )}
+                )} */}
                 <Slider {...carouselSettings} ref={sliderRef}>
                   {cards.map((card, i) => (
                     <Card
