@@ -33,8 +33,9 @@
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
   },
-  "private": false,
-  "workspaces": [],
+  "resolutions": {
+    "http-proxy-middleware": "2.0.1"
+  },
   "addons": [
     "volto-cookie-banner",
     "volto-multilingual-widget",
@@ -167,8 +168,9 @@
     "react-text-truncate": "0.19.0",
     "slick-carousel": "1.8.1",
     "volto-cookie-banner": "2.1.0",
-    "volto-form-block": "2.3.6",
-    "volto-multilingual-widget": "2.2.4"
+    "volto-form-block": "3.0.0",
+    "volto-multilingual-widget": "2.2.4",
+    "volto-subblocks": "2.0.0"
   },
   "devDependencies": {
     "@plone/scripts": "^2.1.2",

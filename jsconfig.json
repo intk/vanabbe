@@ -6,9 +6,6 @@
             ],
             "@eeacms/volto-block-style": [
                 "addons/volto-block-style/src"
-            ],
-            "volto-form-block": [
-                "addons/volto-form-block/src"
             ]
         },
         "baseUrl": "src"

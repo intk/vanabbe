@@ -21,12 +21,5 @@
     "branch": "develop",
     "develop": true,
     "path": "src"
-  },
-  "volto-form-block": {
-    "url": "git@github.com:collective/volto-form-block.git",
-    "https": "https://github.com/collective/volto-form-block.git",
-    "branch": "field_extenders_placeholders",
-    "develop": true,
-    "path": "src"
   }
 }
