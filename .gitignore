@@ -81,3 +81,13 @@ omelette
 public/critical.css
 src/addons/*
 *.tgz
+/cache
+
+# yarn 3
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
