@@ -11,6 +11,86 @@
   //   margin: 0 -0.8em !important;
   // }
 
+  .thumbnail-slider-wrap {
+    position: relative;
+    // display: flex;
+
+    .slick-slide {
+      margin-top: 15px !important;
+      margin-right: 15px !important;
+    }
+
+    .slick-track {
+      margin-right: 0px !important;
+      margin-left: auto !important;
+    }
+
+    .slick-slide,
+    .slide-img {
+      // max-width: 72px !important;
+      height: 54px !important;
+    }
+
+    // .slick-slider {
+    //   width: calc(100% - 72px);
+    // }
+  }
+
+  .slick-track > .slick-slide:last-child {
+    position: absolute;
+    top: 15px;
+    right: 13px;
+    width: 87px;
+    margin: 0 !important;
+  }
+
+  .total {
+    // position: absolute;
+    // top: 15px;
+    // right: 13px;
+    // display: flex;
+    // width: 87px;
+    height: 54px;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 5px;
+    pointer-events: none;
+
+    span {
+      margin: 0 auto;
+      color: @white;
+      font-size: 20px;
+    }
+  }
+
+  // .slick-dots.slick-thumb {
+  //   position: relative;
+  //   bottom: 0;
+  //   display: flex !important;
+  //   overflow: auto;
+
+  //   flex-direction: row;
+  //   flex-wrap: nowrap;
+  //   padding: 0;
+  //   margin-top: 0.3em;
+  //   // -webkit-overflow-scrolling: touch;
+  //   // overflow-x: scroll;
+  //   // scroll-behavior: smooth;
+  //   // scroll-snap-type: x mandatory;
+
+  //   // &::-webkit-scrollbar {
+  //   //   width: 0 !important;
+  //   //   height: 0 !important;
+  //   // }
+
+  //   li {
+  //     width: 72px;
+  //     height: 54px;
+  //     flex-grow: 0;
+  //     flex-shrink: 0;
+  //   }
+  // }
+
   .slick-dots {
     bottom: 15px;
 
