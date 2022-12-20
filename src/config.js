@@ -209,7 +209,13 @@ export default function applyConfig(config) {
 
   config.blocks.initialBlocks = {
     ...config.blocks.initialBlocks,
-    Document: ['title', 'siteTheme', 'description', 'text'],
+    Document: [
+      'title',
+      'siteTheme',
+      'description',
+      'text',
+      'contentDividerBlock',
+    ],
     Event: ['title', 'siteTheme', 'description', 'text'],
     'News Item': ['title', 'siteTheme', 'description', 'text'],
   };
@@ -220,6 +226,8 @@ export default function applyConfig(config) {
     Event: 'title',
     'News Item': 'title',
   };
+
+  // console.log('config', config);
 
   return installExpressMiddleware(installFooter(installBlocks(config)));
 }

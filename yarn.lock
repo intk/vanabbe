@@ -2395,6 +2395,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@hcaptcha/react-hcaptcha@npm:^0.3.6":
+  version: 0.3.10
+  resolution: "@hcaptcha/react-hcaptcha@npm:0.3.10"
+  peerDependencies:
+    react: ">= 16.3.0"
+    react-dom: ">= 16.3.0"
+  checksum: 3b0d6a8c7da8072ba226663d9904051231cc1754936a1082b46764a966004406876971adb8917d3d7c6920283501c1bd5b7886c83e33885c4b8d5218fdc25ff5
+  languageName: node
+  linkType: hard
+
 "@icons/material@npm:^0.2.4":
   version: 0.2.4
   resolution: "@icons/material@npm:0.2.4"
@@ -12162,6 +12172,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"file-saver@npm:^2.0.5":
+  version: 2.0.5
+  resolution: "file-saver@npm:2.0.5"
+  checksum: c62d96e5cebc58b4bdf3ae8a60d5cf9607ad82f75f798c33a4ee63435ac2203002584d5256a2a780eda7feb5e19dc3b6351c2212e58b3f529e63d265a7cc79f7
+  languageName: node
+  linkType: hard
+
 "file-selector@npm:^0.1.12":
   version: 0.1.19
   resolution: "file-selector@npm:0.1.19"
@@ -13874,18 +13891,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"http-proxy-middleware@npm:0.19.1":
-  version: 0.19.1
-  resolution: "http-proxy-middleware@npm:0.19.1"
-  dependencies:
-    http-proxy: ^1.17.0
-    is-glob: ^4.0.0
-    lodash: ^4.17.11
-    micromatch: ^3.1.10
-  checksum: 64df0438417a613bb22b3689d9652a1b7a56f10b145a463f95f4e8a9b9a351f2c63bc5fd3a9cd710baec224897733b6f299cb7f974ea82769b2a4f1e074764ac
-  languageName: node
-  linkType: hard
-
 "http-proxy-middleware@npm:2.0.1":
   version: 2.0.1
   resolution: "http-proxy-middleware@npm:2.0.1"
@@ -13899,7 +13904,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"http-proxy@npm:^1.17.0, http-proxy@npm:^1.18.1":
+"http-proxy@npm:^1.18.1":
   version: 1.18.1
   resolution: "http-proxy@npm:1.18.1"
   dependencies:
@@ -21635,7 +21640,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-dnd-html5-backend@npm:5.0.1":
+"react-dnd-html5-backend@npm:5.0.1, react-dnd-html5-backend@npm:^5.0.1":
   version: 5.0.1
   resolution: "react-dnd-html5-backend@npm:5.0.1"
   dependencies:
@@ -21647,7 +21652,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-dnd@npm:5.0.0":
+"react-dnd@npm:5.0.0, react-dnd@npm:^5.0.0":
   version: 5.0.0
   resolution: "react-dnd@npm:5.0.0"
   dependencies:
@@ -21761,6 +21766,18 @@ __metadata:
   version: 3.2.0
   resolution: "react-fast-compare@npm:3.2.0"
   checksum: 8ef272c825ae329f61633ce4ce7f15aa5b84e5214d88bc0823880236e03e985a13195befa2c7a4eda7db3b017dc7985729152d88445823f652403cf36c2b86aa
+  languageName: node
+  linkType: hard
+
+"react-google-recaptcha-v3@npm:^1.8.0":
+  version: 1.10.1
+  resolution: "react-google-recaptcha-v3@npm:1.10.1"
+  dependencies:
+    hoist-non-react-statics: ^3.3.2
+  peerDependencies:
+    react: ^16.3 || ^17.0 || ^18.0
+    react-dom: ^17.0 || ^18.0
+  checksum: b5ffe0bc0b13ad9ab2fa7b7acd979c7ff9d4f9d698412eaf8721167883a2ace2b4f3f5386c4b70f59f1cab9f062c368c360dbaa1b2cad4f1645795f3dbdf9355
   languageName: node
   linkType: hard
 
@@ -26623,7 +26640,9 @@ __metadata:
     stylelint-config-prettier: 8.0.1
     stylelint-prettier: 1.1.2
     volto-cookie-banner: 2.1.0
+    volto-form-block: 3.0.0
     volto-multilingual-widget: 2.2.4
+    volto-subblocks: 2.0.0
   languageName: unknown
   linkType: soft
 
@@ -26700,6 +26719,20 @@ __metadata:
   languageName: node
   linkType: hard
 
+"volto-form-block@npm:3.0.0":
+  version: 3.0.0
+  resolution: "volto-form-block@npm:3.0.0"
+  dependencies:
+    "@hcaptcha/react-hcaptcha": ^0.3.6
+    file-saver: ^2.0.5
+    react-google-recaptcha-v3: ^1.8.0
+  peerDependencies:
+    "@plone/volto": ">=16.0.0-alpha.38"
+    volto-subblocks: ^2.0.0
+  checksum: 75115be24674091f2424547c267c7948ba3de0fc2423819811e07ca36c5551792e9c85421e11e8f57e82f8cae8d0d0dda5e412ebd878291a19495375f959566a
+  languageName: node
+  linkType: hard
+
 "volto-multilingual-widget@npm:2.2.4":
   version: 2.2.4
   resolution: "volto-multilingual-widget@npm:2.2.4"
@@ -26730,6 +26763,18 @@ __metadata:
   peerDependencies:
     "@plone/volto": ">=12.1.2"
   checksum: 1f7785a088da215cadad6c90cb09ae336894d2ee09dfc71f288ed0e6e7c5f69cb5e63c7db991b4acdeef49e292f1e12817a6b1a46f106db6e927afd06e783b1d
+  languageName: node
+  linkType: hard
+
+"volto-subblocks@npm:2.0.0":
+  version: 2.0.0
+  resolution: "volto-subblocks@npm:2.0.0"
+  dependencies:
+    react-dnd: ^5.0.0
+    react-dnd-html5-backend: ^5.0.1
+  peerDependencies:
+    "@plone/volto": ">=16.0.0-alpha.38"
+  checksum: 7e4774cd63aad14d46f8371d725d800cc978dafb3672cb9ddb16e032b8fc849948d7e39301c3d55864a40d5143e101fd819165ba5254a016be31812f826c4f76
   languageName: node
   linkType: hard
 
