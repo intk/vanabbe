@@ -56,11 +56,16 @@ export const LogoCardsSchema = (args) => {
       {
         id: 'default',
         title: 'Default',
-        fields: ['attachedimage', 'linkHref'],
+        fields: ['title', 'attachedimage', 'linkHref'],
       },
     ],
 
     properties: {
+      title: {
+        type: 'string',
+        title: 'Title',
+        description: 'Text to show on hover',
+      },
       attachedimage: {
         widget: 'attachedimage',
         title: 'Image',

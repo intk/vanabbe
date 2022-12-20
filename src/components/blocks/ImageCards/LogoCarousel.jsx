@@ -1,83 +1,70 @@
 import React from 'react';
-import { Image, Message } from 'semantic-ui-react';
-import { ListingBlockHeader } from '@package/components';
+import { Image, Message, Popup } from 'semantic-ui-react';
 import { Placeholder } from 'semantic-ui-react';
-import { serializeNodes } from '@plone/volto-slate/editor/render';
 import { ResponsiveContainer } from '@package/components';
-import cx from 'classnames';
-
 import loadable from '@loadable/component';
 
-import {
-  // Pagination,
-  SliderNavigation,
-} from '@package/components/blocks/Listing/SliderListing';
 import { ImageCarouselSchema } from './schema';
 import { getScaleUrl, getPath } from './utils';
 
 import 'slick-carousel/slick/slick.css';
-import './less/image-carousel.less';
 import 'slick-carousel/slick/slick-theme.css';
+import './less/logo-carousel.less';
 
 export { LogoCardsSchema } from './schema';
 
 const Slider = loadable(() => import('react-slick'));
 
 const Card = ({ card = {}, height, image_scale, mode = 'view' }) => {
-  const { linkHref, title } = card;
+  const { link, title } = card;
 
-  const LinkWrapper = React.useMemo(
-    () =>
-      linkHref && mode === 'view'
-        ? ({ children }) => (
-            <a
-              className="card-link"
-              href={linkHref}
-              target="_blank"
-              rel="noreferrer"
-              title={title}
-            >
-              {children}
-            </a>
-          )
-        : ({ children }) => children,
-    [linkHref, mode, title],
-  );
+  const LinkWrapper =
+    link && mode === 'view'
+      ? ({ children }) => (
+          <a href={link} target="_blank" rel="noreferrer" title={title}>
+            {children}
+          </a>
+        )
+      : ({ children }) => children;
+  const PopupWrapper = title
+    ? ({ children }) => <Popup content={title} trigger={children} on="hover" />
+    : ({ children }) => children;
 
   return (
-    <div className="slide-img" style={{ height }}>
-      <LinkWrapper>
-        {card.attachedimage ? (
-          <Image
-            className="bg-image"
-            src={getScaleUrl(
-              getPath(card.attachedimage),
-              image_scale || 'large',
-            )}
-          />
-        ) : (
-          <Placeholder />
-        )}
-      </LinkWrapper>
+    <div className="logo-slide-img" style={{ height, width: height }}>
+      <PopupWrapper>
+        <LinkWrapper>
+          {card.attachedimage ? (
+            <Image
+              style={{ height: height }}
+              className="bg-image"
+              src={getScaleUrl(
+                getPath(card.attachedimage),
+                image_scale || 'large',
+              )}
+            />
+          ) : (
+            <Placeholder />
+          )}
+        </LinkWrapper>
+      </PopupWrapper>
     </div>
   );
 };
 
-const ImageCarousel = (props) => {
+const LogoCardsCarousel = (props) => {
   const { data = {}, editable = false } = props;
-  const sliderRef = React.useRef();
   const [isClient, setIsClient] = React.useState(false);
 
   React.useEffect(() => setIsClient(true), []);
   const {
-    text,
     cards = [],
-    height = '233px',
-    itemsPerRow = 4,
+    image_scale,
+    height = '90px',
+    itemsPerRow = 8,
     autoplay = false,
     autoplaySpeed = 3000,
-    image_scale = 'large',
-    display = '',
+    hideNavigationDots,
   } = data;
 
   const slidesToShow = Math.min(cards.length, itemsPerRow);
@@ -85,10 +72,10 @@ const ImageCarousel = (props) => {
   const carouselSettings = React.useMemo(
     () => ({
       // speed: 800,
-      infinite: true,
+      infinite: false,
       slidesToShow,
       slidesToScroll: 1,
-      dots: false, // itemsPerRow > 1 && !hideNavigationDots
+      dots: itemsPerRow > 1 && !hideNavigationDots,
       arrows: false,
       autoplay: itemsPerRow > 1 && autoplay && !editable,
       autoplaySpeed,
@@ -123,7 +110,14 @@ const ImageCarousel = (props) => {
         },
       ],
     }),
-    [autoplay, autoplaySpeed, editable, itemsPerRow, slidesToShow],
+    [
+      autoplay,
+      autoplaySpeed,
+      editable,
+      hideNavigationDots,
+      itemsPerRow,
+      slidesToShow,
+    ],
   );
 
   return !cards.length ? (
@@ -133,43 +127,25 @@ const ImageCarousel = (props) => {
       ''
     )
   ) : (
-    <div
-      className={cx(
-        'image-carousel',
-        `image-carousel-${display}`,
-        'slider-listing',
-      )}
-    >
+    <div className="logo-carousel">
       <ResponsiveContainer>
         {({ parentWidth }) => {
-          return (
-            parentWidth &&
-            isClient && (
-              <div style={{ width: `${parentWidth}px`, margin: '0 auto' }}>
-                <ListingBlockHeader data={data}>
-                  {cards.length > itemsPerRow && (
-                    <SliderNavigation
-                      sliderRef={sliderRef}
-                      slideCount={cards.length}
-                      settings={carouselSettings}
-                      // slideIndex={currentSlide}
-                    />
-                  )}
-                </ListingBlockHeader>
-                {!!text && serializeNodes(text)}
-                <Slider {...carouselSettings} ref={sliderRef}>
-                  {cards.map((card, i) => (
-                    <Card
-                      key={i}
-                      mode={editable ? 'edit' : 'view'}
-                      card={card}
-                      height={height}
-                      image_scale={image_scale}
-                    />
-                  ))}
-                </Slider>
-              </div>
-            )
+          return parentWidth && isClient ? (
+            <div style={{ width: `${parentWidth - 100}px` }}>
+              <Slider {...carouselSettings}>
+                {cards.map((card, i) => (
+                  <Card
+                    key={i}
+                    mode={editable ? 'edit' : 'view'}
+                    card={card}
+                    height={height}
+                    image_scale={image_scale}
+                  />
+                ))}
+              </Slider>
+            </div>
+          ) : (
+            ''
           );
         }}
       </ResponsiveContainer>
@@ -177,7 +153,7 @@ const ImageCarousel = (props) => {
   );
 };
 
-ImageCarousel.schemaExtender = (schema, data, intl) => {
+LogoCardsCarousel.schemaExtender = (schema, data, intl) => {
   const Custom = ImageCarouselSchema({ data, schema, intl });
   return {
     ...schema,
@@ -191,4 +167,4 @@ ImageCarousel.schemaExtender = (schema, data, intl) => {
   };
 };
 
-export default ImageCarousel;
+export default LogoCardsCarousel;

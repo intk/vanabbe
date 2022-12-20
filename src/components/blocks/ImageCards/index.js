@@ -6,10 +6,10 @@ import SplashyCarousel, { SplashyCarouselSchema } from './SplashyCarousel';
 // import VideoCarousel, { VideoCardSchema } from './VideoCarousel';
 
 export default function install(config) {
-  config.blocks.blocksConfig.imagecards.defaultRendererName = 'imageCards';
+  config.blocks.blocksConfig.imagecards.defaultRendererName = 'logoCards';
   config.blocks.blocksConfig.imagecards.blockRenderers = {
     ...config.blocks.blocksConfig.imagecards.blockRenderers,
-    imageCards: {
+    logoCards: {
       title: 'Logo Cards',
       schema: LogoCardsSchema,
       view: LogoCardsCarousel,
