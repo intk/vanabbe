@@ -1,4 +1,4 @@
-import ImageCarousel from './Carousel';
+import ImageCarousel, { ImageCarouselCardSchema } from './Carousel';
 import LogoCards, { LogoCardsSchema } from './LogoCarousel';
 import PresentationCards from './PresentationCards';
 import TestimonialCards, { TestimonialCardsSchema } from './TestimonialCards';
@@ -29,8 +29,8 @@ export default function install(config) {
     },
     imageCarousel: {
       title: 'Image Carousel',
-      schema: null,
       view: ImageCarousel,
+      schema: ImageCarouselCardSchema,
       schemaExtender: ImageCarousel.schemaExtender,
     },
     splashyCarousel: {

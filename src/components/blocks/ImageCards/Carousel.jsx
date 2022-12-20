@@ -5,33 +5,29 @@ import { Placeholder } from 'semantic-ui-react';
 import { serializeNodes } from '@plone/volto-slate/editor/render';
 import { ResponsiveContainer } from '@package/components';
 import cx from 'classnames';
-
-import { SliderNavigation } from '@package/components/blocks/Listing/SliderListing';
+// import { getSlideIndex } from './utils';
 
 import loadable from '@loadable/component';
 
 import 'slick-carousel/slick/slick.css';
-import './less/image-carousel.less';
 import 'slick-carousel/slick/slick-theme.css';
+import './less/image-carousel.less';
 
 import { ImageCarouselSchema } from './schema';
 import { getScaleUrl, getPath } from './utils';
 
+export { ImageCarouselCardSchema } from './schema';
+
 const Slider = loadable(() => import('react-slick'));
 
-// const Caption = ({ card }) => {
-//   const { title, text } = card;
+const Caption = ({ card }) => {
+  const { text } = card;
 
-//   return (
-//     <div className="slide-caption">
-//       {!!title && <h5>{title}</h5>}
-//       {!!text && serializeNodes(text)}
-//     </div>
-//   );
-// };
+  return <div className="slide-caption">{!!text && serializeNodes(text)}</div>;
+};
 
 const Card = ({ card = {}, height, image_scale, mode = 'view' }) => {
-  const { link, title, text } = card;
+  const { link, title } = card;
 
   const LinkWrapper = React.useMemo(
     () =>
@@ -60,11 +56,6 @@ const Card = ({ card = {}, height, image_scale, mode = 'view' }) => {
           <Placeholder />
         )}
       </LinkWrapper>
-      <div className="slide-overlay" />
-      <div className="slide-caption">
-        {!!title && <h1 className="slide-title">{title}</h1>}
-        {!!text && serializeNodes(text)}
-      </div>
     </div>
   );
 };
@@ -72,14 +63,14 @@ const Card = ({ card = {}, height, image_scale, mode = 'view' }) => {
 const ImageCarousel = (props) => {
   const { data = {}, editable = false } = props;
   const sliderRef = React.useRef();
-  // const [slideIndex, setSlideIndex] = React.useState(0);
+  const [slideIndex, setSlideIndex] = React.useState(0);
   const [isClient, setIsClient] = React.useState(false);
 
   React.useEffect(() => setIsClient(true), []);
   const {
     cards = [],
-    height = '507px',
-    itemsPerRow = 4,
+    height = '510px',
+    itemsPerRow = 1,
     hideNavigationDots = false,
     autoplay = false,
     autoplaySpeed = 3000,
@@ -91,7 +82,7 @@ const ImageCarousel = (props) => {
 
   const carouselSettings = React.useMemo(
     () => ({
-      // afterChange: (current) => setSlideIndex(current),
+      afterChange: (current) => setSlideIndex(current),
       // speed: 800,
       arrows: false,
       infinite: true,
@@ -188,9 +179,9 @@ const ImageCarousel = (props) => {
           );
         }}
       </ResponsiveContainer>
-      {/* {!!sliderRef.current && carouselSettings.slidesToShow === 1 && (
+      {!!sliderRef.current && carouselSettings.slidesToShow === 1 && (
         <Caption card={cards[slideIndex]} />
-      )} */}
+      )}
     </div>
   );
 };

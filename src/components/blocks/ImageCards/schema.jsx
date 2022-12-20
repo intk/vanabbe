@@ -31,10 +31,10 @@ export const ImageCarouselSchema = ({ data, schema, intl }) => {
       itemsPerRow: {
         type: 'number',
         title: 'Items per row',
-        defaultValue: 4,
+        defaultValue: 1,
       },
       height: {
-        defaultValue: '25vh',
+        default: '510px',
         title: (
           <a
             rel="noreferrer"
@@ -46,6 +46,36 @@ export const ImageCarouselSchema = ({ data, schema, intl }) => {
         ),
       },
     },
+  };
+};
+
+export const ImageCarouselCardSchema = (args) => {
+  return {
+    title: 'Image Card',
+    fieldsets: [
+      {
+        id: 'default',
+        title: 'Default',
+        fields: ['text', 'attachedimage', 'linkHref'],
+      },
+    ],
+
+    properties: {
+      text: {
+        widget: 'slate_richtext',
+        title: 'Text',
+      },
+      attachedimage: {
+        widget: 'attachedimage',
+        title: 'Image',
+      },
+      linkHref: {
+        widget: 'url',
+        title: 'Link',
+      },
+    },
+
+    required: [],
   };
 };
 
