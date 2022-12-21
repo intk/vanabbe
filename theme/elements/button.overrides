@@ -2,10 +2,12 @@
          Button Overrides
 *******************************/
 
-.ui.button {
+.ui.button,
+.link-more a {
   .isBtn();
 }
 
+.link-more a,
 .ui.primary.button:not(.basic):not(.icon):not(.circular) {
   padding: calc(0.9em - 2px) calc(1.1em - 2px);
   border: 2px solid var(--text-color);
@@ -13,6 +15,7 @@
   color: var(--text-color);
 }
 
+.link-more a:hover,
 .ui.primary.button:not(.basic):not(.icon):not(.circular):hover,
 .ui.primary.button:not(.basic):not(.icon):not(.circular):active,
 .ui.primary.button:not(.basic):not(.icon):not(.circular):focus {
@@ -20,6 +23,7 @@
   border: 4px solid var(--text-color);
   background-color: transparent;
   color: var(--text-color);
+  text-decoration: none;
 }
 
 .ui.button.big-button {
@@ -34,9 +38,9 @@
   }
 }
 
-.link-more a {
-  .isBtn();
-}
+// .link-more a {
+//   .isBtn();
+// }
 
 .ui.basic.buttons .button:hover,
 .ui.basic.button:hover,

@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Grid } from 'semantic-ui-react';
+import { LinkMore } from '@plone/volto/components';
 import { ListingBlockHeader } from '@package/components';
 
 import Card from './ListingCard';
@@ -24,6 +25,7 @@ const ListingTemplate = (props) => {
           </Grid.Column>
         ))}
       </Grid>
+      {props.linkHref ? <LinkMore data={props} /> : ''}
     </>
   );
 };

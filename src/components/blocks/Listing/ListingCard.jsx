@@ -38,9 +38,11 @@ const Card = ({ item }) => {
       >
         <div className="card-details">
           <h3 className="card-title">{item.title}</h3>
-          <div className="image-wrapper">
-            <PreviewImage item={item} size={size} isFallback={!image_field} />
-          </div>
+          {!!image_field && (
+            <div className="image-wrapper">
+              <PreviewImage item={item} size={size} isFallback={!image_field} />
+            </div>
+          )}
           <p className="card-description">{item.description}</p>
         </div>
       </Link>
@@ -52,27 +54,25 @@ const NewsItemCard = ({ item }) => {
   const { image_field } = item;
   const size = 'large';
   return (
-    <section className="slider-card listing-card newsitem-card">
-      {!!image_field && (
-        <div className="image-container">
-          <span className="link-img-wrapper">
-            <PreviewImage item={item} size={size} isFallback={!image_field} />
-          </span>
+    <section className="slider-card listing-card newsitem-card default-card">
+      <Link
+        className="card-link"
+        to={flattenToAppURL(item['@id'])}
+        title={item.title}
+      >
+        <div className="card-details">
+          {!!item.effective && (
+            <FormattedDate isoDate={item.effective} format="long" />
+          )}
+          <h3 className="card-title">{item.title}</h3>
+          {!!image_field && (
+            <div className="image-wrapper">
+              <PreviewImage item={item} size={size} isFallback={!image_field} />
+            </div>
+          )}
+          <p className="card-description">{item.description}</p>
         </div>
-      )}
-      <div className="card-details">
-        {!!item.effective && (
-          <FormattedDate isoDate={item.effective} format="long" />
-        )}
-        <Link
-          className="card-link"
-          to={flattenToAppURL(item['@id'])}
-          title={item.title}
-        >
-          <h3 className="title">{item.title}</h3>
-        </Link>
-        {/* <p className="description">{item.description}</p> */}
-      </div>
+      </Link>
     </section>
   );
 };
@@ -81,49 +81,39 @@ const EventCard = ({ item }) => {
   const { image_field } = item;
   const size = 'large';
   return item.start ? (
-    <section className="slider-card listing-card event-card">
-      <div className="image-container">
-        <span className="link-img-wrapper">
-          <PreviewImage item={item} size={size} isFallback={!image_field} />
-        </span>
-      </div>
-      <div className="date-box">
-        <FormattedDateParts
-          value={new Date(item.start)}
-          // year="numeric"
-          month="short"
-          day="2-digit"
-        >
-          {(parts) =>
-            !!parts?.length && (
-              <>
-                {parts[2].value}
-                <span>{parts[0].value}</span>
-              </>
-            )
-          }
-        </FormattedDateParts>
-      </div>
-      <div className="card-details">
-        <div className="date"></div>
-        <h3 className="title">
-          <Link to={flattenToAppURL(item['@id'])} title={item.title}>
-            {item.title}
-          </Link>
-        </h3>
-        <div className="event-details">
-          <span>
-            <Icon name="clock outline" size="large" />{' '}
+    <section className="slider-card listing-card event-card default-card">
+      <Link
+        className="card-link"
+        to={flattenToAppURL(item['@id'])}
+        title={item.title}
+      >
+        <div className="card-details">
+          <div className="date">
+            <FormattedDateParts
+              value={new Date(item.start)}
+              // year="numeric"
+              month="short"
+              day="2-digit"
+            >
+              {(parts) =>
+                !!parts?.length && (
+                  <div>
+                    {parts[2].value} <span>{parts[0].value}</span>
+                  </div>
+                )
+              }
+            </FormattedDateParts>
             <FormattedTime value={new Date(item.start)} />
-          </span>
-          {item.location && (
-            <span>
-              <Icon name="map marker alternate" size="large" />
-              {item.location}
-            </span>
+          </div>
+          <h3 className="card-title">{item.title}</h3>
+          {!!image_field && (
+            <div className="image-wrapper">
+              <PreviewImage item={item} size={size} isFallback={!image_field} />
+            </div>
           )}
+          <p className="card-description">{item.description}</p>
         </div>
-      </div>
+      </Link>
     </section>
   ) : (
     <Card item={item} />
