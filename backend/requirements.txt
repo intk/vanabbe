@@ -8,5 +8,6 @@ zope.testrunner
 # (Ideally add them in setup.py for intk_vanabbe)
 # collective.easyform
 
+collective.volto.formsupport
 collective.volto.cookieconsent
 requests

@@ -24,12 +24,12 @@ services:
       RAZZLE_INTERNAL_API_PATH: "http://plone:8080/Plone"
 
   plone:
-    image: plone/plone-backend:6.0.0
+    image: tiberiuichim/vanabbe-frontend:6.0.0-1
     depends_on:
       - zeo
     environment:
       ZEO_ADDRESS: zeo:8100
-      ADDONS: "collective.volto.cookieconsent collective.volto.formsupport"
+      # ADDONS: "collective.volto.cookieconsent collective.volto.formsupport"
       # DEVELOP: "/app/src/collective.previewimage /app/src/intk_vanabbe"
     volumes:
       - cache:/data
