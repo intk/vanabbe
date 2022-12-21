@@ -13,13 +13,5 @@
     "branch": "discreet_carousel_volto16",
     "develop": true,
     "path": "src"
-  },
-  "volto-block-style": {
-    "url": "git@github.com:eea/volto-block-style.git",
-    "https": "https://github.com/eea/volto-block-style.git",
-    "package": "@eeacms/volto-block-style",
-    "branch": "develop",
-    "develop": true,
-    "path": "src"
   }
 }
