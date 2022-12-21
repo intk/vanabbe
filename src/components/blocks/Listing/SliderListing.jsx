@@ -85,12 +85,12 @@ const SliderListing = (data) => {
   const carouselSettings = React.useMemo(
     () => ({
       afterChange: (current) => setSlideIndex(current),
-      dots: false,
+      dots: true,
       arrows: false, // we use custom navigation
       lazyLoad: 'progressive',
       autoplay: false,
       infinite: true,
-      slidesToShow: 3,
+      slidesToShow: 4,
       slidesToScroll: 1,
       // adaptiveHeight: true,
       responsive: [
@@ -120,12 +120,12 @@ const SliderListing = (data) => {
     [],
   );
 
-  const { totalPages, currentPage } = getPages(
-    sliderRef,
-    slideIndex,
-    carouselSettings,
-    items,
-  );
+  // const { totalPages, currentPage } = getPages(
+  //   sliderRef,
+  //   slideIndex,
+  //   carouselSettings,
+  //   items,
+  // );
 
   // TODO: add resize event watcher to update the pagination numbers
 
@@ -136,12 +136,12 @@ const SliderListing = (data) => {
           !!parentWidth && (
             <div style={{ width: `${parentWidth}px`, margin: '0 auto' }}>
               <ListingBlockHeader data={data} sliderView>
-                <SliderNavigation
+                {/* <SliderNavigation
                   sliderRef={sliderRef}
                   index={currentPage}
                   count={totalPages}
                   settings={carouselSettings}
-                />
+                /> */}
               </ListingBlockHeader>
               <Slider
                 ref={sliderRef}

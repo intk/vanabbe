@@ -31,20 +31,19 @@ const Card = ({ item }) => {
   // {!!item.effective && <FormattedDate isoDate={item.effective} />}
   return (
     <section className="slider-card listing-card default-card">
-      <div className="image-container">
-        <span className="link-img-wrapper">
-          <PreviewImage item={item} size={size} isFallback={!image_field} />
-        </span>
-      </div>
-      <div className="card-details">
-        <Link
-          className="card-link"
-          to={flattenToAppURL(item['@id'])}
-          title={item.title}
-        >
-          <h3 className="title">{item.title}</h3>
-        </Link>
-      </div>
+      <Link
+        className="card-link"
+        to={flattenToAppURL(item['@id'])}
+        title={item.title}
+      >
+        <div className="card-details">
+          <h3 className="card-title">{item.title}</h3>
+          <div className="image-wrapper">
+            <PreviewImage item={item} size={size} isFallback={!image_field} />
+          </div>
+          <p className="card-description">{item.description}</p>
+        </div>
+      </Link>
     </section>
   );
 };

@@ -25,6 +25,10 @@
   background-size: cover;
   border-top-left-radius: @defaultBorderRadius;
   border-top-right-radius: @defaultBorderRadius;
+
+  @media only screen and (max-width: @largestTabletScreen) {
+    min-height: 273px;
+  }
 }
 
 .herosection {
@@ -37,6 +41,10 @@
   padding: calc(@desktopPadding / 2) @desktopPadding;
   color: var(--text-color);
   font-size: @heroSectionContentImageCaptionFontSize;
+
+  @media only screen and (max-width: @largestTabletScreen) {
+    padding-left: 0.6rem;
+  }
 }
 
 .herosection-wrapper {
@@ -54,6 +62,10 @@
 .content-description {
   margin-bottom: var(--space-xl) !important;
   font-size: @extraFontSize;
+
+  @media only screen and (max-width: @largestTabletScreen) {
+    font-size: 20px;
+  }
 }
 
 .loadUIOverrides();

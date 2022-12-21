@@ -1,6 +1,5 @@
 import React from 'react';
 import { Image, Message } from 'semantic-ui-react';
-import { ListingBlockHeader } from '@package/components';
 import { Placeholder } from 'semantic-ui-react';
 import { serializeNodes } from '@plone/volto-slate/editor/render';
 import { ResponsiveContainer } from '@package/components';
@@ -152,8 +151,6 @@ const ImageCarousel = (props) => {
     // variableWidth: true,
   };
 
-  // console.log('slider2', slider2);
-
   return !cards.length ? (
     editable ? (
       <Message>No cards</Message>
@@ -167,8 +164,6 @@ const ImageCarousel = (props) => {
         `image-carousel-${display}`,
       )}
     >
-      <ListingBlockHeader data={data} />
-
       <ResponsiveContainer>
         {({ parentWidth }) => {
           return (
@@ -212,12 +207,11 @@ const ImageCarousel = (props) => {
                           image_scale={image_scale}
                         />
                       ))}
-                      {cards.length > 10 && (
-                        <div className="total">
-                          <span>{cards.length}</span>
-                        </div>
-                      )}
                     </Slider>
+
+                    <div className="total">
+                      <span>{cards.length}</span>
+                    </div>
                   </div>
                 )}
               </div>
@@ -225,6 +219,7 @@ const ImageCarousel = (props) => {
           );
         }}
       </ResponsiveContainer>
+
       {!!sliderRef.current && carouselSettings.slidesToShow === 1 && (
         <Caption card={cards[slideIndex]} />
       )}

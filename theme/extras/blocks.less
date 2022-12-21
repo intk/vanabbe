@@ -17,6 +17,10 @@
   > * {
     padding-right: @twoWide;
     padding-left: calc(@oneWide + 0.6rem);
+
+    @media only screen and (max-width: @largestTabletScreen) {
+      padding-left: 0.6rem;
+    }
   }
 
   > .image-carousel,
@@ -25,6 +29,11 @@
   > .block.listing {
     padding-right: @desktopPadding;
     padding-left: @desktopPadding;
+
+    @media only screen and (max-width: @largestTabletScreen) {
+      padding-right: 0.6rem;
+      padding-left: 0.6rem;
+    }
   }
 }
 
