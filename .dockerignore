@@ -7,6 +7,6 @@ node_modules
 omelette
 .env
 *.log
-*.yml
 backend
 docker-compose.yml
+*.tgz
