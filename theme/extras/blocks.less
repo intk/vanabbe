@@ -6,6 +6,33 @@
 //   z-index: 1;
 // }
 
+.block.align.left,
+.block.align.right {
+  z-index: 2 !important;
+}
+
+.blocks-bg-wrapper {
+  padding: var(--space-xl) 0;
+  margin-bottom: var(--space-xl);
+  background-color: @white;
+}
+
+.blocks-wrapper,
+.blocks-bg-wrapper {
+  > * {
+    padding-right: @twoWide;
+    padding-left: calc(@oneWide + 0.6rem);
+  }
+
+  > .image-carousel,
+  > .quoteBlock-wrapper,
+  > .accordion-block,
+  > .block.listing {
+    padding-right: @desktopPadding;
+    padding-left: @desktopPadding;
+  }
+}
+
 /*-----------------------------------------------
    Accordion block
 ------------------------------------------------*/
@@ -33,22 +60,5 @@
   .ui.styled.accordion .content,
   .ui.styled.accordion .accordion .content {
     padding: 1.5em @oneWide;
-  }
-}
-
-.blocks-wrapper {
-  padding: var(--space-xl) 0;
-  margin-bottom: var(--space-xl);
-  background-color: @white;
-
-  > * {
-    padding-right: @twoWide;
-    padding-left: calc(@oneWide + 0.6rem);
-  }
-
-  > .image-carousel,
-  > .quoteBlock-wrapper {
-    padding-right: @desktopPadding;
-    padding-left: @desktopPadding;
   }
 }

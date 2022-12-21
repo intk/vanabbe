@@ -28,6 +28,7 @@ h3,
 h4,
 h5,
 h6 {
+  margin-top: 0;
   font-weight: unset !important;
 }
 
@@ -59,9 +60,15 @@ h5 {
   line-height: @bigLineHeight;
 }
 
-ul li {
-  font-size: @desktopBodyFontSize;
-  line-height: 46px;
+ul,
+ol {
+  margin-top: 0;
+  list-style-position: inside;
+
+  li {
+    font-size: @desktopBodyFontSize;
+    line-height: 46px;
+  }
 }
 
 @media only screen and (min-width: @widescreenMonitorBreakpoint) {
@@ -145,4 +152,10 @@ a {
 .content-wrapper {
   width: 100%;
   min-height: 600px;
+}
+
+body.view-viewview {
+  .documentFirstHeading {
+    display: none; // it is displayed as part of the HeroSection
+  }
 }

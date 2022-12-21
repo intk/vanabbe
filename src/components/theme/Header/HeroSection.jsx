@@ -15,7 +15,7 @@ function HeroSection(props) {
 
       <Grid>
         <Grid.Row>
-          <Grid.Column className="column-offset-1-left column-offset-1-right">
+          <Grid.Column className="column-offset-1-left column-offset-2-right">
             {title && <h1 className="content-title">{title}</h1>}
             {description && (
               <p className="content-description">{description}</p>

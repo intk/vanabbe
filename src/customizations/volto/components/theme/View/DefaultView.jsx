@@ -58,7 +58,7 @@ const DefaultView = (props) => {
                     <Grid.Column>
                       {dividerBlock ? (
                         <>
-                          <div className="blocks-wrapper">
+                          <div className="blocks-bg-wrapper">
                             <RenderBlocks
                               {...props}
                               path={path}
@@ -72,13 +72,13 @@ const DefaultView = (props) => {
                           />
                         </>
                       ) : (
-                        <>
+                        <div className="blocks-wrapper">
                           <RenderBlocks
                             {...props}
                             path={path}
                             content={filterContent}
                           />
-                        </>
+                        </div>
                       )}
                     </Grid.Column>
                   </Grid.Row>
