@@ -27,8 +27,9 @@ RUN cd /opt/frontend \
   && make develop \
   && corepack enable \
   && yarn \
-  && RAZZLE_API_PATH=VOLTO_API_PATH RAZZLE_INTERNAL_API_PATH=VOLTO_INTERNAL_API_PATH yarn build
+  && yarn build
 
+# RAZZLE_API_PATH=VOLTO_API_PATH RAZZLE_INTERNAL_API_PATH=VOLTO_INTERNAL_API_PATH
 # RUN rm -rf /home/node/.cache
 
 EXPOSE 3000 3001
@@ -36,6 +37,6 @@ EXPOSE 3000 3001
 HEALTHCHECK --interval=1m --timeout=3s \
   CMD curl -f http://localhost:3000/ || exit 1
 
-ENTRYPOINT ["/opt/frontend/entrypoint.sh"]
+# ENTRYPOINT ["/opt/frontend/entrypoint.sh"]
 
 CMD ["yarn", "start:prod"]
