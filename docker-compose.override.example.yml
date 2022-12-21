@@ -7,7 +7,7 @@ services:
       - "8080:8080"
     tty: true
     stdin_open: true
-    command: cat
+    # command: cat
     environment:
       CORS_ALLOW_ORIGIN: "http://localhost:3000"
       SECURITY_POLICY_IMPLEMENTATION: "C"
@@ -15,7 +15,7 @@ services:
       DEFAULT_ZPUBLISHER_ENCODING: "utf-8"
       DEBUG_MODE: "off"
       ZODB_CACHE_SIZE: "50000"
-    entrypoint: sh -c "tail -f /dev/null"
+    # entrypoint: sh -c "tail -f /dev/null"
     user: plone
   frontend:
     build: .
