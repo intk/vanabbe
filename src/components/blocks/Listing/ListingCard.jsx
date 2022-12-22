@@ -1,12 +1,8 @@
 import React from 'react';
 import { flattenToAppURL } from '@plone/volto/helpers';
 import { Link } from 'react-router-dom';
-// import { When } from '@plone/volto/components/theme/View/EventDatesInfo';
 import { FormattedTime, FormattedDateParts } from 'react-intl';
 import { FormattedDate } from '@package/components';
-import { Icon } from 'semantic-ui-react';
-//
-// import DefaultImageSVG from '@plone/volto/components/manage/Blocks/Listing/default-image.svg';
 
 // see extras/listing.less for less
 function PreviewImage(props) {
@@ -80,6 +76,7 @@ const NewsItemCard = ({ item }) => {
 const EventCard = ({ item }) => {
   const { image_field } = item;
   const size = 'large';
+
   return item.start ? (
     <section className="slider-card listing-card event-card default-card">
       <Link
@@ -91,14 +88,15 @@ const EventCard = ({ item }) => {
           <div className="date">
             <FormattedDateParts
               value={new Date(item.start)}
-              // year="numeric"
-              month="short"
+              year="numeric"
+              month="2-digit"
               day="2-digit"
             >
               {(parts) =>
                 !!parts?.length && (
                   <div>
-                    {parts[2].value} <span>{parts[0].value}</span>
+                    {parts[2].value}.<span>{parts[0].value}</span>.
+                    {parts[4].value}
                   </div>
                 )
               }
