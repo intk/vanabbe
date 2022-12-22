@@ -1,7 +1,7 @@
 import { compose } from 'redux';
 
-import installFactsBlock from './Facts';
-import installActionLinks from './ActionLinks';
+// import installFactsBlock from './Facts';
+import installActionLinksBlock from './ActionLinks';
 import installButtonBlock from './Button';
 import installImageBlock from './Image';
 import installImageCards from './ImageCards';
@@ -30,11 +30,10 @@ const installBlocks = (config) => {
   return compose(
     installListingBlock,
     installImageBlock,
-    installFactsBlock,
     installQuoteBlock,
     installImageCards,
     installButtonBlock,
-    installActionLinks,
+    installActionLinksBlock,
     installSiteDataBlock,
     installSiteThemeBlock,
     installContentDividerBlock,

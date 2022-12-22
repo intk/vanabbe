@@ -13,18 +13,22 @@ const ButtonView = ({ data, mode = 'view' }) => {
     isEditMode ? (
       <div className={classNames}>{data.linkTitle || href}</div>
     ) : (
-      <ConditionalLink
-        to={flattenToAppURL(href)}
-        condition={!isEditMode}
-        className={classNames}
-      >
-        {data.linkTitle || href}
-      </ConditionalLink>
+      <span>
+        <ConditionalLink
+          to={flattenToAppURL(href)}
+          condition={!isEditMode}
+          className={classNames}
+        >
+          {data.linkTitle || href}
+        </ConditionalLink>
+      </span>
     )
   ) : href ? (
-    <UniversalLink href={href} className={classNames}>
-      {data.linkTitle || href}
-    </UniversalLink>
+    <span>
+      <UniversalLink href={href} className={classNames}>
+        {data.linkTitle || href}
+      </UniversalLink>
+    </span>
   ) : isEditMode ? (
     'Button block'
   ) : null;
