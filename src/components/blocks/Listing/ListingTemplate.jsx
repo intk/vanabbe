@@ -21,7 +21,7 @@ const ListingTemplate = (props) => {
             className="listing-column"
             key={i}
           >
-            <Card item={item} />
+            <Card {...props} item={item} />
           </Grid.Column>
         ))}
       </Grid>

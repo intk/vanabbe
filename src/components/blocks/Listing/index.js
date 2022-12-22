@@ -1,5 +1,6 @@
 import ListingsBlockTemplate from './ListingTemplate';
 import SliderListingBlockTemplate from './SliderListing';
+import BigCardsTemplate from './BigCardsTemplate';
 
 export default (config) => {
   config.blocks.blocksConfig.listing.schemaEnhancer = ({ schema }) => {
@@ -41,6 +42,12 @@ export default (config) => {
       isDefault: true,
       title: 'Cards',
       template: ListingsBlockTemplate,
+    },
+    {
+      id: 'listing_big_cards',
+      isDefault: true,
+      title: 'Big cards',
+      template: BigCardsTemplate,
     },
     {
       id: 'slider_listing',

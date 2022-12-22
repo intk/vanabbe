@@ -26,7 +26,7 @@ const Card = ({ item }) => {
   const size = 'large';
   // {!!item.effective && <FormattedDate isoDate={item.effective} />}
   return (
-    <section className="slider-card listing-card default-card">
+    <section className="listing-card default-card">
       <Link
         className="card-link"
         to={flattenToAppURL(item['@id'])}
@@ -50,7 +50,7 @@ const NewsItemCard = ({ item }) => {
   const { image_field } = item;
   const size = 'large';
   return (
-    <section className="slider-card listing-card newsitem-card default-card">
+    <section className="listing-card newsitem-card default-card">
       <Link
         className="card-link"
         to={flattenToAppURL(item['@id'])}
@@ -78,7 +78,7 @@ const EventCard = ({ item }) => {
   const size = 'large';
 
   return item.start ? (
-    <section className="slider-card listing-card event-card default-card">
+    <section className="listing-card event-card default-card">
       <Link
         className="card-link"
         to={flattenToAppURL(item['@id'])}

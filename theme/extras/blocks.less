@@ -24,11 +24,11 @@
 .blocks-wrapper,
 .blocks-bg-wrapper {
   > * {
-    padding-right: @twoWide;
-    padding-left: calc(@oneWide + 0.6rem);
+    margin-right: @twoWide;
+    margin-left: calc(@oneWide + 0.6rem);
 
     @media only screen and (max-width: @largestTabletScreen) {
-      padding-left: 0.6rem;
+      margin-left: 0.6rem;
     }
   }
 
@@ -41,13 +41,24 @@
   > .accordion-block,
   > .block.listing,
   > .block.hero {
-    padding-right: @desktopPadding;
-    padding-left: @desktopPadding;
+    margin-right: @desktopPadding;
+    margin-left: @desktopPadding;
 
     @media only screen and (max-width: @largestTabletScreen) {
-      padding-right: 0.6rem;
-      padding-left: 0.6rem;
+      margin-right: 0.6rem;
+      margin-left: 0.6rem;
     }
+  }
+}
+
+.blocks-wrapper {
+  > .image-carousel,
+  > .quoteBlock-wrapper,
+  > .accordion-block,
+  > .block.listing,
+  > .block.hero {
+    margin-right: 0;
+    margin-left: 0;
   }
 }
 
