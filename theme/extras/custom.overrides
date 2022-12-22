@@ -57,5 +57,5 @@ body.view-addview,
 }
 
 #toolbar .toolbar-content {
-  z-index: 99;
+  z-index: 200;
 }

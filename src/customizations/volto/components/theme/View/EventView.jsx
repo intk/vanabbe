@@ -44,45 +44,32 @@ const EventView = (props) => {
 
   return (
     <div id="page-document" className="ui container viewwrapper event-view">
-      <Grid>
-        <Grid.Column width={7} className="mobile hidden">
-          {hasBlocksData(content) ? (
-            <RenderBlocks {...props} />
-          ) : (
-            <EventTextfieldView {...props} />
-          )}
-        </Grid.Column>
-        <Grid.Column width={5} className="mobile hidden">
-          <EventDetails content={content} />
-        </Grid.Column>
-        <Grid.Column width={12} only="mobile">
-          {hasBlocksData(content) ? (
-            <>
-              <RenderBlocks
-                {...props}
-                content={{
-                  ...content,
-                  blocks_layout: {
-                    items: props.content.blocks_layout.items.slice(0, 1),
-                  },
-                }}
-              />
-              <EventDetails content={content} display_as="div" />
-              <RenderBlocks
-                {...props}
-                content={{
-                  ...content,
-                  blocks_layout: {
-                    items: props.content.blocks_layout.items.slice(1),
-                  },
-                }}
-              />
-            </>
-          ) : (
-            <EventTextfieldView {...props} />
-          )}
-        </Grid.Column>
-      </Grid>
+      <div className="content-container">
+        <Grid>
+          <Grid.Row>
+            <Grid.Column className="column-offset-1-right">
+              <div className="content-wrapper">
+                <Grid>
+                  <Grid.Row>
+                    <Grid.Column>
+                      {hasBlocksData(content) ? (
+                        <div className="blocks-bg-wrapper">
+                          <RenderBlocks {...props} />
+                        </div>
+                      ) : (
+                        <EventTextfieldView {...props} />
+                      )}
+                      <div className="event-details">
+                        <EventDetails content={content} display_as="div" />
+                      </div>
+                    </Grid.Column>
+                  </Grid.Row>
+                </Grid>
+              </div>
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>
+      </div>
     </div>
   );
 };
