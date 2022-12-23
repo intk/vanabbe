@@ -5,6 +5,11 @@
 .ui.button,
 .link-more a {
   .isBtn();
+
+  &:hover {
+    background-color: transparent;
+    color: inherit;
+  }
 }
 
 .link-more a,

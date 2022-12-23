@@ -28,7 +28,7 @@ const PopupMenu = (props) => {
   return (
     <>
       {open && (
-        <div classNames="popup-menu">
+        <div>
           <Portal
             node={isClient && document && document.getElementById('#main')}
           >

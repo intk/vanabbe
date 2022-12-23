@@ -1,8 +1,8 @@
 import ImageCarousel, { ImageCarouselCardSchema } from './Carousel';
 import LogoCards, { LogoCardsSchema } from './LogoCarousel';
-import PresentationCards from './PresentationCards';
-import TestimonialCards, { TestimonialCardsSchema } from './TestimonialCards';
-import SplashyCarousel, { SplashyCarouselSchema } from './SplashyCarousel';
+// import PresentationCards from './PresentationCards';
+// import TestimonialCards, { TestimonialCardsSchema } from './TestimonialCards';
+// import SplashyCarousel, { SplashyCarouselSchema } from './SplashyCarousel';
 // import VideoCarousel, { VideoCardSchema } from './VideoCarousel';
 
 export default function install(config) {
@@ -15,29 +15,29 @@ export default function install(config) {
       view: LogoCards,
       schemaExtender: LogoCards.schemaExtender,
     },
-    presentationCards: {
-      title: 'Presentation Cards',
-      schema: null,
-      view: PresentationCards,
-      schemaExtender: PresentationCards.schemaExtender,
-    },
-    testimonialCards: {
-      title: 'Testimonial Cards',
-      view: TestimonialCards,
-      schema: TestimonialCardsSchema,
-      schemaExtender: TestimonialCards.schemaExtender,
-    },
+    // presentationCards: {
+    //   title: 'Presentation Cards',
+    //   schema: null,
+    //   view: PresentationCards,
+    //   schemaExtender: PresentationCards.schemaExtender,
+    // },
+    // testimonialCards: {
+    //   title: 'Testimonial Cards',
+    //   view: TestimonialCards,
+    //   schema: TestimonialCardsSchema,
+    //   schemaExtender: TestimonialCards.schemaExtender,
+    // },
     imageCarousel: {
       title: 'Image Carousel',
       view: ImageCarousel,
       schema: ImageCarouselCardSchema,
       schemaExtender: ImageCarousel.schemaExtender,
     },
-    splashyCarousel: {
-      title: 'Splashy Carousel',
-      view: SplashyCarousel,
-      schema: SplashyCarouselSchema,
-    },
+    // splashyCarousel: {
+    //   title: 'Splashy Carousel',
+    //   view: SplashyCarousel,
+    //   schema: SplashyCarouselSchema,
+    // },
     // videoCarousel: {
     //   title: 'Video Carousel',
     //   view: VideoCarousel,
