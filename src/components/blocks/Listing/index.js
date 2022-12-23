@@ -1,6 +1,7 @@
 import ListingsBlockTemplate from './ListingTemplate';
 import SliderListingBlockTemplate from './SliderListing';
 import BigCardsTemplate from './BigCardsTemplate';
+import AgendaListingTemplate from './AgendaListing';
 
 export default (config) => {
   config.blocks.blocksConfig.listing.schemaEnhancer = ({ schema }) => {
@@ -26,9 +27,19 @@ export default (config) => {
         selectedItemAttrs: ['Title', 'Description'],
         allowExternals: true,
       },
+      hideDate: {
+        title: 'Hide date',
+        type: 'boolean',
+      },
     };
 
-    schema.fieldsets[0].fields.splice(2, 0, 'linkHref', 'linkTitle');
+    schema.fieldsets[0].fields.splice(
+      2,
+      0,
+      'linkHref',
+      'linkTitle',
+      'hideDate',
+    );
 
     // console.log(schema);
     return schema;
@@ -48,6 +59,12 @@ export default (config) => {
       isDefault: true,
       title: 'Big cards',
       template: BigCardsTemplate,
+    },
+    {
+      id: 'agenda',
+      isDefault: false,
+      title: 'Agenda',
+      template: AgendaListingTemplate,
     },
     {
       id: 'slider_listing',
