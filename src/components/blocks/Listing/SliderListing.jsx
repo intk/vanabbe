@@ -79,17 +79,17 @@ export const Pagination = ({ index, count }) => {
 
 const SliderListing = (data) => {
   const { items, linkHref } = data;
-  const [slideIndex, setSlideIndex] = React.useState(0);
+  // const [slideIndex, setSlideIndex] = React.useState(0);
   const sliderRef = React.useRef();
 
   const carouselSettings = React.useMemo(
     () => ({
-      afterChange: (current) => setSlideIndex(current),
+      // afterChange: (current) => setSlideIndex(current),
       dots: true,
       arrows: false, // we use custom navigation
       lazyLoad: 'progressive',
       autoplay: false,
-      infinite: true,
+      infinite: false,
       slidesToShow: 4,
       slidesToScroll: 1,
       // adaptiveHeight: true,
@@ -135,14 +135,7 @@ const SliderListing = (data) => {
         {({ parentWidth }) =>
           !!parentWidth && (
             <div style={{ width: `${parentWidth}px`, margin: '0 auto' }}>
-              <ListingBlockHeader data={data} sliderView>
-                {/* <SliderNavigation
-                  sliderRef={sliderRef}
-                  index={currentPage}
-                  count={totalPages}
-                  settings={carouselSettings}
-                /> */}
-              </ListingBlockHeader>
+              <ListingBlockHeader data={data} />
               <Slider
                 ref={sliderRef}
                 {...carouselSettings}
