@@ -3,6 +3,7 @@ export PreviewImage from './theme/PreviewImage/PreviewImage';
 export ResponsiveContainer from './theme/ResponsiveContainer/ResponsiveContainer';
 export { FormattedDate } from './FormattedDate/FormattedDate';
 export ScrollToTop from './theme/ScrollToTop/ScrollToTop';
+export SiteTheme from './theme/SiteTheme/SiteTheme';
 export ListingBlockHeader from './blocks/Listing/ListingBlockHeader';
 export ContrastToggle from './theme/ContrastToggle/ContrastToggle';
 export OpenHours from './theme/OpenHours/OpenHours';

@@ -13,6 +13,8 @@ import MultipleContentView from './components/theme/View/MultipleContentView';
 import ListingView from './components/theme/View/ListingView';
 import installExpressMiddleware from './express-middleware';
 
+import { SiteTheme } from '@package/components';
+
 // import installStyleMenu from 'volto-slate/editor/plugins/StyleMenu';
 // import { ScrollToTop } from '@package/components';
 // import defaultFieldSchema from 'volto-form-block/fieldSchema';
@@ -200,6 +202,10 @@ export default function applyConfig(config) {
     {
       match: '',
       component: CookieBanner,
+    },
+    {
+      match: '',
+      component: SiteTheme,
     },
     // {
     //   match: '',
