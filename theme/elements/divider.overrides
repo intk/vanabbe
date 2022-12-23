@@ -1,0 +1,7 @@
+/*******************************
+         Divider Overrides
+*******************************/
+
+.ui.divider {
+  border-top: 1px solid var(--text-color) !important;
+}
