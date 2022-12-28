@@ -80,7 +80,9 @@ export const Address = ({ contactTitle, address, phone, email, openHours }) => (
         <List.Content>
           {!!email && (
             <p>
-              <a href={`mailto:${email}`}>{email}</a>
+              <a className="email" href={`mailto:${email}`}>
+                {email}
+              </a>
             </p>
           )}
         </List.Content>
@@ -148,7 +150,7 @@ export function Footer(props) {
 
   return (
     <Container>
-      <div className="footer">
+      <div className="footer column-offset-2-right">
         <SocialLinks {...siteData} />
         <Address {...siteData} />
         <FooterBlocks includeTypes={['actionLinks']} />

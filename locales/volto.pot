@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Plone\n"
-"POT-Creation-Date: 2022-12-16T20:27:16.239Z\n"
+"POT-Creation-Date: 2022-12-28T17:46:03.230Z\n"
 "Last-Translator: Plone i18n <plone-i18n@lists.sourceforge.net>\n"
 "Language-Team: Plone i18n <plone-i18n@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -84,6 +84,11 @@ msgstr ""
 msgid "Search"
 msgstr ""
 
+#: components/theme/SearchWidget/SearchWidget
+# defaultMessage: Search artist, artwork etc... 
+msgid "Search artist, artwork etc... "
+msgstr ""
+
 #: components/blocks/SiteTheme/SiteThemeEdit
 # defaultMessage: Select page theme
 msgid "Select page theme"
@@ -109,6 +114,11 @@ msgstr ""
 msgid "SocialLinks"
 msgstr ""
 
+#: components/blocks/SiteData/schema
+# defaultMessage: Social links title
+msgid "SocialLinksTitle"
+msgstr ""
+
 #: components/blocks/Quote/EditBlockWrapper
 # defaultMessage: Unknown Block {block}
 msgid "Unknown Block"
@@ -127,6 +137,16 @@ msgstr ""
 #: components/blocks/SiteData/schema
 # defaultMessage: Address
 msgid "address"
+msgstr ""
+
+#: components/blocks/ActionLinks/schema
+# defaultMessage: Block title
+msgid "blockTitle"
+msgstr ""
+
+#: components/blocks/SiteData/schema
+# defaultMessage: Contact title
+msgid "contactTitle"
 msgstr ""
 
 #: components/blocks/Quote/EditBlockWrapper

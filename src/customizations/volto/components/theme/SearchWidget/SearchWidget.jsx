@@ -1,9 +1,10 @@
 import React from 'react';
 import { defineMessages, useIntl } from 'react-intl';
 import { Button } from 'semantic-ui-react';
-
+import { BodyClass } from '@plone/volto/helpers';
 import PopupMenu from '@package/components/theme/Navigation/PopupMenu';
 import SearchWidget from '@package/components/theme/SearchWidget/SearchWidget';
+import { Logo } from '@plone/volto/components';
 
 import { useLocation } from 'react-router-dom';
 
@@ -12,9 +13,9 @@ const messages = defineMessages({
     id: 'Search',
     defaultMessage: 'Search',
   },
-  searchSite: {
-    id: 'Search',
-    defaultMessage: 'Search',
+  close: {
+    id: 'Close',
+    defaultMessage: 'Close',
   },
 });
 
@@ -40,20 +41,32 @@ const SearchWidgetWrapper = (props) => {
     };
   }, []);
 
+  function handleClick(e) {
+    setShowPopup((showPopup) => !showPopup);
+  }
+
   const { children } = props;
   return (
     <div id="global-search-widget">
+      {showPopup && <BodyClass className="open-search open-popup" />}
       <Button
         basic
         className="big-button"
         aria-label={intl.formatMessage(messages.search)}
-        onClick={() => setShowPopup(true)}
+        onClick={handleClick}
       >
-        {intl.formatMessage(messages.search)}
+        {showPopup ? (
+          <>{intl.formatMessage(messages.close)}</>
+        ) : (
+          <>{intl.formatMessage(messages.search)}</>
+        )}
       </Button>
-      <PopupMenu open={showPopup} onClose={() => setShowPopup(false)}>
-        <div className="hover-menu search-widget">
-          <div className="hover-menu-inner">{children}</div>
+      <PopupMenu open={showPopup}>
+        <div className="search popup-inner popup-menu-inner">
+          <div className="popup-bottom">
+            {children}
+            <Logo height="100px" />
+          </div>
         </div>
       </PopupMenu>
     </div>

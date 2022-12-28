@@ -19,7 +19,7 @@ import MobileMenu from './MobileMenu';
 import PopupMenu from './PopupMenu';
 
 const messages = defineMessages({
-  closeMobileMenu: {
+  close: {
     id: 'Close',
     defaultMessage: 'Close',
   },
@@ -37,6 +37,19 @@ function Navigation({ pathname, intl, items, lang }) {
     setIsOpened(false);
   }, [location]);
 
+  React.useEffect(() => {
+    const handleEsc = (event) => {
+      if (event.keyCode === 27) {
+        setIsOpened(false);
+      }
+    };
+    window.addEventListener('keydown', handleEsc);
+
+    return () => {
+      window.removeEventListener('keydown', handleEsc);
+    };
+  }, []);
+
   function handleClick(e) {
     setIsOpened((isOpened) => !isOpened);
   }
@@ -53,7 +66,7 @@ function Navigation({ pathname, intl, items, lang }) {
 
   return (
     <nav className="navigation" id="navigation" aria-label="navigation">
-      {isOpened && <BodyClass className="open-menu" />}
+      {isOpened && <BodyClass className="open-menu open-popup" />}
 
       <Button
         basic
@@ -62,7 +75,7 @@ function Navigation({ pathname, intl, items, lang }) {
         aria-label={intl.formatMessage(messages.openMobileMenu)}
       >
         {isOpened ? (
-          <>{intl.formatMessage(messages.closeMobileMenu)}</>
+          <>{intl.formatMessage(messages.close)}</>
         ) : (
           <>{intl.formatMessage(messages.openMobileMenu)}</>
         )}
