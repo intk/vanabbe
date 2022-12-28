@@ -5,3 +5,66 @@
 .footer-info {
   display: none;
 }
+
+.footer {
+  display: flex;
+  align-items: flex-start;
+  margin-top: var(--space-xxl);
+  font-size: 16px;
+  gap: 60px;
+
+  p,
+  a,
+  a:hover {
+    color: var(--text-color) !important;
+    font-size: 16px;
+  }
+
+  .ui.list {
+    max-width: 170px;
+    margin: 0;
+  }
+
+  .section-title {
+    margin-top: 0;
+    font-size: 13px;
+
+    &:after {
+      content: '\200b';
+    }
+  }
+
+  ul {
+    list-style-type: none;
+  }
+}
+
+.section-title {
+  margin: 1em 0;
+}
+
+.login,
+.login:hover {
+  display: inline-block;
+  margin: 1.5em 0;
+  color: var(--text-color);
+  font-size: 16px;
+}
+
+@media only screen and (max-width: @largestTabletScreen) {
+  .footer {
+    flex-direction: column;
+  }
+
+  .footer .ui.list {
+    max-width: none;
+  }
+
+  .section-wrapper {
+    .ui.list {
+      display: flex;
+      align-items: baseline;
+      gap: 1em;
+    }
+  }
+}

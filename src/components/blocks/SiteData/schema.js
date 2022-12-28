@@ -1,7 +1,7 @@
 import { defineMessages } from 'react-intl';
 
-export const SocialIcon = (props) => ({
-  title: 'Social icon',
+export const SocialLink = (props) => ({
+  title: 'Social link',
   fieldsets: [
     {
       id: 'default',
@@ -22,6 +22,10 @@ export const SocialIcon = (props) => ({
 });
 
 const messages = defineMessages({
+  contactTitle: {
+    id: 'contactTitle',
+    defaultMessage: 'Contact title',
+  },
   address: {
     id: 'address',
     defaultMessage: 'Address',
@@ -42,6 +46,10 @@ const messages = defineMessages({
     id: 'SiteData',
     defaultMessage: 'Global site settings',
   },
+  socialLinksTitle: {
+    id: 'SocialLinksTitle',
+    defaultMessage: 'Social links title',
+  },
   SocialLinks: {
     id: 'SocialLinks',
     defaultMessage: 'Social Links',
@@ -53,12 +61,23 @@ const SiteDataSchema = ({ intl }) => ({
   fieldsets: [
     {
       id: 'default',
-      fields: ['address', 'phone', 'email', 'openHours', 'socialLinks'], //  'url'
+      fields: [
+        'contactTitle',
+        'address',
+        'phone',
+        'email',
+        'openHours',
+        'socialLinksTitle',
+        'socialLinks',
+      ], //  'url'
       title: 'Default',
     },
   ],
 
   properties: {
+    contactTitle: {
+      title: intl.formatMessage(messages.contactTitle),
+    },
     address: {
       title: intl.formatMessage(messages.address),
     },
@@ -71,10 +90,13 @@ const SiteDataSchema = ({ intl }) => ({
     openHours: {
       title: intl.formatMessage(messages.openHours),
     },
+    socialLinksTitle: {
+      title: intl.formatMessage(messages.socialLinksTitle),
+    },
     socialLinks: {
       title: intl.formatMessage(messages.SocialLinks),
       widget: 'object_list',
-      schema: SocialIcon(),
+      schema: SocialLink(),
     },
   },
   required: [],

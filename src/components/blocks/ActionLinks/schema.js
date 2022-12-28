@@ -22,6 +22,10 @@ const messages = defineMessages({
     id: 'Action',
     defaultMessage: 'Action',
   },
+  blockTitle: {
+    id: 'blockTitle',
+    defaultMessage: 'Block title',
+  },
 });
 
 const ActionSchema = ({ onChangeBlock, intl, data, openObjectBrowser }) => ({
@@ -51,12 +55,15 @@ const schema = ({ onChangeBlock, intl, data, openObjectBrowser }) => ({
   fieldsets: [
     {
       id: 'default',
-      fields: ['globalId', 'actions'], // 'title', 'linkTitle', 'linkHref', 'cards'
+      fields: ['blockTitle', 'globalId', 'actions'], // 'title', 'linkTitle', 'linkHref', 'cards'
       title: 'Default',
     },
   ],
 
   properties: {
+    blockTitle: {
+      title: intl.formatMessage(messages.blockTitle),
+    },
     globalId: {
       title: 'Global ID',
       description:
