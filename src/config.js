@@ -12,6 +12,7 @@ import AttachedImageWidget from './components/widgets/AttachedImageWidget';
 import MultipleContentView from './components/theme/View/MultipleContentView';
 import ListingView from './components/theme/View/ListingView';
 import PublicationView from './components/theme/View/PublicationView';
+import ArtworkView from './components/theme/View/ArtworkView';
 
 import installExpressMiddleware from './express-middleware';
 
@@ -185,6 +186,7 @@ export default function applyConfig(config) {
   config.views.layoutViews.listing_view = ListingView;
   config.views.layoutViewsNamesMapping.multiple_content = 'Section layout';
   config.views.contentTypesViews.publication = PublicationView;
+  config.views.contentTypesViews.artwork = ArtworkView;
 
   config.widgets.widget.attachedimage = AttachedImageWidget;
   config.widgets.id.cookie_consent_configuration = MultilingualWidget();

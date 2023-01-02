@@ -1,5 +1,6 @@
 import React from 'react';
 
 export default function PublicationView(props) {
-  return 'bla';
+  const { content } = props;
+  return <div className="publication-view">//</div>;
 }
