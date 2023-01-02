@@ -3,17 +3,15 @@
 
 @import (multiple, reference, optional) '../../theme.config';
 
-.image-carousel {
+.image-album {
   position: relative;
-  // margin: 2em 0;
 
-  // .slick-list {
-  //   margin: 0 -0.8em !important;
-  // }
+  // TODO: fix these sizes
+  width: 500px;
+  height: 500px;
 
   .thumbnail-slider-wrap {
     position: relative;
-    // display: flex;
 
     .slick-slide {
       margin-top: 15px !important;
@@ -27,13 +25,8 @@
 
     .slick-slide,
     .slide-img {
-      // max-width: 72px !important;
       height: 54px !important;
     }
-
-    // .slick-slider {
-    //   width: calc(100% - 72px);
-    // }
   }
 
   .slick-track > .slick-slide:last-child {
@@ -42,73 +35,6 @@
     right: 13px;
     width: 87px;
     margin: 0 !important;
-  }
-
-  .total {
-    // position: absolute;
-    // top: 15px;
-    // right: 13px;
-    // display: flex;
-    // width: 87px;
-    height: 54px;
-    align-items: center;
-    background-color: rgba(0, 0, 0, 0.5);
-    border-radius: 5px;
-    pointer-events: none;
-
-    span {
-      margin: 0 auto;
-      color: @white;
-      font-size: 20px;
-    }
-  }
-
-  // .slick-dots.slick-thumb {
-  //   position: relative;
-  //   bottom: 0;
-  //   display: flex !important;
-  //   overflow: auto;
-
-  //   flex-direction: row;
-  //   flex-wrap: nowrap;
-  //   padding: 0;
-  //   margin-top: 0.3em;
-  //   // -webkit-overflow-scrolling: touch;
-  //   // overflow-x: scroll;
-  //   // scroll-behavior: smooth;
-  //   // scroll-snap-type: x mandatory;
-
-  //   // &::-webkit-scrollbar {
-  //   //   width: 0 !important;
-  //   //   height: 0 !important;
-  //   // }
-
-  //   li {
-  //     width: 72px;
-  //     height: 54px;
-  //     flex-grow: 0;
-  //     flex-shrink: 0;
-  //   }
-  // }
-
-  .slick-dots {
-    bottom: 15px;
-
-    li {
-      width: 16px;
-      height: 16px;
-    }
-
-    li button:before {
-      color: var(--background-color);
-      font-size: 16px;
-      opacity: 1;
-    }
-
-    li.slick-active button:before {
-      color: var(--text-color);
-      opacity: 1;
-    }
   }
 
   .slick-track {
@@ -168,23 +94,5 @@
       border-radius: 6px;
       object-fit: cover;
     }
-  }
-}
-
-.slide-caption {
-  > p:first-child {
-    margin-top: 1.5em !important;
-  }
-
-  p {
-    margin-bottom: 1em !important;
-    color: var(--text-color);
-    font-size: @smallFontSize;
-  }
-}
-
-.big-carousel {
-  .slick-slide {
-    padding: 0 !important;
   }
 }

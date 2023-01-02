@@ -11,6 +11,7 @@ export default function PreviewImage({
   size = 'medium',
   isFallback = false,
   showPlaceholder = false,
+  className,
 }) {
   const url = flattenToAppURL(
     `${item['@id']}/@@${isFallback ? 'fallback-image' : 'images'}/${
@@ -29,7 +30,7 @@ export default function PreviewImage({
       style={{ backgroundImage: `url("${url}")` }}
       size={size}
       alt={item.title}
-      className={cx('preview-image', size)}
+      className={cx('preview-image', size, className)}
     />
   );
 }

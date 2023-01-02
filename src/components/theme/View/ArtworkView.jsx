@@ -5,7 +5,7 @@ export default function ArtworkView(props) {
   const { content } = props;
   return (
     <div className="artwork-view">
-      <ImageAlbum cards={content.items} />
+      <ImageAlbum items={content.items} />
       <h2>{content.objectTitle}</h2>
       <div className="object-creation">{content.objectCreationDate}</div>
       <h3>{content.authorName}</h3>
