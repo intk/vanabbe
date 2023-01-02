@@ -11,6 +11,8 @@ import installFooter from './footer';
 import AttachedImageWidget from './components/widgets/AttachedImageWidget';
 import MultipleContentView from './components/theme/View/MultipleContentView';
 import ListingView from './components/theme/View/ListingView';
+import PublicationView from './components/theme/View/PublicationView';
+
 import installExpressMiddleware from './express-middleware';
 
 import { SiteTheme } from '@package/components';
@@ -182,6 +184,7 @@ export default function applyConfig(config) {
   config.views.layoutViews.multiple_content = MultipleContentView;
   config.views.layoutViews.listing_view = ListingView;
   config.views.layoutViewsNamesMapping.multiple_content = 'Section layout';
+  config.views.contentTypesViews.publication = PublicationView;
 
   config.widgets.widget.attachedimage = AttachedImageWidget;
   config.widgets.id.cookie_consent_configuration = MultilingualWidget();
