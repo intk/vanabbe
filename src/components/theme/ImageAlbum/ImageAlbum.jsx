@@ -22,6 +22,8 @@ const ImageAlbum = (props) => {
   const moreImagesLength =
     items.length > MAX_THUMBS ? items.length - MAX_THUMBS : null;
 
+  console.log('thumbsToShow', thumbsToShow.length);
+
   const carouselSettings = React.useMemo(
     () => ({
       afterChange: (current) => setActiveSlideIndex(current),
@@ -30,6 +32,7 @@ const ImageAlbum = (props) => {
       slidesToScroll: 1,
       dots: false,
       arrows: true,
+      adaptiveHeight: true,
       autoplay: false,
       fade: false,
       useTransform: false,
@@ -56,34 +59,36 @@ const ImageAlbum = (props) => {
         <PreviewImage item={items[0]} size="huge" />
       </div>
 
-      <div className="thumbnails">
-        {thumbsToShow.map((thumb, i) => (
-          <div
-            tabIndex={0}
-            role="button"
-            onKeyDown={() => {
-              setActiveSlideIndex(i);
-              setOpen(true);
-            }}
-            onClick={() => {
-              setActiveSlideIndex(i);
-              setOpen(true);
-            }}
-          >
-            <PreviewImage
-              key={i}
-              item={thumb}
-              size="thumb"
-              className="img-thumb"
-            />
-          </div>
-        ))}
-        {moreImagesLength && (
-          <div className="images-number">
-            <div>+{moreImagesLength}</div>
-          </div>
-        )}
-      </div>
+      {thumbsToShow.length > 1 && (
+        <div className="thumbnails">
+          {thumbsToShow.map((thumb, i) => (
+            <div
+              tabIndex={0}
+              role="button"
+              onKeyDown={() => {
+                setActiveSlideIndex(i);
+                setOpen(true);
+              }}
+              onClick={() => {
+                setActiveSlideIndex(i);
+                setOpen(true);
+              }}
+            >
+              <PreviewImage
+                key={i}
+                item={thumb}
+                size="thumb"
+                className="img-thumb"
+              />
+            </div>
+          ))}
+          {moreImagesLength && (
+            <div className="images-number">
+              <div>+{moreImagesLength}</div>
+            </div>
+          )}
+        </div>
+      )}
 
       <Modal
         closeIcon

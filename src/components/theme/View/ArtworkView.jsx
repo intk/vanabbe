@@ -23,18 +23,17 @@ export default function ArtworkView(props) {
                       </h3>
                       {/* <h2>{content.objectTitle}</h2> */}
                       <h2>{content.authorName}</h2>
-                      <h4>
-                        <div className="object-medium">
-                          {content.objectMedium}
-                        </div>
-                        <div className="object-location">Not on display</div>
-                        <div className="acquired">
-                          Acquired in {content.objectYearPurchase}
-                        </div>
-                        <div className="inventory-number">
-                          Inventory number {content.objectID}
-                        </div>
-                      </h4>
+
+                      <div className="object-medium">
+                        {content.objectMedium}
+                      </div>
+                      <div className="object-location">Not on display</div>
+                      <div className="acquired">
+                        Acquired in {content.objectYearPurchase}
+                      </div>
+                      <div className="inventory-number">
+                        Inventory number {content.objectID}
+                      </div>
 
                       <div className="info">
                         <p>
@@ -52,7 +51,7 @@ export default function ArtworkView(props) {
                       </div>
                     </div>
                   </div>
-                  <div className="artwork-content">
+                  <div className="artwork-content column-offset-1-left column-offset-2-right">
                     <h4>Description</h4>
                     ...
                     <p>

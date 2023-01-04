@@ -12,16 +12,33 @@
     gap: 2em;
   }
 
+  .object-creation {
+    margin-bottom: var(--space-xs);
+  }
+
+  .object-medium,
+  .object-location,
+  .acquired,
+  .inventory-number {
+    font-size: @largeFontSize;
+  }
+
   .artwork-content {
-    padding: 4em;
+    padding: 4em 0;
   }
 
   .artwork-meta {
-    padding: 4em 5.5em 0 3.5em;
+    @media only screen and (min-width: @largestTabletScreen) {
+      padding: 4em 5.5em 0 3.5em;
+    }
   }
 
-  .info p {
-    font-size: 16px;
+  .info {
+    margin-top: var(--space-lg);
+
+    p {
+      font-size: 16px;
+    }
   }
 
   .social-links {
@@ -36,6 +53,28 @@
       .item {
         padding: 0 !important;
       }
+    }
+  }
+}
+
+@media only screen and (max-width: @largestTabletScreen) {
+  .artwork-view {
+    .artwork-top {
+      flex-direction: column;
+    }
+
+    .artwork-meta {
+      margin-right: @twoWide;
+      margin-left: @oneWide;
+    }
+
+    .image-album {
+      width: 100%;
+    }
+
+    .image-album .ui.huge.image {
+      width: 100%;
+      height: 497px;
     }
   }
 }
