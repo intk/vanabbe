@@ -12,9 +12,23 @@
   background: none !important;
   box-shadow: none;
 
+  .slick-slide {
+    > div {
+      text-align: center;
+
+      img {
+        margin: 0 auto;
+      }
+    }
+  }
+
   > .content {
     background: none !important;
   }
+}
+
+.slide-image-count {
+  text-align: center;
 }
 
 .thumbnails {
@@ -63,8 +77,7 @@
 }
 
 .modal-slide-img {
-  width: 100% !important;
-  height: 500px !important;
-
-  .backgroundImage();
+  width: auto !important;
+  max-width: none;
+  max-height: 500px !important;
 }

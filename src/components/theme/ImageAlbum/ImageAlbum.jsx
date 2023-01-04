@@ -1,7 +1,7 @@
 import React from 'react';
-
+import { Modal, Image } from 'semantic-ui-react';
 import { PreviewImage } from '@package/components';
-import { Modal } from 'semantic-ui-react';
+import { flattenToAppURL } from '@plone/volto/helpers';
 import loadable from '@loadable/component';
 
 import 'slick-carousel/slick/slick.css';
@@ -41,7 +41,20 @@ const ImageAlbum = (props) => {
 
   return (
     <div className="image-album">
-      <PreviewImage item={items[0]} size="huge" />
+      <div
+        tabIndex={0}
+        role="button"
+        onKeyDown={() => {
+          setActiveSlideIndex(0);
+          setOpen(true);
+        }}
+        onClick={() => {
+          setActiveSlideIndex(0);
+          setOpen(true);
+        }}
+      >
+        <PreviewImage item={items[0]} size="huge" />
+      </div>
 
       <div className="thumbnails">
         {thumbsToShow.map((thumb, i) => (
@@ -81,16 +94,27 @@ const ImageAlbum = (props) => {
       >
         <Modal.Content>
           <Slider {...carouselSettings} ref={sliderRef}>
-            {items.map((item, i) => (
-              <PreviewImage
-                key={i}
-                item={item}
-                size="huge"
-                className="modal-slide-img"
-              />
-            ))}
+            {items.map((item, i) => {
+              return (
+                <Image
+                  src={
+                    item
+                      ? flattenToAppURL(
+                          `${item?.['@id']}/@@${'images'}/${
+                            item?.image_field || 'preview_image'
+                          }/large`,
+                        )
+                      : ''
+                  }
+                  alt={item?.title}
+                  className="modal-slide-img"
+                />
+              );
+            })}
           </Slider>
-          {activeSlideIndex + 1} of {items.length}
+          <div className="slide-image-count">
+            {activeSlideIndex + 1} of {items.length}
+          </div>
         </Modal.Content>
       </Modal>
     </div>
