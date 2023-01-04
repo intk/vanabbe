@@ -12,6 +12,7 @@
 @import './header.less';
 @import './themes.less';
 @import './menu.less';
+@import './artwork.less';
 
 // .view-viewview.has-image {
 //   #main > .breadcrumbs {

@@ -18,7 +18,7 @@ export default function PreviewImage({
       item.image_field || 'preview_image'
     }/large`,
   );
-  console.log('url', url);
+  // console.log('url', url);
 
   return showPlaceholder ? (
     <Placeholder>

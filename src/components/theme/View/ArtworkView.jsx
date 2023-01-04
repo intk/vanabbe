@@ -1,37 +1,66 @@
 import React from 'react';
+import { Grid, Container } from 'semantic-ui-react';
 import ImageAlbum from '../ImageAlbum/ImageAlbum';
 
 export default function ArtworkView(props) {
   const { content } = props;
+
   return (
     <div className="artwork-view">
-      <ImageAlbum items={content.items} />
-      <h2>{content.objectTitle}</h2>
-      <div className="object-creation">{content.objectCreationDate}</div>
-      <h3>{content.authorName}</h3>
-      <div className="object-medium">{content.objectMedium}</div>
-      <div className="object-location">Not on display</div>
-      <div className="acquired">Acquired in {content.objectYearPurchase}</div>
-      <div className="inventory-number">
-        Inventory number {content.objectID}
-      </div>
-      <p>
-        The Van Abbemuseum Collection consists of over 2800 artworks. We publish
-        texts and images on an ongoing basis, but this record is currently in
-        the process of being documented..
-      </p>
-      <p>
-        If you need specific information on this work or artist, remember that
-        the Van Abbemuseum Library is at your disposal, or feel free to write to
-        the library.
-      </p>
-      {/* <SocialLinks /> */}
-      <h4>Description</h4>
-      ...
-      <p>
-        Does this page contain inaccurate information or language that you feel
-        we should improve or change? We would like to hear from you.
-      </p>
+      <Container>
+        <div className="content-container">
+          <Grid>
+            <Grid.Row>
+              <Grid.Column className="column-offset-1-right">
+                <div className="content-wrapper">
+                  <div className="artwork-top">
+                    <ImageAlbum items={content.items} />
+
+                    <div className="artwork-meta">
+                      <div className="object-creation">
+                        {content.objectCreationDate}
+                      </div>
+                      {/* <h2>{content.objectTitle}</h2> */}
+                      <h2>{content.authorName}</h2>
+                      <div className="object-medium">
+                        {content.objectMedium}
+                      </div>
+                      <div className="object-location">Not on display</div>
+                      <div className="acquired">
+                        Acquired in {content.objectYearPurchase}
+                      </div>
+                      <div className="inventory-number">
+                        Inventory number {content.objectID}
+                      </div>
+                      <p>
+                        The Van Abbemuseum Collection consists of over 2800
+                        artworks. We publish texts and images on an ongoing
+                        basis, but this record is currently in the process of
+                        being documented..
+                      </p>
+                      <p>
+                        If you need specific information on this work or artist,
+                        remember that the Van Abbemuseum Library is at your
+                        disposal, or feel free to write to the library.
+                      </p>
+                      {/* <SocialLinks /> */}
+                    </div>
+                  </div>
+                  <div className="artwork-content">
+                    <h4>Description</h4>
+                    ...
+                    <p>
+                      Does this page contain inaccurate information or language
+                      that you feel we should improve or change? We would like
+                      to hear from you.
+                    </p>
+                  </div>
+                </div>
+              </Grid.Column>
+            </Grid.Row>
+          </Grid>
+        </div>
+      </Container>
     </div>
   );
 }

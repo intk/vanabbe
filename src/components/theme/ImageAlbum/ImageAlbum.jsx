@@ -1,144 +1,98 @@
 import React from 'react';
 
-import { PreviewImage, ResponsiveContainer } from '@package/components';
-import cx from 'classnames';
-
+import { PreviewImage } from '@package/components';
+import { Modal } from 'semantic-ui-react';
 import loadable from '@loadable/component';
+
+import './image-album.less';
 
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
-import './image-album.less';
-
 const Slider = loadable(() => import('react-slick'));
 
+const MAX_THUMBS = 4;
+
 const ImageAlbum = (props) => {
-  const {
-    items = [],
-    hideThumbs,
-    itemsPerRow = 1,
-    autoplay = false,
-    autoplaySpeed = 3000,
-  } = props;
-  const sliderRef = React.useRef();
-  const [slideIndex, setSlideIndex] = React.useState(0);
-  const [isClient, setIsClient] = React.useState(false);
+  const { items = [] } = props;
+  const [open, setOpen] = React.useState(false);
+  const [activeSlideIndex, setActiveSlideIndex] = React.useState(0);
+  const sliderRef = React.useRef(null);
 
-  const [sliderNav, setSliderNav] = React.useState(null);
-  const [sliderTumbNav, setSliderTumbNav] = React.useState(null);
-  const [slider, setSlider] = React.useState(null);
-  const [thumbSlider, setThumbSlider] = React.useState(null);
-
-  React.useEffect(() => {
-    setSliderNav(slider);
-    setSliderTumbNav(thumbSlider);
-  }, [slider, thumbSlider]);
-
-  React.useEffect(() => setIsClient(true), []);
-
-  const slidesToShow = Math.min(items.length, itemsPerRow);
+  const thumbsToShow = items.slice(0, MAX_THUMBS);
+  const moreImagesLength =
+    items.length > MAX_THUMBS ? items.length - MAX_THUMBS : null;
 
   const carouselSettings = React.useMemo(
     () => ({
-      afterChange: (current) => setSlideIndex(current),
-      // speed: 800,
-      arrows: false,
+      afterChange: (current) => setActiveSlideIndex(current),
       infinite: true,
-      slidesToShow,
+      slidesToShow: 1,
       slidesToScroll: 1,
-      dots: hideThumbs,
-      autoplay,
-      autoplaySpeed,
+      dots: false,
+      arrows: true,
+      autoplay: false,
       fade: false,
       useTransform: false,
-      adaptiveHeight: true,
       lazyLoad: 'ondemand',
-      asNavFor: '.slider-nav',
-
-      // responsive: [
-      //   {
-      //     breakpoint: 1024,
-      //     settings: {
-      //       slidesToShow: Math.min(slidesToShow, 3),
-      //       slidesToScroll: Math.min(slidesToShow, 3),
-      //       infinite: true,
-      //       // dots: true,
-      //     },
-      //   },
-      //   {
-      //     breakpoint: 800,
-      //     settings: {
-      //       slidesToShow: Math.min(slidesToShow, 2),
-      //       slidesToScroll: Math.min(slidesToShow, 2),
-      //       initialSlide: Math.min(slidesToShow, 2),
-      //     },
-      //   },
-      //   {
-      //     breakpoint: 480,
-      //     settings: {
-      //       slidesToShow: 1,
-      //       slidesToScroll: 1,
-      //     },
-      //   },
-      // ],
+      initialSlide: activeSlideIndex,
     }),
-    [autoplay, autoplaySpeed, hideThumbs, slidesToShow],
+    [activeSlideIndex],
   );
-
-  const carouselThumbsSettings = {
-    slidesToShow: 10,
-    slidesToScroll: 1,
-    dots: false,
-    centerMode: items.length > 10 ? false : true,
-    infinite: items.length > 10 ? true : false,
-    focusOnSelect: true,
-    // swipeToSlide: true,
-    // infinite: false,
-    // centerPadding: '10px',
-    // variableWidth: true,
-  };
 
   return (
     <div className="image-album">
-      <ResponsiveContainer>
-        {({ parentWidth }) => {
-          return (
-            parentWidth &&
-            isClient && (
-              <div style={{ width: `${parentWidth}px`, margin: '0' }}>
-                <div ref={sliderRef} className="main-slider">
-                  <Slider
-                    {...carouselSettings}
-                    asNavFor={sliderTumbNav}
-                    ref={(slider) => setSlider(slider)}
-                  >
-                    {items.map((card, i) => (
-                      <PreviewImage item={card} key={i} size="huge" />
-                    ))}
-                  </Slider>
-                </div>
+      <PreviewImage item={items[0]} size="huge" />
 
-                <div className="thumbnail-slider-wrap">
-                  <Slider
-                    {...carouselThumbsSettings}
-                    asNavFor={sliderNav}
-                    ref={(slider) => setThumbSlider(slider)}
-                  >
-                    {items.map((card, i) => (
-                      <PreviewImage
-                        key={i}
-                        item={card}
-                        size="thumb"
-                        className="slide-img"
-                      />
-                    ))}
-                  </Slider>
-                </div>
-              </div>
-            )
-          );
-        }}
-      </ResponsiveContainer>
+      <div className="thumbnails">
+        {thumbsToShow.map((card, i) => (
+          <div
+            tabIndex={0}
+            role="button"
+            onKeyDown={() => {
+              setActiveSlideIndex(i);
+              setOpen(true);
+            }}
+            onClick={() => {
+              setActiveSlideIndex(i);
+              setOpen(true);
+            }}
+          >
+            <PreviewImage
+              key={i}
+              item={card}
+              size="thumb"
+              className="img-thumb"
+            />
+          </div>
+        ))}
+        {moreImagesLength && (
+          <div className="images-number">
+            <div>+{moreImagesLength}</div>
+          </div>
+        )}
+      </div>
+
+      <Modal
+        onClose={() => setOpen(false)}
+        onOpen={() => setOpen(true)}
+        open={open}
+        className="slider-modal"
+      >
+        <Modal.Content>
+          <Slider {...carouselSettings} ref={sliderRef}>
+            {items.map((card, i) => (
+              <PreviewImage
+                key={i}
+                item={card}
+                size="huge"
+                className="modal-slide-img"
+              />
+            ))}
+          </Slider>
+          {activeSlideIndex + 1} of {items.length}
+        </Modal.Content>
+      </Modal>
     </div>
   );
 };

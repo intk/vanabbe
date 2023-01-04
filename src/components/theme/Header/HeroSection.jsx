@@ -6,7 +6,7 @@ import { BodyClass } from '@plone/volto/helpers';
 
 function HeroSection(props) {
   const { image_url, content } = props;
-  const { title, preview_caption, description } = content || {};
+  const { title, preview_caption, description, objectTitle } = content || {};
   // const location = useLocation();
 
   return (
@@ -16,7 +16,7 @@ function HeroSection(props) {
       <Grid>
         <Grid.Row>
           <Grid.Column className="column-offset-1-left column-offset-2-right">
-            {title && <h1 className="content-title">{title}</h1>}
+            {title && <h1 className="content-title">{objectTitle || title}</h1>}
             {description && (
               <p className="content-description">{description}</p>
             )}

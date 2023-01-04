@@ -5,94 +5,66 @@
 
 .image-album {
   position: relative;
+  width: 482px;
+}
 
-  // TODO: fix these sizes
-  width: 500px;
-  height: 500px;
+.ui.modal.slider-modal {
+  background: none !important;
+  box-shadow: none;
 
-  .thumbnail-slider-wrap {
-    position: relative;
-
-    .slick-slide {
-      margin-top: 15px !important;
-      margin-right: 15px !important;
-    }
-
-    .slick-track {
-      margin-right: 0px !important;
-      margin-left: auto !important;
-    }
-
-    .slick-slide,
-    .slide-img {
-      height: 54px !important;
-    }
+  > .content {
+    background: none !important;
   }
+}
 
-  .slick-track > .slick-slide:last-child {
-    position: absolute;
-    top: 15px;
-    right: 13px;
-    width: 87px;
-    margin: 0 !important;
+.thumbnails {
+  position: relative;
+  display: flex;
+  justify-content: flex-end;
+  margin: 10px 0;
+  gap: 5px;
+}
+
+.image-album {
+  .ui.huge.image {
+    width: 482px;
+    max-width: none;
+    height: 730px;
+    margin-top: -32px;
+    border-radius: 6px;
+
+    .backgroundImage();
   }
+}
 
-  .slick-track {
-    display: flex !important;
+.images-number {
+  position: absolute;
+  display: flex;
+  width: 72px;
+  height: 54px;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 5px;
+  color: @white;
+  pointer-events: none;
+
+  div {
+    width: 100%;
+    text-align: center;
   }
+}
 
-  .slick-slide {
-    height: inherit !important;
-    padding: 1rem !important;
+.img-thumb {
+  width: 72px;
+  height: 54px;
+  border-radius: 6px;
 
-    .ui.card {
-      width: 100%;
-      height: 100%;
-    }
+  .backgroundImage();
+}
 
-    > div {
-      // equal height cards in slider
-      height: 100%;
-    }
-  }
+.modal-slide-img {
+  width: 100% !important;
+  height: 500px !important;
 
-  .slide-img {
-    position: relative;
-    display: flex;
-    height: 100%;
-    flex-direction: column;
-    justify-content: center;
-
-    &:after {
-      z-index: 1;
-    }
-
-    .ui.placeholder {
-      width: 100%;
-      max-width: none;
-      height: 100%;
-      min-height: 250px;
-    }
-
-    .card-link {
-      height: 100%;
-    }
-
-    a:not(.card-link) {
-      display: flex;
-      max-width: 100%;
-      max-height: 100%;
-      flex-direction: column;
-      justify-content: center;
-      margin: 0 auto;
-    }
-
-    img.bg-image {
-      width: 100%;
-      height: 100%;
-      max-height: 100%;
-      border-radius: 6px;
-      object-fit: cover;
-    }
-  }
+  .backgroundImage();
 }
