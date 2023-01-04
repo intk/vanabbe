@@ -138,7 +138,7 @@ def scroll(import_artwork, import_publication, max_records=10):
 
     while cur < max_records:
         url = BASE_URL % (cur, cur + BATCH_SIZE)
-        resp = requests.get(url)
+        resp = requests.get(url, verify=False)
         cur = cur + BATCH_SIZE + 1
         doc = lxml.etree.fromstring(resp.text.encode('utf-8'))
         # max_records = int(doc.xpath('number(%s/request/count/text())' % ROOT))
@@ -161,7 +161,7 @@ def scroll(import_artwork, import_publication, max_records=10):
 
                     img_url = IMAGE_BASE_URL % fname
 
-                    with requests.get(img_url, stream=True) as req:
+                    with requests.get(img_url, stream=True, verify=False) as req:
                         with open(local_filename, 'wb') as file:
                             shutil.copyfileobj(req.raw, file)
                     info['objectImage'].append(os.path.abspath(local_filename))
