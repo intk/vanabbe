@@ -35,7 +35,7 @@ class ImportVubis(BrowserView):
 
         scroll(
             self.import_artwork, self.import_publication,
-            max_records=form.get('max', 1000)
+            max_records=int(form.get('max', 1000))
         )
         return "done"
 
