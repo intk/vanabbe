@@ -24,8 +24,7 @@
     <element value="plone.basic"/>
     <element value="plone.translatable"/>
   </property>
-  <property name="model_file">intk_vanabbe.content.schema:artwork.xml</property>
-  <property name="schema_policy">dexterity</property>
+  <property name="schema">intk_vanabbe.content.artwork.IArtwork</property>
   <alias from="(Default)" to="(dynamic view)"/>
   <alias from="edit" to="@@edit"/>
   <alias from="sharing" to="@@sharing"/>

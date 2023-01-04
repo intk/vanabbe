@@ -16,7 +16,7 @@ services:
       DEBUG_MODE: "off"
       ZODB_CACHE_SIZE: "50000"
     entrypoint: sh -c "tail -f /dev/null"
-    user: plone
+    user: root
   frontend:
     build: .
     ports:
