@@ -22,8 +22,6 @@ const ImageAlbum = (props) => {
   const moreImagesLength =
     items.length > MAX_THUMBS ? items.length - MAX_THUMBS : null;
 
-  console.log('thumbsToShow', thumbsToShow.length);
-
   const carouselSettings = React.useMemo(
     () => ({
       afterChange: (current) => setActiveSlideIndex(current),
