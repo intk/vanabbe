@@ -1,5 +1,6 @@
 import React from 'react';
-import { Address, SocialLinks } from '@package/components/theme/Footer/Footer';
+import { SocialLinks } from '@package/components';
+import { Address } from '@package/components/theme/Footer/Footer';
 import './style.css';
 
 const SiteDataView = (props) => {

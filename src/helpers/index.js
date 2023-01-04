@@ -6,3 +6,4 @@
  */
 
 export useWindowDimensions from './useWindowDimensions';
+export useFooterContent from './useFooterContent';

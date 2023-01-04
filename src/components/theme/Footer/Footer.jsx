@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { Container, List } from 'semantic-ui-react';
 import { RenderBlocks } from '@plone/volto/components';
+import { SocialLinks } from '@package/components';
 
 import config from '@plone/volto/registry';
 
@@ -34,29 +35,6 @@ const Login = () => {
     </Link>
   );
 };
-
-export const SocialLinks = ({ socialLinksTitle, socialLinks = [] }) => (
-  <div className="section-wrapper">
-    <div className="section-title">{socialLinksTitle}</div>
-    <List>
-      {socialLinks?.length ? (
-        socialLinks.map((l, i) => (
-          <List.Item>
-            <List.Content>
-              <a key={`${l.href}-${i}`} href={l.href}>
-                {l.title}
-              </a>
-            </List.Content>
-          </List.Item>
-        ))
-      ) : (
-        <List.Item>
-          <div className="footer-info">No social links defined</div>
-        </List.Item>
-      )}
-    </List>
-  </div>
-);
 
 export const Address = ({ contactTitle, address, phone, email, openHours }) => (
   <div>

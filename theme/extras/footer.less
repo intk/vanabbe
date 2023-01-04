@@ -64,17 +64,17 @@
 @media only screen and (max-width: @largestTabletScreen) {
   .footer {
     flex-direction: column;
+
+    .social-links {
+      .ui.list {
+        display: flex;
+        align-items: baseline;
+        gap: 1em;
+      }
+    }
   }
 
   .footer .ui.list {
     max-width: none;
-  }
-
-  .section-wrapper {
-    .ui.list {
-      display: flex;
-      align-items: baseline;
-      gap: 1em;
-    }
   }
 }

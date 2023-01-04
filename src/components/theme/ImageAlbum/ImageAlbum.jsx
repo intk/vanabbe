@@ -4,10 +4,9 @@ import { PreviewImage } from '@package/components';
 import { Modal } from 'semantic-ui-react';
 import loadable from '@loadable/component';
 
-import './image-album.less';
-
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import './image-album.less';
 
 const Slider = loadable(() => import('react-slick'));
 
@@ -45,7 +44,7 @@ const ImageAlbum = (props) => {
       <PreviewImage item={items[0]} size="huge" />
 
       <div className="thumbnails">
-        {thumbsToShow.map((card, i) => (
+        {thumbsToShow.map((thumb, i) => (
           <div
             tabIndex={0}
             role="button"
@@ -60,7 +59,7 @@ const ImageAlbum = (props) => {
           >
             <PreviewImage
               key={i}
-              item={card}
+              item={thumb}
               size="thumb"
               className="img-thumb"
             />
@@ -74,6 +73,7 @@ const ImageAlbum = (props) => {
       </div>
 
       <Modal
+        closeIcon
         onClose={() => setOpen(false)}
         onOpen={() => setOpen(true)}
         open={open}
@@ -81,10 +81,10 @@ const ImageAlbum = (props) => {
       >
         <Modal.Content>
           <Slider {...carouselSettings} ref={sliderRef}>
-            {items.map((card, i) => (
+            {items.map((item, i) => (
               <PreviewImage
                 key={i}
-                item={card}
+                item={item}
                 size="huge"
                 className="modal-slide-img"
               />
