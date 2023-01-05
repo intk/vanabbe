@@ -6,5 +6,5 @@ export ScrollToTop from './theme/ScrollToTop/ScrollToTop';
 export SiteTheme from './theme/SiteTheme/SiteTheme';
 export ListingBlockHeader from './blocks/Listing/ListingBlockHeader';
 export ContrastToggle from './theme/ContrastToggle/ContrastToggle';
-export OpenHours from './theme/OpenHours/OpenHours';
+export OpeningHours from './theme/OpeningHours/OpeningHours';
 export SocialLinks from './theme/SocialLinks/SocialLinks';

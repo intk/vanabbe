@@ -73,11 +73,6 @@ msgstr ""
 msgid "Menu"
 msgstr ""
 
-#: components/theme/OpenHours/OpenHours
-# defaultMessage: Morgen open
-msgid "Morgen open"
-msgstr ""
-
 #: components/blocks/ContentDivider/ContentDividerEdit
 # defaultMessage: No background applied after this divider
 msgid "No background applied after this divider"
@@ -118,11 +113,6 @@ msgstr ""
 msgid "SocialLinks"
 msgstr ""
 
-#: components/blocks/SiteData/schema
-# defaultMessage: Social links title
-msgid "SocialLinksTitle"
-msgstr ""
-
 #: components/blocks/Quote/EditBlockWrapper
 # defaultMessage: Unknown Block {block}
 msgid "Unknown Block"
@@ -146,11 +136,6 @@ msgstr ""
 #: components/blocks/ActionLinks/schema
 # defaultMessage: Block title
 msgid "blockTitle"
-msgstr ""
-
-#: components/blocks/SiteData/schema
-# defaultMessage: Contact title
-msgid "contactTitle"
 msgstr ""
 
 #: components/blocks/Quote/EditBlockWrapper
@@ -179,13 +164,28 @@ msgid "linkToDescription"
 msgstr ""
 
 #: components/blocks/SiteData/schema
-# defaultMessage: Open hours
-msgid "openHours"
+# defaultMessage: Opening hours
+msgid "openingHours"
+msgstr ""
+
+#: components/blocks/SiteData/schema
+# defaultMessage: Opening hours are displayed in the header.
+msgid "openingHoursDescription"
+msgstr ""
+
+#: components/blocks/SiteData/schema
+# defaultMessage: undefined
+msgid "openingHoursTitle"
 msgstr ""
 
 #: components/blocks/SiteData/schema
 # defaultMessage: Phone
 msgid "phone"
+msgstr ""
+
+#: components/blocks/SiteData/schema
+# defaultMessage: Section title
+msgid "sectionTitle"
 msgstr ""
 
 #: components/blocks/Facts/schema

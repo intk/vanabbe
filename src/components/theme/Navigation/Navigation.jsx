@@ -12,7 +12,7 @@ import { Button } from 'semantic-ui-react';
 import { getNavigation } from '@plone/volto/actions';
 import { BodyClass } from '@plone/volto/helpers';
 import { LanguageSelector, Logo } from '@plone/volto/components';
-import { ContrastToggle, OpenHours } from '@package/components';
+import { ContrastToggle, OpeningHours } from '@package/components';
 
 import DesktopMenu from './DesktopMenu';
 import MobileMenu from './MobileMenu';
@@ -88,7 +88,7 @@ function Navigation({ pathname, intl, items, lang }) {
           <div className="popup-bottom">
             <div className="mobile tablet only">
               <div className="popup-header-tools">
-                <OpenHours />
+                <OpeningHours />
                 <div>
                   <ContrastToggle />
                   <LanguageSelector />

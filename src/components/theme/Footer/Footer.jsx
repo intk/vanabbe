@@ -36,7 +36,7 @@ const Login = () => {
   );
 };
 
-export const Address = ({ contactTitle, address, phone, email, openHours }) => (
+export const Address = ({ contactTitle, address, phone, email }) => (
   <div>
     <div className="section-title">{contactTitle}</div>
     <List className="footer-contact">

@@ -11,8 +11,7 @@ import {
 } from '@plone/volto/components';
 import { Container, Button, Grid } from 'semantic-ui-react';
 import { BodyClass, isCmsUi } from '@plone/volto/helpers';
-import { HeroSection, ContrastToggle, OpenHours } from '@package/components'; // , StickyHeader
-import cx from 'classnames';
+import { HeroSection, ContrastToggle, OpeningHours } from '@package/components'; // , StickyHeader
 import usePreviewImage from './usePreviewImage';
 import { useLocation } from 'react-router-dom';
 
@@ -51,7 +50,7 @@ const Header = (props) => {
                     <Button primary>Tickets</Button>
 
                     <div className="computer large screen widescreen only">
-                      <OpenHours />
+                      <OpeningHours />
                     </div>
                     <div className="computer large screen widescreen only">
                       <ContrastToggle />
