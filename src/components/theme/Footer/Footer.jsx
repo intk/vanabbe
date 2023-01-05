@@ -65,10 +65,6 @@ export const Address = ({ contactTitle, address, phone, email, openHours }) => (
           )}
         </List.Content>
       </List.Item>
-
-      <List.Item>
-        <List.Content>{!!openHours && <p>{openHours}</p>}</List.Content>
-      </List.Item>
     </List>
   </div>
 );

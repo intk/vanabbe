@@ -22,9 +22,9 @@ export const SocialLink = (props) => ({
 });
 
 const messages = defineMessages({
-  contactTitle: {
-    id: 'contactTitle',
-    defaultMessage: 'Contact title',
+  sectionTitle: {
+    id: 'sectionTitle',
+    defaultMessage: 'Section title',
   },
   address: {
     id: 'address',
@@ -38,17 +38,21 @@ const messages = defineMessages({
     id: 'email',
     defaultMessage: 'Email',
   },
-  openHours: {
-    id: 'openHours',
-    defaultMessage: 'Open hours',
+  openingHours: {
+    id: 'openingHours',
+    defaultMessage: 'Opening hours',
+  },
+  openingHoursTitle: {
+    id: 'openingHoursTitle',
+    defineMessages: 'Title',
+  },
+  openingHoursDescription: {
+    id: 'openingHoursDescription',
+    defaultMessage: 'Opening hours are displayed in the header.',
   },
   SiteData: {
     id: 'SiteData',
     defaultMessage: 'Global site settings',
-  },
-  socialLinksTitle: {
-    id: 'SocialLinksTitle',
-    defaultMessage: 'Social links title',
   },
   SocialLinks: {
     id: 'SocialLinks',
@@ -61,22 +65,24 @@ const SiteDataSchema = ({ intl }) => ({
   fieldsets: [
     {
       id: 'default',
-      fields: [
-        'contactTitle',
-        'address',
-        'phone',
-        'email',
-        'openHours',
-        'socialLinksTitle',
-        'socialLinks',
-      ], //  'url'
       title: 'Default',
+      fields: ['openingHours', 'openingHoursTitle'],
+    },
+    {
+      id: 'contact',
+      title: 'Contact',
+      fields: ['contactTitle', 'address', 'phone', 'email'],
+    },
+    {
+      id: 'socialLinks',
+      title: 'Social links',
+      fields: ['socialLinksTitle', 'socialLinks'],
     },
   ],
 
   properties: {
     contactTitle: {
-      title: intl.formatMessage(messages.contactTitle),
+      title: intl.formatMessage(messages.sectionTitle),
     },
     address: {
       title: intl.formatMessage(messages.address),
@@ -87,11 +93,15 @@ const SiteDataSchema = ({ intl }) => ({
     email: {
       title: intl.formatMessage(messages.email),
     },
-    openHours: {
-      title: intl.formatMessage(messages.openHours),
+    openingHours: {
+      title: intl.formatMessage(messages.openingHours),
+    },
+    openingHoursTitle: {
+      title: 'Text',
+      description: intl.formatMessage(messages.openingHoursDescription),
     },
     socialLinksTitle: {
-      title: intl.formatMessage(messages.socialLinksTitle),
+      title: intl.formatMessage(messages.sectionTitle),
     },
     socialLinks: {
       title: intl.formatMessage(messages.SocialLinks),

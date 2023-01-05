@@ -1,19 +1,18 @@
-import { defineMessages, useIntl } from 'react-intl';
-
-const messages = defineMessages({
-  open: {
-    id: 'Morgen open',
-    defaultMessage: 'Morgen open',
-  },
-});
+import { useFooterContent } from '@package/helpers';
 
 const OpenHours = () => {
-  const intl = useIntl();
+  const footer = useFooterContent();
+  const { blocks = {} } = footer;
+  const siteDataId = Object.keys(blocks).find(
+    (id) => blocks[id]?.['@type'] === 'siteData',
+  );
+  const siteData = blocks[siteDataId] || {};
+  const { openHours, openHoursTitle } = siteData;
 
   return (
     <div className="open-hours">
-      <div>{intl.formatMessage(messages.open)}</div>
-      <div>11u - 20u</div>
+      <div>{openHoursTitle}</div>
+      <div>{openHours}</div>
     </div>
   );
 };
