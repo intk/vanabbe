@@ -19,7 +19,7 @@ const SocialLinks = (props) => {
       <List>
         {socialLinks?.length
           ? socialLinks.map((l, i) => (
-              <List.Item>
+              <List.Item key={i}>
                 <List.Content>
                   <a key={`${l.href}-${i}`} href={l.href}>
                     {l.title}

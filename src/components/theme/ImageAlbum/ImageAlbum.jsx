@@ -61,6 +61,7 @@ const ImageAlbum = (props) => {
         <div className="thumbnails">
           {thumbsToShow.map((thumb, i) => (
             <div
+              key={i}
               tabIndex={0}
               role="button"
               onKeyDown={() => {
@@ -75,7 +76,7 @@ const ImageAlbum = (props) => {
               <PreviewImage
                 key={i}
                 item={thumb}
-                size="thumb"
+                size="small"
                 className="img-thumb"
               />
             </div>
@@ -100,6 +101,7 @@ const ImageAlbum = (props) => {
             {items.map((item, i) => {
               return (
                 <Image
+                  key={i}
                   src={
                     item
                       ? flattenToAppURL(
