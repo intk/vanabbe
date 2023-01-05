@@ -10,7 +10,7 @@ const ActionLinksView = (props) => {
 
   return (
     <div>
-      {isView && <h5>Action links block {data.globalId}</h5>}
+      {isView && <h3>Action links</h3>}
       <div className="section-title">
         {data.blockTitle && <>{data.blockTitle}</>}
       </div>

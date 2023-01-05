@@ -1,7 +1,7 @@
 import ImageCarousel, { ImageCarouselCardSchema } from './Carousel';
 import LogoCards, { LogoCardsSchema } from './LogoCarousel';
+import ImageGallery from './ImageGallery';
 // import PresentationCards from './PresentationCards';
-// import TestimonialCards, { TestimonialCardsSchema } from './TestimonialCards';
 // import SplashyCarousel, { SplashyCarouselSchema } from './SplashyCarousel';
 // import VideoCarousel, { VideoCardSchema } from './VideoCarousel';
 
@@ -21,12 +21,12 @@ export default function install(config) {
     //   view: PresentationCards,
     //   schemaExtender: PresentationCards.schemaExtender,
     // },
-    // testimonialCards: {
-    //   title: 'Testimonial Cards',
-    //   view: TestimonialCards,
-    //   schema: TestimonialCardsSchema,
-    //   schemaExtender: TestimonialCards.schemaExtender,
-    // },
+    imageGallery: {
+      title: 'Image Gallery',
+      schema: null,
+      view: ImageGallery,
+      schemaExtender: ImageGallery.schemaExtender,
+    },
     imageCarousel: {
       title: 'Image Carousel',
       view: ImageCarousel,

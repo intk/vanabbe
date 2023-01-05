@@ -110,40 +110,6 @@ export const LogoCardsSchema = (args) => {
   };
 };
 
-export const TestimonialCardsSchema = (args) => {
-  return {
-    title: 'Testimonial Card',
-    fieldsets: [
-      {
-        id: 'default',
-        title: 'Default',
-        fields: ['name', 'post', 'text', 'attachedimage'],
-      },
-    ],
-
-    properties: {
-      name: {
-        type: 'string',
-        title: 'Name',
-      },
-      post: {
-        type: 'string',
-        title: 'Post',
-      },
-      text: {
-        widget: 'slate_richtext',
-        title: 'Text',
-      },
-      attachedimage: {
-        widget: 'attachedimage',
-        title: 'Avatar',
-      },
-    },
-
-    required: [],
-  };
-};
-
 export const SplashyCarouselSchema = (args) => {
   return {
     title: 'Splashy Carousel',

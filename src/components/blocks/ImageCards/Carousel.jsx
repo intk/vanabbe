@@ -1,5 +1,6 @@
 import React from 'react';
 import { Image, Message } from 'semantic-ui-react';
+import { ListingBlockHeader } from '@package/components';
 import { Placeholder } from 'semantic-ui-react';
 import { serializeNodes } from '@plone/volto-slate/editor/render';
 import { ResponsiveContainer } from '@package/components';
@@ -65,23 +66,12 @@ const ImageCarousel = (props) => {
   const [slideIndex, setSlideIndex] = React.useState(0);
   const [isClient, setIsClient] = React.useState(false);
 
-  const [sliderNav, setSliderNav] = React.useState(null);
-  const [sliderTumbNav, setSliderTumbNav] = React.useState(null);
-  const [slider, setSlider] = React.useState(null);
-  const [thumbSlider, setThumbSlider] = React.useState(null);
-
-  React.useEffect(() => {
-    setSliderNav(slider);
-    setSliderTumbNav(thumbSlider);
-  }, [slider, thumbSlider]);
-
   React.useEffect(() => setIsClient(true), []);
-
   const {
     cards = [],
-    hideThumbs,
     height = '510px',
     itemsPerRow = 1,
+    hideNavigationDots = false,
     autoplay = false,
     autoplaySpeed = 3000,
     image_scale = 'large',
@@ -98,14 +88,13 @@ const ImageCarousel = (props) => {
       infinite: true,
       slidesToShow,
       slidesToScroll: 1,
-      dots: hideThumbs,
+      dots: !hideNavigationDots,
       autoplay: autoplay && !editable,
       autoplaySpeed,
       fade: false,
       useTransform: false,
       adaptiveHeight: true,
       lazyLoad: 'ondemand',
-      asNavFor: '.slider-nav',
 
       responsive: [
         {
@@ -114,7 +103,7 @@ const ImageCarousel = (props) => {
             slidesToShow: Math.min(slidesToShow, 3),
             slidesToScroll: Math.min(slidesToShow, 3),
             infinite: true,
-            // dots: true,
+            dots: true,
           },
         },
         {
@@ -134,22 +123,9 @@ const ImageCarousel = (props) => {
         },
       ],
     }),
-    [autoplay, autoplaySpeed, editable, hideThumbs, slidesToShow],
+    [autoplay, autoplaySpeed, editable, hideNavigationDots, slidesToShow],
   );
-
-  const carouselThumbsSettings = {
-    slidesToShow: 10,
-    slidesToScroll: 1,
-    asNavFor: '.slider-for',
-    dots: false,
-    centerMode: cards.length > 10 ? false : true,
-    // swipeToSlide: true,
-    infinite: cards.length > 10 ? true : false,
-    // infinite: false,
-    focusOnSelect: true,
-    // centerPadding: '10px',
-    // variableWidth: true,
-  };
+  // const currentSlide = getSlideIndex(sliderRef, slideIndex, carouselSettings);
 
   return !cards.length ? (
     editable ? (
@@ -164,6 +140,8 @@ const ImageCarousel = (props) => {
         `image-carousel-${display}`,
       )}
     >
+      <ListingBlockHeader data={data} />
+
       <ResponsiveContainer>
         {({ parentWidth }) => {
           return (
@@ -173,53 +151,34 @@ const ImageCarousel = (props) => {
                 style={{ width: `${parentWidth}px`, margin: '0 auto' }}
                 className={cx({ 'big-carousel': parseInt(itemsPerRow) === 1 })}
               >
-                <div ref={sliderRef}>
-                  <Slider
-                    {...carouselSettings}
-                    asNavFor={sliderTumbNav}
-                    ref={(slider) => setSlider(slider)}
-                  >
-                    {cards.map((card, i) => (
-                      <Card
-                        key={i}
-                        mode={editable ? 'edit' : 'view'}
-                        card={card}
-                        height={height}
-                        image_scale={image_scale}
+                {/* {cards.length > itemsPerRow && (
+                  <div className="slider-carousel-navigation">
+                    <div className="ui container">
+                      <SliderNavigation
+                        sliderRef={sliderRef}
+                        slideCount={cards.length}
+                        settings={carouselSettings}
+                        // slideIndex={currentSlide}
                       />
-                    ))}
-                  </Slider>
-                </div>
-
-                {!hideThumbs && (
-                  <div className="thumbnail-slider-wrap">
-                    <Slider
-                      {...carouselThumbsSettings}
-                      asNavFor={sliderNav}
-                      ref={(slider) => setThumbSlider(slider)}
-                    >
-                      {cards.map((card, i) => (
-                        <Card
-                          key={i}
-                          mode={editable ? 'edit' : 'view'}
-                          card={card}
-                          height="54px"
-                          image_scale={image_scale}
-                        />
-                      ))}
-                    </Slider>
-
-                    <div className="total">
-                      <span>{cards.length}</span>
                     </div>
                   </div>
-                )}
+                )} */}
+                <Slider {...carouselSettings} ref={sliderRef}>
+                  {cards.map((card, i) => (
+                    <Card
+                      key={i}
+                      mode={editable ? 'edit' : 'view'}
+                      card={card}
+                      height={height}
+                      image_scale={image_scale}
+                    />
+                  ))}
+                </Slider>
               </div>
             )
           );
         }}
       </ResponsiveContainer>
-
       {!!sliderRef.current && carouselSettings.slidesToShow === 1 && (
         <Caption card={cards[slideIndex]} />
       )}
@@ -229,16 +188,6 @@ const ImageCarousel = (props) => {
 
 ImageCarousel.schemaExtender = (schema, data, intl) => {
   const Custom = ImageCarouselSchema({ data, schema, intl });
-
-  Custom.properties.hideThumbs = {
-    type: 'boolean',
-    title: 'Hide thumbnail preview',
-    default: true,
-    description: 'If thumbnail preview is disabled simple dots are shown',
-  };
-
-  Custom.fieldsets[0].fields.push('hideThumbs');
-
   return {
     ...schema,
     ...Custom,

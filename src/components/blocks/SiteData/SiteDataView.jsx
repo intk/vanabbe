@@ -7,9 +7,9 @@ const SiteDataView = (props) => {
   const { data } = props;
   return (
     <div className="site-data-preview">
-      <h5>Site data</h5>
+      <h3>Site data</h3>
       <Address {...data} />
-      <h5>Social links</h5>
+      <h3>Social links</h3>
 
       <SocialLinks {...data} />
     </div>

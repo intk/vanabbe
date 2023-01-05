@@ -10,7 +10,7 @@ import {
 } from '@plone/volto/components';
 import { Container, Button, Grid } from 'semantic-ui-react';
 import { BodyClass, isCmsUi } from '@plone/volto/helpers';
-import { HeroSection, ContrastToggle, OpeningHours } from '@package/components'; // , StickyHeader
+import { HeroSection, ContrastToggle, OpeningHours } from '@package/components';
 import usePreviewImage from './usePreviewImage';
 import { useLocation } from 'react-router-dom';
 
@@ -21,8 +21,6 @@ const Header = (props) => {
   const { title, description, objectTitle } = content || {};
   const previewImage = usePreviewImage(pathname);
   const previewImageUrl = previewImage?.scales?.huge?.download;
-  // const contentImageCaption = content?.image_caption;
-
   const contentType = content?.['@type'];
   const isHomePage = contentType === 'Plone Site' || contentType === 'LRF';
   const cmsView = isCmsUi(pathname);
