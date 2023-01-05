@@ -9,7 +9,7 @@ import {
   Navigation,
   SearchWidget,
 } from '@plone/volto/components';
-import { Container, Button } from 'semantic-ui-react';
+import { Container, Button, Grid } from 'semantic-ui-react';
 import { BodyClass, isCmsUi } from '@plone/volto/helpers';
 import { HeroSection, ContrastToggle, OpenHours } from '@package/components'; // , StickyHeader
 import cx from 'classnames';
@@ -19,11 +19,9 @@ import { useLocation } from 'react-router-dom';
 const Header = (props) => {
   const { navigationItems } = props;
   const { pathname } = useLocation();
-
   const content = useSelector((state) => state.content.data);
-
+  const { title, description, objectTitle } = content || {};
   const previewImage = usePreviewImage(pathname);
-
   const previewImageUrl = previewImage?.scales?.huge?.download;
   // const contentImageCaption = content?.image_caption;
 
@@ -31,34 +29,22 @@ const Header = (props) => {
   const isHomePage = contentType === 'Plone Site' || contentType === 'LRF';
   const cmsView = isCmsUi(pathname);
   const homePageView = isHomePage && !cmsView;
-  const [inView, setInView] = React.useState();
 
   return (
-    <Container>
-      <div
-        className={cx('portal-top', homePageView ? 'homepage' : 'contentpage')}
-      >
-        {homePageView && <BodyClass className="homepage-view" />}
-        {!cmsView && <BodyClass className="has-image" />}
+    <>
+      <div className="portal-top">
+        <Container>
+          {homePageView && <BodyClass className="homepage-view" />}
+          {!cmsView && <BodyClass className="has-image" />}
 
-        <div className="logo-wrapper">
-          <div className="fixed-logo">
-            <Logo height="98px" />
+          <div className="logo-wrapper">
+            <div className="fixed-logo">
+              <Logo height="98px" />
+            </div>
           </div>
-        </div>
 
-        <div
-          className={cx(
-            'header-wrapper',
-            homePageView ? 'homepage' : 'contentpage',
-            inView
-              ? 'header-in-view'
-              : 'header-out-of-view fadeInDown full_width',
-          )}
-          role="banner"
-        >
-          <div className="header">
-            <div className={`${inView ? '' : 'ui container'}`}>
+          <div className="header-wrapper">
+            <div className="header">
               <div className="header-section">
                 <div className="left-section">
                   <div className="header-tools">
@@ -83,16 +69,25 @@ const Header = (props) => {
               </div>
             </div>
           </div>
-        </div>
+        </Container>
+      </div>
 
-        <InView
-          as="div"
-          className="header-visibility-sensor"
-          onChange={(inView, entry) => setInView(inView)}
-        >
-          {' '}
-        </InView>
+      <Container className="sticky-heading">
+        <Grid>
+          <Grid.Row>
+            <Grid.Column className="column-offset-1-left column-offset-2-right">
+              {title && (
+                <h1 className="content-title">{objectTitle || title}</h1>
+              )}
+              {description && (
+                <p className="content-description">{description}</p>
+              )}
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>
+      </Container>
 
+      <Container>
         {!(cmsView || isHomePage) && (
           <div className="header-bg">
             <div className="header-container">
@@ -100,8 +95,8 @@ const Header = (props) => {
             </div>
           </div>
         )}
-      </div>
-    </Container>
+      </Container>
+    </>
   );
 };
 

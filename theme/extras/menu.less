@@ -133,24 +133,6 @@ body.open-menu {
   }
 }
 
-@media only screen and (max-width: 767px) {
-  body.has-toolbar.open-popup {
-    .header {
-      top: calc(@mobileSidebarHeight);
-    }
-
-    .ui.secondary.pointing.mobile-popup-menu {
-      margin-top: calc(@mobileSidebarHeight + 80px);
-    }
-  }
-
-  body.has-toolbar-collapsed.open-popup {
-    .header {
-      top: calc(@collapsedSidebarWidth);
-    }
-  }
-}
-
 @media only screen and (max-width: @largestMobileScreen) {
   .mobile-popup-menu {
     left: 0 !important;

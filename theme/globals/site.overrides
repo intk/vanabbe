@@ -26,6 +26,13 @@ body {
   background-color: @white;
 }
 
+.view-addview,
+.view-editview {
+  .sticky-heading {
+    display: none !important; 
+  }
+}
+
 #page-contents {
   #content-core {
     background-color: @white;
