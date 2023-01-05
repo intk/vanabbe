@@ -23,17 +23,9 @@ body {
 
 #page-add,
 #page-edit,
-#page-controlpanel{
+#page-controlpanel {
   .ui.form {
     background-color: @white;
-  }
-}
-
-.view-addview,
-.view-editview,
-.section-controlpanel {
-  .sticky-heading {
-    display: none !important; 
   }
 }
 

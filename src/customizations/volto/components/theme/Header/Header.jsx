@@ -70,30 +70,31 @@ const Header = (props) => {
         </Container>
       </div>
 
-      <Container className="sticky-heading">
-        <Grid>
-          <Grid.Row>
-            <Grid.Column className="column-offset-1-left column-offset-2-right">
-              {title && (
-                <h1 className="content-title">{objectTitle || title}</h1>
-              )}
-              {description && (
-                <p className="content-description">{description}</p>
-              )}
-            </Grid.Column>
-          </Grid.Row>
-        </Grid>
-      </Container>
-
-      <Container>
-        {!(cmsView || isHomePage) && (
-          <div className="header-bg">
-            <div className="header-container">
-              <HeroSection image_url={previewImageUrl} content={content} />
+      {!(cmsView || isHomePage) && (
+        <>
+          <Container className="sticky-heading">
+            <Grid>
+              <Grid.Row>
+                <Grid.Column className="column-offset-1-left column-offset-2-right">
+                  {title && (
+                    <h1 className="content-title">{objectTitle || title}</h1>
+                  )}
+                  {description && (
+                    <p className="content-description">{description}</p>
+                  )}
+                </Grid.Column>
+              </Grid.Row>
+            </Grid>
+          </Container>
+          <Container>
+            <div className="header-bg">
+              <div className="header-container">
+                <HeroSection image_url={previewImageUrl} content={content} />
+              </div>
             </div>
-          </div>
-        )}
-      </Container>
+          </Container>
+        </>
+      )}
     </>
   );
 };
