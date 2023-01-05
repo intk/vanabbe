@@ -77,10 +77,10 @@ export default function applyConfig(config) {
 
   // installStyleMenu(config);
 
-  const DEFAULT_LANG = 'en';
+  const DEFAULT_LANG = 'nl';
 
   config.settings.isMultilingual = true;
-  config.settings.supportedLanguages = ['en', 'nl'];
+  config.settings.supportedLanguages = ['nl', 'en'];
   config.settings.defaultLanguage = DEFAULT_LANG;
 
   config.settings.footerPageId = 'footer-content';
