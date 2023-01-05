@@ -1,7 +1,6 @@
 // Customized to use the HeroSection
 
 import React from 'react';
-import { InView } from 'react-intersection-observer';
 import { useSelector } from 'react-redux';
 import {
   LanguageSelector,
