@@ -53,3 +53,7 @@
 .column-offset-2-right {
   margin-right: @twoWide;
 }
+
+.column-offset-3-right {
+  margin-right: @threeWide;
+}

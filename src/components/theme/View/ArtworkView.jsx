@@ -14,51 +14,54 @@ export default function ArtworkView(props) {
             <Grid.Row>
               <Grid.Column className="column-offset-1-right">
                 <div className="content-wrapper">
-                  <div className="artwork-top">
-                    <ImageAlbum items={content.items} />
+                  <div className="artwork-container">
+                    <div className="artwork-top">
+                      <ImageAlbum items={content.items} />
 
-                    <div className="artwork-meta">
-                      <h3 className="object-creation">
-                        {content.objectCreationDate}
-                      </h3>
-                      {/* <h2>{content.objectTitle}</h2> */}
-                      <h2>{content.authorName}</h2>
+                      <div className="artwork-meta">
+                        <h3 className="object-creation">
+                          {content.objectCreationDate}
+                        </h3>
+                        {/* <h2>{content.objectTitle}</h2> */}
+                        <h2>{content.authorName}</h2>
 
-                      <div className="object-medium">
-                        {content.objectMedium}
-                      </div>
-                      <div className="object-location">Not on display</div>
-                      <div className="acquired">
-                        Acquired in {content.objectYearPurchase}
-                      </div>
-                      <div className="inventory-number">
-                        Inventory number {content.objectID}
-                      </div>
+                        <div className="object-medium">
+                          {content.objectMedium}
+                        </div>
+                        <div className="object-location">Not on display</div>
+                        <div className="acquired">
+                          Acquired in {content.objectYearPurchase}
+                        </div>
+                        <div className="inventory-number">
+                          Inventory number {content.objectID}
+                        </div>
 
-                      <div className="info">
-                        <p>
-                          The Van Abbemuseum Collection consists of over 2800
-                          artworks. We publish texts and images on an ongoing
-                          basis, but this record is currently in the process of
-                          being documented..
-                        </p>
-                        <p>
-                          If you need specific information on this work or
-                          artist, remember that the Van Abbemuseum Library is at
-                          your disposal, or feel free to write to the library.
-                        </p>
-                        <SocialLinks hideTitle={true} />
+                        <div className="info">
+                          <p>
+                            The Van Abbemuseum Collection consists of over 2800
+                            artworks. We publish texts and images on an ongoing
+                            basis, but this record is currently in the process
+                            of being documented..
+                          </p>
+                          <p>
+                            If you need specific information on this work or
+                            artist, remember that the Van Abbemuseum Library is
+                            at your disposal, or feel free to write to the
+                            library.
+                          </p>
+                          <SocialLinks hideTitle={true} />
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  <div className="artwork-content column-offset-1-left column-offset-2-right">
-                    <h4>Description</h4>
-                    ...
-                    <p>
-                      Does this page contain inaccurate information or language
-                      that you feel we should improve or change? We would like
-                      to hear from you.
-                    </p>
+                    <div className="artwork-content column-offset-1-left column-offset-2-right">
+                      <h4>Description</h4>
+                      ...
+                      <p>
+                        Does this page contain inaccurate information or
+                        language that you feel we should improve or change? We
+                        would like to hear from you.
+                      </p>
+                    </div>
                   </div>
                 </div>
               </Grid.Column>

@@ -70,7 +70,7 @@ function Navigation({ pathname, intl, items, lang }) {
 
       <Button
         basic
-        className="big-button"
+        className="nav-button"
         onClick={handleClick}
         aria-label={intl.formatMessage(messages.openMobileMenu)}
       >

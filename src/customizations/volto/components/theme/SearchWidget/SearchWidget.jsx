@@ -51,7 +51,7 @@ const SearchWidgetWrapper = (props) => {
       {showPopup && <BodyClass className="open-search open-popup" />}
       <Button
         basic
-        className="big-button"
+        className="nav-button"
         aria-label={intl.formatMessage(messages.search)}
         onClick={handleClick}
       >

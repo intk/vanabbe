@@ -7,11 +7,11 @@
 }
 
 .footer {
-  display: flex;
+  display: inline-flex;
   align-items: flex-start;
   margin-top: var(--space-xxl);
   font-size: 16px;
-  gap: 60px;
+  gap: 40px;
 
   p,
   a,
@@ -21,7 +21,7 @@
   }
 
   .ui.list {
-    max-width: 170px;
+    min-width: 130px;
     margin: 0;
   }
 
@@ -50,7 +50,7 @@
 .login,
 .login:hover {
   display: inline-block;
-  margin: 1.5em 0;
+  margin: 2.5em 0;
   color: var(--text-color);
   font-size: 16px;
 }
@@ -63,6 +63,7 @@
 
 @media only screen and (max-width: @largestTabletScreen) {
   .footer {
+    width: 100%;
     flex-direction: column;
 
     .social-links {

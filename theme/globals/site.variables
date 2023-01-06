@@ -201,18 +201,40 @@
   border-radius: 0 !important;
 }
 
-// .outlinedBtn(@color, @hoverColor) {
-//   .isBtn();
+.primaryBtn(@color) {
+  padding: calc(0.9em - 2px) calc(1.1em - 2px);
+  border: 2px solid @color;
+  background-color: transparent;
+  color: @color;
+  font-weight: normal;
 
-//   color: @color;
-//   background-color: transparent;
-//   border: 2px solid @color;
+  &:hover,
+  &:active,
+  &:focus {
+    padding: calc(0.9em - 4px) calc(1.1em - 4px);
+    border: 4px solid @color;
+    background-color: transparent;
+    color: @color;
+    text-decoration: none;
+  }
+}
 
-//   &:hover {
-//     color: @hoverColor;
-//     border: 2px solid @hoverColor;
-//   }
-// }
+.secondaryBtn(@color) {
+  padding: 0.75em 1em;
+  border: 2px solid @color;
+  background-color: transparent;
+  color: @color;
+  border-radius: 0;
+  font-weight: normal;
+  display: inline-block;
+
+  &:hover {
+    background-color: @color;
+    text-decoration: none;
+    color: @white;
+    border: 2px solid @color;
+  }
+}
 
 .darkOverlay() {
   position: absolute;
