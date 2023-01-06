@@ -29,7 +29,7 @@ export default function PublicationView(props) {
                         </h2>
                         <h3 className="object-artist">{content.bookArtist}</h3>
                         <h4 className="object-publisher">
-                          {content.bookPublisher}
+                          {content.bookCity}, {content.bookPublisher}
                         </h4>
 
                         <div>{content.bookLanguage}</div>
@@ -46,7 +46,11 @@ export default function PublicationView(props) {
                         </div>
                         <div className="object-id">
                           VUBIS:{' '}
-                          <a href={content.ccIdentifier}>
+                          <a
+                            href={content.ccIdentifier}
+                            target="_blank"
+                            rel="noreferrer"
+                          >
                             {content.bookVubisid}
                           </a>
                         </div>
