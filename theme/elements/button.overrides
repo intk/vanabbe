@@ -17,7 +17,7 @@
   .primaryBtn(var(--text-color));
 }
 
-.ui.secondary.button {
+.ui.secondary.button:not(.icon):not(.circular) {
   .secondaryBtn(var(--text-color));
 }
 

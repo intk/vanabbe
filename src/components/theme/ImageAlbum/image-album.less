@@ -40,7 +40,7 @@
 }
 
 .image-album {
-  .ui.huge.image {
+  .preview-image-wrapper .ui.image {
     width: 482px;
     max-width: none;
     height: 730px;
@@ -48,6 +48,10 @@
     border-radius: 6px;
 
     .backgroundImage();
+
+    &:hover {
+      cursor: pointer;
+    }
   }
 }
 
@@ -74,6 +78,10 @@
   border-radius: 6px;
 
   .backgroundImage();
+
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 .modal-slide-img {

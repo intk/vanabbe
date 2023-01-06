@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux';
 import { Container, List } from 'semantic-ui-react';
 import { RenderBlocks } from '@plone/volto/components';
 import { SocialLinks } from '@package/components';
+import { useFooterContent } from '@package/helpers';
 
 import config from '@plone/volto/registry';
 
@@ -69,17 +70,8 @@ export const Address = ({ contactTitle, address, phone, email }) => (
   </div>
 );
 
-const useFooter = () => {
-  const currentLang = useSelector((state) => state.intl.locale);
-  const content = useSelector(
-    (state) => state.content.subrequests?.[`footer-${currentLang}`]?.data || {},
-  );
-
-  return content;
-};
-
 // const useFooterBlock = (globalId) => {
-//   const footer = useFooter();
+//   const footer = useFooterContent();
 //   const { blocks = {} } = footer;
 //   const blockId = Object.keys(blocks).find(
 //     (id) => blocks[id].globalId === globalId,
@@ -98,7 +90,7 @@ const useFooter = () => {
 // };
 
 const FooterBlocks = ({ includeTypes }) => {
-  const footer = useFooter();
+  const footer = useFooterContent();
   const { blocks = {}, blocks_layout } = footer;
   const filtered = blocks_layout?.items?.filter((id) =>
     includeTypes.includes(blocks[id]?.['@type']),
@@ -114,7 +106,7 @@ const FooterBlocks = ({ includeTypes }) => {
 };
 
 export function Footer(props) {
-  const footer = useFooter();
+  const footer = useFooterContent();
   const { blocks = {} } = footer;
   const siteDataId = Object.keys(blocks).find(
     (id) => blocks[id]?.['@type'] === 'siteData',
@@ -147,7 +139,7 @@ export default injectIntl(Footer);
 //   excludeIds = [],
 //   excludeTypes = ['title', 'actionLinks', 'image', 'siteData'],
 // }) => {
-//   const footer = useFooter();
+//   const footer = useFooterContent();
 //   const { blocks = {}, blocks_layout } = footer;
 //   // console.log('blocks', blocks, excludeTypes);
 //   const filtered = blocks_layout?.items?.filter(

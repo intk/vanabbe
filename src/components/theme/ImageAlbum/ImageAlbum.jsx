@@ -40,21 +40,23 @@ const ImageAlbum = (props) => {
     [activeSlideIndex],
   );
 
+  const handleClick = () => {
+    if (items.length) {
+      setActiveSlideIndex(0);
+      setOpen(true);
+    }
+  };
+
   return (
     <div className="image-album">
       <div
         tabIndex={0}
         role="button"
-        onKeyDown={() => {
-          setActiveSlideIndex(0);
-          setOpen(true);
-        }}
-        onClick={() => {
-          setActiveSlideIndex(0);
-          setOpen(true);
-        }}
+        onKeyDown={handleClick}
+        onClick={handleClick}
+        className="preview-image-wrapper"
       >
-        <PreviewImage item={items[0]} size="huge" />
+        <PreviewImage item={items[0]} size="huge" isFallback={!items.length} />
       </div>
 
       {thumbsToShow.length > 1 && (

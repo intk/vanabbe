@@ -63,6 +63,34 @@
   }
 }
 
+.publication-view {
+  .object-author,
+  .object-artist {
+    margin-bottom: 0.3em;
+  }
+
+  .object-creation {
+    margin: 0;
+  }
+
+  .object-shelfmark {
+    margin-top: 5em;
+  }
+
+  .object-id,
+  .object-shelfmark {
+    font-size: @smallFontSize;
+  }
+
+  .info {
+    margin-top: 1em;
+
+    .social-links .ui.list {
+      justify-content: center;
+    }
+  }
+}
+
 @media only screen and (max-width: @largestTabletScreen) {
   .artwork-view {
     .artwork-top {
@@ -78,7 +106,7 @@
       width: 100%;
     }
 
-    .image-album .ui.huge.image {
+    .preview-image-wrapper .ui.image {
       width: 100%;
       height: 497px;
     }
