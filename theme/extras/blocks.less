@@ -21,33 +21,35 @@
   background-color: @white;
 }
 
-.blocks-wrapper,
-.blocks-bg-wrapper {
-  > *,
-  .ui.divider {
-    margin-right: @twoWide;
-    margin-left: calc(@oneWide + 0.6rem);
+body:not('.homepage-view') {
+  .blocks-wrapper,
+  .blocks-bg-wrapper {
+    > *,
+    .ui.divider {
+      margin-right: @twoWide;
+      margin-left: calc(@oneWide + 0.6rem);
 
-    @media only screen and (max-width: @largestTabletScreen) {
-      margin-left: 0.6rem;
+      @media only screen and (max-width: @largestTabletScreen) {
+        margin-left: 0.6rem;
+      }
     }
-  }
 
-  > *:last-child {
-    margin-bottom: 0;
-  }
+    > *:last-child {
+      margin-bottom: 0;
+    }
 
-  > .image-carousel,
-  > .quoteBlock-wrapper,
-  > .accordion-block,
-  > .block.listing,
-  > .block.hero {
-    margin-right: @desktopPadding;
-    margin-left: @desktopPadding;
+    > .image-carousel,
+    > .quoteBlock-wrapper,
+    > .accordion-block,
+    > .block.listing,
+    > .block.hero {
+      margin-right: @desktopPadding;
+      margin-left: @desktopPadding;
 
-    @media only screen and (max-width: @largestTabletScreen) {
-      margin-right: 0.6rem;
-      margin-left: 0.6rem;
+      @media only screen and (max-width: @largestTabletScreen) {
+        margin-right: 0.6rem;
+        margin-left: 0.6rem;
+      }
     }
   }
 }

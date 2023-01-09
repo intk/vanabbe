@@ -13,7 +13,7 @@ import {
   SliderNavigation,
 } from '@package/components/blocks/Listing/SliderListing';
 import { ImageCarouselSchema } from './schema';
-import { getScaleUrl, getPath } from './utils';
+import { getScaleUrl, getPath } from '@package/utils';
 
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';

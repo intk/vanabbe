@@ -1,7 +1,7 @@
 import React from 'react';
 import { Modal, Image } from 'semantic-ui-react';
 import loadable from '@loadable/component';
-import { getScaleUrl, getPath } from './utils';
+import { getScaleUrl, getPath } from '@package/utils';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import './less/image-gallery.less';

@@ -14,7 +14,7 @@ import 'slick-carousel/slick/slick-theme.css';
 import './less/image-carousel.less';
 
 import { ImageCarouselSchema } from './schema';
-import { getScaleUrl, getPath } from './utils';
+import { getScaleUrl, getPath } from '@package/utils';
 
 export { ImageCarouselCardSchema } from './schema';
 

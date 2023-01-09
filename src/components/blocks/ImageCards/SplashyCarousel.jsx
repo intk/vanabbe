@@ -17,7 +17,7 @@ import 'slick-carousel/slick/slick-theme.css';
 
 import { useWindowDimensions } from '@package/helpers';
 
-import { getScaleUrl, getPath } from './utils';
+import { getScaleUrl, getPath } from '@package/utils';
 export { SplashyCarouselSchema } from './schema';
 
 const Slider = loadable(() => import('react-slick'));

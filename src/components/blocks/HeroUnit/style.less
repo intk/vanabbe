@@ -1,0 +1,44 @@
+@type: 'extra';
+@element: 'custom';
+
+@import (multiple, reference, optional) '../../theme.config';
+
+.hero-unit-image {
+  width: 100%;
+  //   height: 380px;
+  border-radius: 10px;
+  cursor: pointer;
+  object-fit: cover;
+}
+
+.hero-unit-wrapper {
+  display: flex;
+  gap: 1.5em;
+
+  .logo {
+    // width: 100%;
+    margin-top: auto;
+  }
+}
+
+@keyframes hide {
+  0% {
+    display: block;
+    opacity: 1;
+  }
+
+  99% {
+    display: block;
+  }
+
+  100% {
+    display: none !important;
+    opacity: 0;
+  }
+}
+
+.big-hero .hero-unit-title {
+  display: none !important;
+  animation: hide 500ms linear;
+  animation-fill-mode: forwards;
+}

@@ -1,8 +1,7 @@
 import React from 'react';
 import { Image, Message, Popup } from 'semantic-ui-react';
 import { Placeholder } from 'semantic-ui-react';
-
-import { getScaleUrl, getPath } from './utils';
+import { getScaleUrl, getPath } from '@package/utils';
 import './less/logo-cards.less';
 
 export { LogoCardsSchema } from './schema';
