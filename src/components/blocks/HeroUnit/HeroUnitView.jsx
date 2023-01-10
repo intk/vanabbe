@@ -46,7 +46,14 @@ const HeroUnitView = (props) => {
             </UniversalLink>
           </div>
 
-          <Logo />
+          <div className="hero-logo-wrapper">
+            <div className="hidden">
+              <Logo />
+            </div>
+            <div className="visible">
+              <Logo hasLink={false} />
+            </div>
+          </div>
         </div>
       </div>
     </div>

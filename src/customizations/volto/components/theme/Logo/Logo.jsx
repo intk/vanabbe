@@ -23,19 +23,23 @@ const messages = defineMessages({
  * @returns {string} Markup of the component.
  */
 const Logo = (props) => {
-  const { height = '80px' } = props;
+  const { height = '80px', hasLink } = props;
   const { settings } = config;
   const lang = useSelector((state) => state.intl.locale);
   const intl = useIntl();
 
   return (
     <div className="logo">
-      <UniversalLink
-        href={settings.isMultilingual ? `/${lang}` : '/'}
-        title={intl.formatMessage(messages.site)}
-      >
+      {hasLink ? (
+        <UniversalLink
+          href={settings.isMultilingual ? `/${lang}` : '/'}
+          title={intl.formatMessage(messages.site)}
+        >
+          <Icon name={logoImage} size={height} />
+        </UniversalLink>
+      ) : (
         <Icon name={logoImage} size={height} />
-      </UniversalLink>
+      )}
     </div>
   );
 };
