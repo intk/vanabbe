@@ -1,0 +1,38 @@
+@type: 'extra';
+@element: 'custom';
+
+@import (multiple, reference, optional) '../../theme.config';
+
+.info-block {
+  display: flex;
+  width: 100%;
+
+  @media only screen and (min-width: @largestTabletScreen) {
+    justify-content: flex-end;
+  }
+}
+
+.info-block-wrapper {
+  @media only screen and (min-width: @largestTabletScreen) {
+    max-width: 60%;
+  }
+}
+
+.info-block-title {
+  margin: 0;
+}
+
+.info-block-header {
+  margin-bottom: 1em;
+
+  svg {
+    margin-top: 10px;
+  }
+}
+
+.info-block-buttons,
+.info-block-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 1em;
+}

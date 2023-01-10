@@ -15,7 +15,7 @@ const ListingTemplate = (props) => {
       <Grid columns={4} className="listings">
         {items.map((item, i) => (
           <Grid.Column
-            mobile={6}
+            mobile={12}
             tablet={6}
             computer={3}
             className="listing-column"

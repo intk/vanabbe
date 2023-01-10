@@ -95,7 +95,7 @@ function Navigation({ pathname, intl, items, lang }) {
                 </div>
               </div>
             </div>
-            <Logo height="100px" />
+            <Logo height="100px" hasLink />
           </div>
         </div>
       </PopupMenu>

@@ -41,9 +41,11 @@ const HeroUnitView = (props) => {
             ) : (
               <Placeholder />
             )}
-            <UniversalLink href={href} className="hero-unit-content">
-              {buttonText}
-            </UniversalLink>
+            {buttonText && (
+              <UniversalLink href={href} className="hero-unit-content">
+                {buttonText}
+              </UniversalLink>
+            )}
           </div>
 
           <div className="hero-logo-wrapper">

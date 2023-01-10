@@ -35,7 +35,7 @@ const Header = (props) => {
 
           <div className="logo-wrapper">
             <div className="fixed-logo">
-              <Logo height="98px" />
+              <Logo height="98px" hasLink />
             </div>
           </div>
 

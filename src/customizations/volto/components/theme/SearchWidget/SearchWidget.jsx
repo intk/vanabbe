@@ -65,7 +65,7 @@ const SearchWidgetWrapper = (props) => {
         <div className="search popup-inner popup-menu-inner">
           <div className="popup-bottom">
             {children}
-            <Logo height="100px" />
+            <Logo height="100px" hasLink />
           </div>
         </div>
       </PopupMenu>
