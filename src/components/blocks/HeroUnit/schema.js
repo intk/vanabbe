@@ -8,9 +8,17 @@ const DEFAULT_HEADLINE_LEVELS = [
 ];
 
 const messages = defineMessages({
-  title: {
-    id: 'title',
-    defaultMessage: 'Title',
+  headline: {
+    id: 'headline',
+    defaultMessage: 'Headline',
+  },
+  buttonText: {
+    id: 'buttonText',
+    defaultMessage: 'Button text',
+  },
+  linkHref: {
+    id: 'linkHref',
+    defaultMessage: 'Button call to action',
   },
   image: {
     id: 'image',
@@ -32,13 +40,29 @@ const HeroUnitSchema = ({ intl }) => ({
     {
       id: 'default',
       title: 'Default',
-      fields: ['title', 'headlineTag', 'attachedimage'],
+      fields: [
+        'headline',
+        'headlineTag',
+        'buttonText',
+        'linkHref',
+        'attachedimage',
+      ],
     },
   ],
 
   properties: {
-    title: {
-      title: intl.formatMessage(messages.title),
+    headline: {
+      title: intl.formatMessage(messages.headline),
+    },
+    buttonText: {
+      title: intl.formatMessage(messages.buttonText),
+    },
+    linkHref: {
+      title: intl.formatMessage(messages.linkHref),
+      widget: 'object_browser',
+      mode: 'link',
+      selectedItemAttrs: ['Title', 'Description'],
+      allowExternals: true,
     },
     headlineTag: {
       title: intl.formatMessage(messages.headlineTag),

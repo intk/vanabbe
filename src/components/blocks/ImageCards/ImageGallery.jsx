@@ -40,7 +40,7 @@ const ImageGallery = (props) => {
   );
 
   return (
-    <div className="image-gallery">
+    <div className="block image-gallery">
       <div
         tabIndex={0}
         role="button"

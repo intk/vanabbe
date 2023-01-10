@@ -7,13 +7,13 @@ import quoteSVG from '@plone/volto/icons/quote.svg';
 import './view.less';
 
 export const Simple = (props) => (
-  <div className="quoteBlock-wrapper">
+  <div className="block quoteBlock-wrapper">
     <GroupBlockView {...props} />
   </div>
 );
 
 export const Surrounded = (props) => (
-  <div className="quoteBlock-wrapper quoteBlock-quoteMarks">
+  <div className="block quoteBlock-wrapper quoteBlock-quoteMarks">
     <div className="icon-wrapper top">
       <Icon name={quoteSVG} size="40px" />
     </div>

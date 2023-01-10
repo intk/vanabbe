@@ -2,6 +2,7 @@ import React from 'react';
 import { UniversalLink } from '@plone/volto/components';
 import { FormattedDateParts } from 'react-intl';
 import { ListingBlockHeader } from '@package/components';
+
 import './less/agenda-listing.less';
 
 const Item = ({ item, hideDate }) => {
@@ -85,7 +86,13 @@ const AgendaListingTemplate = (data) => {
 
   return (
     <div className="agenda-listing">
-      <ListingBlockHeader data={data} />
+      <div className="agenda-header">
+        <ListingBlockHeader data={data} />
+
+        <UniversalLink href={data.linkHref[0]['@id']}>
+          {data.linkTitle || '...'}
+        </UniversalLink>
+      </div>
       <div className="agenda-listing-content">
         {items.map((item, i) => (
           <Item item={item} hideDate={hideDate} key={i} />
