@@ -180,7 +180,7 @@
 
 .dynamicContentWidth(@toolbar, @sidebar) {
   left: @toolbar;
-  width: calc(100% - @sidebar);
+  width: calc(100% - @sidebar) !important;
 }
 
 @toReset: background-color, margin, padding, color, border, border-radius;

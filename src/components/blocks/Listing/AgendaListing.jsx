@@ -14,6 +14,7 @@ const Item = ({ item, hideDate }) => {
             <h3 className="agenda-title">{item.title}</h3>
             <div className="agenda-description">{item.description}</div>
           </div>
+
           <div className="agenda-right">
             {!hideDate && (
               <>
@@ -82,16 +83,18 @@ const Item = ({ item, hideDate }) => {
 };
 
 const AgendaListingTemplate = (data) => {
-  const { items, hideDate } = data;
+  const { items, hideDate, linkHref } = data;
 
   return (
     <div className="agenda-listing">
-      <div className="agenda-header">
+      <div className="listing-header">
         <ListingBlockHeader data={data} />
 
-        <UniversalLink href={data.linkHref[0]['@id']}>
-          {data.linkTitle || '...'}
-        </UniversalLink>
+        {linkHref && (
+          <UniversalLink href={linkHref?.[0]['@id']}>
+            {data.linkTitle || '...'}
+          </UniversalLink>
+        )}
       </div>
       <div className="agenda-listing-content">
         {items.map((item, i) => (

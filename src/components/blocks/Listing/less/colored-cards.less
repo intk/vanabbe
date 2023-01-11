@@ -1,0 +1,154 @@
+@type: 'extra';
+@element: 'custom';
+
+@import (multiple, reference, optional) '../../theme.config';
+
+#main .colored-cards-listing {
+  position: relative;
+  margin-top: 150px;
+  margin-bottom: 150px;
+
+  > .ui.container {
+    padding: 0 !important;
+  }
+}
+
+.colored-cards-slider:before,
+.colored-cards-listing:before {
+  position: absolute;
+  right: 50%;
+  left: 50%;
+  width: 110vw !important;
+  max-width: none !important;
+  height: 100%;
+  margin-right: -50vw !important;
+  margin-left: -50vw !important;
+  background-color: @white;
+  content: '';
+}
+
+.colored-cards-slider:before {
+  height: 110%;
+}
+
+.colored-cards-slider {
+  position: relative;
+  margin: 3em 0;
+
+  .slick-list {
+    padding: 1.5em 0;
+  }
+
+  .slick-slide {
+    width: 250px;
+  }
+}
+
+.colored-cards .listings,
+.slick-track {
+  > .slick-slide:nth-child(6n + 1),
+  > .listing-column:nth-child(6n + 1) {
+    .listing-card {
+      background-color: #dfff83;
+
+      a {
+        color: #231c1c;
+      }
+    }
+  }
+
+  > .slick-slide:nth-child(6n + 2),
+  > .listing-column:nth-child(6n + 2) {
+    .listing-card {
+      background-color: #cce7d2;
+
+      a {
+        color: #9a1313;
+      }
+    }
+  }
+
+  > .slick-slide:nth-child(6n + 3),
+  > .listing-column:nth-child(6n + 3) {
+    .listing-card {
+      background-color: #f2eef8;
+
+      a {
+        color: #655353;
+      }
+    }
+  }
+
+  > .slick-slide:nth-child(6n + 4),
+  > .listing-column:nth-child(6n + 4) {
+    .listing-card {
+      background-color: #ffde8a;
+
+      a {
+        color: #6e2b4d;
+      }
+    }
+  }
+
+  > .slick-slide:nth-child(6n + 5),
+  > .listing-column:nth-child(6n + 5) {
+    .listing-card {
+      background-color: #ffceaa;
+
+      a {
+        color: #2d1d1d;
+      }
+    }
+  }
+
+  > .slick-slide:nth-child(6n + 6),
+  > .listing-column:nth-child(6n + 6) {
+    .listing-card {
+      background-color: #f5ff83;
+
+      a {
+        color: #9a1313;
+      }
+    }
+  }
+}
+
+.colored-cards {
+  .listing-column {
+    position: relative;
+
+    .default-card {
+      min-height: 500px;
+    }
+  }
+
+  .listings {
+    display: inline-grid;
+    gap: 2em;
+    grid-template-columns: repeat(3, 1fr);
+
+    > .listing-column:first-child {
+      top: -80px !important;
+    }
+
+    > .listing-column:nth-child(2) {
+      top: 80px !important;
+    }
+
+    > .listing-column:nth-child(3) {
+      top: -40px !important;
+    }
+
+    > .listing-column:nth-child(3n + 1) {
+      top: 0;
+    }
+
+    > .listing-column:nth-child(3n + 2) {
+      top: 140px;
+    }
+
+    > .listing-column:nth-child(3n + 3) {
+      top: 40px;
+    }
+  }
+}

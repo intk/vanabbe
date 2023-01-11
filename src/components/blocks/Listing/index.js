@@ -2,6 +2,7 @@ import ListingsBlockTemplate from './ListingTemplate';
 import SliderListingBlockTemplate from './SliderListing';
 import BigCardsTemplate from './BigCardsTemplate';
 import AgendaListingTemplate from './AgendaListing';
+import ColoredCardsTemplate from './ColoredCardsTemplate';
 
 export default (config) => {
   config.blocks.blocksConfig.listing.schemaEnhancer = ({ schema }) => {
@@ -65,6 +66,12 @@ export default (config) => {
       isDefault: false,
       title: 'Agenda',
       template: AgendaListingTemplate,
+    },
+    {
+      id: 'coloredCards',
+      isDefault: false,
+      title: 'Colored cards',
+      template: ColoredCardsTemplate,
     },
     {
       id: 'slider_listing',
