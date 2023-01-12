@@ -4,22 +4,9 @@ import { Link } from 'react-router-dom';
 import { FormattedTime, FormattedDateParts } from 'react-intl';
 import { FormattedDate } from '@package/components';
 
+import { PreviewImage } from '@package/components';
+
 // see extras/listing.less for less
-function PreviewImage(props) {
-  const { item, size = 'preview', alt, isFallback = false, ...rest } = props;
-
-  // const src = item.image_field
-  //   ? flattenToAppURL(`${item['@id']}/@@images/${item.image_field}/${size}`)
-  //   : DefaultImageSVG;
-
-  const url = flattenToAppURL(
-    `${item['@id']}/@@${isFallback ? 'fallback-image' : 'images'}/${
-      item.image_field || 'preview_image'
-    }/${size}`,
-  );
-
-  return <img src={url} alt={alt ?? item.title} {...rest} />;
-}
 
 const Card = ({ item }) => {
   const { image_field } = item;
@@ -118,10 +105,38 @@ const EventCard = ({ item }) => {
   );
 };
 
+const ArtworkCard = ({ item }) => {
+  const { image_field } = item;
+  const size = 'large';
+
+  return (
+    <section className="listing-card search-card">
+      <Link
+        className="card-link"
+        to={flattenToAppURL(item['@id'])}
+        title={item.title}
+      >
+        <div className="card-details">
+          <div className="image-wrapper">
+            <PreviewImage item={item} size={size} isFallback={!image_field} />
+          </div>
+          <div className="card-title-wrapper">
+            <h5 className="artwork-title">{item.objectTitle}</h5>
+            <div className="artwork-creation">{item.objectCreationDate}</div>
+          </div>
+          <div className="author-name">{item.authorName}</div>
+          <p className="card-description">{item.description}</p>
+        </div>
+      </Link>
+    </section>
+  );
+};
+
 const cardTypes = {
   default: Card,
   'News Item': NewsItemCard,
   Event: EventCard,
+  artwork: ArtworkCard,
 };
 
 const UniversalCard = ({ item }) => {

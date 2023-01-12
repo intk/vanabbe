@@ -14,7 +14,6 @@ const getRandomTheme = (themes) => {
 const SiteTheme = (props) => {
   const { content } = props;
   const { siteThemes } = config.settings;
-  const location = useLocation();
   const pathname = useLocation().pathname;
   const cmsView = isCmsUi(pathname);
   const [contrastMode] = useAtom(contrastModeAtom);
@@ -35,7 +34,7 @@ const SiteTheme = (props) => {
 
   React.useEffect(() => {
     setHasSelectedPageTheme(false);
-  }, [location]);
+  }, [pathname]);
 
   React.useEffect(() => {
     if (pageThemeBlock) {

@@ -18,10 +18,6 @@ const HeroUnitView = (props) => {
   let href = linkHref?.[0]?.['@id'] || '';
   const [isActive, setActive] = React.useState(false);
 
-  const toggleClass = () => {
-    setActive(!isActive);
-  };
-
   return (
     <div
       className={
@@ -35,7 +31,7 @@ const HeroUnitView = (props) => {
             {attachedimage ? (
               <Image
                 className="hero-unit-image"
-                onClick={toggleClass}
+                onClick={() => setActive(true)}
                 src={getScaleUrl(getPath(attachedimage), 'large')}
               />
             ) : (
