@@ -61,6 +61,21 @@ const SiteTheme = (props) => {
     document.body.setAttribute('data-theme', pageTheme);
   }, [hasSelectedPageTheme, pageTheme]);
 
+  React.useEffect(() => {
+    function handleClick(event) {
+      const main = document.querySelector('div#main');
+      const view = document.querySelectorAll('div#view>*');
+
+      if ([main, ...view].includes(event.target)) {
+        setPageTheme(getRandomTheme(siteThemes));
+      }
+      event.preventDefault();
+      event.stopPropagation();
+    }
+    document.body.addEventListener('dblclick', handleClick);
+    return () => document.body.removeEventListener('click', handleClick);
+  }, [siteThemes]);
+
   return null;
 };
 
