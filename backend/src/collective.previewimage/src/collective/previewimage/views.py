@@ -14,6 +14,8 @@ class FallbackImageScale(ImageScaling):
         # pdb.set_trace()
         obj = None
         for child in context.contentValues():
+            if getattr(child, "image", None):  # TODO: handle permissions
+                obj = child
             if getattr(child, "preview_image", None):  # TODO: handle permissions
                 obj = child
 
