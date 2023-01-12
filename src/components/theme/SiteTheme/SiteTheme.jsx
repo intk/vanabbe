@@ -71,6 +71,15 @@ const SiteTheme = (props) => {
       }
       event.preventDefault();
       event.stopPropagation();
+
+      setTimeout(() => {
+        if (document.selection && document.selection.empty) {
+          document.selection.empty();
+        } else if (window.getSelection) {
+          var sel = window.getSelection();
+          sel.removeAllRanges();
+        }
+      }, 50);
     }
     document.body.addEventListener('dblclick', handleClick);
     return () => document.body.removeEventListener('click', handleClick);
