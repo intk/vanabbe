@@ -28,7 +28,7 @@ const InformationView = ({ data, mode = 'view' }) => {
             let href = l.href?.[0]?.['@id'] || '';
 
             return (
-              <span>
+              <span key={i}>
                 {isInternalURL(href) ? (
                   isEditMode ? (
                     <div className={classNames}>{l.title}</div>

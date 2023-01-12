@@ -107,7 +107,7 @@ const EventCard = ({ item }) => {
 
 const ArtworkCard = ({ item }) => {
   const { image_field } = item;
-  const size = 'large';
+  const size = 'preview';
 
   return (
     <section className="listing-card search-card">

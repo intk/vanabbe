@@ -3,12 +3,12 @@ import { flattenToAppURL } from '@plone/volto/helpers';
 import { Placeholder, Image } from 'semantic-ui-react';
 import cx from 'classnames';
 
-const empty =
-  'data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==';
+// const empty =
+//   'data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==';
 
 export default function PreviewImage({
   item,
-  size = 'medium',
+  size,
   isFallback = false,
   showPlaceholder = false,
   className,
@@ -16,7 +16,7 @@ export default function PreviewImage({
   const url = flattenToAppURL(
     `${item?.['@id']}/@@${isFallback ? 'fallback-image' : 'images'}/${
       item?.image_field || 'preview_image'
-    }/large`,
+    }/${size}`,
   );
   // console.log('url', url);
 
