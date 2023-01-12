@@ -26,8 +26,8 @@ export default function PreviewImage({
     </Placeholder>
   ) : (
     <Image
-      src={empty}
-      style={{ backgroundImage: `url("${url}")` }}
+      src={url}
+      // style={{ backgroundImage: `url("${url}")` }}
       size={size}
       alt={item?.title}
       className={cx('preview-image', size, className)}

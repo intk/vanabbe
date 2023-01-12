@@ -60,3 +60,9 @@ body.view-addview,
 #toolbar .toolbar-content {
   z-index: 200;
 }
+
+.preview-image {
+  object-fit: cover;
+  object-position: center;
+  transition: transform 0.5s ease;
+}
