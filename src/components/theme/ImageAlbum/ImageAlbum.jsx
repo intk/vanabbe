@@ -78,7 +78,7 @@ const ImageAlbum = (props) => {
               <PreviewImage
                 key={i}
                 item={thumb}
-                size="small"
+                size="mini"
                 className="img-thumb"
               />
             </div>
