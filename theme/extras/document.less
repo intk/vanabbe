@@ -160,10 +160,18 @@ a {
   font-size: @desktopH5;
 }
 
+#main {
+  display: flex;
+  min-height: 100vh;
+  flex: 1 1;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
 .content-wrapper {
   position: relative;
   width: 100%;
-  min-height: 600px;
+  min-height: 300px;
 
   &:before {
     position: absolute;
