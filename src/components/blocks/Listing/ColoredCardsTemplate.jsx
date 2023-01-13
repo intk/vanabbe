@@ -44,7 +44,7 @@ const ColoredCardsTemplate = (props) => {
         <ListingBlockHeader data={props} />
 
         {linkHref && (
-          <UniversalLink href={linkHref?.[0]['@id']}>
+          <UniversalLink href={linkHref?.[0]['@id']} className="link-more">
             {linkTitle || '...'}
           </UniversalLink>
         )}

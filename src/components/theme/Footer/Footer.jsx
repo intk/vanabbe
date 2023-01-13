@@ -115,21 +115,23 @@ export function Footer(props) {
   const siteData = blocks[siteDataId] || {};
 
   return (
-    <Container>
-      <div className="footer column-offset-2-right">
-        <SocialLinks {...siteData} />
-        <Address {...siteData} />
-        <FooterBlocks includeTypes={['actionLinks']} />
+    <div className="footer">
+      <Container>
+        <div className="footer-wrapper column-offset-2-right">
+          <SocialLinks {...siteData} />
+          <Address {...siteData} />
+          <FooterBlocks includeTypes={['actionLinks']} />
 
-        {/* <FooterLinks globalId="footerLinks" /> */}
-        {/* <FooterLinks globalId="siteActions" />  */}
-        {/* <FooterBlocks
+          {/* <FooterLinks globalId="footerLinks" /> */}
+          {/* <FooterLinks globalId="siteActions" />  */}
+          {/* <FooterBlocks
           excludeIds={config.settings.actionBlockIds}
           excludeTypes={['title', 'actionLinks', 'image', 'siteData']}
         /> */}
-      </div>
-      <Login />
-    </Container>
+        </div>
+        <Login />
+      </Container>
+    </div>
   );
 }
 

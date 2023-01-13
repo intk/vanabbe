@@ -2,14 +2,18 @@
             Footer
 *******************************/
 
+.footer {
+  z-index: 2;
+  background-color: var(--background-color);
+}
+
 .footer-info {
   display: none;
 }
 
-.footer {
+.footer-wrapper {
   display: inline-flex;
   align-items: flex-start;
-  margin-top: var(--space-xxl);
   font-size: 16px;
   gap: 40px;
 
@@ -50,19 +54,19 @@
 .login,
 .login:hover {
   display: block;
-  margin: 2.5em 0;
+  margin: 1.5em 0;
   color: var(--text-color);
   font-size: 16px;
 }
 
 @media only screen and (max-width: 1024px) {
-  .footer {
+  .footer-wrapper {
     gap: 30px;
   }
 }
 
 @media only screen and (max-width: @largestTabletScreen) {
-  .footer {
+  .footer-wrapper {
     width: 100%;
     flex-direction: column;
     margin: 0 !important;
@@ -76,7 +80,7 @@
     }
   }
 
-  .footer .ui.list {
+  .footer-wrapper .ui.list {
     max-width: none;
   }
 }
