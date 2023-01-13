@@ -284,3 +284,52 @@
   text-overflow: ellipsis;
   -webkit-box-orient: vertical;
 }
+
+// Color themes for cards
+.colorThemeSunny() {
+  background-color: #dfff83;
+
+  a {
+    color: #231c1c;
+  }
+}
+
+.colorThemeMint() {
+  background-color: #cce7d2;
+
+  a {
+    color: #9a1313;
+  }
+}
+
+.colorThemeGray() {
+  background-color: #f2eef8;
+
+  a {
+    color: #655353;
+  }
+}
+
+.colorThemeOrange() {
+  background-color: #ffde8a;
+
+  a {
+    color: #6e2b4d;
+  }
+}
+
+.colorThemePeach() {
+  background-color: #ffceaa;
+
+  a {
+    color: #2d1d1d;
+  }
+}
+
+.colorThemeYellow() {
+  background-color: #f5ff83;
+
+  a {
+    color: #9a1313;
+  }
+}

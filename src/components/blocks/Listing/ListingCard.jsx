@@ -125,7 +125,6 @@ const ArtworkCard = ({ item }) => {
             <div className="artwork-creation">{item.objectCreationDate}</div>
           </div>
           <div className="author-name">{item.authorName}</div>
-          <p className="card-description">{item.description}</p>
         </div>
       </Link>
     </section>
