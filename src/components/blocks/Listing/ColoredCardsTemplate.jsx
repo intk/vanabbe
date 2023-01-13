@@ -1,17 +1,14 @@
 import React from 'react';
-import loadable from '@loadable/component';
 import PropTypes from 'prop-types';
-
-import { LinkMore } from '@plone/volto/components';
-import { UniversalLink } from '@plone/volto/components';
+import loadable from '@loadable/component';
 import { Container } from 'semantic-ui-react';
-import { ResponsiveContainer, ListingBlockHeader } from '@package/components';
+import { UniversalLink } from '@plone/volto/components';
 import { useWindowDimensions } from '@package/helpers';
+import { ResponsiveContainer, ListingBlockHeader } from '@package/components';
+import Card from './ListingCard';
 
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-
-import Card from './ListingCard';
 import './less/colored-cards.less';
 
 const Masonry = loadable(() => import('react-masonry-css'));
