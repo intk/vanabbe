@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { defineMessages, injectIntl } from 'react-intl';
 import { useLocation } from 'react-router-dom';
-import { Button } from 'semantic-ui-react';
+import { Button, Container } from 'semantic-ui-react';
 import { getNavigation } from '@plone/volto/actions';
 import { BodyClass } from '@plone/volto/helpers';
 import { LanguageSelector, Logo } from '@plone/volto/components';
@@ -82,22 +82,24 @@ function Navigation({ pathname, intl, items, lang }) {
       </Button>
 
       <PopupMenu open={isOpened}>
-        <div className="popup-inner popup-menu-inner">
-          <DesktopMenu items={items} lang={lang} />
-          <MobileMenu items={items} lang={lang} />
-          <div className="popup-bottom">
-            <div className="mobile tablet only">
-              <div className="popup-header-tools">
-                <OpeningHours />
-                <div>
-                  <ContrastToggle />
-                  <LanguageSelector />
+        <Container>
+          <div className="popup-inner popup-menu-inner">
+            <DesktopMenu items={items} lang={lang} />
+            <MobileMenu items={items} lang={lang} />
+            <div className="popup-bottom">
+              <div className="mobile tablet only">
+                <div className="popup-header-tools">
+                  <OpeningHours />
+                  <div>
+                    <ContrastToggle />
+                    <LanguageSelector />
+                  </div>
                 </div>
               </div>
+              <Logo height="98px" hasLink />
             </div>
-            <Logo height="100px" hasLink />
           </div>
-        </div>
+        </Container>
       </PopupMenu>
     </nav>
   );

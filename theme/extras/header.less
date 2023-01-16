@@ -27,7 +27,7 @@ body.homepage-view {
 }
 
 .open-menu {
-  .header-wrapper > .header {
+  .header-wrapper > .portal-top {
     position: absolute;
     z-index: 10;
     top: 0;
@@ -35,18 +35,27 @@ body.homepage-view {
     left: 0;
   }
 
+  .header {
+    // padding: 1em 30px;
+    background-color: var(--background-color);
+  }
+
   .fixed-logo {
     display: none;
   }
 
-  #main .portal-top > .ui.container {
-    width: 100% !important;
-    padding: 0 !important;
-  }
+  // #main .portal-top > .ui.container {
+  //   width: 100% !important;
+  //   padding: 0 !important;
+  // }
 
   .popup-header-tools {
     display: flex;
     gap: 1.5em;
+
+    @media only screen and (max-width: @largestMobileScreen) {
+      font-size: 14px;
+    }
   }
 
   .popup-bottom {
@@ -55,7 +64,11 @@ body.homepage-view {
     align-items: flex-end;
     justify-content: space-between;
     margin-top: auto;
-    margin-bottom: 1.5em;
+    margin-bottom: 3.2em;
+
+    @media only screen and (max-width: @largestMobileScreen) {
+      margin-bottom: 1em;
+    }
 
     .logo {
       position: relative;
@@ -106,18 +119,18 @@ body.homepage-view {
   }
 }
 
-body.open-popup #main .header-out-of-view {
-  .header > .ui.container {
-    max-width: none !important;
-    padding: 0 !important;
-  }
+// body.open-popup #main .header-out-of-view {
+//   .header > .ui.container {
+//     max-width: none !important;
+//     padding: 0 !important;
+//   }
 
-  .header {
-    right: 0;
-    left: 0 !important;
-    width: 100% !important;
-  }
-}
+//   .header {
+//     right: 0;
+//     left: 0 !important;
+//     width: 100% !important;
+//   }
+// }
 
 .portal-top {
   position: sticky;
@@ -272,13 +285,14 @@ body.has-toolbar-collapsed:not(.has-sidebar):not(.has-sidebar-collapsed) {
 }
 
 @media only screen and (max-width: @tabletBreakpoint) {
-  .full_width {
+  .full_width,
+  #popup.full_width {
     .dynamicContentWidth(0px, 0px) !important;
   }
 
-  body.open-popup .header {
-    .dynamicContentWidth(0px, 0px) !important;
-  }
+  // body.open-popup .header {
+  //   .dynamicContentWidth(0px, 0px) !important;
+  // }
 }
 
 @media only screen and (max-width: @largestMobileScreen) {

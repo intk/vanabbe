@@ -33,6 +33,7 @@ const PopupMenu = (props) => {
             node={isClient && document && document.getElementById('#main')}
           >
             <div
+              id="popup"
               role="presentation"
               onClick={(e) => {
                 e.stopPropagation();

@@ -19,6 +19,17 @@ body.open-menu {
   background-color: var(--background-color);
 }
 
+#popup {
+  .ui.container {
+    width: 100% !important;
+    height: 100%;
+
+    @media only screen and (max-width: @largestMobileScreen) {
+      margin: 0 !important;
+    }
+  }
+}
+
 .popup-menu-inner {
   display: flex;
   height: 100%;
@@ -27,15 +38,6 @@ body.open-menu {
 
 .open-menu {
   overflow: hidden;
-
-  .header {
-    padding: 1em 30px;
-    background-color: var(--background-color);
-  }
-}
-
-.popup-inner {
-  padding: 0 30px;
 }
 
 .ui.list.main-menu {
@@ -53,6 +55,7 @@ body.open-menu {
   }
 
   .item.firstLevel {
+    max-width: 250px;
     font-size: @menuFirstLevelFontSize;
 
     > .content {
@@ -77,7 +80,10 @@ body.open-menu {
 
   .active.item,
   a {
+    display: inline-block;
     color: var(--text-color);
+    white-space: normal;
+    word-break: break-word;
   }
 
   .item.firstLevel {
@@ -133,9 +139,8 @@ body.open-menu {
   }
 }
 
-@media only screen and (max-width: @largestMobileScreen) {
-  .mobile-popup-menu {
-    left: 0 !important;
-    width: 100% !important;
-  }
+#popup .mobile-popup-menu {
+  left: 0 !important;
+  width: 100% !important;
+  overflow-y: auto;
 }

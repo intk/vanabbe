@@ -3,7 +3,8 @@
 *******************************/
 
 /* All Sizes */
-#main .ui.container {
+#main .ui.container,
+.ui.container {
   display: block;
   width: 100% !important;
   max-width: @contentMaxWidth !important;
