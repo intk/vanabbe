@@ -63,7 +63,7 @@ msgstr ""
 #: components/theme/Navigation/Navigation
 # defaultMessage: Close
 msgid "Close"
-msgstr ""
+msgstr "Sluiten"
 
 #: components/blocks/SiteData/schema
 # defaultMessage: Contact
@@ -104,7 +104,7 @@ msgstr ""
 #: components/theme/SearchWidget/SearchWidget
 # defaultMessage: Search
 msgid "Search"
-msgstr ""
+msgstr "Zoeken"
 
 #: components/theme/SearchWidget/SearchWidget
 # defaultMessage: Search artist, artwork etc...
