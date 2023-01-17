@@ -1,10 +1,10 @@
 import { List } from 'semantic-ui-react';
-import { useFooterContent } from '@package/helpers';
+import { useSiteDataContent } from '@package/helpers';
 
 const SocialLinks = (props) => {
   const { hideTitle } = props;
-  const footer = useFooterContent();
-  const { blocks = {} } = footer;
+  const siteDataContent = useSiteDataContent();
+  const { blocks = {} } = siteDataContent;
   const siteDataId = Object.keys(blocks).find(
     (id) => blocks[id]?.['@type'] === 'siteData',
   );
@@ -21,9 +21,9 @@ const SocialLinks = (props) => {
           ? socialLinks.map((l, i) => (
               <List.Item key={i}>
                 <List.Content>
-                  <a key={`${l.href}-${i}`} href={l.href}>
-                    {l.title}
-                  </a>
+                  <p key={`${l.href}-${i}`}>
+                    <a href={l.href}>{l.title}</a>
+                  </p>
                 </List.Content>
               </List.Item>
             ))

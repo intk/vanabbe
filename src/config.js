@@ -83,7 +83,7 @@ export default function applyConfig(config) {
   config.settings.supportedLanguages = ['nl', 'en'];
   config.settings.defaultLanguage = DEFAULT_LANG;
 
-  config.settings.footerPageId = 'footer-content';
+  config.settings.footerPageId = 'site-data';
   config.settings.actionBlockIds = [
     ['footerLinks', 'Footer Links'],
     ['siteActions', 'Site Actions'],
@@ -125,10 +125,10 @@ export default function applyConfig(config) {
     ...config.settings.asyncPropsExtenders,
     {
       path: '/',
-      key: 'footer',
+      key: 'site-data',
       extend: (dispatchActions) => {
         const action = {
-          key: 'footer',
+          key: 'site-data',
           promise: ({ location, store }) => {
             // const currentLang = state.intl.locale;
             const bits = location.pathname.split('/');
@@ -136,14 +136,14 @@ export default function applyConfig(config) {
               bits.length >= 2 ? bits[1] || DEFAULT_LANG : DEFAULT_LANG;
 
             const state = store.getState();
-            if (state.content.subrequests?.[`footer-${currentLang}`]?.data) {
+            if (state.content.subrequests?.[`site-data-${currentLang}`]?.data) {
               return;
             }
 
             const footerPageId = config.settings.footerPageId;
             const url = `/${currentLang}/${footerPageId}`;
             // console.log('url', url);
-            const action = getContent(url, null, `footer-${currentLang}`);
+            const action = getContent(url, null, `site-data-${currentLang}`);
             return store.dispatch(action).catch((e) => {
               // eslint-disable-next-line
               console.log(

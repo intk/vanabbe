@@ -44,17 +44,14 @@ body.homepage-view {
     display: none;
   }
 
-  // #main .portal-top > .ui.container {
-  //   width: 100% !important;
-  //   padding: 0 !important;
-  // }
-
   .popup-header-tools {
     display: flex;
     gap: 1.5em;
 
     @media only screen and (max-width: @largestMobileScreen) {
       font-size: 14px;
+      gap: 2em;
+      line-height: 1.7;
     }
   }
 
@@ -152,6 +149,10 @@ body.homepage-view {
   @media only screen and (max-width: @largestMobileScreen) {
     margin-top: var(--space-sm) !important;
     margin-bottom: var(--space-sm) !important;
+
+    .column.column-offset-1-left {
+      margin-left: 0;
+    }
   }
 }
 
@@ -184,6 +185,10 @@ body.homepage-view {
         color: var(--text-color) !important;
         font-size: 22px;
         text-transform: uppercase;
+
+        @media only screen and (max-width: @largestMobileScreen) {
+          font-size: 16px;
+        }
       }
     }
   }

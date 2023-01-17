@@ -1,8 +1,8 @@
-import { useFooterContent } from '@package/helpers';
+import { useSiteDataContent } from '@package/helpers';
 
 const OpeningHours = () => {
-  const footer = useFooterContent();
-  const { blocks = {} } = footer;
+  const siteDataContent = useSiteDataContent();
+  const { blocks = {} } = siteDataContent;
   const siteDataId = Object.keys(blocks).find(
     (id) => blocks[id]?.['@type'] === 'siteData',
   );

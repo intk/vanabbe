@@ -15,13 +15,9 @@ const BigCardsTemplate = (props) => {
       <div className="listings big-cards">
         <Grid columns={4} className="listings">
           {items.map((item, i) => (
-            <>
+            <React.Fragment key={i}>
               {items.length < 2 ? (
-                <Grid.Column
-                  computer={12}
-                  className="listing-column-one"
-                  key={i}
-                >
+                <Grid.Column computer={12} className="listing-column-one">
                   <Card item={item} {...props} />
                 </Grid.Column>
               ) : (
@@ -29,7 +25,7 @@ const BigCardsTemplate = (props) => {
                   <Card item={item} {...props} />
                 </Grid.Column>
               )}
-            </>
+            </React.Fragment>
           ))}
         </Grid>
       </div>

@@ -30,6 +30,12 @@ body.open-menu {
   }
 }
 
+body.has-toolbar:not(.has-sidebar):not(.has-sidebar-collapsed) {
+  #popup .mobile-popup-menu {
+    margin-top: 170px;
+  }
+}
+
 .popup-menu-inner {
   display: flex;
   height: 100%;
@@ -112,7 +118,7 @@ body.open-menu {
     }
 
     .item.secondLevel {
-      padding: 0.5em 0 !important;
+      padding: 0.2em 0 !important;
       border-bottom: none;
       font-size: @menuTabletSecondLevelFontSize !important;
     }
@@ -140,6 +146,7 @@ body.open-menu {
 }
 
 #popup .mobile-popup-menu {
+  position: relative;
   left: 0 !important;
   width: 100% !important;
   overflow-y: auto;

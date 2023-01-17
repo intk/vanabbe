@@ -61,6 +61,16 @@ msgstr ""
 msgid "Close"
 msgstr ""
 
+#: components/blocks/SiteData/schema
+# defaultMessage: Contact
+msgid "Contact"
+msgstr ""
+
+#: components/blocks/HeroUnit/schema
+# defaultMessage: Headline level
+msgid "Headline level"
+msgstr ""
+
 #: components/blocks/ActionLinks/schema
 #: components/blocks/Facts/schema
 # defaultMessage: Action link
@@ -118,6 +128,7 @@ msgid "SiteTheme"
 msgstr ""
 
 #: components/blocks/SiteData/schema
+#: components/blocks/SiteData/SiteDataView
 # defaultMessage: Social Links
 msgid "SocialLinks"
 msgstr ""
@@ -147,6 +158,36 @@ msgstr ""
 msgid "blockTitle"
 msgstr ""
 
+#: components/blocks/SiteData/schema
+# defaultMessage: Tickets button. Displayed in the header.
+msgid "buttonDescription"
+msgstr ""
+
+#: components/blocks/SiteData/schema
+# defaultMessage: Button call to action
+msgid "buttonHrefTitle"
+msgstr ""
+
+#: components/blocks/Information/schema
+# defaultMessage: Button Links
+msgid "buttonLinks"
+msgstr ""
+
+#: components/blocks/HeroUnit/schema
+# defaultMessage: Button text
+msgid "buttonText"
+msgstr ""
+
+#: components/blocks/SiteData/schema
+# defaultMessage: Button title
+msgid "buttonTitle"
+msgstr ""
+
+#: components/blocks/SiteData/SiteDataView
+# defaultMessage: Contact
+msgid "contact"
+msgstr ""
+
 #: components/blocks/Quote/EditBlockWrapper
 # defaultMessage: delete
 msgid "delete"
@@ -157,14 +198,31 @@ msgstr ""
 msgid "email"
 msgstr ""
 
+#: components/blocks/HeroUnit/schema
+#: components/blocks/Information/schema
+# defaultMessage: Headline
+msgid "headline"
+msgstr ""
+
 #: components/blocks/Facts/schema
 # defaultMessage: Icon
 msgid "icon"
 msgstr ""
 
 #: components/blocks/Facts/schema
+#: components/blocks/HeroUnit/schema
 # defaultMessage: Image
 msgid "image"
+msgstr ""
+
+#: components/blocks/Information/schema
+# defaultMessage: Information block
+msgid "infoBlock"
+msgstr ""
+
+#: components/blocks/HeroUnit/schema
+# defaultMessage: Button call to action
+msgid "linkHref"
 msgstr ""
 
 #: components/blocks/Facts/schema
@@ -173,6 +231,7 @@ msgid "linkToDescription"
 msgstr ""
 
 #: components/blocks/SiteData/schema
+#: components/blocks/SiteData/SiteDataView
 # defaultMessage: Opening hours
 msgid "openingHours"
 msgstr ""

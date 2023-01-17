@@ -38,6 +38,10 @@ const messages = defineMessages({
     id: 'email',
     defaultMessage: 'Email',
   },
+  contact: {
+    id: 'Contact',
+    defaultMessage: 'Contact',
+  },
   openingHours: {
     id: 'openingHours',
     defaultMessage: 'Opening hours',
@@ -58,6 +62,18 @@ const messages = defineMessages({
     id: 'SocialLinks',
     defaultMessage: 'Social Links',
   },
+  buttonTitle: {
+    id: 'buttonTitle',
+    defaultMessage: 'Button title',
+  },
+  buttonHrefTitle: {
+    id: 'buttonHrefTitle',
+    defaultMessage: 'Button call to action',
+  },
+  buttonDescription: {
+    id: 'buttonDescription',
+    defaultMessage: 'Tickets button. Displayed in the header.',
+  },
 });
 
 const SiteDataSchema = ({ intl }) => ({
@@ -66,16 +82,21 @@ const SiteDataSchema = ({ intl }) => ({
     {
       id: 'default',
       title: 'Default',
-      fields: ['openingHours', 'openingHoursTitle'],
+      fields: [
+        'openingHours',
+        'openingHoursTitle',
+        'buttonTitle',
+        'buttonHref',
+      ],
     },
     {
       id: 'contact',
-      title: 'Contact',
+      title: intl.formatMessage(messages.contact),
       fields: ['contactTitle', 'address', 'phone', 'email'],
     },
     {
       id: 'socialLinks',
-      title: 'Social links',
+      title: intl.formatMessage(messages.SocialLinks),
       fields: ['socialLinksTitle', 'socialLinks'],
     },
   ],
@@ -107,6 +128,18 @@ const SiteDataSchema = ({ intl }) => ({
       title: intl.formatMessage(messages.SocialLinks),
       widget: 'object_list',
       schema: SocialLink(),
+    },
+    buttonTitle: {
+      title: intl.formatMessage(messages.buttonTitle),
+      default: 'Tickets',
+    },
+    buttonHref: {
+      title: intl.formatMessage(messages.buttonHrefTitle),
+      widget: 'object_browser',
+      mode: 'link',
+      selectedItemAttrs: ['Title', 'Description'],
+      allowExternals: true,
+      description: intl.formatMessage(messages.buttonDescription),
     },
   },
   required: [],

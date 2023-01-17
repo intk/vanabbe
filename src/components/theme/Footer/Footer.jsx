@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 import { Container, List } from 'semantic-ui-react';
 import { RenderBlocks } from '@plone/volto/components';
 import { SocialLinks } from '@package/components';
-import { useFooterContent } from '@package/helpers';
+import { useSiteDataContent } from '@package/helpers';
 
 import config from '@plone/volto/registry';
 
@@ -90,8 +90,8 @@ export const Address = ({ contactTitle, address, phone, email }) => (
 // };
 
 const FooterBlocks = ({ includeTypes }) => {
-  const footer = useFooterContent();
-  const { blocks = {}, blocks_layout } = footer;
+  const siteDataContent = useSiteDataContent();
+  const { blocks = {}, blocks_layout } = siteDataContent;
   const filtered = blocks_layout?.items?.filter((id) =>
     includeTypes.includes(blocks[id]?.['@type']),
   );
@@ -106,8 +106,8 @@ const FooterBlocks = ({ includeTypes }) => {
 };
 
 export function Footer(props) {
-  const footer = useFooterContent();
-  const { blocks = {} } = footer;
+  const siteDataContent = useSiteDataContent();
+  const { blocks = {} } = siteDataContent;
   const siteDataId = Object.keys(blocks).find(
     (id) => blocks[id]?.['@type'] === 'siteData',
   );

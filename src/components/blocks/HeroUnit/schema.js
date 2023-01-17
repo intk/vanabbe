@@ -24,10 +24,6 @@ const messages = defineMessages({
     id: 'image',
     defaultMessage: 'Image',
   },
-  heroUnit: {
-    id: 'heroUnit',
-    defaultMessage: 'Hero unit block',
-  },
   headlineTag: {
     id: 'Headline level',
     defaultMessage: 'Headline level',
@@ -35,7 +31,7 @@ const messages = defineMessages({
 });
 
 const HeroUnitSchema = ({ intl }) => ({
-  title: intl.formatMessage(messages.heroUnit),
+  title: 'Hero unit block',
   fieldsets: [
     {
       id: 'default',

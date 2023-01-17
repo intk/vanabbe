@@ -20,6 +20,12 @@
   padding: var(--space-xl) 0;
   margin-bottom: var(--space-xl);
   background-color: @white;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+
+  @media only screen and (max-width: @largestTabletScreen) {
+    padding: var(--space-xs) 0;
+  }
 }
 
 .blocks-wrapper,
@@ -30,7 +36,7 @@
     margin-left: calc(@oneWide + 0.6rem);
 
     @media only screen and (max-width: @largestTabletScreen) {
-      margin-left: 0.6rem;
+      margin-left: 0.8rem;
     }
   }
 
