@@ -46,6 +46,7 @@ const EmailWidget = (props) => {
   if (isInvalid) {
     attributes['aria-invalid'] = true;
   }
+
   return (
     <FormFieldWrapper {...props} className="email">
       <Input
@@ -54,7 +55,7 @@ const EmailWidget = (props) => {
         type="email"
         value={value || ''}
         disabled={isDisabled}
-        placeholder={placeholder}
+        placeholder={placeholder || 'example@gmail.com'}
         onChange={({ target }) =>
           onChange(id, target.value === '' ? undefined : target.value)
         }

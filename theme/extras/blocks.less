@@ -214,3 +214,85 @@ body.view-viewview {
     line-height: @mediumLineHeight;
   }
 }
+
+.block.form {
+  .ui.grid {
+    .row:first-child {
+      .inline.field .wrapper {
+        border-top: 1px solid var(--text-color);
+      }
+    }
+
+    .row {
+      > .eight.wide.column,
+      > .four.wide.column {
+        width: 100% !important;
+      }
+    }
+  }
+
+  .ui.primary.button {
+    margin: 1em 0;
+  }
+
+  .inline.field .wrapper {
+    min-height: auto;
+    padding-top: 0.7em;
+    border: none;
+  }
+
+  .ui.input {
+    input {
+      height: 40px !important;
+      border-bottom: 1px solid var(--text-color);
+      background-color: transparent;
+    }
+  }
+
+  .ui.segment {
+    padding: 0;
+    border: none;
+    background-color: transparent;
+    box-shadow: none;
+  }
+
+  .ui.form {
+    color: var(--text-color);
+
+    .field .wrapper > label {
+      color: var(--text-color);
+    }
+
+    p.help,
+    .ui.checkbox label {
+      color: var(--text-color);
+    }
+
+    p.help {
+      border: none;
+    }
+
+    .ui.checkbox .box:before,
+    .ui.checkbox label:before {
+      border-color: var(--text-color);
+      background: transparent;
+      box-shadow: none;
+    }
+
+    .inline.field.required label {
+      position: relative;
+    }
+
+    .inline.field.required .wrapper > label[for]::after,
+    .inline.field.required .wrapper .ui.label::after {
+      position: absolute;
+      top: -3px;
+      right: -13px;
+      display: inline-block;
+      background-color: transparent;
+      color: var(--text-color);
+      content: '*';
+      font-size: 20px;
+    }
+  }
+}

@@ -13,14 +13,6 @@ import Field from './Field';
 import config from '@plone/volto/registry';
 // import './FormView.css';
 
-const FULLWIDTHFIELDTYPES = [
-  'textarea',
-  'attachment',
-  'checkbox',
-  'multiple_choice',
-  'single_choice',
-];
-
 const messages = defineMessages({
   default_submit_label: {
     id: 'form_default_submit_label',
@@ -141,33 +133,8 @@ const FormView = ({
 
                   return (
                     <>
-                      {FULLWIDTHFIELDTYPES.includes(subblock.field_type) ? (
-                        <Grid.Row key={'row' + index}>
-                          <Grid.Column>
-                            <Field
-                              {...subblock}
-                              name={name}
-                              onChange={(field, value) =>
-                                onChangeFormData(
-                                  subblock.id,
-                                  field,
-                                  value,
-                                  fields_to_send_with_value,
-                                )
-                              }
-                              value={
-                                subblock.field_type === 'static_text'
-                                  ? subblock.value
-                                  : formData[name]?.value
-                              }
-                              valid={isValidField(name)}
-                              formHasErrors={formErrors?.length > 0}
-                              labelsAsPlaceholders={data.labelsAsPlaceholders}
-                            />
-                          </Grid.Column>
-                        </Grid.Row>
-                      ) : (
-                        <Grid.Column key={'row' + index} width={6}>
+                      <Grid.Row key={'row' + index}>
+                        <Grid.Column>
                           <Field
                             {...subblock}
                             name={name}
@@ -189,7 +156,7 @@ const FormView = ({
                             labelsAsPlaceholders={data.labelsAsPlaceholders}
                           />
                         </Grid.Column>
-                      )}
+                      </Grid.Row>
                     </>
                   );
                 })}
@@ -203,7 +170,7 @@ const FormView = ({
                   </Message>
                 )}
                 <Grid.Row centered className="row-padded-top">
-                  <Grid.Column textAlign="center">
+                  <Grid.Column>
                     <Button primary type="submit" disabled={formState.loading}>
                       {data.submit_label ||
                         intl.formatMessage(messages.default_submit_label)}
