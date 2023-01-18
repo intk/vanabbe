@@ -1,32 +1,39 @@
 import React from 'react';
 import { flattenToAppURL } from '@plone/volto/helpers';
 import { Link } from 'react-router-dom';
-import { FormattedTime, FormattedDateParts } from 'react-intl';
-import { FormattedDate } from '@package/components';
-
+import { FormattedTime } from 'react-intl';
+import { FormattedDate } from '@plone/volto/components';
 import { PreviewImage } from '@package/components';
 
-// see extras/listing.less for less
+const dateOptions = {
+  year: 'numeric',
+  month: 'short',
+  day: 'numeric',
+};
 
 const Card = ({ item }) => {
   const { image_field } = item;
   const size = 'large';
-  // {!!item.effective && <FormattedDate isoDate={item.effective} />}
+
   return (
-    <section className="listing-card default-card">
-      <Link
-        className="card-link"
-        to={flattenToAppURL(item['@id'])}
-        title={item.title}
-      >
+    <section className="listing-card  default-card">
+      <Link className="card-link" to={flattenToAppURL(item['@id'])}>
         <div className="card-details">
+          <div className="card-meta">
+            {!!item.effective && (
+              <FormattedDate date={item.effective} format={dateOptions} />
+            )}
+            {item?.['@type']}
+          </div>
           <h3 className="card-title">{item.title}</h3>
           {!!image_field && (
             <div className="image-wrapper">
               <PreviewImage item={item} size={size} isFallback={!image_field} />
             </div>
           )}
-          <p className="card-description">{item.description}</p>
+          {!!item.description && (
+            <p className="card-description">{item.description}</p>
+          )}
         </div>
       </Link>
     </section>
@@ -45,7 +52,7 @@ const NewsItemCard = ({ item }) => {
       >
         <div className="card-details">
           {!!item.effective && (
-            <FormattedDate isoDate={item.effective} format="long" />
+            <FormattedDate date={item.effective} format={dateOptions} />
           )}
           <h3 className="card-title">{item.title}</h3>
           {!!image_field && (
@@ -72,24 +79,13 @@ const EventCard = ({ item }) => {
         title={item.title}
       >
         <div className="card-details">
-          <div className="date">
-            <FormattedDateParts
-              value={new Date(item.start)}
-              year="numeric"
-              month="2-digit"
-              day="2-digit"
-            >
-              {(parts) =>
-                !!parts?.length && (
-                  <div>
-                    {parts[2].value}.<span>{parts[0].value}</span>.
-                    {parts[4].value}
-                  </div>
-                )
-              }
-            </FormattedDateParts>
-            <FormattedTime value={new Date(item.start)} />
+          <div className="card-meta">
+            {!!item.effective && (
+              <FormattedDate date={item.start} format={dateOptions} />
+            )}
+            {!!item.start && <FormattedTime value={new Date(item.start)} />}
           </div>
+
           <h3 className="card-title">{item.title}</h3>
           {!!image_field && (
             <div className="image-wrapper">

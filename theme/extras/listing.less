@@ -35,6 +35,12 @@
     flex-direction: column;
   }
 
+  .card-meta {
+    display: flex;
+    font-size: @smallFontSize;
+    gap: 20px;
+  }
+
   .card-title {
     margin-bottom: 10px;
     overflow-wrap: break-word;
@@ -65,9 +71,27 @@
   }
 }
 
-.listing-column-one {
-  .listing-card {
-    height: 450px;
+.listing.listing_big_cards {
+  .listing-column-one {
+    .listing-card {
+      height: 450px;
+    }
+
+    .listing-card.default-card {
+      .card-title {
+        font-size: @desktopH2;
+      }
+
+      .card-details {
+        .card-content .card-description {
+          font-size: @largeFontSize;
+        }
+
+        .date {
+          font-size: @largeFontSize;
+        }
+      }
+    }
   }
 }
 
@@ -92,7 +116,7 @@
 .listing.listing_big_cards {
   .listing-card.default-card {
     .card-title {
-      font-size: @desktopH2;
+      font-size: @extraFontSize;
     }
 
     .card-link {
@@ -114,7 +138,7 @@
       }
 
       .date {
-        font-size: @largeFontSize;
+        font-size: @bigFontSize;
       }
 
       > div {
@@ -128,7 +152,7 @@
 
         .card-description {
           margin-top: auto;
-          font-size: @largeFontSize;
+          font-size: @bigFontSize;
         }
       }
     }
@@ -163,11 +187,6 @@
 }
 
 .listing-card.event-card {
-  .date {
-    display: flex;
-    justify-content: space-between;
-  }
-
   .date {
     font-size: @smallFontSize;
   }
