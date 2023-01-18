@@ -7,3 +7,4 @@
 
 export useWindowDimensions from './useWindowDimensions';
 export useSiteDataContent from './useSiteDataContent';
+export usePreviewImage from './usePreviewImage';

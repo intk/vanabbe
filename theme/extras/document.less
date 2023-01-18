@@ -142,7 +142,7 @@ ol {
 }
 
 .documentDescription {
-  color: inherit !important;
+  display: none;
 }
 
 a {
@@ -184,6 +184,10 @@ a {
   }
 }
 
+.ui.container.tags {
+  background-color: var(--background-color);
+}
+
 body.view-viewview {
   .documentFirstHeading {
     display: none; // it is displayed as part of the HeroSection
@@ -193,6 +197,6 @@ body.view-viewview {
 #search-tags .ui.label,
 .tags .ui.label {
   .secondaryBtn(var(--text-color));
-  margin-top: 3em;
+  margin-top: 1em;
   margin-right: 0.5em;
 }

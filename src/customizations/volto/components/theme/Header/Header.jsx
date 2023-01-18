@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { useSelector } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 import {
   LanguageSelector,
   Logo,
@@ -16,8 +17,7 @@ import {
   OpeningHours,
   HeaderButton,
 } from '@package/components';
-import usePreviewImage from './usePreviewImage';
-import { useLocation } from 'react-router-dom';
+import { usePreviewImage } from '@package/helpers';
 
 const Header = (props) => {
   const { navigationItems } = props;
@@ -77,7 +77,10 @@ const Header = (props) => {
           <Container className="sticky-heading">
             <Grid>
               <Grid.Row>
-                <Grid.Column className="column-offset-1-left column-offset-2-right">
+                <Grid.Column
+                  className="column-offset-1-left column-offset-2-right"
+                  id="heading"
+                >
                   {title && (
                     <h1 className="content-title">{objectTitle || title}</h1>
                   )}

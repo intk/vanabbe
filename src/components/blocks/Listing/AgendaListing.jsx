@@ -1,8 +1,7 @@
 import React from 'react';
 import { UniversalLink } from '@plone/volto/components';
-import { FormattedDateParts } from 'react-intl';
-import { ListingBlockHeader } from '@package/components';
-
+import { ListingBlockHeader, FormattedDate } from '@package/components';
+import { When } from '@plone/volto/components/theme/View/EventDatesInfo';
 import './less/agenda-listing.less';
 
 const Item = ({ item, hideDate }) => {
@@ -19,43 +18,16 @@ const Item = ({ item, hideDate }) => {
             {!hideDate && (
               <>
                 {item['@type'] === 'Event' ? (
-                  <>
-                    {!!item.start && (
-                      <FormattedDateParts
-                        value={new Date(item.start)}
-                        year="numeric"
-                        month="2-digit"
-                        day="2-digit"
-                      >
-                        {(parts) =>
-                          !!parts?.length && (
-                            <div>
-                              {parts[2].value}.<span>{parts[0].value}</span>.
-                              {parts[4].value}
-                            </div>
-                          )
-                        }
-                      </FormattedDateParts>
-                    )}
-                  </>
+                  <When
+                    start={item.start}
+                    end={item.end}
+                    whole_day={true}
+                    open_end={item.open_end}
+                  />
                 ) : (
                   <>
                     {!!item.effective && (
-                      <FormattedDateParts
-                        value={new Date(item.effective)}
-                        year="numeric"
-                        month="2-digit"
-                        day="2-digit"
-                      >
-                        {(parts) =>
-                          !!parts?.length && (
-                            <div>
-                              {parts[2].value}.<span>{parts[0].value}</span>.
-                              {parts[4].value}
-                            </div>
-                          )
-                        }
-                      </FormattedDateParts>
+                      <FormattedDate isoDate={item.effective} format="long" />
                     )}
                   </>
                 )}

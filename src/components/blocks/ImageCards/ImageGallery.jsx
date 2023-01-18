@@ -17,9 +17,9 @@ const ImageGallery = (props) => {
   const [activeSlideIndex, setActiveSlideIndex] = React.useState(0);
   const sliderRef = React.useRef(null);
 
-  const thumbsToShow = cards.slice(0, MAX_THUMBS);
+  const thumbsToShow = cards?.slice(0, MAX_THUMBS);
   const moreImagesLength =
-    cards.length > MAX_THUMBS ? cards.length - MAX_THUMBS : null;
+    cards?.length > MAX_THUMBS ? cards?.length - MAX_THUMBS : null;
 
   const carouselSettings = React.useMemo(
     () => ({
@@ -57,16 +57,18 @@ const ImageGallery = (props) => {
           }
         }}
       >
-        <Image
-          style={{ height: height }}
-          className="bg-image"
-          src={getScaleUrl(getPath(cards[0].attachedimage), 'large')}
-        />
+        {cards?.[0].attachedimage ? (
+          <Image
+            style={{ height: height }}
+            className="bg-image"
+            src={getScaleUrl(getPath(cards?.[0].attachedimage), 'large')}
+          />
+        ) : null}
       </div>
 
-      {thumbsToShow.length > 1 && (
+      {thumbsToShow?.length > 1 && (
         <div className="thumbnails">
-          {thumbsToShow.map((thumb, i) => (
+          {thumbsToShow?.map((thumb, i) => (
             <div
               key={i}
               tabIndex={0}
@@ -107,7 +109,7 @@ const ImageGallery = (props) => {
       >
         <Modal.Content>
           <Slider {...carouselSettings} ref={sliderRef}>
-            {cards.map((item, i) => {
+            {cards?.map((item, i) => {
               return (
                 <Image
                   className="modal-slide-img"
@@ -117,7 +119,7 @@ const ImageGallery = (props) => {
             })}
           </Slider>
           <div className="slide-image-count">
-            {activeSlideIndex + 1} of {cards.length}
+            {activeSlideIndex + 1} of {cards?.length}
           </div>
         </Modal.Content>
       </Modal>
@@ -150,7 +152,7 @@ ImageGallery.schemaExtender = (schema, data, intl) => {
             CSS height
           </a>
         ),
-        default: '80px',
+        default: '300px',
         description: 'Image max height',
       },
     },
