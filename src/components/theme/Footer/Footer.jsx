@@ -117,7 +117,7 @@ export function Footer(props) {
   return (
     <div className="footer">
       <Container>
-        <div className="footer-wrapper column-offset-2-right">
+        <div className="footer-wrapper offset-2-right">
           <SocialLinks {...siteData} />
           <Address {...siteData} />
           <FooterBlocks includeTypes={['actionLinks']} />

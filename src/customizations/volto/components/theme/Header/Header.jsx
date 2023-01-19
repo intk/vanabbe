@@ -78,7 +78,7 @@ const Header = (props) => {
             <Grid>
               <Grid.Row>
                 <Grid.Column
-                  className="column-offset-1-left column-offset-2-right"
+                  className="offset-1-left offset-2-right"
                   id="heading"
                 >
                   {title && (

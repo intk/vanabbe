@@ -5,5 +5,5 @@
 .ui.basic.segment.content-area {
   padding: 0;
   margin: 0;
-  z-index: 2;
+  z-index: 3;
 }

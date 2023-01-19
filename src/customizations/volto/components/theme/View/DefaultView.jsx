@@ -50,7 +50,7 @@ const DefaultView = (props) => {
     <div id="page-document" className="ui container">
       <Grid>
         <Grid.Row>
-          <Grid.Column className="column-offset-1-right">
+          <Grid.Column className="offset-1-right">
             <div className="content-wrapper">
               <Grid>
                 <Grid.Row>

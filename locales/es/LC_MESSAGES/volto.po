@@ -61,6 +61,11 @@ msgstr ""
 msgid "Contact"
 msgstr ""
 
+#: components/blocks/VoltoFormBlock/FormView
+# defaultMessage: Error
+msgid "Error"
+msgstr ""
+
 #: components/blocks/HeroUnit/schema
 # defaultMessage: Headline level
 msgid "Headline level"
@@ -178,6 +183,11 @@ msgstr ""
 msgid "buttonTitle"
 msgstr ""
 
+#: components/blocks/VoltoFormBlock/formSchema
+# defaultMessage: Captcha provider
+msgid "captcha"
+msgstr ""
+
 #: components/blocks/SiteData/SiteDataView
 # defaultMessage: Contact
 msgid "contact"
@@ -188,9 +198,84 @@ msgstr ""
 msgid "delete"
 msgstr ""
 
+#: components/blocks/VoltoFormBlock/formSchema
+# defaultMessage: Description
+msgid "description"
+msgstr ""
+
 #: components/blocks/SiteData/schema
 # defaultMessage: Email
 msgid "email"
+msgstr ""
+
+#: components/blocks/VoltoFormBlock/formSchema
+# defaultMessage: Form
+msgid "form"
+msgstr ""
+
+#: components/blocks/VoltoFormBlock/View
+# defaultMessage: Form successfully submitted
+msgid "formSubmitted"
+msgstr ""
+
+#: components/blocks/VoltoFormBlock/formSchema
+# defaultMessage: Attached file will be sent via email, but not stored
+msgid "form_attachment_send_email_info_text"
+msgstr ""
+
+#: components/blocks/VoltoFormBlock/formSchema
+# defaultMessage: Default sender
+msgid "form_default_from"
+msgstr ""
+
+#: components/blocks/VoltoFormBlock/formSchema
+# defaultMessage: Mail subject
+msgid "form_default_subject"
+msgstr ""
+
+#: components/blocks/VoltoFormBlock/FormView
+# defaultMessage: Submit
+msgid "form_default_submit_label"
+msgstr ""
+
+#: components/blocks/VoltoFormBlock/FormView
+# defaultMessage: Fill in the required fields
+msgid "form_empty_values_validation"
+msgstr ""
+
+#: components/blocks/VoltoFormBlock/FormView
+# defaultMessage: Clear
+msgid "form_reset"
+msgstr ""
+
+#: components/blocks/VoltoFormBlock/formSchema
+# defaultMessage: Store compiled data
+msgid "form_save_persistent_data"
+msgstr ""
+
+#: components/blocks/VoltoFormBlock/Field
+# defaultMessage: Select a value
+msgid "form_select_a_value"
+msgstr ""
+
+#: components/blocks/VoltoFormBlock/formSchema
+# defaultMessage: Send email to recipient
+msgid "form_send_email"
+msgstr ""
+
+#: components/blocks/VoltoFormBlock/formSchema
+# defaultMessage: Submit button label
+msgid "form_submit_label"
+msgstr ""
+
+#: components/blocks/VoltoFormBlock/FormView
+# defaultMessage: Sent!
+msgid "form_submit_success"
+msgstr ""
+
+#: components/blocks/VoltoFormBlock/formSchema
+# defaultMessage: Recipients
+msgid "form_to"
 msgstr ""
 
 #: components/blocks/HeroUnit/schema
@@ -246,6 +331,11 @@ msgstr ""
 msgid "phone"
 msgstr ""
 
+#: components/blocks/VoltoFormBlock/schemaExtender
+# defaultMessage: Placeholder
+msgid "placeholder"
+msgstr ""
+
 #: components/blocks/SiteData/schema
 # defaultMessage: Section title
 msgid "sectionTitle"
@@ -268,6 +358,7 @@ msgstr ""
 
 #: components/blocks/ActionLinks/schema
 #: components/blocks/Facts/schema
+#: components/blocks/VoltoFormBlock/formSchema
 # defaultMessage: Title
 msgid "title"
 msgstr ""

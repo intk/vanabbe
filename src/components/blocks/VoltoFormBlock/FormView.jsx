@@ -13,6 +13,7 @@ import Field from './Field';
 import GoogleReCaptchaWidget from 'volto-form-block/components/Widget/GoogleReCaptchaWidget';
 import HCaptchaWidget from 'volto-form-block/components/Widget/HCaptchaWidget';
 import { serializeNodes } from '@plone/volto-slate/editor/render';
+import { Icon } from 'semantic-ui-react';
 import config from '@plone/volto/registry';
 // import './FormView.css';
 
@@ -184,12 +185,19 @@ const FormView = ({
                 )}
 
                 {formErrors.length > 0 && (
-                  <Message error role="alert">
-                    <Message.Header as="h4">
-                      {intl.formatMessage(messages.error)}
-                    </Message.Header>
-                    <p>{intl.formatMessage(messages.empty_values)}</p>
-                  </Message>
+                  <Grid.Row>
+                    <Grid.Column>
+                      <Message error role="alert" icon>
+                        <Icon name="exclamation circle" />
+                        <Message.Content>
+                          <Message.Header as="h4">
+                            {intl.formatMessage(messages.error)}
+                          </Message.Header>
+                          <p>{intl.formatMessage(messages.empty_values)}</p>
+                        </Message.Content>
+                      </Message>
+                    </Grid.Column>
+                  </Grid.Row>
                 )}
 
                 <Grid.Row>

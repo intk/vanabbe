@@ -227,7 +227,7 @@ export default function applyConfig(config) {
     'News Item': 'title',
   };
 
-  console.log('config', config.blocks.blocksConfig);
+  // console.log('config', config);
 
   return installExpressMiddleware(installFooter(installBlocks(config)));
 }

@@ -36,22 +36,22 @@
 //   }
 // }
 
-.column-offset-1-left {
+.offset-1-left {
   margin-left: @oneWide;
 }
 
-.column-offset-1-right {
+.offset-1-right {
   margin-right: @oneWide;
 }
 
-.column-offset-2-left {
+.offset-2-left {
   margin-left: @twoWide;
 }
 
-.column-offset-2-right {
+.offset-2-right {
   margin-right: @twoWide;
 }
 
-.column-offset-3-right {
+.offset-3-right {
   margin-right: @threeWide;
 }

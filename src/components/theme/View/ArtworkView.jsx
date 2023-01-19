@@ -12,7 +12,7 @@ export default function ArtworkView(props) {
         <div className="content-container">
           <Grid>
             <Grid.Row>
-              <Grid.Column className="column-offset-1-right">
+              <Grid.Column className="offset-1-right">
                 <div className="content-wrapper">
                   <div className="artwork-container">
                     <div className="artwork-top">
@@ -53,7 +53,7 @@ export default function ArtworkView(props) {
                         </div>
                       </div>
                     </div>
-                    <div className="artwork-content column-offset-1-left column-offset-2-right">
+                    <div className="artwork-content offset-1-left offset-2-right">
                       <h4>Description</h4>
                       ...
                       <p>

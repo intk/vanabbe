@@ -215,6 +215,8 @@ body.view-viewview {
   }
 }
 
+// Form block
+
 #view .block.form {
   max-width: 600px;
 
@@ -240,6 +242,13 @@ body.view-viewview {
 
   .DateInput {
     background: transparent !important;
+  }
+
+  .react-select-container {
+    > div:first-of-type {
+      border-color: var(--text-color);
+      background-color: transparent;
+    }
   }
 
   .field-file-name {
@@ -278,6 +287,29 @@ body.view-viewview {
   .ui.form {
     color: var(--text-color);
 
+    input {
+      &::placeholder {
+        color: var(--text-color);
+        opacity: 0.5;
+      }
+    }
+
+    .ui.message {
+      width: 100%;
+      margin: 0;
+    }
+
+    .error.message {
+      padding-right: 0;
+      padding-left: 0;
+      background-color: transparent;
+      color: var(--text-color);
+
+      .header {
+        color: var(--text-color);
+      }
+    }
+
     .ui.button.tertiary {
       margin: 2em 0 1em 0;
     }
@@ -296,11 +328,6 @@ body.view-viewview {
         background: transparent !important;
         background-color: transparent;
         color: var(--text-color);
-
-        &::placeholder {
-          color: var(--text-color);
-          opacity: 0.5;
-        }
       }
     }
 
@@ -320,28 +347,30 @@ body.view-viewview {
 
     // .field.required {
     //   .ui.input {
-    //     position: relative;
+    //     input[aria-invalid='true'] {
+    //       position: relative;
 
-    //     &:before {
-    //       position: absolute;
-    //       top: 50%;
-    //       right: 35px;
-    //       color: var(--text-color);
-    //       content: 'this field is mandatory';
-    //       font-size: @smallFontSize;
-    //       opacity: 0.5;
-    //       transform: translateY(-50%);
-    //     }
+    //       &:before {
+    //         position: absolute;
+    //         top: 50%;
+    //         right: 35px;
+    //         color: var(--text-color, red);
+    //         content: 'this field is mandatory';
+    //         font-size: @smallFontSize;
+    //         opacity: 0.5;
+    //         transform: translateY(-50%);
+    //       }
 
-    //     &:after {
-    //       position: absolute;
-    //       top: 50%;
-    //       right: 0;
-    //       color: var(--text-color);
-    //       content: '\f06a';
-    //       font-family: 'Icons';
-    //       font-size: 23px;
-    //       transform: translateY(-50%);
+    //       &:after {
+    //         position: absolute;
+    //         top: 50%;
+    //         right: 0;
+    //         color: var(--text-color, red);
+    //         content: '\f06a';
+    //         font-family: 'Icons';
+    //         font-size: 23px;
+    //         transform: translateY(-50%);
+    //       }
     //     }
     //   }
     // }
