@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useRef } from 'react';
 import { useIntl, defineMessages } from 'react-intl';
 import {
   Segment,
@@ -8,8 +8,11 @@ import {
   Progress,
   Button,
 } from 'semantic-ui-react';
-import { getFieldName } from 'volto-form-block';
+import { getFieldName } from 'volto-form-block/components/utils';
 import Field from './Field';
+import GoogleReCaptchaWidget from 'volto-form-block/components/Widget/GoogleReCaptchaWidget';
+import HCaptchaWidget from 'volto-form-block/components/Widget/HCaptchaWidget';
+import { serializeNodes } from '@plone/volto-slate/editor/render';
 import config from '@plone/volto/registry';
 // import './FormView.css';
 
@@ -44,20 +47,40 @@ const FormView = ({
   data,
   onSubmit,
   resetFormState,
-  resetFormOnError,
-  captcha,
 }) => {
   const intl = useIntl();
-  const FieldSchema = config.blocks.blocksConfig.form.fieldSchema;
+
+  const captcha = !!process.env.RAZZLE_HCAPTCHA_KEY
+    ? 'HCaptcha'
+    : !!process.env.RAZZLE_RECAPTCHA_KEY
+    ? 'GoogleReCaptcha'
+    : null;
+
+  let validToken = useRef('');
+  const onVerifyCaptcha = useCallback(
+    (token) => {
+      validToken.current = token;
+    },
+    [validToken],
+  );
 
   const isValidField = (field) => {
     return formErrors?.indexOf(field) < 0;
   };
 
+  var FieldSchema = config.blocks.blocksConfig.form.fieldSchema;
+  var fieldSchemaProperties = FieldSchema()?.properties;
+  var fields_to_send = [];
+  for (var key in fieldSchemaProperties) {
+    if (fieldSchemaProperties[key].send_to_backend) {
+      fields_to_send.push(key);
+    }
+  }
+
   return (
     <div className="block form">
       <div className="public-ui">
-        <Segment style={{ margin: '2rem 0' }} padded>
+        <Segment>
           {data.title && <h2>{data.title}</h2>}
           {data.description && (
             <p className="description">{data.description}</p>
@@ -68,7 +91,7 @@ const FormView = ({
                 {intl.formatMessage(messages.error)}
               </Message.Header>
               <p>{formState.error}</p>
-              <Button secondary type="clear" onClick={resetFormOnError}>
+              <Button secondary type="clear" onClick={resetFormState}>
                 {intl.formatMessage(messages.reset)}
               </Button>
             </Message>
@@ -106,22 +129,12 @@ const FormView = ({
                         disabled
                         valid
                         formHasErrors={formErrors?.length > 0}
-                        labelsAsPlaceholders={data.labelsAsPlaceholders}
                       />
                     </Grid.Column>
                   </Grid.Row>
                 ))}
                 {data.subblocks?.map((subblock, index) => {
                   let name = getFieldName(subblock.label, subblock.id);
-
-                  var fields_to_send = [];
-                  var fieldSchemaProperties = FieldSchema(subblock)?.properties;
-                  for (var key in fieldSchemaProperties) {
-                    if (fieldSchemaProperties[key].send_to_backend) {
-                      fields_to_send.push(key);
-                    }
-                  }
-
                   var fields_to_send_with_value = Object.assign(
                     {},
                     ...fields_to_send.map((field) => {
@@ -132,35 +145,44 @@ const FormView = ({
                   );
 
                   return (
-                    <>
-                      <Grid.Row key={'row' + index}>
-                        <Grid.Column>
-                          <Field
-                            {...subblock}
-                            name={name}
-                            onChange={(field, value) =>
-                              onChangeFormData(
-                                subblock.id,
-                                field,
-                                value,
-                                fields_to_send_with_value,
-                              )
-                            }
-                            value={
-                              subblock.field_type === 'static_text'
-                                ? subblock.value
-                                : formData[name]?.value
-                            }
-                            valid={isValidField(name)}
-                            formHasErrors={formErrors?.length > 0}
-                            labelsAsPlaceholders={data.labelsAsPlaceholders}
-                          />
-                        </Grid.Column>
-                      </Grid.Row>
-                    </>
+                    <Grid.Row key={'row' + index}>
+                      <Grid.Column>
+                        <Field
+                          {...subblock}
+                          name={name}
+                          onChange={(field, value) =>
+                            onChangeFormData(
+                              subblock.id,
+                              field,
+                              value,
+                              fields_to_send_with_value,
+                            )
+                          }
+                          value={
+                            subblock.field_type === 'static_text'
+                              ? subblock.value
+                              : formData[name]?.value
+                          }
+                          valid={isValidField(name)}
+                          formHasErrors={formErrors?.length > 0}
+                        />
+                      </Grid.Column>
+                    </Grid.Row>
                   );
                 })}
-                {captcha.render()}
+
+                {captcha === 'GoogleReCaptcha' && (
+                  <GoogleReCaptchaWidget onVerify={onVerifyCaptcha} />
+                )}
+
+                {captcha === 'HCaptcha' && (
+                  <HCaptchaWidget
+                    sitekey={process.env.RAZZLE_HCAPTCHA_KEY}
+                    onVerify={onVerifyCaptcha}
+                    size={data.invisibleHCaptcha ? 'invisible' : 'normal'}
+                  />
+                )}
+
                 {formErrors.length > 0 && (
                   <Message error role="alert">
                     <Message.Header as="h4">
@@ -169,9 +191,21 @@ const FormView = ({
                     <p>{intl.formatMessage(messages.empty_values)}</p>
                   </Message>
                 )}
-                <Grid.Row centered className="row-padded-top">
+
+                <Grid.Row>
                   <Grid.Column>
-                    <Button primary type="submit" disabled={formState.loading}>
+                    {data.bottomText && (
+                      <div className="bottom-description">
+                        {serializeNodes(data.bottomText)}
+                      </div>
+                    )}
+                    <Button
+                      className="tertiary"
+                      type="submit"
+                      disabled={
+                        (captcha && !validToken?.current) || formState.loading
+                      }
+                    >
                       {data.submit_label ||
                         intl.formatMessage(messages.default_submit_label)}
 

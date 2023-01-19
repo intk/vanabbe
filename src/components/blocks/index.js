@@ -12,6 +12,7 @@ import installSiteThemeBlock from './SiteTheme';
 import installContentDividerBlock from './ContentDivider';
 import installHeroUnitBlock from './HeroUnit';
 import installInformationBlock from './Information';
+import installVoltoFormBlock from './VoltoFormBlock';
 
 import HeroView from './Hero/HeroView';
 
@@ -41,6 +42,7 @@ const installBlocks = (config) => {
     installContentDividerBlock,
     installHeroUnitBlock,
     installInformationBlock,
+    installVoltoFormBlock,
   )(config);
 };
 

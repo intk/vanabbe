@@ -21,6 +21,10 @@
   .secondaryBtn(var(--text-color));
 }
 
+.ui.button.tertiary {
+  .tertiaryBtn(var(--text-color), var(--background-color));
+}
+
 .ui.button.nav-button {
   padding-bottom: 3px;
   border-bottom: 2px solid transparent;

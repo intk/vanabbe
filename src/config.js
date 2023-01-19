@@ -191,17 +191,6 @@ export default function applyConfig(config) {
   config.widgets.widget.attachedimage = AttachedImageWidget;
   config.widgets.id.cookie_consent_configuration = MultilingualWidget();
 
-  config.blocks.blocksConfig.form.fieldTypeSchemaExtenders.from = () => ({
-    fields: ['fixedFieldId'],
-    required: [],
-    properties: {
-      fixedFieldId: {
-        title: 'Field Id (fixed)',
-        send_to_backend: true,
-      },
-    },
-  });
-
   config.settings.appExtras = [
     ...(config.settings.appExtras || []),
     {
@@ -238,7 +227,7 @@ export default function applyConfig(config) {
     'News Item': 'title',
   };
 
-  // console.log('config', config);
+  console.log('config', config.blocks.blocksConfig);
 
   return installExpressMiddleware(installFooter(installBlocks(config)));
 }

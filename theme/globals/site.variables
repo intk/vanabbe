@@ -219,6 +219,14 @@
   }
 }
 
+.tertiaryBtn(@color, @bgcolor) {
+  padding: 0.8em 1.4em;
+  background-color: @color;
+  color: @bgcolor;
+  font-weight: normal;
+  font-size: @mediumFontSize;
+}
+
 .secondaryBtn(@color) {
   padding: 0.75em 1em;
   border: 2px solid @color;

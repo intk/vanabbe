@@ -215,7 +215,9 @@ body.view-viewview {
   }
 }
 
-.block.form {
+#view .block.form {
+  max-width: 600px;
+
   .ui.grid {
     .row:first-child {
       .inline.field .wrapper {
@@ -227,26 +229,37 @@ body.view-viewview {
       > .eight.wide.column,
       > .four.wide.column {
         width: 100% !important;
+        padding: 0 !important;
       }
     }
   }
 
-  .ui.primary.button {
-    margin: 1em 0;
+  .SingleDatePickerInput {
+    background-color: transparent;
   }
 
-  .inline.field .wrapper {
-    min-height: auto;
-    padding-top: 0.7em;
-    border: none;
+  .DateInput {
+    background: transparent !important;
   }
 
-  .ui.input {
-    input {
-      height: 40px !important;
-      border-bottom: 1px solid var(--text-color);
-      background-color: transparent;
+  .field-file-name {
+    position: relative;
+    width: auto;
+  }
+
+  .file-widget-dropzone {
+    .ui.small.image {
+      width: 150px;
     }
+  }
+
+  .dropzone-placeholder,
+  .label-file-widget-input {
+    border-color: var(--text-color);
+  }
+
+  .label-file-widget-input {
+    color: var(--text-color);
   }
 
   .ui.segment {
@@ -256,11 +269,112 @@ body.view-viewview {
     box-shadow: none;
   }
 
+  .bottom-description,
+  .bottom-description p {
+    margin-top: 2em;
+    font-size: @smallFontSize;
+  }
+
   .ui.form {
     color: var(--text-color);
 
-    .field .wrapper > label {
+    .ui.button.tertiary {
+      margin: 2em 0 1em 0;
+    }
+
+    .inline.field .wrapper {
+      min-height: auto;
+      padding-top: 0.7em;
+      border: none;
+    }
+
+    .ui.input {
+      input {
+        width: 100% !important;
+        height: 40px !important;
+        border-bottom: 1px solid var(--text-color);
+        background: transparent !important;
+        background-color: transparent;
+        color: var(--text-color);
+
+        &::placeholder {
+          color: var(--text-color);
+          opacity: 0.5;
+        }
+      }
+    }
+
+    .field {
+      .ui.grid .column {
+        padding: 0;
+      }
+    }
+
+    .date-time-widget-wrapper {
+      width: 100%;
+    }
+
+    .DateInput {
+      width: 100%;
+    }
+
+    // .field.required {
+    //   .ui.input {
+    //     position: relative;
+
+    //     &:before {
+    //       position: absolute;
+    //       top: 50%;
+    //       right: 35px;
+    //       color: var(--text-color);
+    //       content: 'this field is mandatory';
+    //       font-size: @smallFontSize;
+    //       opacity: 0.5;
+    //       transform: translateY(-50%);
+    //     }
+
+    //     &:after {
+    //       position: absolute;
+    //       top: 50%;
+    //       right: 0;
+    //       color: var(--text-color);
+    //       content: '\f06a';
+    //       font-family: 'Icons';
+    //       font-size: 23px;
+    //       transform: translateY(-50%);
+    //     }
+    //   }
+    // }
+
+    .inline.field.textarea {
+      textarea {
+        height: 40px;
+        min-height: 40px;
+        border-color: var(--text-color);
+        margin: 0;
+        background: transparent;
+        font-weight: unset;
+
+        &::placeholder {
+          color: var(--text-color);
+          opacity: 0.5;
+        }
+      }
+
+      .wrapper {
+        margin: 0;
+      }
+    }
+
+    .field label {
       color: var(--text-color);
+      font-size: @smallFontSize;
+      text-transform: lowercase;
+    }
+
+    .radio-group {
+      padding-top: 0;
+      padding-bottom: 0;
     }
 
     p.help,
@@ -270,6 +384,11 @@ body.view-viewview {
 
     p.help {
       border: none;
+      margin: 0;
+    }
+
+    .checkbox-list-widget .checkbox-item {
+      margin: 0;
     }
 
     .ui.checkbox .box:before,
@@ -277,6 +396,11 @@ body.view-viewview {
       border-color: var(--text-color);
       background: transparent;
       box-shadow: none;
+    }
+
+    .ui.checkbox input:checked ~ label:after,
+    .ui.checkbox input:checked .box:after {
+      color: var(--text-color);
     }
 
     .inline.field.required label {
