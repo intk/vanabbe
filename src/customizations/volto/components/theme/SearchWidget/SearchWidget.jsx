@@ -1,6 +1,6 @@
 import React from 'react';
 import { defineMessages, useIntl } from 'react-intl';
-import { Button } from 'semantic-ui-react';
+import { Button, Container } from 'semantic-ui-react';
 import { BodyClass } from '@plone/volto/helpers';
 import PopupMenu from '@package/components/theme/Navigation/PopupMenu';
 import SearchWidget from '@package/components/theme/SearchWidget/SearchWidget';
@@ -62,12 +62,14 @@ const SearchWidgetWrapper = (props) => {
         )}
       </Button>
       <PopupMenu open={showPopup}>
-        <div className="search popup-inner popup-menu-inner">
-          <div className="popup-bottom">
-            {children}
-            <Logo height="100px" hasLink />
+        <Container>
+          <div className="search popup-inner popup-menu-inner">
+            <div className="popup-bottom">
+              {children}
+              <Logo height="100px" hasLink />
+            </div>
           </div>
-        </div>
+        </Container>
       </PopupMenu>
     </div>
   );
