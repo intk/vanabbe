@@ -66,6 +66,6 @@ body.view-addview,
   transition: transform 0.5s ease;
 }
 
-#page-document {
-  padding-bottom: var(--space-xl);
-}
+// #page-document {
+//   padding-bottom: var(--space-xl);
+// }

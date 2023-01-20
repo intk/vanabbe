@@ -2,33 +2,135 @@
              Event
 *******************************/
 
-.event-details {
-  .ui.segment {
-    padding: 0;
-    border: none;
-    background-color: transparent;
-    box-shadow: none;
+.contenttype-event {
+  .event-details {
+    .top.event-listing {
+      margin-bottom: 2em;
+    }
 
-    .header {
-      padding: 12px 0;
-      border-top: 1px solid var(--text-color);
-      border-bottom: 0;
+    .ui.segment {
+      padding: 0;
+      border: none;
+      background-color: transparent;
+      box-shadow: none;
+
+      .header {
+        padding: 12px 0;
+        border-top: 1px solid var(--text-color);
+        border-bottom: 0;
+        margin: 0;
+        color: var(--text-color);
+      }
+
+      .ui.sub.header {
+        font-size: @h3;
+        font-weight: normal;
+        text-transform: capitalize;
+      }
+
+      a {
+        color: var(--text-color);
+      }
+    }
+
+    .event-listing {
+      display: flex;
+      flex-direction: column;
+      padding: 0;
       margin: 0;
-      color: var(--text-color);
-    }
+      gap: 0.8em;
 
-    .ui.sub.header {
-      font-size: @h3;
-      font-weight: normal;
-      text-transform: capitalize;
-    }
+      p {
+        margin: 0;
+      }
 
-    a {
-      color: var(--text-color);
+      .event-data {
+        position: relative;
+        padding-left: 1.5em;
+      }
+
+      i.icon {
+        position: absolute;
+        top: 1px;
+        left: 0;
+        font-size: 1em;
+      }
+    }
+  }
+
+  .top-wrapper,
+  .contact-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 3em;
+    @media only screen and (max-width: @largestTabletScreen) {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1em;
     }
 
     p {
-      margin-bottom: 12px;
+      margin: 0;
+    }
+  }
+
+  .date-wrapper {
+    display: flex;
+    gap: 0.5em;
+  }
+
+  .content-description {
+    margin-bottom: 0.5em;
+  }
+
+  .event-details .event-listing li {
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 0.3em 0;
+    padding-left: 1.8em;
+    margin: 0;
+
+    p {
+      margin: 0;
+    }
+  }
+
+  // .event-single-listing {
+  //   margin-bottom: 4em;
+  // }
+
+  .attendees.ui.list {
+    display: flex;
+    max-width: 450px;
+    flex-wrap: wrap;
+    align-items: center;
+    margin: 0;
+    gap: 0.3em;
+
+    .item {
+      padding: 0;
+    }
+  }
+
+  .event-details .dates {
+    .ui.list {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      margin: 0;
+      // gap: 0.3em;
+
+      .item {
+        position: relative;
+        padding: 0;
+
+        &:not(:first-child):before {
+          padding-right: 10px;
+          // position:
+          content: ';';
+        }
+      }
     }
   }
 }
