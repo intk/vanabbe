@@ -20,10 +20,6 @@ const messages = defineMessages({
     id: 'linkHref',
     defaultMessage: 'Button call to action',
   },
-  image: {
-    id: 'image',
-    defaultMessage: 'Image',
-  },
   headlineTag: {
     id: 'Headline level',
     defaultMessage: 'Headline level',
@@ -36,13 +32,7 @@ const HeroUnitSchema = ({ intl }) => ({
     {
       id: 'default',
       title: 'Default',
-      fields: [
-        'headline',
-        'headlineTag',
-        'buttonText',
-        'linkHref',
-        'attachedimage',
-      ],
+      fields: ['headline', 'headlineTag', 'videoUrl', 'buttonText', 'linkHref'],
     },
   ],
 
@@ -60,15 +50,17 @@ const HeroUnitSchema = ({ intl }) => ({
       selectedItemAttrs: ['Title', 'Description'],
       allowExternals: true,
     },
+    videoUrl: {
+      widget: 'text',
+      title: 'Video URL',
+      description: 'Youtube/Vimeo video URL',
+    },
+
     headlineTag: {
       title: intl.formatMessage(messages.headlineTag),
       choices: DEFAULT_HEADLINE_LEVELS,
       default: 'h2',
       noValueOption: false,
-    },
-    attachedimage: {
-      widget: 'attachedimage',
-      title: intl.formatMessage(messages.image),
     },
   },
   required: [],

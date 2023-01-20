@@ -1,22 +1,66 @@
-import React from 'react';
-import { Image } from 'semantic-ui-react';
-import { Placeholder } from 'semantic-ui-react';
+import React, { useState, useEffect } from 'react';
 import { Logo } from '@plone/volto/components';
-import { getScaleUrl, getPath } from '@package/utils';
 import { UniversalLink } from '@plone/volto/components';
+import loadable from '@loadable/component';
 import './style.less';
 
+const ReactYoutubePlayer = loadable(() => import('react-player/youtube'));
+const ReactVimeoPlayer = loadable(() => import('react-player/vimeo'));
+
+const VideoPlayer = (props) => {
+  const { playing, videoUrl } = props;
+
+  const playerProps = {
+    muted: true,
+    controls: true,
+    playing: playing,
+    url: videoUrl,
+    width: '100%',
+    height: '100%',
+  };
+
+  return (
+    <>
+      {videoUrl.match('vimeo') ? (
+        <ReactVimeoPlayer {...playerProps} />
+      ) : (
+        <ReactYoutubePlayer {...playerProps} />
+      )}
+    </>
+  );
+};
+
 const HeroUnitView = (props) => {
-  const {
-    headline,
-    buttonText,
-    headlineTag,
-    attachedimage,
-    linkHref,
-  } = props.data;
+  const { data = {}, mode = 'view' } = props;
+  const { headline, buttonText, headlineTag, videoUrl, linkHref } = data;
   const HeadlineTag = headlineTag || 'h2';
-  let href = linkHref?.[0]?.['@id'] || '';
-  const [isActive, setActive] = React.useState(false);
+  const isView = mode === 'edit';
+  const href = linkHref?.[0]?.['@id'] || '';
+
+  const [isActive, setActive] = useState(false);
+  const [scrolling, setScrolling] = useState(false);
+  const [scrollBottom, setScrollTop] = useState(0);
+  const [playing, setPlaying] = useState(false);
+
+  useEffect(() => {
+    function onScroll() {
+      let currentPosition = window.pageYOffset;
+      if (currentPosition > scrollBottom) {
+        setScrolling(true);
+      }
+      setScrollTop(currentPosition <= 0 ? 0 : currentPosition);
+    }
+
+    window.addEventListener('scroll', onScroll);
+    return () => window.removeEventListener('scroll', onScroll);
+  }, [scrollBottom]);
+
+  useEffect(() => {
+    if (!isView && scrolling) {
+      setPlaying(true);
+      setActive(true);
+    }
+  }, [scrolling, isView]);
 
   return (
     <div
@@ -28,15 +72,8 @@ const HeroUnitView = (props) => {
         <HeadlineTag className="hero-unit-title">{headline}</HeadlineTag>
         <div className="hero-unit-wrapper">
           <div className="hero-unit-image-wrapper">
-            {attachedimage ? (
-              <Image
-                className="hero-unit-image"
-                onClick={() => setActive(true)}
-                src={getScaleUrl(getPath(attachedimage), 'large')}
-              />
-            ) : (
-              <Placeholder />
-            )}
+            <VideoPlayer playing={playing} videoUrl={videoUrl} />
+
             {buttonText && (
               <UniversalLink href={href} className="hero-unit-content">
                 {buttonText}
