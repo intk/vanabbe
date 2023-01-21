@@ -9,6 +9,8 @@ const ReactVimeoPlayer = loadable(() => import('react-player/vimeo'));
 
 const VideoPlayer = (props) => {
   const { playing, videoUrl } = props;
+  const vimeoURL = videoUrl?.match('vimeo');
+  const youtubeURL = videoUrl?.match(/youtube|.be\//);
 
   const playerProps = {
     muted: true,
@@ -21,11 +23,11 @@ const VideoPlayer = (props) => {
 
   return (
     <>
-      {videoUrl.match('vimeo') ? (
+      {vimeoURL ? (
         <ReactVimeoPlayer {...playerProps} />
-      ) : (
+      ) : youtubeURL ? (
         <ReactYoutubePlayer {...playerProps} />
-      )}
+      ) : null}
     </>
   );
 };

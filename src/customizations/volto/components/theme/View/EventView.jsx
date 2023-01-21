@@ -63,6 +63,19 @@ const EventTextfieldView = ({ content }) => (
  */
 const EventView = (props) => {
   const { content, intl } = props;
+  const {
+    start,
+    end,
+    whole_day,
+    open_end,
+    location,
+    recurrence,
+    contact_name,
+    contact_email,
+    contact_phone,
+    attendees,
+    event_url,
+  } = content;
 
   const [isClient, setIsClient] = React.useState();
 
@@ -72,12 +85,12 @@ const EventView = (props) => {
     <div id="page-document" className="ui container viewwrapper event-view">
       <Portal node={isClient && document.getElementById('heading')}>
         <div>
-          {content.start && (
+          {start && (
             <When
-              start={content.start}
-              end={content.end}
-              whole_day={content.whole_day}
-              open_end={content.open_end}
+              start={start}
+              end={end}
+              whole_day={whole_day}
+              open_end={open_end}
             />
           )}
         </div>
@@ -97,14 +110,14 @@ const EventView = (props) => {
                               <div className="top event-listing">
                                 <div className="top-wrapper">
                                   <div className="date-wrapper">
-                                    {content.start && (
+                                    {start && (
                                       <div title="Date" className="event-data">
                                         <Icon name="calendar alternate" />
                                         <When
-                                          start={content.start}
-                                          end={content.end}
-                                          whole_day={content.whole_day}
-                                          open_end={content.open_end}
+                                          start={start}
+                                          end={end}
+                                          whole_day={whole_day}
+                                          open_end={open_end}
                                         />
                                       </div>
                                     )}
@@ -127,108 +140,89 @@ const EventView = (props) => {
                                       </p>
                                     </div>
                                   </div>
-                                  {content.location && (
+                                  {location && (
                                     <div
                                       title="Location"
                                       className="event-data"
                                     >
                                       <Icon name="map marker alternate" />
-                                      <p>{content.location}</p>
+                                      <p>{location}</p>
                                     </div>
                                   )}
                                 </div>
 
-                                {content.recurrence && (
+                                {recurrence && (
                                   <div className="event-data">
                                     <div title="All dates" className="dates">
                                       <Icon name="sync" />
                                       <Recurrence
-                                        recurrence={content.recurrence}
-                                        start={content.start}
+                                        recurrence={recurrence}
+                                        start={start}
                                       />
                                     </div>
                                   </div>
                                 )}
                               </div>
-
-                              {/* {content.subjects.length > 0 && (
-                                          <li title="Subject">
-                                            <Icon name="paste" />
-                                            <p>
-                                              {content.subjects.map(
-                                                (subject, i) => (
-                                                  <React.Fragment key={i}>
-                                                    {subject}
-                                                    {i <
-                                                    content.subjects.length - 1
-                                                      ? ', '
-                                                      : ''}
-                                                  </React.Fragment>
-                                                ),
-                                              )}
-                                            </p>
-                                          </li>
-                                        )} */}
                             </Segment>
                           </div>
                           <RenderBlocks {...props} />
 
                           <div className="bottom event-details">
-                            <h3>{intl.formatMessage(messages.contact)}:</h3>
+                            {(contact_name ||
+                              contact_email ||
+                              contact_phone) && (
+                              <h3>{intl.formatMessage(messages.contact)}:</h3>
+                            )}
                             <Segment className="details">
                               <div className="event-listing">
                                 <div className="contact-wrapper">
-                                  {content.contact_name && (
+                                  {contact_name && (
                                     <div title="Contact" className="event-data">
                                       <Icon name="user circle" />
 
-                                      <p>{content.contact_name}</p>
+                                      <p>{contact_name}</p>
                                     </div>
                                   )}
 
-                                  {content.contact_email && (
+                                  {contact_email && (
                                     <div title="E-mail" className="event-data">
                                       <Icon name="mail" />
                                       <p>
-                                        <a
-                                          href={`mailto:${content.contact_email}`}
-                                        >
-                                          {content.contact_email}
+                                        <a href={`mailto:${contact_email}`}>
+                                          {contact_email}
                                         </a>
                                       </p>
                                     </div>
                                   )}
 
-                                  {content.contact_phone && (
+                                  {contact_phone && (
                                     <div title="Phone" className="event-data">
                                       <Icon name="phone square" />
-                                      <p>{content.contact_phone}</p>
+                                      <p>{contact_phone}</p>
                                     </div>
                                   )}
                                 </div>
 
-                                {content.attendees.length > 0 && (
+                                {attendees.length > 0 && (
                                   <div title="Attendees" className="event-data">
                                     <Icon name="users" />
                                     <List className="attendees">
-                                      {content.attendees.map((attendee, i) => (
+                                      {attendees.map((attendee, i) => (
                                         <List.Item key={i}>
                                           {attendee}
-                                          {i < content.attendees.length - 1
-                                            ? ', '
-                                            : ''}
+                                          {i < attendees.length - 1 ? ', ' : ''}
                                         </List.Item>
                                       ))}
                                     </List>
                                   </div>
                                 )}
 
-                                {content.event_url && (
+                                {event_url && (
                                   <div title="Website" className="event-data">
                                     <Icon name="globe" />
                                     <p>
                                       <a
-                                        href={content.event_url}
+                                        href={event_url}
                                         target="_blank"
                                         rel="noopener noreferrer"
                                       >

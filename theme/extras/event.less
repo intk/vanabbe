@@ -58,6 +58,14 @@
     }
   }
 
+  .top-wrapper {
+    @media only screen and (max-width: @largestTabletScreen) {
+      flex-direction: column;
+      align-items: flex-start !important;
+      gap: 1em !important;
+    }
+  }
+
   .top-wrapper,
   .contact-wrapper {
     display: flex;
