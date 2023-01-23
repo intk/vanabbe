@@ -26,9 +26,12 @@ const Item = ({ item, hideDate }) => {
                   />
                 ) : (
                   <>
-                    {!!item.effective && (
-                      <FormattedDate isoDate={item.effective} format="long" />
-                    )}
+                    {item.EffectiveDate !== 'None' ? (
+                      <FormattedDate
+                        isoDate={item.EffectiveDate}
+                        format="long"
+                      />
+                    ) : null}
                   </>
                 )}
               </>

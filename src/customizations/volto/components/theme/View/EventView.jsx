@@ -88,151 +88,143 @@ const EventView = (props) => {
           <Grid.Row>
             <Grid.Column className="offset-1-right">
               <div className="content-wrapper">
-                <Grid>
-                  <Grid.Row>
-                    <Grid.Column>
-                      {hasBlocksData(content) ? (
-                        <div className="blocks-bg-wrapper">
-                          <div className="event-details">
-                            <div className="top event-listing">
-                              <div className="top-wrapper">
-                                <div className="date-wrapper">
-                                  {start && (
-                                    <div className="event-data">
-                                      <Icon name="calendar alternate" />
-                                      <When
-                                        start={start}
-                                        end={end}
-                                        whole_day={whole_day}
-                                        open_end={open_end}
-                                      />
-                                    </div>
-                                  )}
-                                  <div className="event-data event-calendar">
-                                    <Icon name="calendar plus outline" />
-                                    <p>
-                                      <a
-                                        className="ics-download"
-                                        target="_blank"
-                                        rel="noreferrer"
-                                        href={`${expandToBackendURL(
-                                          content['@id'],
-                                        )}/ics_view`}
-                                      >
-                                        <FormattedMessage
-                                          id="Add to calendar"
-                                          defaultMessage="Add to calendar"
-                                        />
-                                      </a>
-                                    </p>
-                                  </div>
-                                </div>
-                              </div>
-
-                              {recurrence && (
-                                <div className="event-data">
-                                  <div title="All dates" className="dates">
-                                    <Icon name="sync" />
-                                    <p>
-                                      <Recurrence
-                                        recurrence={recurrence}
-                                        start={start}
-                                      />
-                                    </p>
-                                  </div>
-                                </div>
-                              )}
-
-                              {location && (
-                                <div className="event-data">
-                                  <Icon name="map marker alternate" />
-                                  <p>{location}</p>
-                                </div>
-                              )}
-                            </div>
-                          </div>
-                          <RenderBlocks {...props} />
-
-                          <div className="bottom event-details">
-                            {(contact_name ||
-                              contact_email ||
-                              contact_phone) && (
-                              <h3>
-                                <FormattedMessage
-                                  id="Contact"
-                                  defaultMessage="Contact"
+                {hasBlocksData(content) ? (
+                  <div className="blocks-bg-wrapper">
+                    <div className="event-details">
+                      <div className="top event-listing">
+                        <div className="top-wrapper">
+                          <div className="date-wrapper">
+                            {start && (
+                              <div className="event-data">
+                                <Icon name="calendar alternate" />
+                                <When
+                                  start={start}
+                                  end={end}
+                                  whole_day={whole_day}
+                                  open_end={open_end}
                                 />
-                                :
-                              </h3>
+                              </div>
                             )}
-
-                            <div className="event-listing">
-                              {contact_name && (
-                                <div className="event-data">
-                                  <Icon name="user circle" />
-
-                                  <p>{contact_name}</p>
-                                </div>
-                              )}
-
-                              {contact_email && (
-                                <div className="event-data">
-                                  <Icon name="mail" />
-                                  <p>
-                                    <a href={`mailto:${contact_email}`}>
-                                      {contact_email}
-                                    </a>
-                                  </p>
-                                </div>
-                              )}
-
-                              {contact_phone && (
-                                <div className="event-data">
-                                  <Icon name="phone square" />
-                                  <p>{contact_phone}</p>
-                                </div>
-                              )}
-
-                              {attendees.length > 0 && (
-                                <div title="Attendees" className="event-data">
-                                  <Icon name="users" />
-                                  <List className="attendees">
-                                    {attendees.map((attendee, i) => (
-                                      <List.Item key={i}>
-                                        {attendee}
-                                        {i < attendees.length - 1 ? ', ' : ''}
-                                      </List.Item>
-                                    ))}
-                                  </List>
-                                </div>
-                              )}
-
-                              {event_url && (
-                                <div title="Website" className="event-data">
-                                  <Icon name="globe" />
-                                  <p>
-                                    <a
-                                      href={event_url}
-                                      target="_blank"
-                                      rel="noopener noreferrer"
-                                    >
-                                      <FormattedMessage
-                                        id="visit_external_website"
-                                        defaultMessage="Visit external website"
-                                      />
-                                    </a>
-                                  </p>
-                                </div>
-                              )}
+                            <div className="event-data event-calendar">
+                              <Icon name="calendar plus outline" />
+                              <p>
+                                <a
+                                  className="ics-download"
+                                  target="_blank"
+                                  rel="noreferrer"
+                                  href={`${expandToBackendURL(
+                                    content['@id'],
+                                  )}/ics_view`}
+                                >
+                                  <FormattedMessage
+                                    id="Add to calendar"
+                                    defaultMessage="Add to calendar"
+                                  />
+                                </a>
+                              </p>
                             </div>
                           </div>
                         </div>
-                      ) : (
-                        <EventTextfieldView {...props} />
+
+                        {recurrence && (
+                          <div className="event-data">
+                            <div title="All dates" className="dates">
+                              <Icon name="sync" />
+                              <p>
+                                <Recurrence
+                                  recurrence={recurrence}
+                                  start={start}
+                                />
+                              </p>
+                            </div>
+                          </div>
+                        )}
+
+                        {location && (
+                          <div className="event-data">
+                            <Icon name="map marker alternate" />
+                            <p>{location}</p>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                    <RenderBlocks {...props} />
+
+                    <div className="bottom event-details">
+                      {(contact_name || contact_email || contact_phone) && (
+                        <h3>
+                          <FormattedMessage
+                            id="Contact"
+                            defaultMessage="Contact"
+                          />
+                          :
+                        </h3>
                       )}
-                    </Grid.Column>
-                  </Grid.Row>
-                </Grid>
+
+                      <div className="event-listing">
+                        {contact_name && (
+                          <div className="event-data">
+                            <Icon name="user circle" />
+
+                            <p>{contact_name}</p>
+                          </div>
+                        )}
+
+                        {contact_email && (
+                          <div className="event-data">
+                            <Icon name="mail" />
+                            <p>
+                              <a href={`mailto:${contact_email}`}>
+                                {contact_email}
+                              </a>
+                            </p>
+                          </div>
+                        )}
+
+                        {contact_phone && (
+                          <div className="event-data">
+                            <Icon name="phone square" />
+                            <p>{contact_phone}</p>
+                          </div>
+                        )}
+
+                        {attendees.length > 0 && (
+                          <div title="Attendees" className="event-data">
+                            <Icon name="users" />
+                            <List className="attendees">
+                              {attendees.map((attendee, i) => (
+                                <List.Item key={i}>
+                                  {attendee}
+                                  {i < attendees.length - 1 ? ', ' : ''}
+                                </List.Item>
+                              ))}
+                            </List>
+                          </div>
+                        )}
+
+                        {event_url && (
+                          <div title="Website" className="event-data">
+                            <Icon name="globe" />
+                            <p>
+                              <a
+                                href={event_url}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                              >
+                                <FormattedMessage
+                                  id="visit_external_website"
+                                  defaultMessage="Visit external website"
+                                />
+                              </a>
+                            </p>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                ) : (
+                  <EventTextfieldView {...props} />
+                )}
               </div>
             </Grid.Column>
           </Grid.Row>

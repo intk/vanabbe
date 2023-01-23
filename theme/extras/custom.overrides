@@ -14,11 +14,6 @@
 @import './menu.less';
 @import './artwork.less';
 
-// .view-viewview.has-image {
-//   #main > .breadcrumbs {
-//     display: none !important;
-//   }
-// }
 
 // White space in blocks chooser CMS
 .blocks-chooser .ui.accordion .title ~ .content,
