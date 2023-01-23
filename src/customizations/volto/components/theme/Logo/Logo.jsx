@@ -4,8 +4,8 @@
  */
 
 import { useSelector } from 'react-redux';
+import { useIntl } from 'react-intl';
 import config from '@plone/volto/registry';
-import { FormattedMessage } from 'react-intl';
 import { UniversalLink, Icon } from '@plone/volto/components';
 import logoImage from '../../../../../icons/vanabbe.svg';
 
@@ -19,18 +19,17 @@ const Logo = (props) => {
   const { height = '80px', hasLink } = props;
   const { settings } = config;
   const lang = useSelector((state) => state.intl.locale);
+  const intl = useIntl();
 
   return (
     <div className="logo">
       {hasLink ? (
         <UniversalLink
           href={settings.isMultilingual ? `/${lang}` : '/'}
-          title={
-            <FormattedMessage
-              id="Go to the homepage of Van Abbemuseum"
-              defaultMessage="Go to the homepage of Van Abbemuseum"
-            />
-          }
+          title={intl.formatMessage({
+            id: 'Go to the homepage of Van Abbemuseum',
+            defaultMessage: 'Go to the homepage of Van Abbemuseum',
+          })}
         >
           <Icon name={logoImage} size={height} />
         </UniversalLink>
