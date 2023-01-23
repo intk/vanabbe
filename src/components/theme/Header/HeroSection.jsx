@@ -23,14 +23,14 @@ function HeroSection(props) {
                   backgroundImage: `url(${image_url})`,
                 }}
               />
+              <div className="caption">
+                {preview_caption && (
+                  <p className="content-image-caption">{preview_caption}</p>
+                )}
+              </div>
             </>
           ) : (
             <div className="herosection-missing-image"></div>
-          )}
-        </div>
-        <div className="caption">
-          {preview_caption && (
-            <p className="content-image-caption">{preview_caption}</p>
           )}
         </div>
       </div>
