@@ -12,28 +12,26 @@ function HeroSection(props) {
     <div className="herosection-wrapper">
       {/* <Breadcrumbs pathname={location.pathname} /> */}
 
-      <div className="offset-1-right">
-        <div className="herosection">
-          <div className="herosection-content-wrapper">
-            {image_url ? (
-              <>
-                <BodyClass className="has-hero-image" />
-                <div
-                  className="herosection-content-image document-image"
-                  style={{
-                    backgroundImage: `url(${image_url})`,
-                  }}
-                />
-              </>
-            ) : (
-              <div className="herosection-missing-image"></div>
-            )}
-          </div>
-          <div className="caption">
-            {preview_caption && (
-              <p className="content-image-caption">{preview_caption}</p>
-            )}
-          </div>
+      <div className="herosection">
+        <div className="herosection-content-wrapper">
+          {image_url ? (
+            <>
+              <BodyClass className="has-hero-image" />
+              <div
+                className="herosection-content-image document-image"
+                style={{
+                  backgroundImage: `url(${image_url})`,
+                }}
+              />
+            </>
+          ) : (
+            <div className="herosection-missing-image"></div>
+          )}
+        </div>
+        <div className="caption">
+          {preview_caption && (
+            <p className="content-image-caption">{preview_caption}</p>
+          )}
         </div>
       </div>
     </div>

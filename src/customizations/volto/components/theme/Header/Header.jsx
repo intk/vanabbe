@@ -78,8 +78,8 @@ const Header = (props) => {
             <Grid>
               <Grid.Row>
                 <Grid.Column
-                  className="offset-1-left offset-2-right"
                   id="heading"
+                  className="offset-1-left offset-2-right"
                 >
                   {title && (
                     <h1 className="content-title">{objectTitle || title}</h1>
@@ -92,11 +92,20 @@ const Header = (props) => {
             </Grid>
           </Container>
           <Container>
-            <div className="header-bg">
-              <div className="header-container">
-                <HeroSection image_url={previewImageUrl} content={content} />
-              </div>
-            </div>
+            <Grid>
+              <Grid.Row>
+                <Grid.Column className="offset-1-right">
+                  <div className="header-bg">
+                    <div className="header-container">
+                      <HeroSection
+                        image_url={previewImageUrl}
+                        content={content}
+                      />
+                    </div>
+                  </div>
+                </Grid.Column>
+              </Grid.Row>
+            </Grid>
           </Container>
         </>
       )}

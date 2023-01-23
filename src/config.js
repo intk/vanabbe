@@ -1,4 +1,5 @@
 import loadable from '@loadable/component';
+import { defineMessages } from 'react-intl';
 import CookieBanner from 'volto-cookie-banner/CookieBannerContainer';
 import { MultilingualWidget } from 'volto-multilingual-widget';
 
@@ -19,7 +20,6 @@ import installExpressMiddleware from './express-middleware';
 import { SiteTheme } from '@package/components';
 
 // import installStyleMenu from 'volto-slate/editor/plugins/StyleMenu';
-// import { ScrollToTop } from '@package/components';
 // import defaultFieldSchema from 'volto-form-block/fieldSchema';
 
 // import TagManager from 'react-gtm-module';
@@ -30,6 +30,21 @@ import '@plone/volto/config';
 // const tagManagerArgs = {
 //   gtmId: 'GTM-T8SF8PJ',
 // };
+
+defineMessages({
+  contact: {
+    id: 'Contact',
+    defaultMessage: 'Contact',
+  },
+  calendar: {
+    id: 'Add to calendar',
+    defaultMessage: 'Add to calendar',
+  },
+  homepage: {
+    id: 'Go to the homepage of Van Abbemuseum',
+    defaultMessage: 'Go to the homepage of Van Abbemuseum',
+  },
+});
 
 const THEMES = [
   { name: 'Default', value: 'default' },
@@ -201,10 +216,6 @@ export default function applyConfig(config) {
       match: '',
       component: SiteTheme,
     },
-    // {
-    //   match: '',
-    //   component: ScrollToTop,
-    // },
   ];
 
   config.blocks.initialBlocks = {

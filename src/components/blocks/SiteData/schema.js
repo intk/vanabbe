@@ -23,56 +23,56 @@ export const SocialLink = (props) => ({
 
 const messages = defineMessages({
   sectionTitle: {
-    id: 'sectionTitle',
+    id: 'Section title',
     defaultMessage: 'Section title',
   },
   address: {
-    id: 'address',
+    id: 'Address',
     defaultMessage: 'Address',
   },
   phone: {
-    id: 'phone',
+    id: 'Phone',
     defaultMessage: 'Phone',
   },
   email: {
-    id: 'email',
-    defaultMessage: 'Email',
+    id: 'E-mail',
+    defaultMessage: 'E-mail',
   },
   contact: {
     id: 'Contact',
     defaultMessage: 'Contact',
   },
   openingHours: {
-    id: 'openingHours',
+    id: 'Opening hours',
     defaultMessage: 'Opening hours',
   },
   openingHoursTitle: {
-    id: 'openingHoursTitle',
+    id: 'Title',
     defineMessages: 'Title',
   },
   openingHoursDescription: {
-    id: 'openingHoursDescription',
-    defaultMessage: 'Opening hours are displayed in the header.',
+    id: 'Opening hours are displayed in the header',
+    defaultMessage: 'Opening hours are displayed in the header',
   },
   SiteData: {
     id: 'SiteData',
     defaultMessage: 'Global site settings',
   },
   SocialLinks: {
-    id: 'SocialLinks',
-    defaultMessage: 'Social Links',
+    id: 'Social links',
+    defaultMessage: 'Social links',
   },
   buttonTitle: {
-    id: 'buttonTitle',
+    id: 'Button title',
     defaultMessage: 'Button title',
   },
   buttonHrefTitle: {
-    id: 'buttonHrefTitle',
+    id: 'Button call to action',
     defaultMessage: 'Button call to action',
   },
   buttonDescription: {
-    id: 'buttonDescription',
-    defaultMessage: 'Tickets button. Displayed in the header.',
+    id: 'Tickets button. Displayed in the header',
+    defaultMessage: 'Tickets button. Displayed in the header',
   },
 });
 

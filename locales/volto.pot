@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Plone\n"
-"POT-Creation-Date: 2023-01-19T13:23:15.220Z\n"
+"POT-Creation-Date: 2023-01-23T11:09:30.026Z\n"
 "Last-Translator: Plone i18n <plone-i18n@lists.sourceforge.net>\n"
 "Language-Team: Plone i18n <plone-i18n@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -23,6 +23,16 @@ msgstr ""
 msgid "Actions"
 msgstr ""
 
+#: config
+# defaultMessage: Add to calendar
+msgid "Add to calendar"
+msgstr ""
+
+#: components/blocks/SiteData/schema
+# defaultMessage: Address
+msgid "Address"
+msgstr ""
+
 #: components/blocks/Image/ImageBlockEdit
 # defaultMessage: Browse the site, drop an image, or type an URL
 msgid "Browse the site, drop an image, or type an URL"
@@ -31,6 +41,16 @@ msgstr ""
 #: components/blocks/Button/schema
 # defaultMessage: Button
 msgid "Button"
+msgstr ""
+
+#: components/blocks/SiteData/schema
+# defaultMessage: Button call to action
+msgid "Button call to action"
+msgstr ""
+
+#: components/blocks/SiteData/schema
+# defaultMessage: Button title
+msgid "Button title"
 msgstr ""
 
 #: components/blocks/Facts/schema
@@ -49,13 +69,25 @@ msgid "Close"
 msgstr ""
 
 #: components/blocks/SiteData/schema
+#: components/blocks/SiteData/SiteDataView
+#: config
 # defaultMessage: Contact
 msgid "Contact"
+msgstr ""
+
+#: components/blocks/SiteData/schema
+# defaultMessage: E-mail
+msgid "E-mail"
 msgstr ""
 
 #: components/blocks/VoltoFormBlock/FormView
 # defaultMessage: Error
 msgid "Error"
+msgstr ""
+
+#: config
+# defaultMessage: Go to the homepage of Van Abbemuseum
+msgid "Go to the homepage of Van Abbemuseum"
 msgstr ""
 
 #: components/blocks/HeroUnit/schema
@@ -89,6 +121,22 @@ msgstr ""
 msgid "No background applied after this divider"
 msgstr ""
 
+#: components/blocks/SiteData/schema
+#: components/blocks/SiteData/SiteDataView
+# defaultMessage: Opening hours
+msgid "Opening hours"
+msgstr ""
+
+#: components/blocks/SiteData/schema
+# defaultMessage: Opening hours are displayed in the header
+msgid "Opening hours are displayed in the header"
+msgstr ""
+
+#: components/blocks/SiteData/schema
+# defaultMessage: Phone
+msgid "Phone"
+msgstr ""
+
 #: components/theme/SearchWidget/SearchWidget
 # defaultMessage: Search
 msgid "Search"
@@ -97,6 +145,11 @@ msgstr ""
 #: components/theme/SearchWidget/SearchWidget
 # defaultMessage: Search artist, artwork etc... 
 msgid "Search artist, artwork etc... "
+msgstr ""
+
+#: components/blocks/SiteData/schema
+# defaultMessage: Section title
+msgid "Section title"
 msgstr ""
 
 #: components/blocks/SiteTheme/SiteThemeEdit
@@ -121,8 +174,18 @@ msgstr ""
 
 #: components/blocks/SiteData/schema
 #: components/blocks/SiteData/SiteDataView
-# defaultMessage: Social Links
-msgid "SocialLinks"
+# defaultMessage: Social links
+msgid "Social links"
+msgstr ""
+
+#: components/blocks/SiteData/schema
+# defaultMessage: Tickets button. Displayed in the header
+msgid "Tickets button. Displayed in the header"
+msgstr ""
+
+#: components/blocks/SiteData/schema
+# defaultMessage: undefined
+msgid "Title"
 msgstr ""
 
 #: components/blocks/Quote/EditBlockWrapper
@@ -140,24 +203,9 @@ msgstr ""
 msgid "White background applied before this divider"
 msgstr ""
 
-#: components/blocks/SiteData/schema
-# defaultMessage: Address
-msgid "address"
-msgstr ""
-
 #: components/blocks/ActionLinks/schema
 # defaultMessage: Block title
 msgid "blockTitle"
-msgstr ""
-
-#: components/blocks/SiteData/schema
-# defaultMessage: Tickets button. Displayed in the header.
-msgid "buttonDescription"
-msgstr ""
-
-#: components/blocks/SiteData/schema
-# defaultMessage: Button call to action
-msgid "buttonHrefTitle"
 msgstr ""
 
 #: components/blocks/Information/schema
@@ -170,19 +218,9 @@ msgstr ""
 msgid "buttonText"
 msgstr ""
 
-#: components/blocks/SiteData/schema
-# defaultMessage: Button title
-msgid "buttonTitle"
-msgstr ""
-
 #: components/blocks/VoltoFormBlock/formSchema
 # defaultMessage: Captcha provider
 msgid "captcha"
-msgstr ""
-
-#: components/blocks/SiteData/SiteDataView
-# defaultMessage: Contact
-msgid "contact"
 msgstr ""
 
 #: components/blocks/Quote/EditBlockWrapper
@@ -193,11 +231,6 @@ msgstr ""
 #: components/blocks/VoltoFormBlock/formSchema
 # defaultMessage: Description
 msgid "description"
-msgstr ""
-
-#: components/blocks/SiteData/schema
-# defaultMessage: Email
-msgid "email"
 msgstr ""
 
 #: components/blocks/VoltoFormBlock/formSchema
@@ -282,7 +315,6 @@ msgid "icon"
 msgstr ""
 
 #: components/blocks/Facts/schema
-#: components/blocks/HeroUnit/schema
 # defaultMessage: Image
 msgid "image"
 msgstr ""
@@ -302,35 +334,9 @@ msgstr ""
 msgid "linkToDescription"
 msgstr ""
 
-#: components/blocks/SiteData/schema
-#: components/blocks/SiteData/SiteDataView
-# defaultMessage: Opening hours
-msgid "openingHours"
-msgstr ""
-
-#: components/blocks/SiteData/schema
-# defaultMessage: Opening hours are displayed in the header.
-msgid "openingHoursDescription"
-msgstr ""
-
-#: components/blocks/SiteData/schema
-# defaultMessage: undefined
-msgid "openingHoursTitle"
-msgstr ""
-
-#: components/blocks/SiteData/schema
-# defaultMessage: Phone
-msgid "phone"
-msgstr ""
-
 #: components/blocks/VoltoFormBlock/schemaExtender
 # defaultMessage: Placeholder
 msgid "placeholder"
-msgstr ""
-
-#: components/blocks/SiteData/schema
-# defaultMessage: Section title
-msgid "sectionTitle"
 msgstr ""
 
 #: components/blocks/Facts/schema

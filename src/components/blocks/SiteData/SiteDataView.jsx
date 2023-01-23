@@ -13,20 +13,21 @@ const SiteDataView = (props) => {
       <h3>Site data</h3>
       <div>
         <h4>
-          <FormattedMessage id="openingHours" defaultMessage="Opening hours" />:
+          <FormattedMessage id="Opening hours" defaultMessage="Opening hours" />
+          :
         </h4>
         <div>{data.openingHoursTitle}</div>
         <div>{data.openingHours}</div>
       </div>
       <div>
         <h4>
-          <FormattedMessage id="contact" defaultMessage="Contact" />:
+          <FormattedMessage id="Contact" defaultMessage="Contact" />:
         </h4>
         <Address {...data} />
       </div>
       <div>
         <h4>
-          <FormattedMessage id="SocialLinks" defaultMessage="Social Links" />:
+          <FormattedMessage id="Social links" defaultMessage="Social links" />:
         </h4>
         <SocialLinks {...data} />
       </div>

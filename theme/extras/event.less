@@ -8,29 +8,8 @@
       margin-bottom: 2em;
     }
 
-    .ui.segment {
-      padding: 0;
-      border: none;
-      background-color: transparent;
-      box-shadow: none;
-
-      .header {
-        padding: 12px 0;
-        border-top: 1px solid var(--text-color);
-        border-bottom: 0;
-        margin: 0;
-        color: var(--text-color);
-      }
-
-      .ui.sub.header {
-        font-size: @h3;
-        font-weight: normal;
-        text-transform: capitalize;
-      }
-
-      a {
-        color: var(--text-color);
-      }
+    a {
+      color: var(--text-color);
     }
 
     .event-listing {
@@ -42,6 +21,23 @@
 
       p {
         margin: 0;
+      }
+
+      .event-calendar {
+        position: relative;
+
+        @media only screen and (min-width: @largestTabletScreen) {
+          &:before {
+            position: absolute;
+            top: 50%;
+            left: -10px;
+            width: 2px;
+            height: 70%;
+            background-color: var(--text-color);
+            content: '';
+            transform: translateY(-50%);
+          }
+        }
       }
 
       .event-data {
@@ -58,24 +54,14 @@
     }
   }
 
-  .top-wrapper {
-    @media only screen and (max-width: @largestTabletScreen) {
-      flex-direction: column;
-      align-items: flex-start !important;
-      gap: 1em !important;
-    }
+  .event-details.bottom {
+    margin-top: var(--space-md);
   }
 
-  .top-wrapper,
-  .contact-wrapper {
+  .top-wrapper {
     display: flex;
     align-items: center;
     gap: 3em;
-    @media only screen and (max-width: @largestTabletScreen) {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 1em;
-    }
 
     p {
       margin: 0;
@@ -84,7 +70,7 @@
 
   .date-wrapper {
     display: flex;
-    gap: 0.5em;
+    gap: 20px;
   }
 
   .content-description {
@@ -103,10 +89,6 @@
       margin: 0;
     }
   }
-
-  // .event-single-listing {
-  //   margin-bottom: 4em;
-  // }
 
   .attendees.ui.list {
     display: flex;
@@ -127,17 +109,31 @@
       flex-wrap: wrap;
       align-items: center;
       margin: 0;
-      // gap: 0.3em;
 
       .item {
         position: relative;
         padding: 0;
 
-        &:not(:first-child):before {
+        &:not(:last-child):after {
+          display: inline-block;
           padding-right: 10px;
-          // position:
           content: ';';
+          visibility: visible;
         }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: @largestTabletScreen) {
+  .contenttype-event {
+    .event-details {
+      .top-wrapper,
+      .contact-wrapper,
+      .date-wrapper {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1em;
       }
     }
   }

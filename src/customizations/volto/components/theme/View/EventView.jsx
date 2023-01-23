@@ -6,31 +6,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Portal } from 'react-portal';
-import { defineMessages, injectIntl } from 'react-intl';
-import { hasBlocksData, flattenHTMLToAppURL } from '@plone/volto/helpers';
-import { Image, Grid, Segment, Icon, List } from 'semantic-ui-react';
+import { FormattedMessage } from 'react-intl';
+import {
+  hasBlocksData,
+  flattenHTMLToAppURL,
+  expandToBackendURL,
+} from '@plone/volto/helpers';
+import { Image, Grid, Icon, List } from 'semantic-ui-react';
 import RenderBlocks from '@plone/volto/components/theme/View/RenderBlocks';
-import { expandToBackendURL } from '@plone/volto/helpers';
 
 import {
   When,
   Recurrence,
 } from '@plone/volto/components/theme/View/EventDatesInfo';
-
-const messages = defineMessages({
-  visitWebsite: {
-    id: 'visit_external_website',
-    defaultMessage: 'Visit external website',
-  },
-  contact: {
-    id: 'contact',
-    defaultMessage: 'Contact',
-  },
-  calendar: {
-    id: 'Add event to calendar',
-    defaultMessage: 'Add to calendar',
-  },
-});
 
 const EventTextfieldView = ({ content }) => (
   <React.Fragment>
@@ -62,7 +50,7 @@ const EventTextfieldView = ({ content }) => (
  * @returns {string} Markup of the component.
  */
 const EventView = (props) => {
-  const { content, intl } = props;
+  const { content } = props;
   const {
     start,
     end,
@@ -106,64 +94,62 @@ const EventView = (props) => {
                       {hasBlocksData(content) ? (
                         <div className="blocks-bg-wrapper">
                           <div className="event-details">
-                            <Segment className="details">
-                              <div className="top event-listing">
-                                <div className="top-wrapper">
-                                  <div className="date-wrapper">
-                                    {start && (
-                                      <div title="Date" className="event-data">
-                                        <Icon name="calendar alternate" />
-                                        <When
-                                          start={start}
-                                          end={end}
-                                          whole_day={whole_day}
-                                          open_end={open_end}
-                                        />
-                                      </div>
-                                    )}
-                                    |
+                            <div className="top event-listing">
+                              <div className="top-wrapper">
+                                <div className="date-wrapper">
+                                  {start && (
                                     <div className="event-data">
-                                      <Icon name="calendar plus outline" />
-                                      <p>
-                                        <a
-                                          className="ics-download"
-                                          target="_blank"
-                                          rel="noreferrer"
-                                          href={`${expandToBackendURL(
-                                            content['@id'],
-                                          )}/ics_view`}
-                                        >
-                                          {intl.formatMessage(
-                                            messages.calendar,
-                                          )}
-                                        </a>
-                                      </p>
-                                    </div>
-                                  </div>
-                                  {location && (
-                                    <div
-                                      title="Location"
-                                      className="event-data"
-                                    >
-                                      <Icon name="map marker alternate" />
-                                      <p>{location}</p>
+                                      <Icon name="calendar alternate" />
+                                      <When
+                                        start={start}
+                                        end={end}
+                                        whole_day={whole_day}
+                                        open_end={open_end}
+                                      />
                                     </div>
                                   )}
+                                  <div className="event-data event-calendar">
+                                    <Icon name="calendar plus outline" />
+                                    <p>
+                                      <a
+                                        className="ics-download"
+                                        target="_blank"
+                                        rel="noreferrer"
+                                        href={`${expandToBackendURL(
+                                          content['@id'],
+                                        )}/ics_view`}
+                                      >
+                                        <FormattedMessage
+                                          id="Add to calendar"
+                                          defaultMessage="Add to calendar"
+                                        />
+                                      </a>
+                                    </p>
+                                  </div>
                                 </div>
+                              </div>
 
-                                {recurrence && (
-                                  <div className="event-data">
-                                    <div title="All dates" className="dates">
-                                      <Icon name="sync" />
+                              {recurrence && (
+                                <div className="event-data">
+                                  <div title="All dates" className="dates">
+                                    <Icon name="sync" />
+                                    <p>
                                       <Recurrence
                                         recurrence={recurrence}
                                         start={start}
                                       />
-                                    </div>
+                                    </p>
                                   </div>
-                                )}
-                              </div>
-                            </Segment>
+                                </div>
+                              )}
+
+                              {location && (
+                                <div className="event-data">
+                                  <Icon name="map marker alternate" />
+                                  <p>{location}</p>
+                                </div>
+                              )}
+                            </div>
                           </div>
                           <RenderBlocks {...props} />
 
@@ -171,70 +157,74 @@ const EventView = (props) => {
                             {(contact_name ||
                               contact_email ||
                               contact_phone) && (
-                              <h3>{intl.formatMessage(messages.contact)}:</h3>
+                              <h3>
+                                <FormattedMessage
+                                  id="Contact"
+                                  defaultMessage="Contact"
+                                />
+                                :
+                              </h3>
                             )}
-                            <Segment className="details">
-                              <div className="event-listing">
-                                <div className="contact-wrapper">
-                                  {contact_name && (
-                                    <div title="Contact" className="event-data">
-                                      <Icon name="user circle" />
 
-                                      <p>{contact_name}</p>
-                                    </div>
-                                  )}
+                            <div className="event-listing">
+                              {contact_name && (
+                                <div className="event-data">
+                                  <Icon name="user circle" />
 
-                                  {contact_email && (
-                                    <div title="E-mail" className="event-data">
-                                      <Icon name="mail" />
-                                      <p>
-                                        <a href={`mailto:${contact_email}`}>
-                                          {contact_email}
-                                        </a>
-                                      </p>
-                                    </div>
-                                  )}
-
-                                  {contact_phone && (
-                                    <div title="Phone" className="event-data">
-                                      <Icon name="phone square" />
-                                      <p>{contact_phone}</p>
-                                    </div>
-                                  )}
+                                  <p>{contact_name}</p>
                                 </div>
+                              )}
 
-                                {attendees.length > 0 && (
-                                  <div title="Attendees" className="event-data">
-                                    <Icon name="users" />
-                                    <List className="attendees">
-                                      {attendees.map((attendee, i) => (
-                                        <List.Item key={i}>
-                                          {attendee}
-                                          {i < attendees.length - 1 ? ', ' : ''}
-                                        </List.Item>
-                                      ))}
-                                    </List>
-                                  </div>
-                                )}
+                              {contact_email && (
+                                <div className="event-data">
+                                  <Icon name="mail" />
+                                  <p>
+                                    <a href={`mailto:${contact_email}`}>
+                                      {contact_email}
+                                    </a>
+                                  </p>
+                                </div>
+                              )}
 
-                                {event_url && (
-                                  <div title="Website" className="event-data">
-                                    <Icon name="globe" />
-                                    <p>
-                                      <a
-                                        href={event_url}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                      >
-                                        {intl.formatMessage(
-                                          messages.visitWebsite,
-                                        )}
-                                      </a>
-                                    </p>
-                                  </div>
-                                )}
-                              </div>
-                            </Segment>
+                              {contact_phone && (
+                                <div className="event-data">
+                                  <Icon name="phone square" />
+                                  <p>{contact_phone}</p>
+                                </div>
+                              )}
+
+                              {attendees.length > 0 && (
+                                <div title="Attendees" className="event-data">
+                                  <Icon name="users" />
+                                  <List className="attendees">
+                                    {attendees.map((attendee, i) => (
+                                      <List.Item key={i}>
+                                        {attendee}
+                                        {i < attendees.length - 1 ? ', ' : ''}
+                                      </List.Item>
+                                    ))}
+                                  </List>
+                                </div>
+                              )}
+
+                              {event_url && (
+                                <div title="Website" className="event-data">
+                                  <Icon name="globe" />
+                                  <p>
+                                    <a
+                                      href={event_url}
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                    >
+                                      <FormattedMessage
+                                        id="visit_external_website"
+                                        defaultMessage="Visit external website"
+                                      />
+                                    </a>
+                                  </p>
+                                </div>
+                              )}
+                            </div>
                           </div>
                         </div>
                       ) : (
@@ -279,4 +269,4 @@ EventView.propTypes = {
   }).isRequired,
 };
 
-export default injectIntl(EventView);
+export default EventView;
