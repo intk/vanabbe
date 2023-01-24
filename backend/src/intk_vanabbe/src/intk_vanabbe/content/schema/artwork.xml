@@ -34,7 +34,7 @@
       <required>False</required>
       <title>authorSortName</title>
     </field>
-    <field name="authorURL" type="zope.schema.Text" lingua:independent="true">
+    <field name="authorURL" type="zope.schema.Text">
       <description/>
       <required>False</required>
       <title>authorURL</title>

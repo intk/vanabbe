@@ -1,8 +1,11 @@
 """ Debugging importer views
 """
 
+from intk_vanabbe.importer import INTL_FIELDS
 from intk_vanabbe.importer import scroll
 from plone.api import content
+from plone.app.multilingual.factory import DefaultTranslationFactory
+from plone.app.multilingual.manager import TranslationManager
 from plone.namedfile.file import NamedBlobImage
 from plone.protect.interfaces import IDisableCSRFProtection
 from Products.Five.browser import BrowserView
@@ -24,6 +27,24 @@ def convert_lists_to_text(rec):
             rec[k] = "\n".join(v)
 
     return rec
+
+def extract_lang(rec, lang='nl'):
+    res = {}
+
+    for k, v in rec.items():
+        if isinstance(v, dict):
+            v = v.get(lang, v.get('nl'))
+            if not v:
+                lang = list(rec[k].keys())[0]
+                v = rec[k][lang]
+                print("Falling back to value", lang, k)
+                # sometimes only the english version exists
+                # import pdb; pdb.set_trace()
+
+        res[k] = v
+
+    return res
+
 
 class ImportVubis(BrowserView):
     """ Vubis import on demand, for debugging
@@ -53,11 +74,12 @@ class ImportVubis(BrowserView):
         filenames = rec.pop('objectImage', None)
 
         rec = convert_lists_to_text(rec)
+        original = extract_lang(rec, 'nl')
 
         obj = content.create(
             type='artwork',
-            id=rec['ccObjectID'], title=rec['ccObjectID'],
-            container=container, **rec)
+            id=original['ccObjectID'], title=original['ccObjectID'],
+            container=container, **original)
 
         if filenames:
             for fname in filenames:
@@ -76,6 +98,8 @@ class ImportVubis(BrowserView):
                 except Exception:
                     logger.exception("Could not import image %s", fname)
 
+        trans_rec = extract_lang(rec, 'en')
+        self.translate(obj, trans_rec)
         print("Imported artwork: ", path(obj))
 
     def import_publication(self, rec):
@@ -86,5 +110,12 @@ class ImportVubis(BrowserView):
                 id=rec['ccObjectID'], title=rec['ccObjectID'],
                 container=container, **rec)
             print("Imported publication", path(obj))
+            self.translate(obj, rec)
         except Exception:
             logger.exception("Unable to import publication")
+
+    def translate(self, obj, rec):
+        language = 'en'
+
+        factory = DefaultTranslationFactory(obj)
+        trans = factory(language)

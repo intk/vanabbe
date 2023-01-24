@@ -35,8 +35,15 @@ FILE_REPO = "./files"
 if not os.path.isdir(FILE_REPO):
     os.makedirs(FILE_REPO)
 
-INT_FIELDS = ["bookDatePublished", "recordnumber", "authorBirthDate", "authorDeathDate",
-        "objectCreationDateFrom", "objectCreationDateTo", "objectYearPurchase"]
+INT_FIELDS = [
+    "bookDatePublished", "recordnumber", "authorBirthDate", "authorDeathDate",
+    "objectCreationDateFrom", "objectCreationDateTo", "objectYearPurchase"
+]
+
+INTL_FIELDS = [
+    'authorURL',
+    'objectMedium',
+]
 
 
 def to_dict(rec):
@@ -47,6 +54,12 @@ def to_dict(rec):
     for node in rec.iterchildren():
         k = node.tag
         text = node.text
+        if k in INTL_FIELDS:
+            lang = (node.get('Language', 'nl')).lower()
+            if not out.get(k):
+                out[k] = {}
+            out[k][lang] = text
+            continue
         if k in out:
             if isinstance(out[k], list):
                 out[k].append(text)
@@ -60,6 +73,8 @@ def to_dict(rec):
             try:
                 out[name] = int(out[name])
             except ValueError:
+                # import pdb; pdb.set_trace()
+                # TODO: convert these fields to int
                 print("Unable to convert to int:", name, out[name])
                 del out[name]
 
