@@ -38,8 +38,8 @@ const SearchListingTemplate = (props) => {
           <div className="listings ">
             <Masonry
               breakpointCols={breakpointColumnsObj}
-              className="my-masonry-grid"
-              columnClassName="my-masonry-grid_column"
+              className="masonry-grid"
+              columnClassName="masonry-grid_column"
             >
               {items.map((item, i) => (
                 <div className="listing-column" key={i}>

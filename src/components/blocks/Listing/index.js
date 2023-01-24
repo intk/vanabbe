@@ -29,9 +29,10 @@ export default (config) => {
         selectedItemAttrs: ['Title', 'Description'],
         allowExternals: true,
       },
-      hideDate: {
-        title: 'Hide date',
+      showDate: {
+        title: 'Show date',
         type: 'boolean',
+        default: true,
       },
     };
 
@@ -40,10 +41,9 @@ export default (config) => {
       0,
       'linkHref',
       'linkTitle',
-      'hideDate',
+      'showDate',
     );
 
-    // console.log(schema);
     return schema;
   };
 

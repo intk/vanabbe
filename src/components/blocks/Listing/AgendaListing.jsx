@@ -4,7 +4,7 @@ import { ListingBlockHeader, FormattedDate } from '@package/components';
 import { When } from '@plone/volto/components/theme/View/EventDatesInfo';
 import './less/agenda-listing.less';
 
-const Item = ({ item, hideDate }) => {
+const Item = ({ item, showDate }) => {
   return (
     <div className="agenda-item">
       <UniversalLink item={item} className="agenda-item-link">
@@ -15,7 +15,7 @@ const Item = ({ item, hideDate }) => {
           </div>
 
           <div className="agenda-right">
-            {!hideDate && (
+            {showDate && (
               <>
                 {item['@type'] === 'Event' ? (
                   <When
@@ -58,7 +58,7 @@ const Item = ({ item, hideDate }) => {
 };
 
 const AgendaListingTemplate = (data) => {
-  const { items, hideDate, linkHref } = data;
+  const { items, showDate, linkHref } = data;
 
   return (
     <div className="agenda-listing">
@@ -73,7 +73,7 @@ const AgendaListingTemplate = (data) => {
       </div>
       <div className="agenda-listing-content">
         {items.map((item, i) => (
-          <Item item={item} hideDate={hideDate} key={i} />
+          <Item item={item} showDate={showDate} key={i} />
         ))}
       </div>
     </div>

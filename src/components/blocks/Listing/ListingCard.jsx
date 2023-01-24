@@ -11,7 +11,7 @@ const dateOptions = {
   day: 'numeric',
 };
 
-const Card = ({ item }) => {
+const Card = ({ item, showDate }) => {
   const { image_field } = item;
   const size = 'large';
 
@@ -20,7 +20,7 @@ const Card = ({ item }) => {
       <Link className="card-link" to={flattenToAppURL(item['@id'])}>
         <div className="card-details">
           <div className="card-meta">
-            {!!item.effective && (
+            {showDate && !!item.effective && (
               <FormattedDate date={item.effective} format={dateOptions} />
             )}
             {item?.['@type']}
@@ -134,9 +134,9 @@ const cardTypes = {
   artwork: ArtworkCard,
 };
 
-const UniversalCard = ({ item }) => {
+const UniversalCard = ({ item, showDate }) => {
   const CardImpl = cardTypes[item['@type']] || cardTypes['default'];
-  return <CardImpl item={item} />;
+  return <CardImpl item={item} showDate={showDate} />;
 };
 
 export default UniversalCard;
