@@ -33,10 +33,19 @@ class ImportVubis(BrowserView):
         alsoProvides(self.request, IDisableCSRFProtection)
         form = self.request.form
 
+        import_artwork = self.import_artwork
+        import_publication = self.import_publication
+
+        if form.get('import') == 'artwork':
+            import_publication = lambda info: None
+        if form.get('import') == 'pubs':
+            import_artwork = lambda info: None
+
         scroll(
-            self.import_artwork, self.import_publication,
+            import_artwork, import_publication,
             max_records=int(form.get('max', 1000))
         )
+
         return "done"
 
     def import_artwork(self, rec):
