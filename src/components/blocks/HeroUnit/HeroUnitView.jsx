@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Logo } from '@plone/volto/components';
-import { UniversalLink } from '@plone/volto/components';
 import loadable from '@loadable/component';
+import { Image, Placeholder } from 'semantic-ui-react';
+import { UniversalLink, Logo } from '@plone/volto/components';
+import { getScaleUrl, getPath } from '@package/utils';
 import './style.less';
 
 const ReactYoutubePlayer = loadable(() => import('react-player/youtube'));
@@ -13,9 +14,9 @@ const VideoPlayer = (props) => {
   const youtubeURL = videoUrl?.match(/youtube|.be\//);
 
   const playerProps = {
-    muted: true,
-    controls: true,
+    muted: true, // in some browsers (e.g. Chrome) autoplay doesn't work if no muted attribute is present
     playing: playing,
+    controls: true,
     url: videoUrl,
     width: '100%',
     height: '100%',
@@ -34,7 +35,14 @@ const VideoPlayer = (props) => {
 
 const HeroUnitView = (props) => {
   const { data = {}, mode = 'view' } = props;
-  const { headline, buttonText, headlineTag, videoUrl, linkHref } = data;
+  const {
+    headline,
+    buttonText,
+    headlineTag,
+    videoUrl,
+    linkHref,
+    attachedimage,
+  } = data;
   const HeadlineTag = headlineTag || 'h2';
   const isView = mode === 'edit';
   const href = linkHref?.[0]?.['@id'] || '';
@@ -65,18 +73,24 @@ const HeroUnitView = (props) => {
   }, [scrolling, isView]);
 
   return (
-    <div
-      className={
-        isActive ? 'hero-unit-block big-hero' : ' hero-unit-block normal-hero'
-      }
-    >
+    <div className={`hero-unit-block ${isActive ? 'big-hero' : 'normal-hero'}`}>
       <div>
         <HeadlineTag className="hero-unit-title">{headline}</HeadlineTag>
         <div className="hero-unit-wrapper">
-          <div className="hero-unit-image-wrapper">
-            <VideoPlayer playing={playing} videoUrl={videoUrl} />
+          <div className={`hero-unit-image-wrapper ${videoUrl ? 'video' : ''}`}>
+            {videoUrl && <VideoPlayer playing={playing} videoUrl={videoUrl} />}
 
-            {buttonText && (
+            {attachedimage ? (
+              <Image
+                className="hero-unit-image"
+                onClick={() => setActive(true)}
+                src={getScaleUrl(getPath(attachedimage), 'large')}
+              />
+            ) : (
+              <Placeholder />
+            )}
+
+            {!videoUrl && buttonText && (
               <UniversalLink href={href} className="hero-unit-content">
                 {buttonText}
               </UniversalLink>
@@ -85,7 +99,7 @@ const HeroUnitView = (props) => {
 
           <div className="hero-logo-wrapper">
             <div className="hidden">
-              <Logo />
+              <Logo hasLink={false} />
             </div>
             <div className="visible">
               <Logo hasLink={false} />

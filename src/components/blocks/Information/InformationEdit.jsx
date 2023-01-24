@@ -18,7 +18,6 @@ const InformationEdit = (props) => {
 
       <SidebarPortal selected={selected}>
         <BlockDataForm
-          // key={Object.keys(data?.cards || {}).length}
           schema={schema}
           onChangeField={(id, value) => {
             onChangeBlock(block, {

@@ -12,8 +12,11 @@
   position: relative;
   overflow: hidden;
   width: 100%;
-  background-color: #000;
   border-radius: 10px;
+}
+
+.hero-unit-image-wrapper.video {
+  background-color: #000;
 }
 
 .hero-unit-image {
@@ -23,6 +26,11 @@
   object-fit: cover;
   object-position: center;
   transform-origin: left bottom;
+  transition: transform 0.5s ease;
+}
+
+.logo svg {
+  transform-origin: right bottom;
   transition: transform 0.5s ease;
 }
 
@@ -39,6 +47,10 @@
     img {
       transform: scale(1.02);
     }
+  }
+
+  .logo svg {
+    transform: scale(0.9);
   }
 
   .hero-unit-wrapper {
@@ -102,8 +114,8 @@ body.view-viewview {
 
 .hero-unit-content {
   position: absolute;
-  top: 80px;
-  left: 20px;
+  bottom: 1.2em;
+  left: 1.2em;
   display: inline-block;
   padding: 0.75em 1em;
   background-color: var(--background-color);
@@ -151,5 +163,13 @@ body.view-viewview {
 
   .big-hero .hero-unit-image-wrapper {
     height: 500px !important;
+  }
+}
+
+body.homepage-view {
+  @media only screen and (max-width: @mobileLandscapeBreakpoint) {
+    .hero-unit-block {
+      margin-right: 0 !important;
+    }
   }
 }

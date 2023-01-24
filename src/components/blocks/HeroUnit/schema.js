@@ -9,30 +9,40 @@ const DEFAULT_HEADLINE_LEVELS = [
 
 const messages = defineMessages({
   headline: {
-    id: 'headline',
+    id: 'Headline',
     defaultMessage: 'Headline',
   },
   buttonText: {
-    id: 'buttonText',
+    id: 'Button text',
     defaultMessage: 'Button text',
   },
   linkHref: {
-    id: 'linkHref',
+    id: 'Button call to action',
     defaultMessage: 'Button call to action',
   },
   headlineTag: {
     id: 'Headline level',
     defaultMessage: 'Headline level',
   },
+  image: {
+    id: 'Image',
+    defaultMessage: 'Image',
+  },
 });
 
-const HeroUnitSchema = ({ intl }) => ({
+const HeroUnitSchema = ({ intl, data }) => ({
   title: 'Hero unit block',
   fieldsets: [
     {
       id: 'default',
       title: 'Default',
-      fields: ['headline', 'headlineTag', 'videoUrl', 'buttonText', 'linkHref'],
+      fields: [
+        'headline',
+        'headlineTag',
+        ...(!data.videoUrl ? ['attachedimage'] : []),
+        ...(!data.attachedimage ? ['videoUrl'] : []),
+        ...(data.attachedimage ? ['buttonText', 'linkHref'] : []),
+      ],
     },
   ],
 
@@ -55,7 +65,10 @@ const HeroUnitSchema = ({ intl }) => ({
       title: 'Video URL',
       description: 'Youtube/Vimeo video URL',
     },
-
+    attachedimage: {
+      widget: 'attachedimage',
+      title: intl.formatMessage(messages.image),
+    },
     headlineTag: {
       title: intl.formatMessage(messages.headlineTag),
       choices: DEFAULT_HEADLINE_LEVELS,

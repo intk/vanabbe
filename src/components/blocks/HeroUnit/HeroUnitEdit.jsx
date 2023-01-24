@@ -6,7 +6,7 @@ import HeroUnitView from './HeroUnitView';
 
 const HeroUnitEdit = (props) => {
   const { block, onChangeBlock, data = {}, selected } = props;
-  const schema = HeroUnitSchema(props);
+  const schema = HeroUnitSchema(props, data);
 
   return (
     <>
@@ -14,7 +14,6 @@ const HeroUnitEdit = (props) => {
 
       <SidebarPortal selected={selected}>
         <BlockDataForm
-          key={Object.keys(data?.cards || {}).length}
           schema={schema}
           onChangeField={(id, value) => {
             onChangeBlock(block, {

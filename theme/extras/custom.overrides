@@ -14,7 +14,6 @@
 @import './menu.less';
 @import './artwork.less';
 
-
 // White space in blocks chooser CMS
 .blocks-chooser .ui.accordion .title ~ .content,
 .blocks-chooser .ui.accordion .accordion .title ~ .content {

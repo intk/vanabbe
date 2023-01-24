@@ -41,9 +41,15 @@ msgstr ""
 msgid "Button"
 msgstr ""
 
+#: components/blocks/HeroUnit/schema
 #: components/blocks/SiteData/schema
 # defaultMessage: Button call to action
 msgid "Button call to action"
+msgstr ""
+
+#: components/blocks/HeroUnit/schema
+# defaultMessage: Button text
+msgid "Button text"
 msgstr ""
 
 #: components/blocks/SiteData/schema
@@ -89,8 +95,18 @@ msgid "Go to the homepage of Van Abbemuseum"
 msgstr ""
 
 #: components/blocks/HeroUnit/schema
+# defaultMessage: Headline
+msgid "Headline"
+msgstr ""
+
+#: components/blocks/HeroUnit/schema
 # defaultMessage: Headline level
 msgid "Headline level"
+msgstr ""
+
+#: components/blocks/HeroUnit/schema
+# defaultMessage: Image
+msgid "Image"
 msgstr ""
 
 #: components/blocks/ActionLinks/schema
@@ -211,11 +227,6 @@ msgstr ""
 msgid "buttonLinks"
 msgstr ""
 
-#: components/blocks/HeroUnit/schema
-# defaultMessage: Button text
-msgid "buttonText"
-msgstr ""
-
 #: components/blocks/VoltoFormBlock/formSchema
 # defaultMessage: Captcha provider
 msgid "captcha"
@@ -301,7 +312,6 @@ msgstr ""
 msgid "form_to"
 msgstr ""
 
-#: components/blocks/HeroUnit/schema
 #: components/blocks/Information/schema
 # defaultMessage: Headline
 msgid "headline"
@@ -320,11 +330,6 @@ msgstr ""
 #: components/blocks/Information/schema
 # defaultMessage: Information block
 msgid "infoBlock"
-msgstr ""
-
-#: components/blocks/HeroUnit/schema
-# defaultMessage: Button call to action
-msgid "linkHref"
 msgstr ""
 
 #: components/blocks/Facts/schema

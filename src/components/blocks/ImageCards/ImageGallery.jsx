@@ -152,7 +152,7 @@ ImageGallery.schemaExtender = (schema, data, intl) => {
             CSS height
           </a>
         ),
-        default: '300px',
+        default: '400px',
         description: 'Image max height',
       },
     },
