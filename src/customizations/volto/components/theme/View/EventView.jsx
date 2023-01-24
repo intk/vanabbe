@@ -127,16 +127,14 @@ const EventView = (props) => {
                         </div>
 
                         {recurrence && (
-                          <div className="event-data">
-                            <div title="All dates" className="dates">
-                              <Icon name="sync" />
-                              <p>
-                                <Recurrence
-                                  recurrence={recurrence}
-                                  start={start}
-                                />
-                              </p>
-                            </div>
+                          <div itle="All dates" className="event-data dates">
+                            <Icon name="sync" />
+                            <p>
+                              <Recurrence
+                                recurrence={recurrence}
+                                start={start}
+                              />
+                            </p>
                           </div>
                         )}
 
