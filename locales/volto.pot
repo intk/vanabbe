@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Plone\n"
-"POT-Creation-Date: 2023-01-24T15:43:34.524Z\n"
+"POT-Creation-Date: 2023-01-25T08:39:18.004Z\n"
 "Last-Translator: Plone i18n <plone-i18n@lists.sourceforge.net>\n"
 "Language-Team: Plone i18n <plone-i18n@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -197,11 +197,6 @@ msgstr ""
 #: components/blocks/SiteData/schema
 # defaultMessage: Tickets button. Displayed in the header
 msgid "Tickets button. Displayed in the header"
-msgstr ""
-
-#: components/blocks/SiteData/schema
-# defaultMessage: undefined
-msgid "Title"
 msgstr ""
 
 #: components/blocks/Quote/EditBlockWrapper

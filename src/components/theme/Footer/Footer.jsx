@@ -71,7 +71,7 @@ export const Address = ({ contactTitle, address, phone, email }) => (
 );
 
 // const useFooterBlock = (globalId) => {
-//   const footer = useFooterContent();
+//   const footer = useSiteDataContent();
 //   const { blocks = {} } = footer;
 //   const blockId = Object.keys(blocks).find(
 //     (id) => blocks[id].globalId === globalId,
@@ -141,7 +141,7 @@ export default injectIntl(Footer);
 //   excludeIds = [],
 //   excludeTypes = ['title', 'actionLinks', 'image', 'siteData'],
 // }) => {
-//   const footer = useFooterContent();
+//   const footer = useSiteDataContent();
 //   const { blocks = {}, blocks_layout } = footer;
 //   // console.log('blocks', blocks, excludeTypes);
 //   const filtered = blocks_layout?.items?.filter(

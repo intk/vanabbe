@@ -212,11 +212,6 @@ msgstr ""
 msgid "Tickets button. Displayed in the header"
 msgstr ""
 
-#: components/blocks/SiteData/schema
-# defaultMessage: undefined
-msgid "Title"
-msgstr ""
-
 #: components/blocks/Quote/EditBlockWrapper
 # defaultMessage: Unknown Block {block}
 msgid "Unknown Block"

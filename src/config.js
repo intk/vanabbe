@@ -98,7 +98,7 @@ export default function applyConfig(config) {
   config.settings.supportedLanguages = ['nl', 'en'];
   config.settings.defaultLanguage = DEFAULT_LANG;
 
-  config.settings.footerPageId = 'site-data';
+  config.settings.siteDataPageId = 'site-data';
   config.settings.actionBlockIds = [
     ['footerLinks', 'Footer Links'],
     ['siteActions', 'Site Actions'],
@@ -155,15 +155,14 @@ export default function applyConfig(config) {
               return;
             }
 
-            const footerPageId = config.settings.footerPageId;
-            const url = `/${currentLang}/${footerPageId}`;
-            // console.log('url', url);
+            const siteDataPageId = config.settings.siteDataPageId;
+            const url = `/${currentLang}/${siteDataPageId}`;
             const action = getContent(url, null, `site-data-${currentLang}`);
             return store.dispatch(action).catch((e) => {
               // eslint-disable-next-line
               console.log(
                 `Footer links folder not found: ${url}. Please create as page
-                named ${footerPageId} in the root of your current language and
+                named ${siteDataPageId} in the root of your current language and
                 fill it with the appropriate action blocks`,
               );
             });
@@ -238,7 +237,7 @@ export default function applyConfig(config) {
     'News Item': 'title',
   };
 
-  // console.log('config', config);
+  console.log('config', config.settings.defaultLanguage);
 
   return installExpressMiddleware(installFooter(installBlocks(config)));
 }

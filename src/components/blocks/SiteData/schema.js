@@ -46,10 +46,6 @@ const messages = defineMessages({
     id: 'Opening hours',
     defaultMessage: 'Opening hours',
   },
-  openingHoursTitle: {
-    id: 'Title',
-    defineMessages: 'Title',
-  },
   openingHoursDescription: {
     id: 'Opening hours are displayed in the header',
     defaultMessage: 'Opening hours are displayed in the header',
