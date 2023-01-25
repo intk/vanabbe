@@ -99,10 +99,10 @@ const HeroUnitView = (props) => {
 
           <div className="hero-logo-wrapper">
             <div className="hidden">
-              <Logo hasLink={false} />
+              <Logo />
             </div>
             <div className="visible">
-              <Logo hasLink={false} />
+              <Logo />
             </div>
           </div>
         </div>

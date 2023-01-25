@@ -1,8 +1,9 @@
 import React from 'react';
+import loadable from '@loadable/component';
 import { Modal, Image } from 'semantic-ui-react';
 import { PreviewImage } from '@package/components';
 import { flattenToAppURL } from '@plone/volto/helpers';
-import loadable from '@loadable/component';
+import ArtworkPreviewImage from './ArtworkPreviewImage';
 
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -56,7 +57,12 @@ const ImageAlbum = (props) => {
         onClick={handleClick}
         className="preview-image-wrapper"
       >
-        <PreviewImage item={items[0]} size="huge" isFallback={!items.length} />
+        <ArtworkPreviewImage
+          {...props}
+          item={items[0]}
+          size="huge"
+          isFallback={!items.length}
+        />
       </div>
 
       {thumbsToShow.length > 1 && (

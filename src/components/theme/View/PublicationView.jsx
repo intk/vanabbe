@@ -17,9 +17,13 @@ export default function PublicationView(props) {
                   <div className="artwork-container">
                     <div className="artwork-top">
                       <div>
-                        <ImageAlbum items={content.items} />
+                        <ImageAlbum
+                          items={content.items}
+                          itemTitle=""
+                          itemAuthor={content.bookauthorName}
+                        />
                         <div className="info">
-                          <SocialLinks hideTitle={true} />
+                          <SocialLinks />
                         </div>
                       </div>
 

@@ -2,7 +2,6 @@ import { List } from 'semantic-ui-react';
 import { useSiteDataContent } from '@package/helpers';
 
 const SocialLinks = (props) => {
-  const { hideTitle } = props;
   const siteDataContent = useSiteDataContent();
   const { blocks = {} } = siteDataContent;
   const siteDataId = Object.keys(blocks).find(
@@ -14,7 +13,9 @@ const SocialLinks = (props) => {
 
   return (
     <div className="social-links">
-      {!hideTitle && <div className="section-title">{socialLinksTitle}</div>}
+      {!!socialLinksTitle && (
+        <div className="section-title">{socialLinksTitle}</div>
+      )}
 
       <List>
         {socialLinks?.length

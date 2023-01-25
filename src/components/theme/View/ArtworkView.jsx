@@ -16,7 +16,11 @@ export default function ArtworkView(props) {
                 <div className="content-wrapper">
                   <div className="artwork-container">
                     <div className="artwork-top">
-                      <ImageAlbum items={content.items} />
+                      <ImageAlbum
+                        items={content.items}
+                        itemTitle={content.objectTitle}
+                        itemAuthor={content.authorName}
+                      />
 
                       <div className="artwork-meta">
                         <h3 className="object-creation">
@@ -49,7 +53,9 @@ export default function ArtworkView(props) {
                             at your disposal, or feel free to write to the
                             library.
                           </p>
-                          <SocialLinks hideTitle={true} />
+                          <div className="computer large screen widescreen only">
+                            <SocialLinks />
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -61,6 +67,9 @@ export default function ArtworkView(props) {
                         language that you feel we should improve or change? We
                         would like to hear from you.
                       </p>
+                      <div className="image-wrapper mobile tablet only">
+                        <SocialLinks />
+                      </div>
                     </div>
                   </div>
                 </div>
