@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import loadable from '@loadable/component';
-import { Image, Placeholder } from 'semantic-ui-react';
+import { Image } from 'semantic-ui-react';
 import { UniversalLink, Logo, Icon } from '@plone/volto/components';
 import { getScaleUrl, getPath } from '@package/utils';
 import { useWindowDimensions } from '@package/helpers';
@@ -58,7 +58,6 @@ const HeroUnitView = (props) => {
   const [scrolling, setScrolling] = useState(false);
   const [scrollBottom, setScrollBottom] = useState(0);
   const [playing, setPlaying] = useState(false);
-  const [bottom, setBottom] = useState();
   const [top, setTop] = useState();
 
   useEffect(() => {
@@ -66,9 +65,9 @@ const HeroUnitView = (props) => {
       let currentPosition = window.pageYOffset;
       if (currentPosition > scrollBottom) {
         setScrolling(true);
+        setTop(windowHeight - 150);
       } else {
         setScrolling(false);
-        setTop(windowHeight - 150);
       }
       setScrollBottom(currentPosition <= 0 ? 0 : currentPosition);
     }
@@ -84,19 +83,18 @@ const HeroUnitView = (props) => {
       setPlaying(true);
       setActive(true);
     } else {
-      setBottom(position + window.scrollY);
+      setTop(position + window.scrollY);
     }
   }, [scrolling, isView]);
 
   const getPosition = () => {
     const position = boxRef.current.getBoundingClientRect().top;
-    setBottom(position);
+    setTop(position);
   };
 
   useEffect(() => {
-    if (isActive) getPosition();
     getPosition();
-  }, [isActive]);
+  }, []);
 
   useEffect(() => {
     window.addEventListener('resize', getPosition);
@@ -111,14 +109,12 @@ const HeroUnitView = (props) => {
           <div className={`hero-unit-image-wrapper ${videoUrl ? 'video' : ''}`}>
             {videoUrl && <VideoPlayer playing={playing} videoUrl={videoUrl} />}
 
-            {attachedimage ? (
+            {attachedimage && (
               <Image
                 className="hero-unit-image"
                 onClick={() => setActive(true)}
                 src={getScaleUrl(getPath(attachedimage), 'large')}
               />
-            ) : (
-              <Placeholder />
             )}
 
             {buttonText && buttonText && (
@@ -138,10 +134,7 @@ const HeroUnitView = (props) => {
             </div>
             <div className="visible">
               <div className="logo">
-                <Icon
-                  name={logoImage}
-                  style={!scrolling ? { top: bottom } : { top: top }}
-                />
+                <Icon name={logoImage} style={{ top: top }} />
               </div>
             </div>
           </div>
