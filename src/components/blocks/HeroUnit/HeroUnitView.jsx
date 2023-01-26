@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import loadable from '@loadable/component';
 import { Image } from 'semantic-ui-react';
 import { UniversalLink, Logo, Icon } from '@plone/volto/components';
 import { getScaleUrl, getPath } from '@package/utils';
-import { useWindowDimensions } from '@package/helpers';
+import { useWindowDimensions, useIntersection } from '@package/helpers';
 import logoImage from '../../../icons/vanabbe.svg';
 
 import './style.less';
@@ -11,8 +11,13 @@ import './style.less';
 const ReactYoutubePlayer = loadable(() => import('react-player/youtube'));
 const ReactVimeoPlayer = loadable(() => import('react-player/vimeo'));
 
+const getPosition = (ref) => {
+  const position = ref.current.getBoundingClientRect().top;
+  return position;
+};
+
 const VideoPlayer = (props) => {
-  const { playing, videoUrl } = props;
+  const { playing, videoUrl, setActive } = props;
   const vimeoURL = videoUrl?.match('vimeo');
   const youtubeURL = videoUrl?.match(/youtube|.be\//);
 
@@ -28,9 +33,9 @@ const VideoPlayer = (props) => {
   return (
     <>
       {vimeoURL ? (
-        <ReactVimeoPlayer {...playerProps} />
+        <ReactVimeoPlayer {...playerProps} onPlay={() => setActive(true)} />
       ) : youtubeURL ? (
-        <ReactYoutubePlayer {...playerProps} />
+        <ReactYoutubePlayer {...playerProps} onPlay={() => setActive(true)} />
       ) : null}
     </>
   );
@@ -51,8 +56,10 @@ const HeroUnitView = (props) => {
   const isView = mode === 'edit';
   const href = linkHref?.[0]?.['@id'] || '';
 
-  const boxRef = React.useRef();
+  const logoRef = useRef();
+  const heroRef = useRef();
   const { windowHeight } = useWindowDimensions();
+  const inViewport = useIntersection(heroRef, '0px');
 
   const [isActive, setActive] = useState(false);
   const [scrolling, setScrolling] = useState(false);
@@ -61,11 +68,15 @@ const HeroUnitView = (props) => {
   const [top, setTop] = useState();
 
   useEffect(() => {
+    const loginHeight = document.getElementById('login').clientHeight;
+    const logoHeight = document.getElementById('logo').clientHeight;
+    const bottom = loginHeight + logoHeight;
+
     function onScroll() {
       let currentPosition = window.pageYOffset;
       if (currentPosition > scrollBottom) {
         setScrolling(true);
-        setTop(windowHeight - 150);
+        setTop(windowHeight - bottom);
       } else {
         setScrolling(false);
       }
@@ -76,38 +87,52 @@ const HeroUnitView = (props) => {
     return () => window.removeEventListener('scroll', onScroll);
   }, [scrollBottom, windowHeight]);
 
-  useEffect(() => {
-    const position = boxRef.current.getBoundingClientRect().top;
+  const setPosition = useCallback(() => {
+    const position = getPosition(logoRef);
+    setTop(position);
+  }, []);
 
+  useEffect(() => {
     if (!isView && scrolling) {
       setPlaying(true);
       setActive(true);
-    } else {
-      setTop(position + window.scrollY);
     }
   }, [scrolling, isView]);
 
-  const getPosition = () => {
-    const position = boxRef.current.getBoundingClientRect().top;
-    setTop(position);
-  };
+  useEffect(() => {
+    const position = getPosition(logoRef);
+    if (!scrolling && inViewport) {
+      setTop(position + window.scrollY);
+    }
+  }, [scrolling, inViewport]);
 
   useEffect(() => {
-    getPosition();
-  }, []);
+    setPosition();
+
+    if (isActive) {
+      const position = getPosition(logoRef);
+      setTop(position + 230);
+    }
+  }, [isActive, setPosition]);
 
   useEffect(() => {
-    window.addEventListener('resize', getPosition);
-    return () => window.addEventListener('resize', getPosition);
-  }, []);
+    window.addEventListener('resize', setPosition);
+    return () => window.addEventListener('resize', setPosition);
+  }, [setPosition]);
 
   return (
     <div className={`hero-unit-block ${isActive ? 'big-hero' : 'normal-hero'}`}>
       <div>
         <HeadlineTag className="hero-unit-title">{headline}</HeadlineTag>
-        <div className="hero-unit-wrapper">
+        <div className="hero-unit-wrapper" ref={heroRef}>
           <div className={`hero-unit-image-wrapper ${videoUrl ? 'video' : ''}`}>
-            {videoUrl && <VideoPlayer playing={playing} videoUrl={videoUrl} />}
+            {videoUrl && (
+              <VideoPlayer
+                playing={playing}
+                videoUrl={videoUrl}
+                setActive={setActive}
+              />
+            )}
 
             {attachedimage && (
               <Image
@@ -117,7 +142,7 @@ const HeroUnitView = (props) => {
               />
             )}
 
-            {buttonText && buttonText && (
+            {buttonText && (
               <UniversalLink href={href} className="hero-unit-content">
                 {buttonText}
               </UniversalLink>
@@ -129,11 +154,11 @@ const HeroUnitView = (props) => {
               scrolling ? 'logo-bottom' : 'logo-top'
             }`}
           >
-            <div className="hidden" ref={boxRef}>
+            <div className="hidden" ref={logoRef}>
               <Logo />
             </div>
             <div className="visible">
-              <div className="logo">
+              <div id="logo" className="logo">
                 <Icon name={logoImage} style={{ top: top }} />
               </div>
             </div>

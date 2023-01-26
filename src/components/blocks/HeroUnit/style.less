@@ -6,6 +6,10 @@
 .hero-unit-block {
   margin: 3em 0 2em 0;
   margin-right: -@oneWide !important;
+
+  @media only screen and (max-width: @largestMobileScreen) {
+    margin-bottom: 0;
+  }
 }
 
 .hero-unit-wrapper {
@@ -71,13 +75,12 @@
 
 .big-hero {
   .logo {
-    height: 100px !important;
+    height: 100px;
   }
 
   .logo svg {
     height: 100px !important;
-    transition: height 1s ease;
-    transition: top 2s ease;
+    transition: all 1s ease;
   }
 
   .hero-unit-image-wrapper {
@@ -143,12 +146,7 @@ body.homepage-view {
 @media only screen and (max-width: @largestTabletScreen) {
   .hero-unit-wrapper {
     flex-direction: column;
-
-    .logo {
-      display: flex;
-      align-self: end;
-      margin-top: -50px;
-    }
+    gap: 1em;
   }
 
   .normal-hero {
@@ -169,12 +167,6 @@ body.homepage-view {
 }
 
 @media only screen and (max-width: 580px) {
-  .hero-unit-wrapper {
-    .logo {
-      margin-top: -30px;
-    }
-  }
-
   .normal-hero .hero-unit-image-wrapper {
     width: 65% !important;
   }

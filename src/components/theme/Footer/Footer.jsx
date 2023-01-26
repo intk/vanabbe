@@ -16,13 +16,13 @@ const Login = () => {
   const content = useSelector((state) => state.content?.data || {});
 
   return token ? (
-    <Link className="login" aria-label="login" to="/logout">
+    <Link id="login" aria-label="login" to="/logout">
       <FormattedMessage id="Logout" defaultMessage="Logout" />
     </Link>
   ) : (
     <Link
-      className="login"
       aria-label="login"
+      id="login"
       to={`/login${
         content
           ? `?return_url=${(content['@id'] || '').replace(
