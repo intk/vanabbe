@@ -23,6 +23,7 @@
     <!-- <element value="volto.preview_image"/> -->
     <element value="plone.basic"/>
     <element value="plone.translatable"/>
+    <element value="plone.categorization"/>
   </property>
   <property name="schema">intk_vanabbe.content.artwork.IArtwork</property>
   <alias from="(Default)" to="(dynamic view)"/>

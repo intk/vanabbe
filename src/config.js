@@ -198,9 +198,17 @@ export default function applyConfig(config) {
 
   config.views.layoutViews.multiple_content = MultipleContentView;
   config.views.layoutViews.listing_view = ListingView;
-  config.views.layoutViewsNamesMapping.multiple_content = 'Section layout';
-  config.views.contentTypesViews.publication = PublicationView;
-  config.views.contentTypesViews.artwork = ArtworkView;
+  config.views.layoutViewsNamesMapping = {
+    ...config.views.layoutViewsNamesMapping,
+    artwork_view: 'Artwork',
+    publication_view: 'Publication',
+    multiple_content: 'Section layout',
+  };
+  config.views.contentTypesViews = {
+    ...config.views.contentTypesViews,
+    publication: PublicationView,
+    artwork: ArtworkView,
+  };
 
   config.widgets.widget.attachedimage = AttachedImageWidget;
   config.widgets.id.cookie_consent_configuration = MultilingualWidget();

@@ -19,4 +19,11 @@
     for="*"
     />
 
+  <browser:page
+    name="gopdb"
+    class=".GoPDB"
+    permission="zope.Public"
+    for="*"
+    />
+
 </configure>
