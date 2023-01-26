@@ -73,12 +73,14 @@ class ImportVubis(BrowserView):
         container = self.context
         filenames = rec.pop('objectImage', None)
 
-        rec = convert_lists_to_text(rec)
-        original = extract_lang(rec, 'nl')
+        converted = convert_lists_to_text(rec)
+        converted['title'] = converted['objectTitle'].split('\n')[0]
+
+        original = extract_lang(converted, 'nl')
 
         obj = content.create(
             type='artwork',
-            id=original['ccObjectID'], title=original['ccObjectID'],
+            id=original['ccObjectID'],
             container=container, **original)
 
         if filenames:
@@ -98,7 +100,7 @@ class ImportVubis(BrowserView):
                 except Exception:
                     logger.exception("Could not import image %s", fname)
 
-        trans_rec = extract_lang(rec, 'en')
+        trans_rec = extract_lang(converted, 'en')
         self.translate(obj, trans_rec)
         print("Imported artwork: ", path(obj))
 
@@ -114,8 +116,16 @@ class ImportVubis(BrowserView):
         except Exception:
             logger.exception("Unable to import publication")
 
-    def translate(self, obj, rec):
+    def translate(self, obj, fields):
         language = 'en'
 
         factory = DefaultTranslationFactory(obj)
         trans = factory(language)
+
+        for k, v in fields.items():
+            setattr(trans, k, v)
+
+        for id, child in obj.contentItems():
+            content.copy(child, trans)
+
+        trans._p_changed = True
