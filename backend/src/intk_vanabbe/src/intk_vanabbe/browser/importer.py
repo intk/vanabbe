@@ -4,8 +4,7 @@
 from intk_vanabbe.importer import INTL_FIELDS
 from intk_vanabbe.importer import scroll
 from plone.api import content
-from plone.app.multilingual.factory import DefaultTranslationFactory
-from plone.app.multilingual.manager import TranslationManager
+from plone.app.multilingual.api import translate
 from plone.namedfile.file import NamedBlobImage
 from plone.protect.interfaces import IDisableCSRFProtection
 from Products.Five.browser import BrowserView
@@ -118,9 +117,7 @@ class ImportVubis(BrowserView):
 
     def translate(self, obj, fields):
         language = 'en'
-
-        factory = DefaultTranslationFactory(obj)
-        trans = factory(language)
+        trans = translate(obj, language)
 
         for k, v in fields.items():
             setattr(trans, k, v)
