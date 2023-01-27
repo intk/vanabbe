@@ -111,15 +111,6 @@ const HeroUnitView = (props) => {
   }, [scrolling, inViewport]);
 
   useEffect(() => {
-    setPosition();
-
-    if (isActive) {
-      const position = getPosition(logoRef);
-      setTop(position + 230);
-    }
-  }, [isActive, setPosition]);
-
-  useEffect(() => {
     window.addEventListener('resize', setPosition);
     return () => window.addEventListener('resize', setPosition);
   }, [setPosition]);
