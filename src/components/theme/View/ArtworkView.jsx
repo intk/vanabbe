@@ -19,6 +19,14 @@ const getLinkLabel = (infoId, content) => {
   return label;
 };
 
+const getItem = (info, content) => {
+  const item = {
+    '@id': getUrl(info, content),
+    title: getLinkLabel(info.id, content),
+  };
+  return item;
+};
+
 export default function ArtworkView(props) {
   const { registratorMail } = config.settings;
   const { content } = props;
@@ -141,11 +149,10 @@ export default function ArtworkView(props) {
         <h2>Context</h2>
         {contextLinks.items?.map((info) => {
           const item = {
-            '@id': getUrl(info, content),
-            title: getLinkLabel(info.id, content),
+            ...getItem(info, content),
             image_field: 'image',
           };
-          return <Card item={item} {...props} useFallbackImage />;
+          return <Card id={info.id} item={item} {...props} useFallbackImage />;
         })}
       </Container>
     </div>
