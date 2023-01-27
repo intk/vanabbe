@@ -2,17 +2,17 @@ import { defineMessages } from 'react-intl';
 import config from '@plone/volto/registry';
 
 const messages = defineMessages({
-  themeTitle: {
-    id: 'themeTitle',
+  theme: {
+    id: 'Theme',
     defaultMessage: 'Theme',
   },
   themeDescription: {
-    id: 'themeDescription',
+    id: 'Select a theme for this page',
     defaultMessage: 'Select a theme for this page',
   },
-  SiteTheme: {
-    id: 'SiteTheme',
-    defaultMessage: 'Global site settings',
+  siteTheme: {
+    id: 'Site Theme',
+    defaultMessage: 'Site Theme',
   },
 });
 
@@ -23,7 +23,7 @@ const SiteThemeSchema = ({ intl }) => {
   ]);
 
   return {
-    title: intl.formatMessage(messages.SiteTheme),
+    title: intl.formatMessage(messages.siteTheme),
     fieldsets: [
       {
         id: 'default',
@@ -34,7 +34,7 @@ const SiteThemeSchema = ({ intl }) => {
 
     properties: {
       theme: {
-        title: intl.formatMessage(messages.themeTitle),
+        title: intl.formatMessage(messages.theme),
         description: intl.formatMessage(messages.themeDescription),
         choices: themes,
         default: 'default',

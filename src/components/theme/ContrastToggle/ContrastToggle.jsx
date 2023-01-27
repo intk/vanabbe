@@ -1,4 +1,5 @@
 import React from 'react';
+import { FormattedMessage, injectIntl } from 'react-intl';
 import { useAtom } from 'jotai';
 import { contrastModeAtom } from './../../../state';
 import './style.less';
@@ -10,7 +11,7 @@ const ContrastToggle = () => {
 
   return (
     <div className="contrast-toggle">
-      Contrast
+      <FormattedMessage id="Contrast" defaultMessage="Contrast" />
       <label className="toggle-switch">
         <input
           type="checkbox"
@@ -23,4 +24,4 @@ const ContrastToggle = () => {
   );
 };
 
-export default ContrastToggle;
+export default injectIntl(ContrastToggle);

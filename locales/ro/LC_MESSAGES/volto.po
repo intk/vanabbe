@@ -17,9 +17,19 @@ msgstr ""
 "Language-Name: Romanian\n"
 "Preferred-Encodings: utf-8 latin1\n"
 
+#: components/theme/View/ArtworkView
+# defaultMessage: Acquired in
+msgid "Acquired in"
+msgstr ""
+
 #: components/blocks/ActionLinks/schema
 # defaultMessage: Action
 msgid "Action"
+msgstr ""
+
+#: components/blocks/ActionLinks/ActionLinksView
+# defaultMessage: Action links
+msgid "Action links"
 msgstr ""
 
 #: components/blocks/ActionLinks/schema
@@ -47,17 +57,24 @@ msgstr ""
 msgid "Button"
 msgstr ""
 
+#: components/blocks/Button/schema
 #: components/blocks/HeroUnit/schema
+#: components/blocks/Information/schema
+#: components/blocks/Listing/index
 #: components/blocks/SiteData/schema
 # defaultMessage: Button call to action
 msgid "Button call to action"
 msgstr ""
 
-#: components/blocks/HeroUnit/schema
-# defaultMessage: Button text
-msgid "Button text"
+#: components/blocks/Information/schema
+# defaultMessage: Button link
+msgid "Button link"
 msgstr ""
 
+#: components/blocks/Button/schema
+#: components/blocks/HeroUnit/schema
+#: components/blocks/Information/schema
+#: components/blocks/Listing/index
 #: components/blocks/SiteData/schema
 # defaultMessage: Button title
 msgid "Button title"
@@ -85,6 +102,22 @@ msgstr ""
 msgid "Contact"
 msgstr ""
 
+#: components/theme/ContrastToggle/ContrastToggle
+# defaultMessage: Contrast
+msgid "Contrast"
+msgstr ""
+
+#: components/theme/View/ArtworkView
+#: components/theme/View/PublicationView
+# defaultMessage: Description
+msgid "Description"
+msgstr ""
+
+#: components/theme/View/ArtworkView
+# defaultMessage: Does this page contain inaccurate information or
+msgid "Does this page contain inaccurate information orlanguage that you feel we should improve or change? We"
+msgstr ""
+
 #: components/blocks/SiteData/schema
 # defaultMessage: E-mail
 msgid "E-mail"
@@ -101,6 +134,7 @@ msgid "Go to the homepage of Van Abbemuseum"
 msgstr ""
 
 #: components/blocks/HeroUnit/schema
+#: components/blocks/Information/schema
 # defaultMessage: Headline
 msgid "Headline"
 msgstr ""
@@ -110,15 +144,45 @@ msgstr ""
 msgid "Headline level"
 msgstr ""
 
+#: components/theme/View/ArtworkView
+# defaultMessage: If you need specific information on this work or
+msgid "If you need specific information on this work orartist, remember that the Van Abbemuseum Library isat your disposal, or feel free to write to the"
+msgstr ""
+
 #: components/blocks/HeroUnit/schema
 # defaultMessage: Image
 msgid "Image"
+msgstr ""
+
+#: components/blocks/Image/schema
+# defaultMessage: Image caption
+msgid "Image caption"
+msgstr ""
+
+#: components/blocks/Image/schema
+# defaultMessage: Image source
+msgid "Image source"
+msgstr ""
+
+#: components/blocks/ActionLinks/schema
+# defaultMessage: Internal page or path
+msgid "Internal page or path"
+msgstr ""
+
+#: components/theme/View/ArtworkView
+# defaultMessage: Inventory number
+msgid "Inventory number"
 msgstr ""
 
 #: components/blocks/ActionLinks/schema
 #: components/blocks/Facts/schema
 # defaultMessage: Action link
 msgid "LinkTo"
+msgstr ""
+
+#: components/theme/View/PublicationView
+# defaultMessage: Located in
+msgid "Located in"
 msgstr ""
 
 #: components/theme/Footer/Footer
@@ -136,9 +200,19 @@ msgstr ""
 msgid "Menu"
 msgstr ""
 
+#: components/blocks/ActionLinks/ActionLinksView
+# defaultMessage: No actions defined
+msgid "No actions defined"
+msgstr ""
+
 #: components/blocks/ContentDivider/ContentDividerEdit
 # defaultMessage: No background applied after this divider
 msgid "No background applied after this divider"
+msgstr ""
+
+#: components/theme/View/ArtworkView
+# defaultMessage: Not on display
+msgid "Not on display"
 msgstr ""
 
 #: components/blocks/SiteData/schema
@@ -172,6 +246,11 @@ msgstr ""
 msgid "Section title"
 msgstr ""
 
+#: components/blocks/SiteTheme/schema
+# defaultMessage: Select a theme for this page
+msgid "Select a theme for this page"
+msgstr ""
+
 #: components/blocks/SiteTheme/SiteThemeEdit
 # defaultMessage: Select page theme
 msgid "Select page theme"
@@ -182,20 +261,50 @@ msgstr ""
 msgid "Selected theme"
 msgstr ""
 
-#: components/blocks/SiteData/schema
-# defaultMessage: Global site settings
-msgid "SiteData"
+#: components/blocks/Listing/index
+# defaultMessage: Show date
+msgid "Show date"
 msgstr ""
 
 #: components/blocks/SiteTheme/schema
+# defaultMessage: Site Theme
+msgid "Site Theme"
+msgstr ""
+
+#: components/blocks/SiteData/schema
 # defaultMessage: Global site settings
-msgid "SiteTheme"
+msgid "SiteData"
 msgstr ""
 
 #: components/blocks/SiteData/schema
 #: components/blocks/SiteData/SiteDataView
 # defaultMessage: Social links
 msgid "Social links"
+msgstr ""
+
+#: components/blocks/Image/schema
+# defaultMessage: Source website
+msgid "Source website"
+msgstr ""
+
+#: components/theme/View/ArtworkView
+# defaultMessage: The Van Abbemuseum Collection consists of over 2800
+msgid "The Van Abbemuseum Collection consists of over 2800artworks. We publish texts and images on an ongoingbasis, but this record is currently in the process"
+msgstr ""
+
+#: components/blocks/ActionLinks/schema
+# defaultMessage: The global block is uniquely identifies this actions block and allows its use in the website
+msgid "The global block is uniquely identifies this actions block and allows its use in the website"
+msgstr ""
+
+#: components/blocks/Image/schema
+# defaultMessage: The image caption will be shown under the image
+msgid "The image caption will be shown under the image"
+msgstr ""
+
+#: components/blocks/SiteTheme/schema
+# defaultMessage: Theme
+msgid "Theme"
 msgstr ""
 
 #: components/blocks/SiteData/schema
@@ -208,6 +317,11 @@ msgstr ""
 msgid "Unknown Block"
 msgstr ""
 
+#: components/theme/View/PublicationView
+# defaultMessage: VUBIS
+msgid "VUBIS"
+msgstr ""
+
 #: components/blocks/ImageCards/SplashyCarousel
 # defaultMessage: Watch The Video
 msgid "Watch The Video"
@@ -216,6 +330,11 @@ msgstr ""
 #: components/blocks/ContentDivider/ContentDividerEdit
 # defaultMessage: White background applied before this divider
 msgid "White background applied before this divider"
+msgstr ""
+
+#: components/blocks/Image/schema
+# defaultMessage: Write here the source/copyright of this image
+msgid "Write here the source/copyright of this image"
 msgstr ""
 
 #: components/blocks/ActionLinks/schema
@@ -313,11 +432,6 @@ msgstr ""
 msgid "form_to"
 msgstr ""
 
-#: components/blocks/Information/schema
-# defaultMessage: Headline
-msgid "headline"
-msgstr ""
-
 #: components/blocks/Facts/schema
 # defaultMessage: Icon
 msgid "icon"
@@ -329,7 +443,7 @@ msgid "image"
 msgstr ""
 
 #: components/blocks/Information/schema
-# defaultMessage: Information block
+# defaultMessage: Info block
 msgid "infoBlock"
 msgstr ""
 
@@ -346,16 +460,6 @@ msgstr ""
 #: components/blocks/Facts/schema
 # defaultMessage: SubTitle
 msgid "subtitle"
-msgstr ""
-
-#: components/blocks/SiteTheme/schema
-# defaultMessage: Select a theme for this page
-msgid "themeDescription"
-msgstr ""
-
-#: components/blocks/SiteTheme/schema
-# defaultMessage: Theme
-msgid "themeTitle"
 msgstr ""
 
 #: components/blocks/ActionLinks/schema

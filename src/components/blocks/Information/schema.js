@@ -1,7 +1,34 @@
 import { defineMessages } from 'react-intl';
 
-export const ButtonLink = (props) => ({
-  title: 'Button link',
+const messages = defineMessages({
+  headline: {
+    id: 'Headline',
+    defaultMessage: 'Headline',
+  },
+  buttonLinks: {
+    id: 'buttonLinks',
+    defaultMessage: 'Button Links',
+  },
+  buttonTitle: {
+    id: 'Button title',
+    defaultMessage: 'Button title',
+  },
+  callAction: {
+    id: 'Button call to action',
+    defaultMessage: 'Button call to action',
+  },
+  buttonLink: {
+    id: 'Button link',
+    defaultMessage: 'Button link',
+  },
+  Information: {
+    id: 'infoBlock',
+    defaultMessage: 'Info block',
+  },
+});
+
+export const ButtonLink = (intl) => ({
+  title: intl.formatMessage(messages.buttonLink),
   fieldsets: [
     {
       id: 'default',
@@ -11,10 +38,10 @@ export const ButtonLink = (props) => ({
   ],
   properties: {
     title: {
-      title: 'Button title',
+      title: intl.formatMessage(messages.buttonTitle),
     },
     href: {
-      title: 'Call to action',
+      title: intl.formatMessage(messages.callAction),
       widget: 'object_browser',
       mode: 'link',
       selectedItemAttrs: ['Title', 'Description'],
@@ -24,22 +51,7 @@ export const ButtonLink = (props) => ({
   required: ['title', 'href'],
 });
 
-const messages = defineMessages({
-  headline: {
-    id: 'headline',
-    defaultMessage: 'Headline',
-  },
-  buttonLinks: {
-    id: 'buttonLinks',
-    defaultMessage: 'Button Links',
-  },
-  Information: {
-    id: 'infoBlock',
-    defaultMessage: 'Information block',
-  },
-});
-
-const InformationSchema = ({ intl }) => ({
+const InformationBlockSchema = ({ intl }) => ({
   title: intl.formatMessage(messages.Information),
   fieldsets: [
     {
@@ -60,10 +72,10 @@ const InformationSchema = ({ intl }) => ({
     buttons: {
       title: intl.formatMessage(messages.buttonLinks),
       widget: 'object_list',
-      schema: ButtonLink(),
+      schema: ButtonLink(intl),
     },
   },
   required: [],
 });
 
-export default InformationSchema;
+export default InformationBlockSchema;

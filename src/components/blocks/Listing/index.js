@@ -1,3 +1,5 @@
+import { defineMessages } from 'react-intl';
+
 import ListingsBlockTemplate from './ListingTemplate';
 import SliderListingBlockTemplate from './SliderListing';
 import BigCardsTemplate from './BigCardsTemplate';
@@ -5,9 +7,25 @@ import AgendaListingTemplate from './AgendaListing';
 import ColoredCardsTemplate from './ColoredCardsTemplate';
 import SearchListingTemplate from './SearchListingTemplate';
 
+const messages = defineMessages({
+  buttonTitle: {
+    id: 'Button title',
+    defaultMessage: 'Button title',
+  },
+  callAction: {
+    id: 'Button call to action',
+    defaultMessage: 'Button call to action',
+  },
+  showDate: {
+    id: 'Show date',
+    defaultMessage: 'Show date',
+  },
+});
+
 export default (config) => {
-  config.blocks.blocksConfig.listing.schemaEnhancer = ({ schema }) => {
+  config.blocks.blocksConfig.listing.schemaEnhancer = ({ schema, intl }) => {
     // move querystring to its own fieldset;
+
     schema.fieldsets[0].fields = schema.fieldsets[0].fields.filter(
       (f) => f !== 'querystring',
     );
@@ -20,17 +38,17 @@ export default (config) => {
     schema.properties = {
       ...schema.properties,
       linkTitle: {
-        title: 'Button title',
+        title: intl.formatMessage(messages.buttonTitle),
       },
       linkHref: {
-        title: 'Call to action',
+        title: intl.formatMessage(messages.callAction),
         widget: 'object_browser',
         mode: 'link',
         selectedItemAttrs: ['Title', 'Description'],
         allowExternals: true,
       },
       showDate: {
-        title: 'Show date',
+        title: intl.formatMessage(messages.showDate),
         type: 'boolean',
         default: true,
       },

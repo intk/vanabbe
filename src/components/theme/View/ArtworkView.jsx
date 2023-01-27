@@ -1,4 +1,5 @@
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
 import { Grid, Container } from 'semantic-ui-react';
 import { SocialLinks } from '@package/components';
 import ImageAlbum from '../ImageAlbum/ImageAlbum';
@@ -32,26 +33,51 @@ export default function ArtworkView(props) {
                         <div className="object-medium">
                           {content.objectMedium}
                         </div>
-                        <div className="object-location">Not on display</div>
+                        <div className="object-location">
+                          <FormattedMessage
+                            id="Not on display"
+                            defaultMessage="Not on display"
+                          />
+                        </div>
                         <div className="acquired">
-                          Acquired in {content.objectYearPurchase}
+                          <FormattedMessage
+                            id="Acquired in"
+                            defaultMessage="Acquired in"
+                          />{' '}
+                          {content.objectYearPurchase}
                         </div>
                         <div className="inventory-number">
-                          Inventory number {content.objectID}
+                          <FormattedMessage
+                            id="Inventory number"
+                            defaultMessage="Inventory number"
+                          />{' '}
+                          {content.objectID}
                         </div>
 
                         <div className="info">
                           <p>
-                            The Van Abbemuseum Collection consists of over 2800
+                            <FormattedMessage
+                              id="The Van Abbemuseum Collection consists of over 2800
                             artworks. We publish texts and images on an ongoing
                             basis, but this record is currently in the process
-                            of being documented..
+                            of being documented."
+                              defaultMessage="The Van Abbemuseum Collection consists of over 2800
+                            artworks. We publish texts and images on an ongoing
+                            basis, but this record is currently in the process
+                            of being documented."
+                            />
                           </p>
                           <p>
-                            If you need specific information on this work or
+                            <FormattedMessage
+                              id="If you need specific information on this work or
                             artist, remember that the Van Abbemuseum Library is
                             at your disposal, or feel free to write to the
-                            library.
+                            library."
+                              defaultMessage="If you need specific information on this work or
+                            artist, remember that the Van Abbemuseum Library is
+                            at your disposal, or feel free to write to the
+                            library."
+                            />
                           </p>
                           <div className="computer large screen widescreen only">
                             <SocialLinks />
@@ -60,12 +86,22 @@ export default function ArtworkView(props) {
                       </div>
                     </div>
                     <div className="artwork-content offset-1-left offset-2-right">
-                      <h4>Description</h4>
+                      <h4>
+                        <FormattedMessage
+                          id="Description"
+                          defaultMessage="Description"
+                        />
+                      </h4>
                       ...
                       <p>
-                        Does this page contain inaccurate information or
-                        language that you feel we should improve or change? We
-                        would like to hear from you.
+                        <FormattedMessage
+                          id="Does this page contain inaccurate information or
+                          language that you feel we should improve or change? We
+                          would like to hear from you."
+                          defaultMessage="Does this page contain inaccurate information or
+                          language that you feel we should improve or change? We
+                          would like to hear from you."
+                        />
                       </p>
                       <div className="image-wrapper mobile tablet only">
                         <SocialLinks />

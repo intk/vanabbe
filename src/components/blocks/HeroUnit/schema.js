@@ -12,9 +12,9 @@ const messages = defineMessages({
     id: 'Headline',
     defaultMessage: 'Headline',
   },
-  buttonText: {
-    id: 'Button text',
-    defaultMessage: 'Button text',
+  buttonTitle: {
+    id: 'Button title',
+    defaultMessage: 'Button title',
   },
   linkHref: {
     id: 'Button call to action',
@@ -41,7 +41,7 @@ const HeroUnitSchema = ({ intl, data }) => ({
         'headlineTag',
         ...(!data.videoUrl ? ['attachedimage'] : []),
         ...(!data.attachedimage ? ['videoUrl'] : []),
-        'buttonText',
+        'buttonTitle',
         'linkHref',
       ],
     },
@@ -51,8 +51,8 @@ const HeroUnitSchema = ({ intl, data }) => ({
     headline: {
       title: intl.formatMessage(messages.headline),
     },
-    buttonText: {
-      title: intl.formatMessage(messages.buttonText),
+    buttonTitle: {
+      title: intl.formatMessage(messages.buttonTitle),
     },
     linkHref: {
       title: intl.formatMessage(messages.linkHref),

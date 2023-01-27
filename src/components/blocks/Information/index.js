@@ -6,7 +6,7 @@ import InformationEdit from './InformationEdit';
 const installInformationBlock = (config) => {
   config.blocks.blocksConfig.informationBlock = {
     id: 'informationBlock',
-    title: 'Information block',
+    title: 'Info block',
     icon: indentSVG,
     group: 'site',
     view: InformationView,

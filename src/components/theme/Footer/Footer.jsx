@@ -1,6 +1,5 @@
 import React from 'react';
-
-import { FormattedMessage, injectIntl } from 'react-intl'; // defineMessages
+import { FormattedMessage, injectIntl } from 'react-intl';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { Container, List } from 'semantic-ui-react';

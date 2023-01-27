@@ -1,4 +1,5 @@
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
 import { Grid, Container } from 'semantic-ui-react';
 import { SocialLinks } from '@package/components';
 import ImageAlbum from '../ImageAlbum/ImageAlbum';
@@ -46,10 +47,15 @@ export default function PublicationView(props) {
                         {/* <div className="bookCity">{content.bookCity}</div> */}
 
                         <div className="object-shelfmark">
-                          Located in: {content.bookShelfmark}
+                          <FormattedMessage
+                            id="Located in"
+                            defaultMessage="Located in"
+                          />
+                          : {content.bookShelfmark}
                         </div>
                         <div className="object-id">
-                          VUBIS:{' '}
+                          <FormattedMessage id="VUBIS" defaultMessage="VUBIS" />
+                          :{' '}
                           <a
                             href={content.ccIdentifier}
                             target="_blank"
@@ -61,7 +67,12 @@ export default function PublicationView(props) {
                       </div>
                     </div>
                     <div className="artwork-content offset-1-left offset-2-right">
-                      <h4>Description</h4>
+                      <h4>
+                        <FormattedMessage
+                          id="Description"
+                          defaultMessage="Description"
+                        />
+                      </h4>
 
                       <p>{content.bookDescription}</p>
                     </div>
