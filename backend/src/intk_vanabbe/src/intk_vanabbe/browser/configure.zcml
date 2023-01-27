@@ -1,29 +1,42 @@
 <configure
-    xmlns="http://namespaces.zope.org/zope"
-    xmlns:browser="http://namespaces.zope.org/browser"
-    xmlns:plone="http://namespaces.plone.org/plone"
-    i18n_domain="intk_vanabbe"
-    >
+  xmlns="http://namespaces.zope.org/zope"
+  xmlns:browser="http://namespaces.zope.org/browser"
+  xmlns:plone="http://namespaces.plone.org/plone"
+  i18n_domain="intk_vanabbe"
+  >
 
   <!-- Publish static files -->
-  <plone:static
-      directory="static"
-      name="intk_vanabbe"
-      type="plone"
-      />
+<plone:static
+  directory="static"
+  name="intk_vanabbe"
+  type="plone"
+  />
 
-  <browser:page
-    name="import_vubis"
-    class=".importer.ImportVubis"
-    permission="cmf.ManagePortal"
-    for="*"
-    />
+<browser:page
+  name="import_vubis"
+  class=".importer.ImportVubis"
+  permission="cmf.ManagePortal"
+  for="*"
+  />
 
-  <browser:page
-    name="gopdb"
-    class=".GoPDB"
-    permission="zope.Public"
-    for="*"
-    />
+<browser:page
+  name="gopdb"
+  class=".GoPDB"
+  permission="zope.Public"
+  for="*"
+  />
+
+<adapter
+  factory=".restapi.ContextLinks"
+  name="contextLinks"
+  />
+
+<plone:service
+  method="GET"
+  factory=".restapi.ContextLinksGet"
+  for="zope.interface.Interface"
+  permission="zope2.View"
+  name="@contextLinks"
+  />
 
 </configure>

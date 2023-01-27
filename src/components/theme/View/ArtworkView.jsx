@@ -1,14 +1,33 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { Grid, Container } from 'semantic-ui-react';
-import { SocialLinks } from '@package/components';
+import { SocialLinks, Card } from '@package/components';
 import ImageAlbum from '../ImageAlbum/ImageAlbum';
 import config from '@plone/volto/registry';
+
+const getUrl = (info, content) => info['url'];
+
+const getLinkLabel = (infoId, content) => {
+  let label;
+  switch (infoId) {
+    case 'artwork':
+      label = `More artworks by ${content.authorName}`;
+      break;
+    default:
+      break;
+  }
+  return label;
+};
 
 export default function ArtworkView(props) {
   const { registratorMail } = config.settings;
   const { content } = props;
   const columns = [];
+
+  const components = content['@components'] || {};
+  const { contextLinks = {} } = components;
+
+  console.log(content);
 
   (content.objectDescription || '').split('%').forEach((text) => {
     const col = [];
@@ -119,6 +138,15 @@ export default function ArtworkView(props) {
             </Grid.Row>
           </Grid>
         </div>
+        <h2>Context</h2>
+        {contextLinks.items?.map((info) => {
+          const item = {
+            '@id': getUrl(info, content),
+            title: getLinkLabel(info.id, content),
+            image_field: 'image',
+          };
+          return <Card item={item} {...props} useFallbackImage />;
+        })}
       </Container>
     </div>
   );

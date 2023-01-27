@@ -213,7 +213,7 @@ export default function applyConfig(config) {
   config.widgets.widget.attachedimage = AttachedImageWidget;
   config.widgets.id.cookie_consent_configuration = MultilingualWidget();
 
-  config.settings.registratorMail = 'registrator@vanabbemuseum.nl';
+  config.settings.registratorMail = 'mailto:registrator@vanabbemuseum.nl';
   config.settings.appExtras = [
     ...(config.settings.appExtras || []),
     {

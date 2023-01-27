@@ -11,9 +11,8 @@ const dateOptions = {
   day: 'numeric',
 };
 
-const Card = ({ item, showDate }) => {
+const Card = ({ item, showDate, size = 'large', useFallbackImage }) => {
   const { image_field } = item;
-  const size = 'large';
 
   return (
     <section className="listing-card  default-card">
@@ -28,7 +27,11 @@ const Card = ({ item, showDate }) => {
           <h3 className="card-title">{item.title}</h3>
           {!!image_field && (
             <div className="image-wrapper">
-              <PreviewImage item={item} size={size} isFallback={!image_field} />
+              <PreviewImage
+                item={item}
+                size={size}
+                isFallback={useFallbackImage ?? !image_field}
+              />
             </div>
           )}
           {!!item.description && (
@@ -134,9 +137,9 @@ const cardTypes = {
   artwork: ArtworkCard,
 };
 
-const UniversalCard = ({ item, showDate }) => {
+const UniversalCard = ({ item, showDate, ...rest }) => {
   const CardImpl = cardTypes[item['@type']] || cardTypes['default'];
-  return <CardImpl item={item} showDate={showDate} />;
+  return <CardImpl item={item} showDate={showDate} {...rest} />;
 };
 
 export default UniversalCard;
