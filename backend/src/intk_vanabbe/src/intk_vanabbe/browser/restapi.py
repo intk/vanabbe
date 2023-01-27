@@ -42,6 +42,7 @@ class ContextLinks:
             except:
                 pass
 
+        # TODO: convert years to DateTime
         if minmax:
             brains = find(
                 portal_type='artwork', Language=self.context.language,
@@ -57,7 +58,7 @@ class ContextLinks:
 
         # TODO: needs TextIndex "bookArtists"
         brains = find(portal_type='publication', Language=self.context.language,
-                bookArtists=authorName)
+                SearchableText=authorName)
         arts = [b for b in brains if b.id != self.context.id]
 
         return arts and choice(arts) or None

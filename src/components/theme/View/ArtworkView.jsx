@@ -42,7 +42,6 @@ export default function ArtworkView(props) {
 
     text.split('\n').forEach((p) => {
       col.push(p);
-      // col.push(<br />);
     });
     columns.push(col);
   });

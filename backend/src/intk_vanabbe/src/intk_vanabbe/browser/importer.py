@@ -58,7 +58,7 @@ class ImportVubis(BrowserView):
 
         if form.get('import') == 'artwork':
             import_publication = lambda info: None
-        if form.get('import') == 'pubs':
+        if form.get('import') == 'publication':
             import_artwork = lambda info: None
 
         scroll(

@@ -1,10 +1,10 @@
 <model xmlns:i18n="http://xml.zope.org/namespaces/i18n" xmlns:marshal="http://namespaces.plone.org/supermodel/marshal" xmlns:form="http://namespaces.plone.org/supermodel/form" xmlns:security="http://namespaces.plone.org/supermodel/security" xmlns:indexer="http://namespaces.plone.org/supermodel/indexer" xmlns:lingua="http://namespaces.plone.org/supermodel/lingua" xmlns:users="http://namespaces.plone.org/supermodel/users" xmlns="http://namespaces.plone.org/supermodel/schema">
   <schema>
-    <field name="ccObjectID" type="zope.schema.TextLine" lingua:independent="true">
+    <field name="ccObjectID" type="zope.schema.TextLine" lingua:independent="true" indexer:searchable="true">
       <description/>
       <title>ccObjectID</title>
     </field>
-    <field name="authorBio" type="zope.schema.Text" lingua:independent="true">
+    <field name="authorBio" type="zope.schema.Text" lingua:independent="true" indexer:searchable="true">
       <description/>
       <required>False</required>
       <title>AuthorBio</title>
@@ -19,12 +19,12 @@
       <required>False</required>
       <title>authorDeathDate</title>
     </field>
-    <field name="authorID" type="zope.schema.TextLine" lingua:independent="true">
+    <field name="authorID" type="zope.schema.TextLine" lingua:independent="true" >
       <description/>
       <required>False</required>
       <title>authorID</title>
     </field>
-    <field name="authorName" type="zope.schema.TextLine" lingua:independent="true">
+    <field name="authorName" type="zope.schema.TextLine" lingua:independent="true" indexer:searchable="true">
       <description/>
       <required>False</required>
       <title>authorName</title>
@@ -39,17 +39,17 @@
       <required>False</required>
       <title>authorURL</title>
     </field>
-    <field name="authorURLTitle" type="zope.schema.TextLine">
+    <field name="authorURLTitle" type="zope.schema.TextLine" indexer:searchable="true">
       <description/>
       <required>False</required>
       <title>authorURLTitle</title>
     </field>
-    <field name="ccIdentifier" type="zope.schema.TextLine" lingua:independent="true">
+    <field name="ccIdentifier" type="zope.schema.TextLine" lingua:independent="true" indexer:searchable="true">
       <description/>
       <required>False</required>
       <title>ccIdentifier</title>
     </field>
-    <field name="ccIndexName" type="zope.schema.TextLine" lingua:independent="true">
+    <field name="ccIndexName" type="zope.schema.TextLine" lingua:independent="true" >
       <description/>
       <required>False</required>
       <title>ccIndexName</title>
@@ -74,27 +74,27 @@
       <required>False</required>
       <title>objectCreationDateTo</title>
     </field>
-    <field name="objectDescription" type="zope.schema.Text">
+    <field name="objectDescription" type="zope.schema.Text" indexer:searchable="true">
       <description/>
       <required>False</required>
       <title>objectDescription</title>
     </field>
-    <field name="objectID" type="zope.schema.TextLine" lingua:independent="true">
+    <field name="objectID" type="zope.schema.TextLine" lingua:independent="true" indexer:searchable="true">
       <description/>
       <required>False</required>
       <title>objectID</title>
     </field>
-    <field name="objectMedium" type="zope.schema.Text">
+    <field name="objectMedium" type="zope.schema.Text" indexer:searchable="true">
       <description/>
       <required>False</required>
       <title>objectMedium</title>
     </field>
-    <field name="objectCredit" type="zope.schema.TextLine" lingua:independent="true">
+    <field name="objectCredit" type="zope.schema.TextLine" lingua:independent="true" indexer:searchable="true">
       <description/>
       <required>False</required>
       <title>objectCredit</title>
     </field>
-    <field name="objectTitle" type="zope.schema.Text" lingua:independent="true">
+    <field name="objectTitle" type="zope.schema.Text" lingua:independent="true" indexer:searchable="true">
       <description/>
       <required>False</required>
       <title>objectTitle</title>
@@ -104,7 +104,7 @@
       <required>False</required>
       <title>objectYearPurchase</title>
     </field>
-    <field name="recordnumber" type="zope.schema.TextLine" lingua:independent="true">
+    <field name="recordnumber" type="zope.schema.TextLine" lingua:independent="true" indexer:searchable="true">
       <description/>
       <required>False</required>
       <title>recordnumber</title>

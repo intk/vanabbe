@@ -24,6 +24,7 @@
     <element value="plone.basic"/>
     <element value="plone.translatable"/>
     <element value="plone.categorization"/>
+    <element value="plone.textindexer"/>
   </property>
   <property name="schema">intk_vanabbe.content.publication.IPublication</property>
   <alias from="(Default)" to="(dynamic view)"/>
