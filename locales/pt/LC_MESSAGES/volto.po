@@ -116,8 +116,8 @@ msgid "Description"
 msgstr ""
 
 #: components/theme/View/ArtworkView
-# defaultMessage: Does this page contain inaccurate information or
-msgid "Does this page contain inaccurate information orlanguage that you feel we should improve or change? We"
+# defaultMessage: Does this page contain inaccurate information or language that you feel we should improve or change?
+msgid "Does this page contain inaccurate information or language that you feel we should improve or change?"
 msgstr ""
 
 #: components/blocks/SiteData/schema
@@ -147,8 +147,8 @@ msgid "Headline level"
 msgstr ""
 
 #: components/theme/View/ArtworkView
-# defaultMessage: If you need specific information on this work or
-msgid "If you need specific information on this work orartist, remember that the Van Abbemuseum Library isat your disposal, or feel free to write to the"
+# defaultMessage: If you need specific information on this work or artist, remember that the Van Abbemuseum Library is at your disposal, or feel free to write to the library.
+msgid "If you need specific information on this work or artist, remember that the Van Abbemuseum Library is at your disposal, or feel free to write to the library."
 msgstr ""
 
 #: components/blocks/HeroUnit/schema
@@ -290,8 +290,8 @@ msgid "Source website"
 msgstr ""
 
 #: components/theme/View/ArtworkView
-# defaultMessage: The Van Abbemuseum Collection consists of over 2800
-msgid "The Van Abbemuseum Collection consists of over 2800artworks. We publish texts and images on an ongoingbasis, but this record is currently in the process"
+# defaultMessage: The Van Abbemuseum Collection consists of over 2800 artworks. We publish texts and images on an ongoing basis, but this record is currently in the process of being documented.
+msgid "The Van Abbemuseum Collection consists of over 2800 artworks. We publish texts and images on an ongoing basis, but this record is currently in the process of being documented."
 msgstr ""
 
 #: components/blocks/ActionLinks/schema
@@ -327,6 +327,11 @@ msgstr ""
 #: components/blocks/ImageCards/SplashyCarousel
 # defaultMessage: Watch The Video
 msgid "Watch The Video"
+msgstr ""
+
+#: components/theme/View/ArtworkView
+# defaultMessage: We would like to hear from you
+msgid "We would like to hear from you"
 msgstr ""
 
 #: components/blocks/ContentDivider/ContentDividerEdit

@@ -3,9 +3,22 @@ import { FormattedMessage } from 'react-intl';
 import { Grid, Container } from 'semantic-ui-react';
 import { SocialLinks } from '@package/components';
 import ImageAlbum from '../ImageAlbum/ImageAlbum';
+import config from '@plone/volto/registry';
 
 export default function ArtworkView(props) {
+  const { registratorMail } = config.settings;
   const { content } = props;
+  const columns = [];
+
+  (content.objectDescription || '').split('%').forEach((text) => {
+    const col = [];
+
+    text.split('\n').forEach((p) => {
+      col.push(p);
+      // col.push(<br />);
+    });
+    columns.push(col);
+  });
 
   return (
     <div className="artwork-view">
@@ -57,26 +70,14 @@ export default function ArtworkView(props) {
                         <div className="info">
                           <p>
                             <FormattedMessage
-                              id="The Van Abbemuseum Collection consists of over 2800
-                            artworks. We publish texts and images on an ongoing
-                            basis, but this record is currently in the process
-                            of being documented."
-                              defaultMessage="The Van Abbemuseum Collection consists of over 2800
-                            artworks. We publish texts and images on an ongoing
-                            basis, but this record is currently in the process
-                            of being documented."
+                              id="The Van Abbemuseum Collection consists of over 2800 artworks. We publish texts and images on an ongoing basis, but this record is currently in the process of being documented."
+                              defaultMessage="The Van Abbemuseum Collection consists of over 2800 artworks. We publish texts and images on an ongoing basis, but this record is currently in the process of being documented."
                             />
                           </p>
                           <p>
                             <FormattedMessage
-                              id="If you need specific information on this work or
-                            artist, remember that the Van Abbemuseum Library is
-                            at your disposal, or feel free to write to the
-                            library."
-                              defaultMessage="If you need specific information on this work or
-                            artist, remember that the Van Abbemuseum Library is
-                            at your disposal, or feel free to write to the
-                            library."
+                              id="If you need specific information on this work or artist, remember that the Van Abbemuseum Library is at your disposal, or feel free to write to the library."
+                              defaultMessage="If you need specific information on this work or artist, remember that the Van Abbemuseum Library is at your disposal, or feel free to write to the library."
                             />
                           </p>
                           <div className="computer large screen widescreen only">
@@ -86,22 +87,27 @@ export default function ArtworkView(props) {
                       </div>
                     </div>
                     <div className="artwork-content offset-1-left offset-2-right">
-                      <h4>
+                      <h3>
                         <FormattedMessage
                           id="Description"
                           defaultMessage="Description"
                         />
-                      </h4>
-                      ...
-                      <p>
+                      </h3>
+                      {columns.map((col, index) => (
+                        <p key={index}>{col}</p>
+                      ))}
+                      <p className="artwork-content-footer">
                         <FormattedMessage
-                          id="Does this page contain inaccurate information or
-                          language that you feel we should improve or change? We
-                          would like to hear from you."
-                          defaultMessage="Does this page contain inaccurate information or
-                          language that you feel we should improve or change? We
-                          would like to hear from you."
-                        />
+                          id="Does this page contain inaccurate information or language that you feel we should improve or change?"
+                          defaultMessage="Does this page contain inaccurate information or language that you feel we should improve or change?"
+                        />{' '}
+                        <a href={registratorMail}>
+                          <FormattedMessage
+                            id="We would like to hear from you"
+                            defaultMessage="We would like to hear from you"
+                          />
+                          .
+                        </a>
                       </p>
                       <div className="image-wrapper mobile tablet only">
                         <SocialLinks />
