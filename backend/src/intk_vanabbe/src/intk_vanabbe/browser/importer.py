@@ -70,7 +70,7 @@ class ImportVubis(BrowserView):
 
         scroll(
             import_artwork, import_publication, import_exhibition,
-            max_records=int(form.get('max', 1000))
+            max_records=int(form.get('max', 100))
         )
 
         return "done"
@@ -129,21 +129,28 @@ class ImportVubis(BrowserView):
     def import_exhibition(self, rec):
         container = self.context
 
+        rec = convert_lists_to_text(rec)
         rec['title'] = rec['eventTitle']
+        en_title = None
+
+        if rec.get('eventTitle_EN'):
+            en_title = rec['eventTitle_EN']
+            del rec['eventTitle_EN']
 
         try:
             obj = content.create(
                 type='exhibition',
-                id=rec['recordNumber'],
+                id=str(rec['recordnumber']),
                 container=container, **rec)
             print("Imported exhibition", path(obj))
 
-            if rec['eventTitle_EN']:
-                rec['title'] = rec['eventTitle'] = rec['eventTitle_EN']
+            if en_title:
+                rec['title'] = en_title
+                rec['eventTitle'] = en_title
 
             self.translate(obj, rec)
         except Exception:
-            logger.exception("Unable to import publication")
+            logger.exception("Unable to import exhibition")
 
         return True
 

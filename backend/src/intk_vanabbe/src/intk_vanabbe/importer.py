@@ -14,6 +14,8 @@ This might be the most straight forward method for your company as well.
 The XML is updated once every 24 hours. The fresh XML will be ready each day around 4:30
 in the morning.
 
+http://62.221.199.184:17718/action=get&command=search&query=ccIndexName=VanabbeTentoonstellingen&fields=*&range=1-1000
+
 """
 
 import lxml.etree
@@ -172,21 +174,26 @@ def _import_publication(rec):
     pass
 
 
-def scroll(import_artwork, import_publication, import_exhibition, max_records=10):
+def scroll(import_artwork,
+           import_publication, import_exhibition, max_records=10):
     """ Fetch information from URL
     """
     cur = 1
     count = 0
 
-    while cur < max_records:
+    while count < max_records:
         url = BASE_URL % (cur, cur + BATCH_SIZE)
+        print("Fetch records: ", cur, cur+BATCH_SIZE)
         resp = requests.get(url, verify=False)
         cur = cur + BATCH_SIZE + 1
         doc = lxml.etree.fromstring(resp.text.encode('utf-8'))
         # max_records = int(doc.xpath('number(%s/request/count/text())' % ROOT))
 
-        for rec in doc.xpath('%s/records/record/data/dc_record' % ROOT):
-            print("Count: ", count)
+        records = doc.xpath('%s/records/record/data/dc_record' % ROOT)
+        if not records:
+            break
+
+        for rec in records:
             info = to_dict(rec)
 
             filename = info.get('objectImage')
