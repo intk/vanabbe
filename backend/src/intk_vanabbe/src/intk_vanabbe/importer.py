@@ -211,7 +211,7 @@ def scroll(import_artwork, import_publication, import_exhibition, max_records=10
 
             if rec.xpath('./AuthorBio'):
                 imported = import_artwork(info)
-            else if rec.xpath('./eventArtist'):
+            elif rec.xpath('./eventArtist'):
                 imported = import_exhibition(info)
             else:
                 imported = import_publication(info)

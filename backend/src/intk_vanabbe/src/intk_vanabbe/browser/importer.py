@@ -59,9 +59,9 @@ class ImportVubis(BrowserView):
 
         if form.get('import') == 'artwork':
             import_artwork = self.import_artwork
-        else if form.get('import') == 'publication':
+        elif form.get('import') == 'publication':
             import_publication = self.import_publication
-        else if form.get('import') == 'exhibition':
+        elif form.get('import') == 'exhibition':
             import_exhibition = self.import_exhibition
         else:
             import_artwork = self.import_artwork
