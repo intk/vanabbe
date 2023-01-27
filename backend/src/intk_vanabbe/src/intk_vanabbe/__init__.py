@@ -11,4 +11,6 @@ logger = logging.getLogger("intk_vanabbe")
 # side-effect imports
 
 from .content.artwork import IArtwork
+from .content.author import IAuthor
+from .content.exhibition import IExhibition
 from .content.publication import IPublication

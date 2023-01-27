@@ -4,4 +4,5 @@
 >
   <object name="artwork" meta_type="Dexterity FTI"/>
   <object name="publication" meta_type="Dexterity FTI"/>
+  <object name="exhibition" meta_type="Dexterity FTI"/>
 </object>

@@ -5,7 +5,7 @@ from zope import schema
 
 
 class IPublication(model.Schema):
-    """Schema for Artwork content type."""
+    """Schema for 'publication' content type."""
 
     # model.load('schema/publication.xml')
 

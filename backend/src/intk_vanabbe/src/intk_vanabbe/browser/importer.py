@@ -53,16 +53,23 @@ class ImportVubis(BrowserView):
         alsoProvides(self.request, IDisableCSRFProtection)
         form = self.request.form
 
-        import_artwork = self.import_artwork
-        import_publication = self.import_publication
+        import_artwork = lambda info: None
+        import_publication = lambda info: None
+        import_exhibition = lambda info: None
 
         if form.get('import') == 'artwork':
-            import_publication = lambda info: None
-        if form.get('import') == 'publication':
-            import_artwork = lambda info: None
+            import_artwork = self.import_artwork
+        else if form.get('import') == 'publication':
+            import_publication = self.import_publication
+        else if form.get('import') == 'exhibition':
+            import_exhibition = self.import_exhibition
+        else:
+            import_artwork = self.import_artwork
+            import_publication = self.import_publication
+            import_exhibition = self.import_exhibition
 
         scroll(
-            import_artwork, import_publication,
+            import_artwork, import_publication, import_exhibition,
             max_records=int(form.get('max', 1000))
         )
 
@@ -103,6 +110,8 @@ class ImportVubis(BrowserView):
         self.translate(obj, trans_rec)
         print("Imported artwork: ", path(obj))
 
+        return True
+
     def import_publication(self, rec):
         container = self.context
         try:
@@ -114,6 +123,29 @@ class ImportVubis(BrowserView):
             self.translate(obj, rec)
         except Exception:
             logger.exception("Unable to import publication")
+
+        return True
+
+    def import_exhibition(self, rec):
+        container = self.context
+
+        rec['title'] = rec['eventTitle']
+
+        try:
+            obj = content.create(
+                type='exhibition',
+                id=rec['recordNumber'],
+                container=container, **rec)
+            print("Imported exhibition", path(obj))
+
+            if rec['eventTitle_EN']:
+                rec['title'] = rec['eventTitle'] = rec['eventTitle_EN']
+
+            self.translate(obj, rec)
+        except Exception:
+            logger.exception("Unable to import publication")
+
+        return True
 
     def translate(self, obj, fields):
         language = 'en'

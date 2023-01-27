@@ -115,6 +115,32 @@ def _import_artwork(rec):
 
     pass
 
+def _import_exhibition(rec):
+    """
+<dc_record>
+<ccObjectID>https://vanabbe.inforlibraries.com/abbeweb/LinkToVubis.csp?DataBib=3:344</ccObjectID>
+<ccIdentifier>https://vanabbe.inforlibraries.com/abbeweb/LinkToVubis.csp?DataBib=3:344</ccIdentifier>
+<ccIndexName>VanabbeTentoonstellingen</ccIndexName>
+<eventArtist>Wiley, William</eventArtist>
+<eventCoorporation>Solotentoonstelling - Curator: Jean Leering (directeur). - Opening: Inleiding : J. Leering. - Film: W.T. Wiley, 'Man's Nature'. Verder: W.T. Wiley, 'Plastic Haircut' ; 'Off Hand Jape' ; W.T. Wiley en R. Nelson, 'The Great Blondino' (28-04 en 29-04-1973) - Opmerkingen: Reizende tentoonstelling : Stedelijk Van Abbemuseum ; Lijnbaan Kunstcentrum, Rotterdam ; Internationaal Cultureel Centrum (ICC), Antwerpen - Met documentatie - Foto's: Van den Bichelaer, A. Villevoye</eventCoorporation>
+<eventDescription>In deze tentoonstelling werd een overzicht gegeven van de assemblages, aquarellen, tekeningen en films van de West-Coast kunstenaar William T. Wiley (Bedford 21-10-1937). De presentatie werd gezien als een nadere uitwerking en aanvulling op de Kompas IV-tentoonstelling over de beeldende kunst aan de West-Coast van de Verenigde Staten. Delen van zijn oeuvre worden wel gerekend tot de Funk Art.</eventDescription>
+<eventImages>https://mediabank.vanabbemuseum.nl/vam/files/alexandria/publiciteit/zaaloverzichten/1973/wiley/1973_wiley007.jpg</eventImages>
+<eventImages>https://mediabank.vanabbemuseum.nl/vam/files/alexandria/publiciteit/zaaloverzichten/1973/wiley/1973_wiley012.jpg</eventImages>
+<eventImages>https://mediabank.vanabbemuseum.nl/vam/files/alexandria/publiciteit/zaaloverzichten/1973/wiley/1973_wiley017.jpg</eventImages>
+<eventMedia>https://mediabank.vanabbemuseum.nl/vam/files/alexandria/publiciteit/zaaloverzichten/1973/wiley/wiley catalogus.pdf|Catalogus</eventMedia>
+<eventMedia>https://mediabank.vanabbemuseum.nl/vam/files/alexandria/publiciteit/folders/1973/FolderWiley1973.pdf|Folder</eventMedia>
+<eventMedia>https://mediabank.vanabbemuseum.nl/vam/files/alexandria/publiciteit/zaaloverzichten/1973/wiley/1973_wiley_inrichting.pdf|Inrichting (negatieven)</eventMedia>
+<eventMedia>https://mediabank.vanabbemuseum.nl/vam/files/alexandria/publiciteit/persberichten/1973/PersberichtNEDWiley1973.pdf|Persbericht NE</eventMedia>
+<eventMedia>http://mediabank.vanabbemuseum.nl/vam/start/tentoonstellingsarchief/1973%20William%20T.%20Wiley%20%3A%20Assemblages%20en%20aquarellen/Zaaloverzicht?fc=browse&column=8|Zaaloverzichten (mediabank)</eventMedia>
+<eventMedia>https://mediabank.vanabbemuseum.nl/vam/files/alexandria/publiciteit/zaalteksten/1973/ZaaltekstNEDWiley1973.pdf|Zaaltekst NE</eventMedia>
+<eventTimeFrom>Van: 13-04-73 tot: 28-05-73</eventTimeFrom>
+<eventTitle>William T. Wiley : Assemblages en aquarellen</eventTitle>
+<eventTitle_EN>William T. Wiley : Assemblages and watercolours</eventTitle_EN>
+<recordnumber>102971</recordnumber>
+</dc_record>
+    """
+    pass
+
 def _import_publication(rec):
     """<dc_record>
 <ccObjectID>2:63445</ccObjectID>
@@ -146,7 +172,7 @@ def _import_publication(rec):
     pass
 
 
-def scroll(import_artwork, import_publication, max_records=10):
+def scroll(import_artwork, import_publication, import_exhibition, max_records=10):
     """ Fetch information from URL
     """
     cur = 1
@@ -161,7 +187,6 @@ def scroll(import_artwork, import_publication, max_records=10):
 
         for rec in doc.xpath('%s/records/record/data/dc_record' % ROOT):
             print("Count: ", count)
-            count += 1
             info = to_dict(rec)
 
             filename = info.get('objectImage')
@@ -182,10 +207,17 @@ def scroll(import_artwork, import_publication, max_records=10):
                             shutil.copyfileobj(req.raw, file)
                     info['objectImage'].append(os.path.abspath(local_filename))
 
+            imported = False
+
             if rec.xpath('./AuthorBio'):
-                import_artwork(info)
+                imported = import_artwork(info)
+            else if rec.xpath('./eventArtist'):
+                imported = import_exhibition(info)
             else:
-                import_publication(info)
+                imported = import_publication(info)
+
+            if imported:
+                count += 1
 
             if count % 100 == 0:
                 transaction.savepoint()
