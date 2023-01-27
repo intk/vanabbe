@@ -23,9 +23,9 @@ const VideoPlayer = (props) => {
   const youtubeURL = videoUrl?.match(/youtube|.be\//);
 
   const playerProps = {
-    muted: true, // in some browsers (e.g. Chrome) autoplay doesn't work if no muted attribute is present
+    muted: true,
     playing: playing,
-    controls: true,
+    controls: false,
     url: videoUrl,
     width: '100%',
     height: '100%',
