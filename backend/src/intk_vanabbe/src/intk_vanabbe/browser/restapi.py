@@ -1,6 +1,7 @@
 from plone.api.content import find
 from plone.restapi.interfaces import IExpandableElement
 from plone.restapi.services import Service
+from random import choice
 from zope.component import adapter
 from zope.component import getMultiAdapter
 from zope.interface import implementer
@@ -18,7 +19,51 @@ class ContextLinks:
         brains = find(portal_type='artwork', authorID=self.context.authorID,
                 Language=self.context.language)
         arts = [b for b in brains if b.id != self.context.id]
-        return arts and arts[0] or None
+        return arts and choice(arts) or None
+
+    def get_period_art(self):
+        ctx = self.context
+
+        minmax = []
+        brains = []
+
+        if ctx.objectCreationDateFrom and ctx.objectCreationDateTo:
+            try:
+                start = int(ctx.objectCreationDateFrom)
+                end = int(ctx.objectCreationDateTo)
+                minmax = [start, end]
+            except:
+                pass
+
+        if not minmax:
+            try:
+                year = int(ctx.objectCreationDate)
+                minmax = [year, year + 1]
+            except:
+                pass
+
+        if minmax:
+            brains = find(
+                portal_type='artwork', Language=self.context.language,
+                objectCreationDateRange={"query": minmax, 'range': 'min:max'}
+            )
+
+        arts = [b for b in brains if b.id != self.context.id]
+        return arts and choice(arts) or None
+
+    def get_publications(self):
+        ctx = self.context
+        authorName = self.context.authorName
+
+        # TODO: needs TextIndex "bookArtists"
+        brains = find(portal_type='publication', Language=self.context.language,
+                bookArtists=authorName)
+        arts = [b for b in brains if b.id != self.context.id]
+
+        return arts and choice(arts) or None
+
+    def get_exhibition_art(self):
+        return None
 
     def __call__(self, expand=False):
         result = {"contextLinks": {"@id": f"{self.context.absolute_url()}/@contextLinks"}}
@@ -26,26 +71,28 @@ class ContextLinks:
         if self.context.portal_type != 'artwork':       # autoexpand
             return result
 
-        portal_state = getMultiAdapter(
-            (self.context, self.request), name="plone_portal_state"
-        )
         items = []
 
         other_art = self.get_other_art()
         if other_art:
             items.append({"id": "artwork", "url": other_art.getURL()})
 
-        # for crumb in breadcrumbs_view.breadcrumbs():
-        #     item = {
-        #         "title": crumb["Title"],
-        #         "@id": crumb["absolute_url"],
-        #     }
-        #     if crumb.get("nav_title", False):
-        #         item.update({"title": crumb["nav_title"]})
-        #
-        #     items.append(item)
+        period_art = self.get_period_art()
+        if period_art:
+            items.append({"id": "period", "url": period_art.getURL()})
+
+        publication_art = self.get_publications()
+        if publication_art:
+            items.append({"id": "publication",
+                          "url": publication_art.getURL()})
+
+        exhibition_art = self.get_exhibition_art()
+        if exhibition_art:
+            items.append({"id": "exhibition",
+                    url: exhibition_art.getURL()})
 
         result["contextLinks"]['items'] = items
+
         return result
 
 
