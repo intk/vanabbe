@@ -36,6 +36,8 @@ body {
 }
 
 .content-area {
+  background-color: var(--background-color) !important;
+
   main,
   #view {
     height: 100%;
