@@ -43,6 +43,7 @@ INT_FIELDS = [
 INTL_FIELDS = [
     'authorURL',
     'objectMedium',
+    'objectDescription',
 ]
 
 

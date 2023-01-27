@@ -65,7 +65,7 @@ const ImageAlbum = (props) => {
         />
       </div>
 
-      {thumbsToShow.length > 1 && (
+      {thumbsToShow.length && (
         <div className="thumbnails">
           {thumbsToShow.map((thumb, i) => (
             <div

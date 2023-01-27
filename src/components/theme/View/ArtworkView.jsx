@@ -2,9 +2,22 @@ import React from 'react';
 import { Grid, Container } from 'semantic-ui-react';
 import { SocialLinks } from '@package/components';
 import ImageAlbum from '../ImageAlbum/ImageAlbum';
+import config from '@plone/volto/registry';
 
 export default function ArtworkView(props) {
+  const { registratorMail } = config.settings;
   const { content } = props;
+  const columns = [];
+
+  (content.objectDescription || '').split('%').forEach((text) => {
+    const col = [];
+
+    text.split('\n').forEach((p) => {
+      col.push(p);
+      // col.push(<br />);
+    });
+    columns.push(col);
+  });
 
   return (
     <div className="artwork-view">
@@ -17,7 +30,7 @@ export default function ArtworkView(props) {
                   <div className="artwork-container">
                     <div className="artwork-top">
                       <ImageAlbum
-                        items={content.items}
+                        items={content.items.slice(1)}
                         itemTitle={content.objectTitle}
                         itemAuthor={content.authorName}
                       />
@@ -61,11 +74,15 @@ export default function ArtworkView(props) {
                     </div>
                     <div className="artwork-content offset-1-left offset-2-right">
                       <h4>Description</h4>
-                      ...
-                      <p>
+                      {columns.map((col, index) => (
+                        <p key={index}>{col}</p>
+                      ))}
+                      <p className="artwork-content-footer">
                         Does this page contain inaccurate information or
-                        language that you feel we should improve or change? We
-                        would like to hear from you.
+                        language that you feel we should improve or change?{' '}
+                        <a href={registratorMail}>
+                          We would like to hear from you.
+                        </a>
                       </p>
                       <div className="image-wrapper mobile tablet only">
                         <SocialLinks />
