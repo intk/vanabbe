@@ -24,26 +24,24 @@ body.has-hero-image {
 }
 
 .blocks-bg-wrapper:not(:empty) {
-  padding: var(--space-xl) 0;
+  padding-top: var(--space-xl);
+  padding-bottom: var(--space-xl);
   margin-bottom: var(--space-xl);
   background-color: @white;
   border-radius: 10px;
 
   @media only screen and (max-width: @largestTabletScreen) {
-    padding: var(--space-xs) 0;
+    padding-top: var(--space-xs);
+    padding-bottom: var(--space-xs);
+    padding-left: 0.8rem;
   }
 }
 
 .blocks-wrapper,
 .blocks-bg-wrapper {
-  > *,
-  .ui.divider {
-    margin-right: @twoWide;
-    margin-left: calc(@oneWide + 0.6rem);
-
-    @media only screen and (max-width: @largestTabletScreen) {
-      margin-left: 0.8rem;
-    }
+  @media only screen and (min-width: @largestMobileScreen) {
+    padding-right: @twoWide;
+    padding-left: calc(@oneWide + 0.6rem);
   }
 
   > *:last-child {
@@ -54,13 +52,14 @@ body.has-hero-image {
   > .quoteBlock-wrapper,
   > .accordion-block,
   > .block.listing,
-  > .block.hero {
-    margin-right: @desktopPadding;
-    margin-left: @desktopPadding;
+  > .block.hero,
+  > .hero-unit-block {
+    margin-right: -@twoWide;
+    margin-left: calc(-@oneWide + 0.6rem);
 
     @media only screen and (max-width: @largestTabletScreen) {
-      margin-right: 0.6rem;
-      margin-left: 0.6rem;
+      margin-right: 0;
+      margin-left: 0;
     }
   }
 
@@ -78,23 +77,13 @@ body.has-hero-image {
 body.homepage-view {
   .blocks-wrapper,
   .blocks-bg-wrapper {
+    padding: 0 !important;
+
     > *,
     .ui.divider {
-      margin-right: 0;
-      margin-left: 0;
+      margin-right: 0 !important;
+      margin-left: 0 !important;
     }
-  }
-}
-
-.blocks-wrapper {
-  > .image-carousel,
-  > .quoteBlock-wrapper,
-  > .accordion-block,
-  > .block.listing,
-  > .block.hero,
-  > .ui.divider {
-    margin-right: 0;
-    margin-left: 0;
   }
 }
 

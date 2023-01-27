@@ -3,11 +3,14 @@
 
 @import (multiple, reference, optional) '../../theme.config';
 
+body.homepage-view .blocks-wrapper .hero-unit-block,
 .hero-unit-block {
-  margin: 3em 0 2em 0;
-  margin-right: -@oneWide !important;
+  margin-top: 3em;
+  margin-right: -@oneWide!important;
+  margin-bottom: 2em;
 
   @media only screen and (max-width: @largestMobileScreen) {
+    margin-right: 0 !important;
     margin-bottom: 0;
   }
 }
@@ -133,6 +136,7 @@ body.view-viewview {
   padding: 0.75em 1em;
   background-color: var(--background-color);
   color: var(--text-color);
+  font-size: @mediumFontSize;
 }
 
 body.homepage-view {
@@ -149,10 +153,8 @@ body.homepage-view {
     gap: 1em;
   }
 
-  .normal-hero {
-    .hero-unit-image-wrapper {
-      width: 70% !important;
-    }
+  .hero-unit-image-wrapper {
+    height: 337px;
   }
 
   .big-hero {
@@ -167,10 +169,6 @@ body.homepage-view {
 }
 
 @media only screen and (max-width: 580px) {
-  .normal-hero .hero-unit-image-wrapper {
-    width: 65% !important;
-  }
-
   .big-hero .hero-unit-image-wrapper {
     height: 500px !important;
   }

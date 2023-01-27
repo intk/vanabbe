@@ -12,6 +12,7 @@ const ReactYoutubePlayer = loadable(() => import('react-player/youtube'));
 const ReactVimeoPlayer = loadable(() => import('react-player/vimeo'));
 
 const getPosition = (ref) => {
+  if (!ref.current) return;
   const position = ref.current.getBoundingClientRect().top;
   return position;
 };
@@ -59,7 +60,10 @@ const HeroUnitView = (props) => {
   const logoRef = useRef();
   const heroRef = useRef();
   const { windowHeight } = useWindowDimensions();
-  const inViewport = useIntersection(heroRef, '0px');
+  const inViewport = useIntersection(heroRef, {
+    threshold: 1.0,
+    rootMargin: '0px',
+  });
 
   const [isActive, setActive] = useState(false);
   const [scrolling, setScrolling] = useState(false);
