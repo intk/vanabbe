@@ -19,7 +19,7 @@ const ImageAlbum = (props) => {
   const [activeSlideIndex, setActiveSlideIndex] = React.useState(0);
   const sliderRef = React.useRef(null);
 
-  const thumbsToShow = items.slice(0, MAX_THUMBS);
+  const thumbsToShow = items.slice(1, MAX_THUMBS);
   const moreImagesLength =
     items.length > MAX_THUMBS ? items.length - MAX_THUMBS : null;
 
@@ -65,7 +65,7 @@ const ImageAlbum = (props) => {
         />
       </div>
 
-      {thumbsToShow.length && (
+      {thumbsToShow.length > 0 && (
         <div className="thumbnails">
           {thumbsToShow.map((thumb, i) => (
             <div

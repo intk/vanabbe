@@ -30,7 +30,7 @@ export default function ArtworkView(props) {
                   <div className="artwork-container">
                     <div className="artwork-top">
                       <ImageAlbum
-                        items={content.items.slice(1)}
+                        items={content.items}
                         itemTitle={content.objectTitle}
                         itemAuthor={content.authorName}
                       />
