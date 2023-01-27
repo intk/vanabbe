@@ -73,7 +73,7 @@ export default function ArtworkView(props) {
                       </div>
                     </div>
                     <div className="artwork-content offset-1-left offset-2-right">
-                      <h4>Description</h4>
+                      <h3>Description</h3>
                       {columns.map((col, index) => (
                         <p key={index}>{col}</p>
                       ))}
