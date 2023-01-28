@@ -13,6 +13,7 @@ import AttachedImageWidget from './components/widgets/AttachedImageWidget';
 import MultipleContentView from './components/theme/View/MultipleContentView';
 import ListingView from './components/theme/View/ListingView';
 import PublicationView from './components/theme/View/PublicationView';
+import AuthorView from './components/theme/View/AuthorView';
 import ArtworkView from './components/theme/View/ArtworkView';
 
 import installExpressMiddleware from './express-middleware';
@@ -208,6 +209,7 @@ export default function applyConfig(config) {
     ...config.views.contentTypesViews,
     publication: PublicationView,
     artwork: ArtworkView,
+    author: AuthorView,
   };
 
   config.widgets.widget.attachedimage = AttachedImageWidget;

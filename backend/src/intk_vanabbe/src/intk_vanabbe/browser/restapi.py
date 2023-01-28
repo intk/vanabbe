@@ -7,9 +7,7 @@ from zope.interface import implementer
 from zope.interface import Interface
 
 
-@implementer(IExpandableElement)
-@adapter(Interface, Interface)
-class ContextLinks:
+class ArtworkContextLinks(object):
     def __init__(self, context, request):
         self.context = context
         self.request = request
@@ -72,14 +70,7 @@ class ContextLinks:
     def get_exhibition_art(self):
         return None
 
-    def __call__(self, expand=False):
-        result = {
-            "contextLinks": {"@id": f"{self.context.absolute_url()}/@contextLinks"}
-        }
-
-        if self.context.portal_type != "artwork":  # autoexpand
-            return result
-
+    def __call__(self, result):
         items = []
 
         other_art = self.get_other_art()
@@ -99,6 +90,29 @@ class ContextLinks:
             items.append({"id": "exhibition", "url": exhibition_art.getURL()})
 
         result["contextLinks"]["items"] = items
+        return result
+
+
+@implementer(IExpandableElement)
+@adapter(Interface, Interface)
+class ContextLinks:
+    def __init__(self, context, request):
+        self.context = context
+        self.request = request
+
+    def __call__(self, expand=False):
+        result = {
+            "contextLinks": {"@id": f"{self.context.absolute_url()}/@contextLinks"}
+        }
+
+        factories = {"artwork": ArtworkContextLinks}
+
+        ptype = self.context.portal_type
+        if ptype not in factories:  # autoexpand
+            return result
+
+        factory = factories[ptype]
+        result = factory(self.context, self.request)(result)
 
         return result
 
