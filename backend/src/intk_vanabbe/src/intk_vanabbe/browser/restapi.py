@@ -3,7 +3,6 @@ from plone.restapi.interfaces import IExpandableElement
 from plone.restapi.services import Service
 from random import choice
 from zope.component import adapter
-from zope.component import getMultiAdapter
 from zope.interface import implementer
 from zope.interface import Interface
 
@@ -16,8 +15,11 @@ class ContextLinks:
         self.request = request
 
     def get_other_art(self):
-        brains = find(portal_type='artwork', authorID=self.context.authorID,
-                Language=self.context.language)
+        brains = find(
+            portal_type="artwork",
+            authorID=self.context.authorID,
+            Language=self.context.language,
+        )
         arts = [b for b in brains if b.id != self.context.id]
         return arts and choice(arts) or None
 
@@ -32,33 +34,37 @@ class ContextLinks:
                 start = int(ctx.objectCreationDateFrom)
                 end = int(ctx.objectCreationDateTo)
                 minmax = [start, end]
-            except:
+            except Exception:
                 pass
 
         if not minmax:
             try:
                 year = int(ctx.objectCreationDate)
                 minmax = [year, year + 1]
-            except:
+            except Exception:
                 pass
 
         # TODO: convert years to DateTime
         if minmax:
             brains = find(
-                portal_type='artwork', Language=self.context.language,
-                objectCreationDateRange={"query": minmax, 'range': 'min:max'}
+                portal_type="artwork",
+                Language=self.context.language,
+                objectCreationDateRange={"query": minmax, "range": "min:max"},
             )
 
         arts = [b for b in brains if b.id != self.context.id]
         return arts and choice(arts) or None
 
     def get_publications(self):
-        ctx = self.context
+        # ctx = self.context
         authorName = self.context.authorName
 
         # TODO: needs TextIndex "bookArtists"
-        brains = find(portal_type='publication', Language=self.context.language,
-                SearchableText=authorName)
+        brains = find(
+            portal_type="publication",
+            Language=self.context.language,
+            SearchableText=authorName,
+        )
         arts = [b for b in brains if b.id != self.context.id]
 
         return arts and choice(arts) or None
@@ -67,9 +73,11 @@ class ContextLinks:
         return None
 
     def __call__(self, expand=False):
-        result = {"contextLinks": {"@id": f"{self.context.absolute_url()}/@contextLinks"}}
+        result = {
+            "contextLinks": {"@id": f"{self.context.absolute_url()}/@contextLinks"}
+        }
 
-        if self.context.portal_type != 'artwork':       # autoexpand
+        if self.context.portal_type != "artwork":  # autoexpand
             return result
 
         items = []
@@ -84,15 +92,13 @@ class ContextLinks:
 
         publication_art = self.get_publications()
         if publication_art:
-            items.append({"id": "publication",
-                          "url": publication_art.getURL()})
+            items.append({"id": "publication", "url": publication_art.getURL()})
 
         exhibition_art = self.get_exhibition_art()
         if exhibition_art:
-            items.append({"id": "exhibition",
-                    url: exhibition_art.getURL()})
+            items.append({"id": "exhibition", "url": exhibition_art.getURL()})
 
-        result["contextLinks"]['items'] = items
+        result["contextLinks"]["items"] = items
 
         return result
 

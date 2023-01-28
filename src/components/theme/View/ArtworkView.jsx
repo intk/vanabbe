@@ -35,8 +35,6 @@ export default function ArtworkView(props) {
   const components = content['@components'] || {};
   const { contextLinks = {} } = components;
 
-  console.log(content);
-
   (content.objectDescription || '').split('%').forEach((text) => {
     const col = [];
 
