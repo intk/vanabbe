@@ -4,21 +4,16 @@ import loadable from '@loadable/component';
 import { BodyClass } from '@plone/volto/helpers';
 import { LinkMore, UniversalLink } from '@plone/volto/components';
 import { ListingBlockHeader } from '@package/components';
+import config from '@plone/volto/registry';
 
 import Card from './ListingCard';
 import './less/search-listing.less';
 
 const Masonry = loadable(() => import('react-masonry-css'));
 
-const breakpointColumnsObj = {
-  default: 4,
-  1100: 3,
-  700: 2,
-  500: 1,
-};
-
 const SearchListingTemplate = (props) => {
   const { items, linkHref, linkTitle } = props;
+  const { breakpointColumnsObj } = config.settings;
 
   return (
     <>

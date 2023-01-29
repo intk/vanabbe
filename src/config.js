@@ -10,11 +10,13 @@ import installBlocks from './components/blocks';
 import installFooter from './footer';
 
 import AttachedImageWidget from './components/widgets/AttachedImageWidget';
+
 import MultipleContentView from './components/theme/View/MultipleContentView';
 import ListingView from './components/theme/View/ListingView';
 import PublicationView from './components/theme/View/PublicationView';
 import AuthorView from './components/theme/View/AuthorView';
 import ArtworkView from './components/theme/View/ArtworkView';
+import ExhibitionView from './components/theme/View/ExhibitionView';
 
 import installExpressMiddleware from './express-middleware';
 
@@ -95,29 +97,32 @@ export default function applyConfig(config) {
 
   const DEFAULT_LANG = 'nl';
 
-  config.settings.isMultilingual = true;
-  config.settings.supportedLanguages = ['nl', 'en'];
-  config.settings.defaultLanguage = DEFAULT_LANG;
-
-  config.settings.siteDataPageId = 'site-data';
-  config.settings.actionBlockIds = [
-    ['footerLinks', 'Footer Links'],
-    ['siteActions', 'Site Actions'],
-  ];
-
-  config.settings.siteThemes = THEMES;
-
   config.blocks.blocksConfig.title.view = () => null;
   config.blocks.groupBlocksOrder.push({ id: 'site', title: 'Site' });
 
   config.settings = {
     ...config.settings,
+    isMultilingual: true,
+    supportedLanguages: ['nl', 'en'],
+    defaultLanguage: DEFAULT_LANG,
+    siteDataPageId: 'site-data',
+    siteThemes: THEMES,
     navDepth: 3,
-  };
-
-  config.settings.loadables = {
-    ...config.settings.loadables,
-    dateFns: loadable.lib(() => import('date-fns')),
+    breakpointColumnsObj: {
+      default: 4,
+      1100: 3,
+      700: 2,
+      500: 1,
+    },
+    registratorMail: 'mailto:registrator@vanabbemuseum.nl',
+    actionBlockIds: [
+      ['footerLinks', 'Footer Links'],
+      ['siteActions', 'Site Actions'],
+    ],
+    loadables: {
+      ...config.settings.loadables,
+      dateFns: loadable.lib(() => import('date-fns')),
+    },
   };
 
   // config.settings.slate.styleMenu = {
@@ -210,12 +215,12 @@ export default function applyConfig(config) {
     publication: PublicationView,
     artwork: ArtworkView,
     author: AuthorView,
+    exhibition: ExhibitionView,
   };
 
   config.widgets.widget.attachedimage = AttachedImageWidget;
   config.widgets.id.cookie_consent_configuration = MultilingualWidget();
 
-  config.settings.registratorMail = 'mailto:registrator@vanabbemuseum.nl';
   config.settings.appExtras = [
     ...(config.settings.appExtras || []),
     {

@@ -97,6 +97,7 @@ class ImportVubis(BrowserView):
         # TODO: setup special folder location for authors
         fields = dict(
             title=org.get("authorName", org["authorID"]),
+            AuthorBio=org.get("AuthorBio"),
             authorName=org.get("authorName"),
             authorBirthDate=org.get("authorBirthDate"),
             authorDeathDate=org.get("authorDeathDate"),

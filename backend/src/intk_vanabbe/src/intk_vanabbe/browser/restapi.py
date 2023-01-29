@@ -1,10 +1,17 @@
 from plone.api.content import find
 from plone.restapi.interfaces import IExpandableElement
+from plone.restapi.interfaces import ISerializeToJsonSummary
 from plone.restapi.services import Service
 from random import choice
 from zope.component import adapter
+from zope.component import getMultiAdapter
 from zope.interface import implementer
 from zope.interface import Interface
+
+
+def tojson(brain, request):
+    serializer = getMultiAdapter((brain, request), ISerializeToJsonSummary)
+    return serializer()
 
 
 class AuthorContextLinks(object):
@@ -26,16 +33,36 @@ class AuthorContextLinks(object):
 
         return arts and choice(arts) or None
 
+    def get_artworks(self):
+        brains = find(
+            portal_type="artwork",
+            authorID=self.context.authorID,
+            Language=self.context.language,
+        )
+        return brains
+
     def get_exhibition_art(self):
+        authorName = self.context.authorName
+        exhibitions = find(
+            portal_type="exhibition",
+            Language=self.context.language,
+            SearchableText=authorName,  # TODO: here we may want to use eventArtist field
+        )
+        if exhibitions:
+            return choice(exhibitions)
         return None
 
     def __call__(self, result):
+        req = self.request
         items = []
-        #
-        # other_art = self.get_other_art()
-        # if other_art:
-        #     items.append({"id": "artwork", "url": other_art.getURL()})
-        #
+
+        artworks = self.get_artworks()
+        if artworks:
+            items.append(
+                {"id": "artworks", "items": [tojson(b, req) for b in artworks]}
+            )
+
+        # TODO: this makes no sense for authors
         # period_art = self.get_period_art()
         # if period_art:
         #     items.append({"id": "period", "url": period_art.getURL()})
