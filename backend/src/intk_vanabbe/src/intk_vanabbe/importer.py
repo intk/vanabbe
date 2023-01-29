@@ -19,7 +19,6 @@ http://62.221.199.184:17718/action=get&command=search&query=ccIndexName=VanabbeT
 """
 
 import lxml.etree
-import os
 import requests
 import transaction
 
@@ -41,11 +40,6 @@ BASE_URL = (
 BATCH_SIZE = 100
 
 ROOT = "//collectionConnection-resultset"
-
-FILE_REPO = "./files"
-
-if not os.path.isdir(FILE_REPO):
-    os.makedirs(FILE_REPO)
 
 INT_FIELDS = [
     "bookDatePublished",

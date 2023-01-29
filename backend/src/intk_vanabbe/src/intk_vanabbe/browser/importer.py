@@ -1,7 +1,6 @@
 """ Debugging importer views
 """
 
-from intk_vanabbe.importer import FILE_REPO
 from intk_vanabbe.importer import scroll
 from plone.api import content
 from plone.api.content import find
@@ -15,7 +14,6 @@ import hashlib
 import logging
 import os
 import requests
-import shutil
 
 
 IMAGE_BASE_URL = "https://vanabbemuseum.nl/fileadmin/files/collectie/%s"
@@ -25,7 +23,7 @@ logger = logging.getLogger("vubis")
 
 def get_filename(url):
     m = hashlib.sha1()
-    m.update(url)
+    m.update(url.encode("ascii"))
 
     ext = url.rsplit(".", 1)[-1]
 
@@ -65,36 +63,33 @@ def extract_lang(rec, lang="nl"):
     return res
 
 
-def import_images(urls, container):
+def import_images(container, urls):
     for url in urls:
         fname = get_filename(url)
 
         if os.path.isfile(fname):
             print("File already exists", fname)
 
+        import pdb
+
+        pdb.set_trace()
         with requests.get(url, stream=True, verify=False) as req:
-            with open(fname, "wb") as file:
-                shutil.copyfileobj(req.raw, file)
+            stream = req.raw
+            imagefield = NamedBlobImage(
+                # TODO: are all images jpegs?
+                data=stream,
+                contentType="image/jpeg",
+                filename=fname,
+            )
+            image = content.create(
+                type="Image",
+                id=fname,
+                title=fname,
+                image=imagefield,
+                container=container,
+            )
 
-        try:
-            with open(fname, "rb") as stream:
-                imagefield = NamedBlobImage(
-                    # TODO: are all images jpegs?
-                    data=stream,
-                    contentType="image/jpeg",
-                    filename=fname,
-                )
-                image = content.create(
-                    type="Image",
-                    id=fname,
-                    title=fname,
-                    image=imagefield,
-                    container=container,
-                )
-
-                print("Created image", path(image))
-        except Exception:
-            logger.exception("Could not import image %s", fname)
+            print("Created image", path(image))
 
 
 class ImportVubis(BrowserView):
@@ -123,9 +118,6 @@ class ImportVubis(BrowserView):
         if "query" in form:
             query = f'&query={form["query"]}'
 
-        import pdb
-
-        pdb.set_trace()
         scroll(
             import_artwork,
             import_publication,
