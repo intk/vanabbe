@@ -175,25 +175,10 @@ class ImportVubis(BrowserView):
     def import_artwork(self, rec):
         container = self.context
 
-        filename = rec.get("objectImage")
-        if filename:
-            if isinstance(filename, str):
-                filename = [filename]
-            rec["objectImage"] = []
-            for fname in filename:
-                local_filename = os.path.join(FILE_REPO, fname)
-                if os.path.isfile(local_filename):
-                    print("File already exists", local_filename)
-                    # raise ValueError("File already exists", local_filename)
-
-                img_url = IMAGE_BASE_URL % fname
-
-                with requests.get(img_url, stream=True, verify=False) as req:
-                    with open(local_filename, "wb") as file:
-                        shutil.copyfileobj(req.raw, file)
-                rec["objectImage"].append(os.path.abspath(local_filename))
-
-        filenames = rec.pop("objectImage", [])
+        filenames = rec.get("objectImage", [])
+        if isinstance(filenames, str):
+            filename = [filenames]
+        filenames = [IMAGE_BASE_URL % fname for fname in filename]
 
         converted = convert_lists_to_text(rec)
         converted["title"] = converted["objectTitle"].split("\n")[0]
@@ -206,25 +191,7 @@ class ImportVubis(BrowserView):
             container=container,
             **original,
         )
-
-        for fname in filenames:
-            try:
-                with open(fname, "rb") as stream:
-                    fid = fname.rsplit("/", 1)[-1]
-                    imagefield = NamedBlobImage(
-                        data=stream, contentType="image/jpeg", filename=fid
-                    )
-                    image = content.create(
-                        type="Image",
-                        id=fid,
-                        title=fid,
-                        image=imagefield,
-                        container=obj,
-                    )
-
-                    print("Created image", path(image))
-            except Exception:
-                logger.exception("Could not import image %s", fname)
+        import_images(obj, filenames)
 
         self.import_author(converted)
         trans_rec = extract_lang(converted, "en")
