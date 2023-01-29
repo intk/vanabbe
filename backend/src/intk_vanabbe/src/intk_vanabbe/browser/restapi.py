@@ -23,11 +23,11 @@ class AuthorContextLinks(object):
         # ctx = self.context
         authorName = self.context.authorName
 
-        # TODO: needs TextIndex "bookArtists"
+        # TODO: needs KeywordIndex for "bookArtist" field
         brains = find(
             portal_type="publication",
             Language=self.context.language,
-            SearchableText=authorName,
+            bookArtist=[authorName],
         )
         arts = [b for b in brains if b.id != self.context.id]
 

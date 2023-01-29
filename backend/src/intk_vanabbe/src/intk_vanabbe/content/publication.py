@@ -32,7 +32,9 @@ class IPublication(model.Schema):
     bookTitle = schema.TextLine(title="bookTitle", required=False)
     bookVubisid = schema.TextLine(title="bookVubisid", required=False)
     ccIdentifier = schema.TextLine(title="ccIdentifier", required=False)
-    ccindexnameccIndexName = schema.TextLine(title="ccindexnameccIndexName", required=False)
+    ccindexnameccIndexName = schema.TextLine(
+        title="ccindexnameccIndexName", required=False
+    )
     recordnumber = schema.Int(title="recordnumber", required=False)
     vubisID = schema.TextLine(title="vubisID", required=False)
 
@@ -42,37 +44,56 @@ class IPublication(model.Schema):
     bookStream = schema.TextLine(title="bookStream", required=False)
 
     # TODO: is this a line or text?
-    bookArtist = schema.TextLine(title="bookArtist", required=False)
+    bookArtist = schema.List(
+        title="bookArtist", required=False, value_type=schema.TextLine(title="Artist")
+    )
 
     bookTitle_ALT = schema.TextLine(title="bookTitle_ALT", required=False)
 
     directives.languageindependent(
-        'ccObjectID', 'bookAnnotation', 'bookauthorName', 'bookBarcode', 'bookBBCode',
-        'bookBbnummer', 'bookBinding', 'bookCity', 'bookCountry', 'bookDatePublished',
-        'bookDescription', 'bookIllustrations', 'bookPublisher',  'bookShelfmark',
-        'bookSubTitle', 'bookTitle', 'bookVubisid', 'ccIdentifier',
-        'ccindexnameccIndexName', 'recordnumber', 'vubisID', 'bookLanguage',
-        'bookStream',
-        'bookArtist', # TODO: confirm this
-        'bookTitle_ALT',
+        "ccObjectID",
+        "bookAnnotation",
+        "bookauthorName",
+        "bookBarcode",
+        "bookBBCode",
+        "bookBbnummer",
+        "bookBinding",
+        "bookCity",
+        "bookCountry",
+        "bookDatePublished",
+        "bookDescription",
+        "bookIllustrations",
+        "bookPublisher",
+        "bookShelfmark",
+        "bookSubTitle",
+        "bookTitle",
+        "bookVubisid",
+        "ccIdentifier",
+        "ccindexnameccIndexName",
+        "recordnumber",
+        "vubisID",
+        "bookLanguage",
+        "bookStream",
+        "bookArtist",  # TODO: confirm this
+        "bookTitle_ALT",
     )
 
-    searchable('ccObjectID')
-    searchable('bookAnnotation')
-    searchable('bookauthorName')
-    searchable('bookBarcode')
-    searchable('bookBBCode')
-    searchable('bookBbnummer')
-    searchable('bookBinding')
-    searchable('bookCity')
-    searchable('bookCountry')
-    searchable('bookDescription')
-    searchable('bookIllustrations')
-    searchable('bookPublisher')
-    searchable('bookSubTitle')
-    searchable('bookTitle')
-    searchable('bookVubisid')
-    searchable('ccIdentifier')
-    searchable('vubisID')
-    searchable('bookArtist')
-    searchable('bookTitle_ALT')
+    searchable("ccObjectID")
+    searchable("bookAnnotation")
+    searchable("bookauthorName")
+    searchable("bookBarcode")
+    searchable("bookBBCode")
+    searchable("bookBbnummer")
+    searchable("bookBinding")
+    searchable("bookCity")
+    searchable("bookCountry")
+    searchable("bookDescription")
+    searchable("bookIllustrations")
+    searchable("bookPublisher")
+    searchable("bookSubTitle")
+    searchable("bookTitle")
+    searchable("bookVubisid")
+    searchable("ccIdentifier")
+    searchable("vubisID")
+    searchable("bookArtist")
+    searchable("bookTitle_ALT")

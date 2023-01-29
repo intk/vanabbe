@@ -106,7 +106,7 @@ class ImportVubis(BrowserView):
         )
 
         author = content.create(
-            type="author", id=rec["authorID"], container=container, **fields
+            type="author", id=f'author-{rec["authorID"]}', container=container, **fields
         )
 
         print("Created author", author.getId())
@@ -146,7 +146,10 @@ class ImportVubis(BrowserView):
         original = extract_lang(converted, "nl")
 
         obj = content.create(
-            type="artwork", id=original["ccObjectID"], container=container, **original
+            type="artwork",
+            id=f'art-{original["ccObjectID"]}',
+            container=container,
+            **original,
         )
 
         for fname in filenames:
@@ -176,11 +179,16 @@ class ImportVubis(BrowserView):
         return True
 
     def import_publication(self, rec):
+
+        bookArtist = rec.get("bookArtist")
+        if bookArtist and not isinstance(bookArtist, list):
+            rec["bookArtist"] = [bookArtist]
+
         container = self.context
         try:
             obj = content.create(
                 type="publication",
-                id=rec["ccObjectID"],
+                id=f'book-{rec["ccObjectID"]}',
                 title=rec["ccObjectID"],
                 container=container,
                 **rec,
@@ -206,7 +214,7 @@ class ImportVubis(BrowserView):
         try:
             obj = content.create(
                 type="exhibition",
-                id=str(rec["recordnumber"]),
+                id=f'exh-{str(rec["recordnumber"])}',
                 container=container,
                 **rec,
             )

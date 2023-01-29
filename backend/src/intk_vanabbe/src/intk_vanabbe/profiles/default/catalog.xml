@@ -5,6 +5,10 @@
     <indexed_attr value="authorID"/>
   </index>
 
+  <index name="bookArtist" meta_type="KeywordIndex">
+    <indexed_attr value="bookArtist"/>
+  </index>
+
   <column value="authorName"/>
   <column value="objectCreationDate"/>
   <column value="objectTitle"/>
