@@ -2,7 +2,6 @@
 """
 
 from intk_vanabbe.importer import FILE_REPO
-from intk_vanabbe.importer import IMAGE_BASE_URL
 from intk_vanabbe.importer import scroll
 from plone.api import content
 from plone.api.content import find
@@ -12,13 +11,25 @@ from plone.protect.interfaces import IDisableCSRFProtection
 from Products.Five.browser import BrowserView
 from zope.interface import alsoProvides
 
+import hashlib
 import logging
 import os
 import requests
 import shutil
 
 
+IMAGE_BASE_URL = "https://vanabbemuseum.nl/fileadmin/files/collectie/%s"
+
 logger = logging.getLogger("vubis")
+
+
+def get_filename(url):
+    m = hashlib.sha1()
+    m.update(url)
+
+    ext = url.rsplit(".", 1)[-1]
+
+    return f"{m.hexdigest()}.{ext}"
 
 
 def toid(s):
@@ -54,6 +65,38 @@ def extract_lang(rec, lang="nl"):
     return res
 
 
+def import_images(urls, container):
+    for url in urls:
+        fname = get_filename(url)
+
+        if os.path.isfile(fname):
+            print("File already exists", fname)
+
+        with requests.get(url, stream=True, verify=False) as req:
+            with open(fname, "wb") as file:
+                shutil.copyfileobj(req.raw, file)
+
+        try:
+            with open(fname, "rb") as stream:
+                imagefield = NamedBlobImage(
+                    # TODO: are all images jpegs?
+                    data=stream,
+                    contentType="image/jpeg",
+                    filename=fname,
+                )
+                image = content.create(
+                    type="Image",
+                    id=fname,
+                    title=fname,
+                    image=imagefield,
+                    container=container,
+                )
+
+                print("Created image", path(image))
+        except Exception:
+            logger.exception("Could not import image %s", fname)
+
+
 class ImportVubis(BrowserView):
     """Vubis import on demand, for debugging"""
 
@@ -76,11 +119,19 @@ class ImportVubis(BrowserView):
             import_publication = self.import_publication
             import_exhibition = self.import_exhibition
 
+        query = None
+        if "query" in form:
+            query = f'&query={form["query"]}'
+
+        import pdb
+
+        pdb.set_trace()
         scroll(
             import_artwork,
             import_publication,
             import_exhibition,
             max_records=int(form.get("max", 100)),
+            query=query,
         )
 
         return "done"
@@ -188,26 +239,6 @@ class ImportVubis(BrowserView):
         if bookArtist and not isinstance(bookArtist, list):
             rec["bookArtist"] = [bookArtist]
 
-        filename = rec.get("bookIllustrations")
-        if filename:
-            if isinstance(filename, str):
-                filename = [filename]
-            rec["bookIllustrations"] = []
-            for fname in filename:
-                local_filename = os.path.join(FILE_REPO, fname)
-                if os.path.isfile(local_filename):
-                    print("File already exists", local_filename)
-                    # raise ValueError("File already exists", local_filename)
-
-                img_url = IMAGE_BASE_URL % fname
-
-                with requests.get(img_url, stream=True, verify=False) as req:
-                    with open(local_filename, "wb") as file:
-                        shutil.copyfileobj(req.raw, file)
-                rec["bookIllustrations"].append(os.path.abspath(local_filename))
-
-        filenames = rec.pop("bookIllustrations", [])
-
         container = self.context
         obj = content.create(
             type="publication",
@@ -217,24 +248,11 @@ class ImportVubis(BrowserView):
             **rec,
         )
 
-        for fname in filenames:
-            try:
-                with open(fname, "rb") as stream:
-                    fid = fname.rsplit("/", 1)[-1]
-                    imagefield = NamedBlobImage(
-                        data=stream, contentType="image/jpeg", filename=fid
-                    )
-                    image = content.create(
-                        type="Image",
-                        id=fid,
-                        title=fid,
-                        image=imagefield,
-                        container=obj,
-                    )
+        filenames = rec.get("bookIllustrations", [])
+        if isinstance(filenames, str):
+            filenames = [filenames]
 
-                    print("Created image", path(image))
-            except Exception:
-                logger.exception("Could not import image %s", fname)
+        import_images(obj, filenames)
 
         self.translate(obj, rec)
         print("Imported publication", path(obj))

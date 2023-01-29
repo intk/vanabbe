@@ -27,7 +27,7 @@ import transaction
 opts = {
     "action": "get",
     "command": "search",
-    "query": "*=*",
+    # "query": "*=*",
     "fields": "*",
 }
 BASE_URL = (
@@ -41,7 +41,6 @@ BASE_URL = (
 BATCH_SIZE = 100
 
 ROOT = "//collectionConnection-resultset"
-IMAGE_BASE_URL = "https://vanabbemuseum.nl/fileadmin/files/collectie/%s"
 
 FILE_REPO = "./files"
 
@@ -215,13 +214,19 @@ def _import_publication(rec):
     pass
 
 
-def scroll(import_artwork, import_publication, import_exhibition, max_records=10):
+def scroll(
+    import_artwork,
+    import_publication,
+    import_exhibition,
+    max_records=10,
+    query="&query=*=*",
+):
     """Fetch information from URL"""
     cur = 1
     count = 0
 
     while count < max_records:
-        url = BASE_URL % (cur, cur + BATCH_SIZE)
+        url = (BASE_URL + query) % (cur, cur + BATCH_SIZE)
         print("Fetch records: ", cur, cur + BATCH_SIZE, url)
         resp = requests.get(url, verify=False)
         cur = cur + BATCH_SIZE + 1
