@@ -1,6 +1,7 @@
 """ Debugging importer views
 """
 
+from .request import HEADERS
 from intk_vanabbe.importer import scroll
 from plone.api import content
 from plone.api.content import find
@@ -70,14 +71,12 @@ def import_images(container, urls):
         if os.path.isfile(fname):
             print("File already exists", fname)
 
-        import pdb
-
-        pdb.set_trace()
-        with requests.get(url, stream=True, verify=False) as req:
-            stream = req.raw
+        with requests.get(url, stream=True, verify=False, headers=HEADERS) as req:
+            data = req.raw.read()
+            # TODO: should use streaming
             imagefield = NamedBlobImage(
                 # TODO: are all images jpegs?
-                data=stream,
+                data=data,
                 contentType="image/jpeg",
                 filename=fname,
             )
