@@ -159,7 +159,8 @@ def _import_exhibition(rec):
 
 
 def _import_publication(rec):
-    """<dc_record>
+    """
+    <dc_record>
     <ccObjectID>2:63445</ccObjectID>
     <bookAnnotation>Met bibliografie</bookAnnotation>
     <bookArtist>Wickenburgh, Alfred (Gleichenberg, 26-07-1885 - ..., ...)</bookArtist>
@@ -180,6 +181,32 @@ def _import_publication(rec):
     <ccIndexName>VanAbbeBibliotheek</ccIndexName>
     <recordnumber>100002</recordnumber>
     <VubisID>2:63445</VubisID>
+    </dc_record>
+
+
+    <ccObjectID>2:105020</ccObjectID>
+    <bookAnnotation>Kunstenaarsboek. - Oplage: 50. - Afmetingen: 11 x 14.9 cm</bookAnnotation>
+    <bookArtist>Andreasen, Kasper</bookArtist>
+    <bookauthorName>Andreasen, K</bookauthorName>
+    <bookBarcode>105020</bookBarcode>
+    <bookBBCode>105020</bookBBCode>
+    <bookBbnummer>105020</bookBbnummer>
+    <bookBinding>Kluis; 40 p ill</bookBinding>
+    <bookCity>[Berlin]</bookCity>
+    <bookCountry>Denemarken</bookCountry>
+    <bookDatePublished>2021</bookDatePublished>
+    <bookDescription>Kunstenaarsboek van de Deens kunstenaar Kasper Andreasen. - The The is a textual derivative based on combinations between the first word (which is a variable) followed by the word ‘the’. Meant as a passport-sized booklet, the words on these pages unfold as a sequence of statements whereby the subject always remains ‘the’. The alternating texts could be seen as having a self-reflexive mantra: for the, eat the, shit the, cut the, cure the, reject the, elect the, fight the, end the.</bookDescription>
+    <bookIllustrations>https://mediabank.vanabbemuseum.nl/vam/files/alexandria/publicaties/2021/kasperthe02.jpg</bookIllustrations>
+    <bookIllustrations>https://mediabank.vanabbemuseum.nl/vam/files/alexandria/publicaties/2021/kasperthe01.jpg</bookIllustrations>
+    <bookLanguage>en</bookLanguage>
+    <bookPublisher>s.n.</bookPublisher>
+    <bookShelfmark>ANDREASEN, KASPER</bookShelfmark>
+    <BookTitle>The The</BookTitle>
+    <bookVubisid>2:105020</bookVubisid>
+    <ccIdentifier>https://vanabbe.inforlibraries.com/abbeweb/LinkToVubis.csp?DataBib=2:105020</ccIdentifier>
+    <ccIndexName>VanAbbeBibliotheek</ccIndexName>
+    <recordnumber>96712</recordnumber>
+    <VubisID>2:105020</VubisID>
     </dc_record>"""
     # keys = ['ccObjectID', 'bookBarcode', 'bookBBCode', 'bookBbnummer', 'bookBinding',
     #         'bookCity', 'bookDatePublished', 'bookLanguage', 'bookPublisher',

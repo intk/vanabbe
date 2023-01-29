@@ -21,6 +21,10 @@ import shutil
 logger = logging.getLogger("vubis")
 
 
+def toid(s):
+    return s.replace(":", "-")
+
+
 def path(obj):
     return obj.absolute_url(relative=1)
 
@@ -184,19 +188,56 @@ class ImportVubis(BrowserView):
         if bookArtist and not isinstance(bookArtist, list):
             rec["bookArtist"] = [bookArtist]
 
+        filename = rec.get("bookIllustrations")
+        if filename:
+            if isinstance(filename, str):
+                filename = [filename]
+            rec["bookIllustrations"] = []
+            for fname in filename:
+                local_filename = os.path.join(FILE_REPO, fname)
+                if os.path.isfile(local_filename):
+                    print("File already exists", local_filename)
+                    # raise ValueError("File already exists", local_filename)
+
+                img_url = IMAGE_BASE_URL % fname
+
+                with requests.get(img_url, stream=True, verify=False) as req:
+                    with open(local_filename, "wb") as file:
+                        shutil.copyfileobj(req.raw, file)
+                rec["bookIllustrations"].append(os.path.abspath(local_filename))
+
+        filenames = rec.pop("bookIllustrations", [])
+
         container = self.context
-        try:
-            obj = content.create(
-                type="publication",
-                id=f'book-{rec["ccObjectID"]}',
-                title=rec["ccObjectID"],
-                container=container,
-                **rec,
-            )
-            print("Imported publication", path(obj))
-            self.translate(obj, rec)
-        except Exception:
-            logger.exception("Unable to import publication")
+        obj = content.create(
+            type="publication",
+            id=f'book-{toid(rec["ccObjectID"])}',
+            title=rec["BookTitle"],
+            container=container,
+            **rec,
+        )
+
+        for fname in filenames:
+            try:
+                with open(fname, "rb") as stream:
+                    fid = fname.rsplit("/", 1)[-1]
+                    imagefield = NamedBlobImage(
+                        data=stream, contentType="image/jpeg", filename=fid
+                    )
+                    image = content.create(
+                        type="Image",
+                        id=fid,
+                        title=fid,
+                        image=imagefield,
+                        container=obj,
+                    )
+
+                    print("Created image", path(image))
+            except Exception:
+                logger.exception("Could not import image %s", fname)
+
+        self.translate(obj, rec)
+        print("Imported publication", path(obj))
 
         return True
 
@@ -238,6 +279,7 @@ class ImportVubis(BrowserView):
             setattr(trans, k, v)
 
         for id, child in obj.contentItems():
+            # TODO: use translator instead of copy
             content.copy(child, trans)
 
         trans._p_changed = True

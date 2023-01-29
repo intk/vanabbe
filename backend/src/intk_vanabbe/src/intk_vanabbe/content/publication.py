@@ -29,7 +29,7 @@ class IPublication(model.Schema):
     bookPublisher = schema.TextLine(title="bookPublisher", required=False)
     bookShelfmark = schema.TextLine(title="bookShelfmark", required=False)
     bookSubTitle = schema.TextLine(title="bookSubTitle", required=False)
-    bookTitle = schema.TextLine(title="bookTitle", required=False)
+    BookTitle = schema.TextLine(title="BookTitle", required=False)
     bookVubisid = schema.TextLine(title="bookVubisid", required=False)
     ccIdentifier = schema.TextLine(title="ccIdentifier", required=False)
     ccindexnameccIndexName = schema.TextLine(
@@ -66,7 +66,7 @@ class IPublication(model.Schema):
         "bookPublisher",
         "bookShelfmark",
         "bookSubTitle",
-        "bookTitle",
+        "BookTitle",
         "bookVubisid",
         "ccIdentifier",
         "ccindexnameccIndexName",
@@ -91,7 +91,7 @@ class IPublication(model.Schema):
     searchable("bookIllustrations")
     searchable("bookPublisher")
     searchable("bookSubTitle")
-    searchable("bookTitle")
+    searchable("BookTitle")
     searchable("bookVubisid")
     searchable("ccIdentifier")
     searchable("vubisID")
