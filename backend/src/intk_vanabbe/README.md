@@ -11,7 +11,7 @@ http://localhost:8080/Plone/nl/archief/@@import_vubis?import=publication&max=10&
 ### Import an exhibition:
 
 ```
-http://localhost:8080/Plone/nl/archief/@@import_vubis?import=exhibition&max=10&query=recordNumber=101920
+http://localhost:8080/Plone/nl/archief/@@import_vubis?import=exhibition&max=10&query=ccIndexName=VanabbeTentoonstellingen
 ```
 
 ### Import 10 artworks and authors:

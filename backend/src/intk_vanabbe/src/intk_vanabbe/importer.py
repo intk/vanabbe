@@ -239,7 +239,7 @@ def scroll(
 
             if rec.xpath("./AuthorBio"):
                 imported = import_artwork(info)
-            elif rec.xpath("./eventArtist"):
+            elif rec.xpath("./eventCoorporation"):
                 imported = import_exhibition(info)
             else:
                 imported = import_publication(info)
