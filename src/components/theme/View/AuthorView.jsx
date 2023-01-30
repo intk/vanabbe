@@ -72,26 +72,22 @@ export default function AuthorView(props) {
           </div>
         </div>
       </div>
-
       <h2>Context</h2>
-      {contextLinks.items?.map((info) => {
-        if (info.id === 'artworks') return null;
-
-        const item = {
-          ...getItem(info, content),
-          image_field: 'image',
-        };
-
-        return (
+      {contextLinks.items
+        ?.filter((info) => info.id !== 'artwork')
+        .map((info) => (
           <Card
             key={info.id}
             id={info.id}
-            item={item}
+            item={{
+              ...getItem(info, content),
+              image_field: 'image',
+            }}
             {...props}
             useFallbackImage
           />
-        );
-      })}
+        ))}
+      )}
     </div>
   );
 }
