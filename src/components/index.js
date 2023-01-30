@@ -10,3 +10,4 @@ export OpeningHours from './theme/OpeningHours/OpeningHours';
 export SocialLinks from './theme/SocialLinks/SocialLinks';
 export HeaderButton from './theme/HeaderButton/HeaderButton';
 export Card from './blocks/Listing/ListingCard';
+export ImageAlbum from './theme/ImageAlbum/ImageAlbum';
