@@ -1,36 +1,21 @@
 # intk_vanabbe
 
-A new project using Plone 6.
+Create a folder /nl/archief. Add its English translation, /en/archive.
 
-## Features
+### Import a publication:
 
-### Content Types
-
-- TBD
-
-### Initial content
-
-This package contains a simple volto configuration.
-
-Installation
-------------
-
-Install intk_vanabbe with `pip`:
-
-```shell
-pip install intk_vanabbe
 ```
-And to create the Plone site:
-
-```shell
-make create_site
+http://localhost:8080/Plone/nl/archief/@@import_vubis?import=publication&max=10&query=bookBarcode=105020
 ```
 
-## Contribute
+### Import an exhibition:
 
-- [Issue Tracker](https://github.com/collective/vanabbe-p6/issues)
-- [Source Code](https://github.com/collective/vanabbe-p6/)
+```
+http://localhost:8080/Plone/nl/archief/@@import_vubis?import=exhibition&max=10&query=recordNumber=101920
+```
 
-## License
+### Import 10 artworks and authors:
 
-The project is licensed under the GPLv2.
+```
+http://localhost:8080/Plone/nl/archief/@@import_vubis?import=artwork&max=10
+```
