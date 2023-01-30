@@ -1,3 +1,4 @@
+// http://localhost:8080/Plone/nl/archief/@@import_vubis?import=artwork&max=10&query=authorName=Douglas%20Gordon
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { Grid, Container } from 'semantic-ui-react';
@@ -7,9 +8,9 @@ import config from '@plone/volto/registry';
 
 const getUrl = (info, content) => info['url'];
 
-const getLinkLabel = (infoId, content) => {
+const getLinkLabel = (info, content) => {
   let label;
-  switch (infoId) {
+  switch (info.id) {
     case 'artwork':
       label = `More artworks by ${content.authorName}`;
       break;
@@ -28,7 +29,7 @@ const getLinkLabel = (infoId, content) => {
 const getItem = (info, content) => {
   const item = {
     '@id': getUrl(info, content),
-    title: getLinkLabel(info.id, content),
+    title: getLinkLabel(info, content),
   };
   return item;
 };
@@ -50,6 +51,8 @@ export default function ArtworkView(props) {
     columns.push(col);
   });
 
+  const authors = content.authors.map((auth) => auth.title).join(', ');
+
   return (
     <div className="artwork-view">
       <Container>
@@ -63,7 +66,7 @@ export default function ArtworkView(props) {
                       <ImageAlbum
                         items={content.items}
                         itemTitle={content.objectTitle}
-                        itemAuthor={content.authorName}
+                        itemAuthor={authors}
                       />
 
                       <div className="artwork-meta">
@@ -71,7 +74,10 @@ export default function ArtworkView(props) {
                           {content.objectCreationDate}
                         </h3>
                         {/* <h2>{content.objectTitle}</h2> */}
-                        <h2>{content.authorName}</h2>
+
+                        {content.authors.map((auth, index) => (
+                          <h2 key={index}>{auth.title}</h2>
+                        ))}
 
                         <div className="object-medium">
                           {content.objectMedium}
