@@ -7,15 +7,8 @@ import { Card } from '@package/components';
 
 const Masonry = loadable(() => import('react-masonry-css'));
 
+// TODO: we need special url for exhibitions archive
 const getUrl = (info, content) => info['url'];
-
-// case 'artwork':
-//   label = `More artworks by ${content.authorName}`;
-//   break;
-// TODO: this makes no sense for an artist
-// case 'collection':
-//   label = `More artworks from this period`;
-//   break;
 
 const getLinkLabel = (infoId, content) => {
   let label;
@@ -49,7 +42,8 @@ export default function AuthorView(props) {
   const artworks =
     contextLinks.items?.find(({ id }) => id === 'artworks')?.items || [];
 
-  // TODO: format the AuthorBio
+  // TODO: format the AuthorBio. It needs to go into the header part of the
+  // view, not in the content part
   console.log(content);
   return (
     <div>
@@ -74,7 +68,7 @@ export default function AuthorView(props) {
       </div>
       <h2>Context</h2>
       {contextLinks.items
-        ?.filter((info) => info.id !== 'artwork')
+        ?.filter((info) => info.id !== 'artworks')
         .map((info) => (
           <Card
             key={info.id}
@@ -87,7 +81,6 @@ export default function AuthorView(props) {
             useFallbackImage
           />
         ))}
-      )}
     </div>
   );
 }
