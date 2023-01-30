@@ -9,6 +9,10 @@
     <indexed_attr value="bookArtist"/>
   </index>
 
+  <index name="eventArtist" meta_type="KeywordIndex">
+    <indexed_attr value="eventArtist"/>
+  </index>
+
   <column value="authorName"/>
   <column value="objectCreationDate"/>
   <column value="objectTitle"/>

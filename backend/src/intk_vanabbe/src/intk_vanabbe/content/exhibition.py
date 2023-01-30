@@ -12,7 +12,9 @@ class IExhibition(model.Schema):
     ccIndexName = schema.TextLine(title="ccIndexName", required=False)
 
     # can be a list
-    eventArtist = schema.Text(title="eventArtist", required=False)
+    eventArtist = schema.List(
+        title="eventArtist", required=False, value_type=schema.TextLine(title="Artist")
+    )
 
     eventCoorporation = schema.TextLine(title="eventCoorporation", required=False)
     eventDescription = schema.Text(title="eventDescription", required=False)
@@ -31,16 +33,24 @@ class IExhibition(model.Schema):
     recordnumber = schema.TextLine(title="recordnumber", required=False)
 
     directives.languageindependent(
-        'ccObjectID', 'ccIdentifier', 'ccIndexName', 'eventArtist', 'eventCoorporation',
-        'eventDescription', 'eventImages', 'eventMedia', 'eventTimeFrom', 'recordnumber'
+        "ccObjectID",
+        "ccIdentifier",
+        "ccIndexName",
+        "eventArtist",
+        "eventCoorporation",
+        "eventDescription",
+        "eventImages",
+        "eventMedia",
+        "eventTimeFrom",
+        "recordnumber",
     )
 
-    searchable('ccObjectID')
-    searchable('ccIdentifier')
-    searchable('eventArtist')
-    searchable('eventCoorporation')
-    searchable('eventDescription')
-    searchable('eventMedia')
-    searchable('eventTimeFrom')
-    searchable('recordnumber')
-    searchable('eventTitle')
+    searchable("ccObjectID")
+    searchable("ccIdentifier")
+    searchable("eventArtist")
+    searchable("eventCoorporation")
+    searchable("eventDescription")
+    searchable("eventMedia")
+    searchable("eventTimeFrom")
+    searchable("recordnumber")
+    searchable("eventTitle")

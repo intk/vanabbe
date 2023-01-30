@@ -140,6 +140,14 @@ class ArtworkContextLinks(object):
         return arts and choice(arts) or None
 
     def get_exhibition_art(self):
+        authorSortName = self.context.authorSortName
+        exhibitions = find(
+            portal_type="exhibition",
+            Language=self.context.language,
+            eventArtist=[authorSortName],
+        )
+        if exhibitions:
+            return choice(exhibitions)
         return None
 
     def __call__(self, result):

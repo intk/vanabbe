@@ -1,3 +1,12 @@
+// To import:
+//
+// http://localhost:8080/Plone/nl/archief/@@import_vubis?import=exhibition&max=10&query=eventArtist=Gordon,%20Douglas
+//
+// http://localhost:8080/Plone/nl/archief/@@import_vubis?import=exhibition&max=10&query=recordNumber=102373
+//
+// http://62.221.199.184:17718/action=get&command=search&query=ccIndexName=VanabbeTentoonstellingen&fields=*&range=0-1000
+// https://vanabbemuseum.nl/collectie/details/tentoonstellingen/index.html@lookup[6039][filter][0]=exhibitionCode_stringS%253A1826.html
+
 import { Grid, Container } from 'semantic-ui-react';
 import { ImageAlbum, SocialLinks } from '@package/components';
 
@@ -17,10 +26,6 @@ const EventMedia = ({ value }) => (
   </ul>
 );
 
-// http://62.221.199.184:17718/action=get&command=search&query=ccIndexName=VanabbeTentoonstellingen&fields=*&range=0-1000
-// https://vanabbemuseum.nl/collectie/details/tentoonstellingen/index.html@lookup[6039][filter][0]=exhibitionCode_stringS%253A1826.html
-// To import:
-// http://localhost:8080/Plone/nl/archief/@@import_vubis?import=exhibition&max=10&query=recordNumber=102373
 export default function ExhibitionView(props) {
   const { content } = props;
 
@@ -46,7 +51,7 @@ export default function ExhibitionView(props) {
                         <SocialLinks />
                       </div>
                       <div className="artwork-meta">
-                        <h2 class="object-author">{content.eventArtist}</h2>
+                        <h4 class="object-author">{content.eventArtist}</h4>
                         <h5 className="event-time">{content.eventTimeFrom}</h5>
                         <p>{content.eventCoorporation}</p>
 
