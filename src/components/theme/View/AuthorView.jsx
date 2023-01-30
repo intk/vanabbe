@@ -1,8 +1,10 @@
 // To import an author:
 // http://localhost:8080/Plone/nl/archief/@@import_vubis?import=artwork&max=10&query=authorName=Douglas
-
+import React from 'react';
+import { Portal } from 'react-portal';
 import loadable from '@loadable/component';
 import config from '@plone/volto/registry';
+import { Container } from 'semantic-ui-react';
 import { Card } from '@package/components';
 
 const Masonry = loadable(() => import('react-masonry-css'));
@@ -45,42 +47,56 @@ export default function AuthorView(props) {
   // TODO: format the AuthorBio. It needs to go into the header part of the
   // view, not in the content part
   console.log(content);
+
+  const [isClient, setIsClient] = React.useState();
+  React.useEffect(() => setIsClient(true), []);
+
   return (
     <div>
-      {content.AuthorBio}
-      <h2>Artworks ({artworks.length})</h2>
-      <div className="masonry-layout-listing">
-        <div className="listings">
-          <div className="listings ">
-            <Masonry
-              breakpointCols={breakpointColumnsObj}
-              className="masonry-grid"
-              columnClassName="masonry-grid_column"
-            >
-              {artworks.map((item, i) => (
-                <div className="listing-column" key={i}>
-                  <Card item={item} {...props} />
+      <Portal node={isClient && document.getElementById('heading')}>
+        {content.AuthorBio}
+      </Portal>
+      <div className="author-view">
+        <Container>
+          <div className="content-container">
+            <div className="offset-1-right">
+              <h2>Artworks ({artworks.length})</h2>
+              <div className="masonry-layout-listing">
+                <div className="listings">
+                  <div className="listings ">
+                    <Masonry
+                      breakpointCols={breakpointColumnsObj}
+                      className="masonry-grid"
+                      columnClassName="masonry-grid_column"
+                    >
+                      {artworks.map((item, i) => (
+                        <div className="listing-column" key={i}>
+                          <Card item={item} {...props} />
+                        </div>
+                      ))}
+                    </Masonry>
+                  </div>
                 </div>
-              ))}
-            </Masonry>
+              </div>
+              <h2>Context</h2>
+              {contextLinks.items
+                ?.filter((info) => info.id !== 'artworks')
+                .map((info) => (
+                  <Card
+                    key={info.id}
+                    id={info.id}
+                    item={{
+                      ...getItem(info, content),
+                      image_field: 'image',
+                    }}
+                    {...props}
+                    useFallbackImage
+                  />
+                ))}
+            </div>
           </div>
-        </div>
+        </Container>
       </div>
-      <h2>Context</h2>
-      {contextLinks.items
-        ?.filter((info) => info.id !== 'artworks')
-        .map((info) => (
-          <Card
-            key={info.id}
-            id={info.id}
-            item={{
-              ...getItem(info, content),
-              image_field: 'image',
-            }}
-            {...props}
-            useFallbackImage
-          />
-        ))}
     </div>
   );
 }
