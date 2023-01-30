@@ -4,11 +4,14 @@
 from .request import HEADERS
 from intk_vanabbe.importer import scroll
 from plone.api import content
-from plone.api.content import find
+from plone.api import relation
+from plone.app.multilingual.api import get_translation_manager
 from plone.app.multilingual.api import translate
 from plone.namedfile.file import NamedBlobImage
 from plone.protect.interfaces import IDisableCSRFProtection
 from Products.Five.browser import BrowserView
+
+# from z3c.relationfield import RelationValue
 from zope.interface import alsoProvides
 
 import hashlib
@@ -140,6 +143,7 @@ class ImportVubis(BrowserView):
     def import_authors(self, rec, element):
 
         container = self.context
+        authors = []
 
         urls = {}
         url_titles = {}
@@ -152,10 +156,12 @@ class ImportVubis(BrowserView):
                     return d[list(d.keys())[0]]
 
         for authorID in element.xpath("authorID/text()"):
-            if find(
+            found = content.find(
                 portal_type="author",
                 authorID=authorID,
-            ):
+            )
+            if found:
+                authors += [b.getObject() for b in found]
                 continue
 
             x = element.xpath
@@ -202,6 +208,7 @@ class ImportVubis(BrowserView):
                 container=container,
                 **fields,
             )
+            authors.append(author)
 
             if urls.get("en"):
                 fields["authorURL"] = urls["en"]
@@ -213,7 +220,7 @@ class ImportVubis(BrowserView):
 
             print("Created author", author.getId())
 
-        return True
+        return authors
 
     def import_artwork(self, rec, element):
         container = self.context
@@ -229,17 +236,27 @@ class ImportVubis(BrowserView):
 
         original = extract_lang(converted, "nl")
 
+        authors = self.import_authors(converted, element)
+
         obj = content.create(
             type="artwork",
             id=f'art-{original["ccObjectID"]}',
             container=container,
             **original,
         )
+        for author in authors:
+            relation.create(source=obj, target=author, relationship="authors")
+
         import_images(obj, filenames)
 
-        self.import_authors(converted, element)
         trans_rec = extract_lang(converted, "en")
-        self.translate(obj, trans_rec)
+        translated_authors = self.get_translations(authors, language="en")
+        translated = self.translate(obj, trans_rec)
+        for trans_auth in translated_authors:
+            relation.create(
+                source=translated, target=trans_auth, relationship="authors"
+            )
+
         print("Imported artwork: ", path(obj))
 
         return True
@@ -323,3 +340,15 @@ class ImportVubis(BrowserView):
         trans.reindexObject()
 
         return trans
+
+    def get_translations(self, objects, language="en"):
+        res = []
+        for obj in objects:
+            mgr = get_translation_manager(obj)
+            trans = mgr.get_translation(language)
+            if trans:
+                res.append(trans)
+            else:
+                logger.warning("Could not get translation", obj, language)
+
+        return res
