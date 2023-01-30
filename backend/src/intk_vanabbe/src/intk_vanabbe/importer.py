@@ -14,8 +14,13 @@ This might be the most straight forward method for your company as well.
 The XML is updated once every 24 hours. The fresh XML will be ready each day around 4:30
 in the morning.
 
+Import exhibitions:
 http://62.221.199.184:17718/action=get&command=search&query=ccIndexName=VanabbeTentoonstellingen&fields=*&range=1-1000
 
+Import publications:
+http://62.221.199.184:17718/action=get&command=search&query=bookArtist=Gordon,%20Douglas&fields=*&range=0-100
+
+Import artwork
 """
 
 import lxml.etree
@@ -232,17 +237,17 @@ def scroll(
         if not records:
             break
 
-        for rec in records:
-            info = to_dict(rec)
+        for element in records:
+            infodict = to_dict(element)
 
             imported = False
 
-            if rec.xpath("./AuthorBio"):
-                imported = import_artwork(info)
-            elif rec.xpath("./eventCoorporation"):
-                imported = import_exhibition(info)
+            if element.xpath("./AuthorBio"):
+                imported = import_artwork(infodict, element)
+            elif element.xpath("./eventCoorporation"):
+                imported = import_exhibition(infodict, element)
             else:
-                imported = import_publication(info)
+                imported = import_publication(infodict, element)
 
             if imported:
                 count += 1

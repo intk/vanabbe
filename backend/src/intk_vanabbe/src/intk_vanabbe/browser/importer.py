@@ -107,9 +107,9 @@ class ImportVubis(BrowserView):
         alsoProvides(self.request, IDisableCSRFProtection)
         form = self.request.form
 
-        import_artwork = lambda info: None
-        import_publication = lambda info: None
-        import_exhibition = lambda info: None
+        import_artwork = lambda *args: None
+        import_publication = lambda *args: None
+        import_exhibition = lambda *args: None
 
         if form.get("import") == "artwork":
             import_artwork = self.import_artwork
@@ -136,43 +136,85 @@ class ImportVubis(BrowserView):
 
         return "done"
 
-    def import_author(self, rec):
+    def import_authors(self, rec, element):
+
         container = self.context
-        org = extract_lang(rec, "nl")
 
-        brains = find(
-            portal_type="author",
-            authorID=rec["authorID"],
-        )
+        urls = {}
+        url_titles = {}
 
-        if brains:
-            return
+        def get(lang, d):
+            if lang in d:
+                return d[lang]
+            else:
+                if d:
+                    return d[list(d.keys())[0]]
 
-        # TODO: check cases where there are multiple authors
-        # TODO: setup special folder location for authors
-        fields = dict(
-            title=org.get("authorName", org["authorID"]),
-            AuthorBio=org.get("AuthorBio"),
-            authorName=org.get("authorName"),
-            authorBirthDate=org.get("authorBirthDate"),
-            authorDeathDate=org.get("authorDeathDate"),
-            authorID=org["authorID"],
-            authorURL=org.get("authorURL"),
-        )
+        for authorID in element.xpath("authorID/text()"):
+            if find(
+                portal_type="author",
+                authorID=authorID,
+            ):
+                continue
 
-        author = content.create(
-            type="author", id=f'author-{rec["authorID"]}', container=container, **fields
-        )
+            x = element.xpath
 
-        print("Created author", author.getId())
+            el = x(f"authorName[@authorID={authorID}]")[0]
+            authorSortName = el.get("authorSortName")
+            authorName = el.text
 
-        trans = extract_lang(rec, "en")
-        fields["authorURL"] = trans["authorURL"]
-        self.translate(author, fields)
+            authorBirthDate = x(f"authorBirthDate[@authorID={authorID}]/text()")
+            if authorBirthDate:
+                authorBirthDate = authorBirthDate[0]
+
+            authorDeathDate = x(f"authorDeathDate[@authorID={authorID}]/text()")
+            if authorDeathDate:
+                authorDeathDate = authorDeathDate[0]
+
+            AuthorBio = x(f"AuthorBio[@authorID={authorID}]/text()")
+            if AuthorBio:
+                AuthorBio = AuthorBio[0]
+
+            for el in x(f"authorURL[@authorID={authorID}]"):
+                lang = (el.get("Language") or "nl").lower()
+                urls[lang] = el.text
+                url_titles[lang] = el.get("Title")
+
+            # TODO: setup special folder location for authors
+            fields = dict(
+                title=authorName or authorID,
+                authorID=authorID,
+                AuthorBio=AuthorBio,
+                authorName=authorName,
+                authorSortName=authorSortName,
+                authorBirthDate=authorBirthDate,
+                authorDeathDate=authorDeathDate,
+                authorURL=get("nl", urls),
+                authorURLTitle=get("nl", url_titles),
+            )
+            for k, v in fields.items():
+                fields[k] = str(v)
+
+            author = content.create(
+                type="author",
+                id=f'author-{rec["authorID"]}',
+                container=container,
+                **fields,
+            )
+
+            if urls.get("en"):
+                fields["authorURL"] = urls["en"]
+                fields["authorURLTitle"] = url_titles["en"]
+            for k, v in fields.items():
+                fields[k] = str(v)
+
+            self.translate(author, fields)
+
+            print("Created author", author.getId())
 
         return True
 
-    def import_artwork(self, rec):
+    def import_artwork(self, rec, element):
         container = self.context
 
         filenames = rec.get("objectImage", [])
@@ -194,24 +236,25 @@ class ImportVubis(BrowserView):
         )
         import_images(obj, filenames)
 
-        self.import_author(converted)
+        self.import_authors(converted, element)
         trans_rec = extract_lang(converted, "en")
         self.translate(obj, trans_rec)
         print("Imported artwork: ", path(obj))
 
         return True
 
-    def import_publication(self, rec):
+    def import_publication(self, rec, element):
 
+        rec = convert_lists_to_text(rec, ["bookIllustrations"])
         bookArtist = rec.get("bookArtist")
         if bookArtist and not isinstance(bookArtist, list):
             rec["bookArtist"] = [bookArtist]
 
         container = self.context
+        rec["title"] = rec["BookTitle"]
         obj = content.create(
             type="publication",
             id=f'pub-{toid(rec["ccObjectID"])}',
-            title=rec["BookTitle"],
             container=container,
             **rec,
         )
@@ -227,7 +270,7 @@ class ImportVubis(BrowserView):
 
         return True
 
-    def import_exhibition(self, rec):
+    def import_exhibition(self, rec, element):
         container = self.context
 
         rec = convert_lists_to_text(rec, ["eventImages"])
@@ -273,3 +316,6 @@ class ImportVubis(BrowserView):
             content.copy(child, trans)
 
         trans._p_changed = True
+        trans.reindexObject()
+
+        return trans

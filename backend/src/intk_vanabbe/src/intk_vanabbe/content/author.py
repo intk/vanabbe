@@ -7,21 +7,28 @@ from zope import schema
 class IAuthor(model.Schema):
     """Schema for Author content type."""
 
-    authorID= schema.TextLine(title="authorID", required=False)
+    authorID = schema.TextLine(title="authorID", required=False)
     AuthorBio = schema.TextLine(title="AuthorBio", required=False)
 
-    # TODO: make it a
+    # TODO: make it a date?
     authorBirthDate = schema.TextLine(title="authorBirthDate", required=False)
     authorDeathDate = schema.TextLine(title="DeathDate", required=False)
 
     # this is also title
     authorName = schema.TextLine(title="authorName", required=False)
+    authorSortName = schema.TextLine(title="authorSortName", required=False)
 
     # this is i18n field
     authorURL = schema.TextLine(title="authorURL", required=False)
+    authorURLTitle = schema.TextLine(title="authorURLTitle", required=False)
 
     directives.languageindependent(
-            "authorID", "AuthorBio", "authorBirthDate", "authorDeathDate", "authorName"
+        "authorID",
+        "AuthorBio",
+        "authorBirthDate",
+        "authorDeathDate",
+        "authorName",
+        "authorSortName",
     )
 
-    searchable('AuthorBio', 'authorName')
+    searchable("AuthorBio", "authorName")

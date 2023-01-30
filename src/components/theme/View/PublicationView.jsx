@@ -1,8 +1,10 @@
+// To import:
+// http://localhost:8080/Plone/nl/archief/@@import_vubis?import=publication&max=10&query=bookArtist=Gordon,%20Douglas
+
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { Grid, Container } from 'semantic-ui-react';
-import { SocialLinks } from '@package/components';
-import ImageAlbum from '../ImageAlbum/ImageAlbum';
+import { ImageAlbum, SocialLinks } from '@package/components';
 
 export default function PublicationView(props) {
   const { content } = props;

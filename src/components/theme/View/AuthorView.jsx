@@ -1,5 +1,5 @@
 // To import an author:
-// http://localhost:8080/Plone/nl/archief/@@import_vubis?import=artwork&max=10&query=authorName=Douglas
+// http://localhost:8080/Plone/nl/archief/@@import_vubis?import=artwork&max=10&query=authorName=Douglas%20Gordon
 import React from 'react';
 import { Portal } from 'react-portal';
 import loadable from '@loadable/component';
