@@ -143,14 +143,20 @@ export default function ArtworkView(props) {
             </Grid.Row>
           </Grid>
         </div>
-        <h2>Context</h2>
-        {contextLinks.items?.map((info) => {
-          const item = {
-            ...getItem(info, content),
-            image_field: 'image',
-          };
-          return <Card id={info.id} item={item} {...props} useFallbackImage />;
-        })}
+        <h2 className="context-title">Context</h2>
+        <Grid columns={4} className="listings">
+          {contextLinks.items?.map((info) => {
+            const item = {
+              ...getItem(info, content),
+              image_field: 'image',
+            };
+            return (
+              <Grid.Column mobile={12} tablet={6} computer={3} key={info.id}>
+                <Card id={info.id} item={item} {...props} useFallbackImage />
+              </Grid.Column>
+            );
+          })}
+        </Grid>
       </Container>
     </div>
   );

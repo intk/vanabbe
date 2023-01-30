@@ -4,7 +4,7 @@ import React from 'react';
 import { Portal } from 'react-portal';
 import loadable from '@loadable/component';
 import config from '@plone/volto/registry';
-import { Container } from 'semantic-ui-react';
+import { Container, Grid } from 'semantic-ui-react';
 import { Card } from '@package/components';
 
 const Masonry = loadable(() => import('react-masonry-css'));
@@ -78,21 +78,30 @@ export default function AuthorView(props) {
                   </div>
                 </div>
               </div>
-              <h2>Context</h2>
-              {contextLinks.items
-                ?.filter((info) => info.id !== 'artworks')
-                .map((info) => (
-                  <Card
-                    key={info.id}
-                    id={info.id}
-                    item={{
-                      ...getItem(info, content),
-                      image_field: 'image',
-                    }}
-                    {...props}
-                    useFallbackImage
-                  />
-                ))}
+              <h2 className="context-title">Context</h2>
+              <Grid columns={4} className="listings">
+                {contextLinks.items
+                  ?.filter((info) => info.id !== 'artworks')
+                  .map((info) => (
+                    <Grid.Column
+                      mobile={12}
+                      tablet={6}
+                      computer={3}
+                      className="listing-column"
+                      key={info.id}
+                    >
+                      <Card
+                        id={info.id}
+                        item={{
+                          ...getItem(info, content),
+                          image_field: 'image',
+                        }}
+                        {...props}
+                        useFallbackImage
+                      />
+                    </Grid.Column>
+                  ))}
+              </Grid>
             </div>
           </div>
         </Container>
