@@ -22,7 +22,7 @@
 
 // fix block chooser, broken by volto-block-style stretch styling
 body:not(.view-editview):not(.document_wide_view):not(.is-anonymous) main {
-  overflow: unset;
+  overflow: unset !important;
 }
 
 // Fix font family in toolbar
@@ -58,6 +58,24 @@ body.view-addview,
   object-fit: cover;
   object-position: center;
   transition: transform 0.5s ease;
+}
+
+.view-contentsview {
+  .ui.mini.modal {
+    width: auto;
+  }
+
+  .ui.modal {
+    ul.content {
+      max-height: 500px;
+      overflow-y: auto;
+    }
+  }
+}
+
+.content-wrapper {
+  position: relative;
+  z-index: 1;
 }
 
 // #page-document {

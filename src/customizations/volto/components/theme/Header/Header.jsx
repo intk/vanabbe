@@ -75,37 +75,23 @@ const Header = (props) => {
       {!(cmsView || isHomePage) && (
         <>
           <Container className="sticky-heading">
-            <Grid>
-              <Grid.Row>
-                <Grid.Column
-                  id="heading"
-                  className="offset-1-left offset-2-right"
-                >
-                  {title && (
-                    <h1 className="content-title">{objectTitle || title}</h1>
-                  )}
-                  {description && (
-                    <p className="content-description">{description}</p>
-                  )}
-                </Grid.Column>
-              </Grid.Row>
-            </Grid>
+            <div id="heading" className="offset-1-left offset-2-right">
+              {title && (
+                <h1 className="content-title">{objectTitle || title}</h1>
+              )}
+              {description && (
+                <p className="content-description">{description}</p>
+              )}
+            </div>
           </Container>
           <Container>
-            <Grid>
-              <Grid.Row>
-                <Grid.Column className="offset-1-right">
-                  <div className="header-bg">
-                    <div className="header-container">
-                      <HeroSection
-                        image_url={previewImageUrl}
-                        content={content}
-                      />
-                    </div>
-                  </div>
-                </Grid.Column>
-              </Grid.Row>
-            </Grid>
+            <div className="offset-1-right">
+              <div className="header-bg">
+                <div className="header-container">
+                  <HeroSection image_url={previewImageUrl} content={content} />
+                </div>
+              </div>
+            </div>
           </Container>
         </>
       )}

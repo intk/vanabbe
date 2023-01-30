@@ -61,7 +61,7 @@ const HeroUnitView = (props) => {
   const heroRef = useRef();
   const { windowHeight } = useWindowDimensions();
   const inViewport = useIntersection(heroRef, {
-    threshold: 1.0,
+    threshold: 0,
     rootMargin: '0px',
   });
 
@@ -71,7 +71,13 @@ const HeroUnitView = (props) => {
   const [playing, setPlaying] = useState(false);
   const [top, setTop] = useState();
 
+  const setPosition = useCallback(() => {
+    const position = getPosition(logoRef);
+    setTop(position);
+  }, []);
+
   useEffect(() => {
+    const position = getPosition(logoRef);
     const loginHeight = document.getElementById('login').clientHeight;
     const logoHeight = document.getElementById('logo').clientHeight;
     const bottom = loginHeight + logoHeight;
@@ -83,18 +89,14 @@ const HeroUnitView = (props) => {
         setTop(windowHeight - bottom);
       } else {
         setScrolling(false);
+        if (inViewport) setTop(position + window.scrollY);
       }
       setScrollBottom(currentPosition <= 0 ? 0 : currentPosition);
     }
 
     window.addEventListener('scroll', onScroll);
     return () => window.removeEventListener('scroll', onScroll);
-  }, [scrollBottom, windowHeight]);
-
-  const setPosition = useCallback(() => {
-    const position = getPosition(logoRef);
-    setTop(position);
-  }, []);
+  }, [inViewport, scrollBottom, windowHeight]);
 
   useEffect(() => {
     if (!isView && scrolling) {
@@ -102,13 +104,6 @@ const HeroUnitView = (props) => {
       setActive(true);
     }
   }, [scrolling, isView]);
-
-  useEffect(() => {
-    const position = getPosition(logoRef);
-    if (!scrolling && inViewport) {
-      setTop(position + window.scrollY);
-    }
-  }, [scrolling, inViewport]);
 
   useEffect(() => {
     window.addEventListener('resize', setPosition);

@@ -37,6 +37,8 @@
   }
 }
 
+.ui.button:active,
+.ui.button:focus,
 .ui.basic.buttons .button:hover,
 .ui.basic.button:hover,
 .ui.basic.button:active,

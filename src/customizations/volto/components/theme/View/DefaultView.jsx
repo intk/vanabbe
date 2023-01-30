@@ -48,44 +48,32 @@ const DefaultView = (props) => {
 
   return hasBlocksData(content) ? (
     <div id="page-document" className="ui container">
-      <Grid>
-        <Grid.Row>
-          <Grid.Column className="offset-1-right">
-            <div className="content-wrapper">
-              <Grid>
-                <Grid.Row>
-                  <Grid.Column>
-                    {dividerBlock ? (
-                      <>
-                        <div className="blocks-bg-wrapper">
-                          <RenderBlocks
-                            {...props}
-                            path={path}
-                            content={filterContentBlocksBefore}
-                          />
-                        </div>
-                        <RenderBlocks
-                          {...props}
-                          path={path}
-                          content={filterContentBlocksAfter}
-                        />
-                      </>
-                    ) : (
-                      <div className="blocks-wrapper">
-                        <RenderBlocks
-                          {...props}
-                          path={path}
-                          content={filterContent}
-                        />
-                      </div>
-                    )}
-                  </Grid.Column>
-                </Grid.Row>
-              </Grid>
-            </div>
-          </Grid.Column>
-        </Grid.Row>
-      </Grid>
+      <div className="offset-1-right">
+        <div className="content-wrapper">
+          <div>
+            {dividerBlock ? (
+              <>
+                <div className="blocks-bg-wrapper">
+                  <RenderBlocks
+                    {...props}
+                    path={path}
+                    content={filterContentBlocksBefore}
+                  />
+                </div>
+                <RenderBlocks
+                  {...props}
+                  path={path}
+                  content={filterContentBlocksAfter}
+                />
+              </>
+            ) : (
+              <div className="blocks-wrapper">
+                <RenderBlocks {...props} path={path} content={filterContent} />
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
     </div>
   ) : (
     <Container id="page-document">
