@@ -1,3 +1,6 @@
+// To import an author:
+// http://localhost:8080/Plone/nl/archief/@@import_vubis?import=artwork&max=10&query=authorName=Douglas
+
 import loadable from '@loadable/component';
 import config from '@plone/volto/registry';
 import { Card } from '@package/components';
