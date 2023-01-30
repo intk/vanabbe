@@ -200,7 +200,7 @@ class ImportVubis(BrowserView):
         container = self.context
         obj = content.create(
             type="publication",
-            id=f'book-{toid(rec["ccObjectID"])}',
+            id=f'pub-{toid(rec["ccObjectID"])}',
             title=rec["BookTitle"],
             container=container,
             **rec,
