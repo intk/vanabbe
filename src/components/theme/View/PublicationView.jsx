@@ -9,8 +9,10 @@ import { ImageAlbum, SocialLinks } from '@package/components';
 export default function PublicationView(props) {
   const { content } = props;
 
-  const bookAuthor = Array.isArray(content.bookauthorName)
-    ? content.bookauthorName.join(', ')
+  const bookAuthor = Array.isArray(content?.bookauthorName)
+    ? content.bookauthorName.map((author) => {
+        return <div>{author}</div>;
+      })
     : content.bookauthorName;
 
   return (
@@ -34,9 +36,7 @@ export default function PublicationView(props) {
                       </div>
 
                       <div className="artwork-meta">
-                        <h2 className="object-author">
-                          {content.bookauthorName}
-                        </h2>
+                        <h2 className="object-author">{bookAuthor}</h2>
                         <h3 className="object-artist">{content.bookArtist}</h3>
                         <h4 className="object-publisher">
                           {content.bookCity}, {content.bookPublisher}
