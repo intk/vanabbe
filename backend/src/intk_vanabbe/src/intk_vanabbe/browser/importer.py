@@ -79,7 +79,7 @@ def import_images(container, urls):
         with requests.get(url, stream=True, verify=False, headers=HEADERS) as req:
             data = req.raw.read()
 
-            if "DOCTYP" in data[:10]:  # avoids missing images
+            if "DOCTYP" in str(data[:10]):  # avoids missing images
                 continue
 
             # TODO: should use streaming
