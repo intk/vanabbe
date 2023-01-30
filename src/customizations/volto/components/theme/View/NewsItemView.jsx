@@ -6,7 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Portal } from 'react-portal';
-import { Container, Image, Grid } from 'semantic-ui-react';
+import { Container, Image } from 'semantic-ui-react';
 import {
   hasBlocksData,
   flattenToAppURL,

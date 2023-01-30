@@ -7,6 +7,10 @@ import ImageAlbum from '../ImageAlbum/ImageAlbum';
 export default function PublicationView(props) {
   const { content } = props;
 
+  const bookAuthor = Array.isArray(content.bookauthorName)
+    ? content.bookauthorName.join(', ')
+    : content.bookauthorName;
+
   return (
     <div className="publication-view artwork-view">
       <Container>
@@ -20,12 +24,11 @@ export default function PublicationView(props) {
                       <div>
                         <ImageAlbum
                           items={content.items}
-                          itemTitle=""
-                          itemAuthor={content.bookauthorName}
+                          itemTitle={content.title}
+                          itemAuthor={bookAuthor}
                         />
-                        <div className="info">
-                          <SocialLinks />
-                        </div>
+
+                        <SocialLinks />
                       </div>
 
                       <div className="artwork-meta">

@@ -12,7 +12,7 @@ import {
   flattenHTMLToAppURL,
   expandToBackendURL,
 } from '@plone/volto/helpers';
-import { Image, Grid, Icon, List } from 'semantic-ui-react';
+import { Image, Icon, List } from 'semantic-ui-react';
 import RenderBlocks from '@plone/volto/components/theme/View/RenderBlocks';
 
 import {

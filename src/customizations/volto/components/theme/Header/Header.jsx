@@ -9,7 +9,7 @@ import {
   Navigation,
   SearchWidget,
 } from '@plone/volto/components';
-import { Container, Grid } from 'semantic-ui-react';
+import { Container } from 'semantic-ui-react';
 import { BodyClass, isCmsUi } from '@plone/volto/helpers';
 import {
   HeroSection,

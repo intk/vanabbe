@@ -73,11 +73,11 @@ const ImageAlbum = (props) => {
               tabIndex={0}
               role="button"
               onKeyDown={() => {
-                setActiveSlideIndex(i);
+                setActiveSlideIndex(i + 1);
                 setOpen(true);
               }}
               onClick={() => {
-                setActiveSlideIndex(i);
+                setActiveSlideIndex(i + 1);
                 setOpen(true);
               }}
             >

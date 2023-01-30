@@ -1,15 +1,17 @@
 import { Grid, Container } from 'semantic-ui-react';
-import { ImageAlbum } from '@package/components';
+import { ImageAlbum, SocialLinks } from '@package/components';
 
 const EventMedia = ({ value }) => (
-  <ul>
+  <ul className="event-media-list">
     {value
       .split('\n')
       .map((u) => u.trim())
       .filter((u) => !!u)
       .map((u, index) => (
         <li key={index}>
-          <a href={u.split('|')[0]}>{u.split('|')[1]}</a>
+          <a href={u.split('|')[0]} target="_blank" rel="noreferrer">
+            {u.split('|')[1]}
+          </a>
         </li>
       ))}
   </ul>
@@ -25,7 +27,7 @@ export default function ExhibitionView(props) {
   console.log(content);
 
   return (
-    <div className="artwork-view">
+    <div className="exhibition artwork-view">
       <Container>
         <div className="content-container">
           <Grid>
@@ -34,21 +36,30 @@ export default function ExhibitionView(props) {
                 <div className="content-wrapper">
                   <div className="artwork-container">
                     <div className="artwork-top">
-                      <ImageAlbum
-                        items={content.items}
-                        itemTitle={content.objectTitle}
-                        itemAuthor={content.authorName}
-                      />
+                      <div>
+                        <ImageAlbum
+                          items={content.items}
+                          itemTitle={content.title}
+                          itemAuthor={content.eventArtist}
+                        />
+
+                        <SocialLinks />
+                      </div>
+                      <div className="artwork-meta">
+                        <h2 class="object-author">{content.eventArtist}</h2>
+                        <h5 className="event-time">{content.eventTimeFrom}</h5>
+                        <p>{content.eventCoorporation}</p>
+
+                        {content.eventMedia?.length > 0 && (
+                          <EventMedia value={content.eventMedia} />
+                        )}
+                      </div>
+                    </div>
+                    <div className="artwork-content offset-1-left offset-2-right">
+                      <div>{content.eventDescription}</div>
                     </div>
                   </div>
                 </div>
-                <div>{content.eventArtist}</div>
-                <div>{content.eventCoorporation}</div>
-                <div>{content.eventDescription}</div>
-                <div>{content.eventTimeFrom}</div>
-                {content.eventMedia?.length > 0 && (
-                  <EventMedia value={content.eventMedia} />
-                )}
               </Grid.Column>
             </Grid.Row>
           </Grid>

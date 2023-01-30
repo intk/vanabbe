@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { RenderBlocks } from '@plone/volto/components';
-import { Container, Grid } from 'semantic-ui-react';
+import { Container } from 'semantic-ui-react';
 
 import { hasBlocksData, getBaseUrl } from '@plone/volto/helpers';
 
