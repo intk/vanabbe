@@ -22,6 +22,11 @@ const getItem = (info, content) => {
         '@id': info['url'],
         title: `Publications with or about ${info.authorName}`,
       }
+    : info.type === 'exhibitions'
+    ? {
+        '@id': info['url'],
+        title: `Exhibitions with or about ${info.authorName}`,
+      }
     : null;
 };
 
