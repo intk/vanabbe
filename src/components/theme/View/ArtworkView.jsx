@@ -13,6 +13,12 @@ const getLinkLabel = (infoId, content) => {
     case 'artwork':
       label = `More artworks by ${content.authorName}`;
       break;
+    case 'period':
+      label = `More artworks from this period`;
+      break;
+    case 'publication':
+      label = `Publications with or about ${content.authorName}`;
+      break;
     default:
       break;
   }

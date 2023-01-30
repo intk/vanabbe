@@ -39,6 +39,7 @@ def path(obj):
     return obj.absolute_url(relative=1)
 
 
+# TODO: do we still need this?
 def convert_lists_to_text(rec, blacklist=None):
     blacklist = blacklist or []
     for k, v in rec.items():
@@ -245,7 +246,7 @@ class ImportVubis(BrowserView):
 
     def import_publication(self, rec, element):
 
-        rec = convert_lists_to_text(rec, ["bookIllustrations"])
+        rec = convert_lists_to_text(rec, ["bookIllustrations", "bookArtist"])
         bookArtist = rec.get("bookArtist")
         if bookArtist and not isinstance(bookArtist, list):
             rec["bookArtist"] = [bookArtist]
@@ -273,7 +274,10 @@ class ImportVubis(BrowserView):
     def import_exhibition(self, rec, element):
         container = self.context
 
-        rec = convert_lists_to_text(rec, ["eventImages"])
+        rec = convert_lists_to_text(rec, ["eventImages", "eventArtist"])
+        if rec.get("eventArtist") and not isinstance(rec["eventArtist"], list):
+            rec["eventArtist"] = [rec["eventArtist"]]
+
         rec["title"] = rec["eventTitle"]
         en_title = None
         filenames = rec.get("eventImages", [])
