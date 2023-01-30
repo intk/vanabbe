@@ -86,26 +86,7 @@ class ArtworkContextLinks(object):
         self.context = context
         self.request = request
 
-    def get_other_art(self):
-
-        result = []
-        for rel in self.context.authors:
-            author = rel.to_object
-
-            brains = find(
-                portal_type="artwork",
-                authorID=author.authorID,
-                Language=self.context.language,
-            )
-            arts = [b for b in brains if b.id != self.context.id]
-            if arts:
-                result.append(
-                    {"authorName": author.authorName, "url": choice(arts).getURL()}
-                )
-
-        return result
-
-    def get_period_art(self):
+    def get_period_art(self, result):
         ctx = self.context
 
         minmax = []
@@ -135,10 +116,45 @@ class ArtworkContextLinks(object):
             )
 
         arts = [b for b in brains if b.id != self.context.id]
-        return arts and choice(arts) or None
+        if arts:
+            result["contextLinks"]["items"].append(
+                {"type": "period", "url": choice(arts).getURL()}
+            )
 
-    def get_publications(self):
-        result = []
+        return result
+
+    def get_other_art(self, result):
+        other_arts = []
+
+        for rel in self.context.authors:
+            author = rel.to_object
+
+            brains = find(
+                portal_type="artwork",
+                authorID=author.authorID,
+                Language=self.context.language,
+            )
+            arts = [b for b in brains if b.id != self.context.id]
+            if arts:
+                other_arts.append(
+                    {
+                        "authorName": author.authorName,
+                        "url": choice(arts).getURL(),
+                        "type": "other_artworks",
+                    }
+                )
+
+        if other_arts:
+            result["contextLinks"]["items"].append(
+                {"id": "other_artworks", "items": other_arts}
+            )
+
+        return result
+
+    def get_publications(self, result):
+
+        # result = []
+        pubs = []
         for rel in self.context.authors:
             author = rel.to_object
             authorSortName = author.authorSortName
@@ -148,17 +164,23 @@ class ArtworkContextLinks(object):
                 bookArtist=[authorSortName],
             )
             if publications:
-                result.append(
+                pubs.append(
                     {
+                        "type": "publications",
                         "authorName": author.authorName,
                         "url": choice(publications).getURL(),
                     }
                 )
+        if pubs:
+            result["contextLinks"]["items"].append(
+                {"id": "publications", "items": pubs}
+            )
 
         return result
 
-    def get_exhibition_art(self):
-        result = []
+    def get_exhibition_art(self, result):
+
+        arts = []
         for rel in self.context.authors:
             author = rel.to_object
             authorSortName = author.authorSortName
@@ -168,12 +190,17 @@ class ArtworkContextLinks(object):
                 eventArtist=[authorSortName],
             )
             if exhibitions:
-                result.append(
+                arts.append(
                     {
+                        "type": "exhibitions",
                         "authorName": author.authorName,
                         "url": choice(exhibitions).getURL(),
                     }
                 )
+
+        if arts:
+            result["contextLinks"]["items"].append({"id": "exhibitions", "items": arts})
+
         return result
 
     def __call__(self, result):
@@ -181,21 +208,10 @@ class ArtworkContextLinks(object):
         items = []
         result["contextLinks"]["items"] = items
 
-        period_art = self.get_period_art()
-        if period_art:
-            items.append({"id": "period", "url": period_art.getURL()})
-
-        other_art = self.get_other_art()
-        if other_art:
-            items.append({"id": "artwork", "items": other_art})
-
-        pub_art = self.get_publications()
-        if pub_art:
-            items.append({"id": "publication", "url": pub_art.getURL()})
-
-        exhibition_art = self.get_exhibition_art()
-        if exhibition_art:
-            items.append({"id": "exhibition", "items": exhibition_art})
+        result = self.get_period_art(result)
+        result = self.get_other_art(result)
+        result = self.get_publications(result)
+        result = self.get_exhibition_art(result)
 
         return result
 

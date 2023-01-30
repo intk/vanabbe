@@ -6,32 +6,23 @@ import { SocialLinks, Card } from '@package/components';
 import ImageAlbum from '../ImageAlbum/ImageAlbum';
 import config from '@plone/volto/registry';
 
-const getUrl = (info, content) => info['url'];
-
-const getLinkLabel = (info, content) => {
-  let label;
-  switch (info.id) {
-    case 'artwork':
-      label = `More artworks by ${content.authorName}`;
-      break;
-    case 'period':
-      label = `More artworks from this period`;
-      break;
-    case 'publication':
-      label = `Publications with or about ${content.authorName}`;
-      break;
-    default:
-      break;
-  }
-  return label;
-};
-
 const getItem = (info, content) => {
-  const item = {
-    '@id': getUrl(info, content),
-    title: getLinkLabel(info, content),
-  };
-  return item;
+  return info.type === 'other_artworks'
+    ? {
+        '@id': info['url'],
+        title: `More artworks by ${info.authorName}`,
+      }
+    : info.type === 'period'
+    ? {
+        '@id': info['url'],
+        title: `More artworks from this period`,
+      }
+    : info.type === 'publications'
+    ? {
+        '@id': info['url'],
+        title: `Publications with or about ${info.authorName}`,
+      }
+    : null;
 };
 
 export default function ArtworkView(props) {
@@ -51,7 +42,33 @@ export default function ArtworkView(props) {
     columns.push(col);
   });
 
+  const Item = ({ info }) => {
+    return (
+      <Grid.Column mobile={12} tablet={6} computer={3}>
+        <Card
+          id={info.type}
+          item={{
+            ...getItem(info, content),
+            image_field: 'image',
+          }}
+          {...props}
+          useFallbackImage
+        />
+      </Grid.Column>
+    );
+  };
+
   const authors = content.authors.map((auth) => auth.title).join(', ');
+  console.log(contextLinks.items);
+  const contextLinkCards = contextLinks.items?.reduce((acc, info) => {
+    const local = info.items
+      ? info.items.map((item, index) => (
+          <Item info={item} key={`${info.id}-${index}`} />
+        ))
+      : [<Item key={info.type || info.id} info={info} />];
+
+    return [...acc, ...local];
+  }, []);
 
   return (
     <div className="artwork-view">
@@ -106,13 +123,13 @@ export default function ArtworkView(props) {
                         <div className="info">
                           <p>
                             <FormattedMessage
-                              id="The Van Abbemuseum Collection consists of over 2800 artworks. We publish texts and images on an ongoing basis, but this record is currently in the process of being documented."
+                              id="van_abbe_2800"
                               defaultMessage="The Van Abbemuseum Collection consists of over 2800 artworks. We publish texts and images on an ongoing basis, but this record is currently in the process of being documented."
                             />
                           </p>
                           <p>
                             <FormattedMessage
-                              id="If you need specific information on this work or artist, remember that the Van Abbemuseum Library is at your disposal, or feel free to write to the library."
+                              id="need_info_specific"
                               defaultMessage="If you need specific information on this work or artist, remember that the Van Abbemuseum Library is at your disposal, or feel free to write to the library."
                             />
                           </p>
@@ -134,12 +151,12 @@ export default function ArtworkView(props) {
                       ))}
                       <p className="artwork-content-footer">
                         <FormattedMessage
-                          id="Does this page contain inaccurate information or language that you feel we should improve or change?"
+                          id="does_this_contain_innacurate"
                           defaultMessage="Does this page contain inaccurate information or language that you feel we should improve or change?"
                         />{' '}
                         <a href={registratorMail}>
                           <FormattedMessage
-                            id="We would like to hear from you"
+                            id="would_like_to_hear"
                             defaultMessage="We would like to hear from you"
                           />
                           .
@@ -157,17 +174,7 @@ export default function ArtworkView(props) {
         </div>
         <h2 className="context-title">Context</h2>
         <Grid columns={4} className="listings">
-          {contextLinks.items?.map((info) => {
-            const item = {
-              ...getItem(info, content),
-              image_field: 'image',
-            };
-            return (
-              <Grid.Column mobile={12} tablet={6} computer={3} key={info.id}>
-                <Card id={info.id} item={item} {...props} useFallbackImage />
-              </Grid.Column>
-            );
-          })}
+          {contextLinkCards}
         </Grid>
       </Container>
     </div>

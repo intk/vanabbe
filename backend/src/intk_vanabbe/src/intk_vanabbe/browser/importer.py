@@ -159,6 +159,7 @@ class ImportVubis(BrowserView):
             found = content.find(
                 portal_type="author",
                 authorID=authorID,
+                language="nl",
             )
             if found:
                 authors += [b.getObject() for b in found]
