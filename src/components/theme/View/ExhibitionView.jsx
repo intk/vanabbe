@@ -17,6 +17,8 @@ const EventMedia = ({ value }) => (
 
 // http://62.221.199.184:17718/action=get&command=search&query=ccIndexName=VanabbeTentoonstellingen&fields=*&range=0-1000
 // https://vanabbemuseum.nl/collectie/details/tentoonstellingen/index.html@lookup[6039][filter][0]=exhibitionCode_stringS%253A1826.html
+// To import:
+// http://localhost:8080/Plone/nl/archief/@@import_vubis?import=exhibition&max=10&query=recordNumber=102373
 export default function ExhibitionView(props) {
   const { content } = props;
 
