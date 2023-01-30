@@ -70,6 +70,7 @@ def extract_lang(rec, lang="nl"):
 def import_images(container, urls):
     for url in urls:
         url = url.strip()
+
         fname = get_filename(url)
 
         if os.path.isfile(fname):
@@ -77,6 +78,10 @@ def import_images(container, urls):
 
         with requests.get(url, stream=True, verify=False, headers=HEADERS) as req:
             data = req.raw.read()
+
+            if "DOCTYP" in data[:10]:  # avoids missing images
+                continue
+
             # TODO: should use streaming
             imagefield = NamedBlobImage(
                 # TODO: are all images jpegs?
