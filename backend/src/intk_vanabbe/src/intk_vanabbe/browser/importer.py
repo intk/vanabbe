@@ -39,8 +39,11 @@ def path(obj):
     return obj.absolute_url(relative=1)
 
 
-def convert_lists_to_text(rec):
+def convert_lists_to_text(rec, blacklist=None):
+    blacklist = blacklist or []
     for k, v in rec.items():
+        if k in blacklist:
+            continue
         if isinstance(v, list):
             rec[k] = "\n".join(v)
 
@@ -66,6 +69,7 @@ def extract_lang(rec, lang="nl"):
 
 def import_images(container, urls):
     for url in urls:
+        url = url.strip()
         fname = get_filename(url)
 
         if os.path.isfile(fname):
@@ -168,8 +172,9 @@ class ImportVubis(BrowserView):
 
         filenames = rec.get("objectImage", [])
         if isinstance(filenames, str):
-            filename = [filenames]
-        filenames = [IMAGE_BASE_URL % fname for fname in filename]
+            filenames = [filenames]
+        filenames = [IMAGE_BASE_URL % fname for fname in filenames]
+        rec["objectImage"] = "\n".join(filenames)
 
         converted = convert_lists_to_text(rec)
         converted["title"] = converted["objectTitle"].split("\n")[0]
@@ -220,30 +225,34 @@ class ImportVubis(BrowserView):
     def import_exhibition(self, rec):
         container = self.context
 
-        rec = convert_lists_to_text(rec)
+        rec = convert_lists_to_text(rec, ["eventImages"])
         rec["title"] = rec["eventTitle"]
         en_title = None
+        filenames = rec.get("eventImages", [])
+        if isinstance(filenames, str):
+            filenames = [filenames]
+        filenames = [f.strip() for f in filenames]
+        rec["eventImages"] = "\n".join(filenames)
 
         if rec.get("eventTitle_EN"):
             en_title = rec["eventTitle_EN"]
             del rec["eventTitle_EN"]
 
-        try:
-            obj = content.create(
-                type="exhibition",
-                id=f'exh-{str(rec["recordnumber"])}',
-                container=container,
-                **rec,
-            )
-            print("Imported exhibition", path(obj))
+        obj = content.create(
+            type="exhibition",
+            id=f'exh-{str(rec["recordnumber"])}',
+            container=container,
+            **rec,
+        )
+        print("Imported exhibition", path(obj))
 
-            if en_title:
-                rec["title"] = en_title
-                rec["eventTitle"] = en_title
+        if en_title:
+            rec["title"] = en_title
+            rec["eventTitle"] = en_title
 
-            self.translate(obj, rec)
-        except Exception:
-            logger.exception("Unable to import exhibition")
+        import_images(obj, filenames)
+
+        self.translate(obj, rec)
 
         return True
 
