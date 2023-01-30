@@ -68,6 +68,8 @@ body.view-addview,
   .ui.modal {
     ul.content {
       max-height: 500px;
+      max-width: 800px;
+      width: 100%;
       overflow-y: auto;
     }
   }

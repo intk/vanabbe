@@ -87,7 +87,6 @@ export default function AuthorView(props) {
                       mobile={12}
                       tablet={6}
                       computer={3}
-                      className="listing-column"
                       key={info.id}
                     >
                       <Card
