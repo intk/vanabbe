@@ -208,8 +208,8 @@ class ArtworkContextLinks(object):
         items = []
         result["contextLinks"]["items"] = items
 
-        result = self.get_period_art(result)
         result = self.get_other_art(result)
+        result = self.get_period_art(result)
         result = self.get_publications(result)
         result = self.get_exhibition_art(result)
 
