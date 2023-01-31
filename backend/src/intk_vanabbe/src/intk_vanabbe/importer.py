@@ -205,7 +205,42 @@ def _import_publication(rec):
     <ccIndexName>VanAbbeBibliotheek</ccIndexName>
     <recordnumber>96712</recordnumber>
     <VubisID>2:105020</VubisID>
-    </dc_record>"""
+    </dc_record>
+
+
+    <dc_record>
+    <ccObjectID>2:44573</ccObjectID>
+    <bookAnnotation>Met bio- en bibliografie. - Met lijst werken</bookAnnotation>
+    <bookArtist>Gordon, Douglas</bookArtist>
+    <bookauthorName>Gordon, D</bookauthorName>
+    <bookauthorName>McKee, F</bookauthorName>
+    <bookauthorName>Lawson, T</bookauthorName>
+    <bookauthorName>Debbaut, J</bookauthorName>
+    <bookauthorName>Brouwers, A</bookauthorName>
+    <bookBarcode>44573</bookBarcode>
+    <bookBarcode>44573-2</bookBarcode>
+    <bookBarcode>44573-3</bookBarcode>
+    <bookBBCode>44573</bookBBCode>
+    <bookBbnummer>44573</bookBbnummer>
+    <bookBinding>Boek; 199 p ill</bookBinding>
+    <bookCity>Eindhoven</bookCity>
+    <bookCountry>Groot-Brittannië</bookCountry>
+    <bookDatePublished>1998</bookDatePublished>
+    <bookDescription>Boekproject van Douglas Gordon. - Coll. VAM: Gordon, Douglas, 10 ms-1, 1994, p. 68-69 ill. kleur ; Untitled Text (for someplace other than this), 1996, p. 75 ill. kleur ; Between Darkness and Light (After William Blake), 1997, p. 166-171 kleur en p. 176 zw ; The End (Split-Second Configuration), 1995, p. 188 ill. zw</bookDescription>
+    <bookISBN>90-70149-65-6</bookISBN>
+    <bookLanguage>en</bookLanguage>
+    <bookPublisher>Stedelijk Van Abbemuseum</bookPublisher>
+    <bookShelfmark>GORDON, DOUGLAS</bookShelfmark>
+    <BookSubTitle>Douglas Gordon</BookSubTitle>
+    <BookTitle>Kidnapping</BookTitle>
+    <bookVubisid>2:44573</bookVubisid>
+    <ccIdentifier>https://vanabbe.inforlibraries.com/abbeweb/LinkToVubis.csp?DataBib=2:44573</ccIdentifier>
+    <ccIndexName>VanAbbeBibliotheek</ccIndexName>
+    <recordnumber>18281</recordnumber>
+    <VubisID>2:44573</VubisID>
+    </dc_record>
+
+    """
     # keys = ['ccObjectID', 'bookBarcode', 'bookBBCode', 'bookBbnummer', 'bookBinding',
     #         'bookCity', 'bookDatePublished', 'bookLanguage', 'bookPublisher',
     #         'bookShelfmark', 'BookTitle', 'bookVubisid', 'ccIdentifier', 'ccIndexName',

@@ -9,11 +9,12 @@ import { ImageAlbum, SocialLinks } from '@package/components';
 export default function PublicationView(props) {
   const { content } = props;
 
-  const bookAuthor = Array.isArray(content?.bookauthorName)
-    ? content.bookauthorName.map((author) => {
-        return <div>{author}</div>;
-      })
-    : content.bookauthorName;
+  let { bookauthorName = [] } = content;
+  if (!Array.isArray(bookauthorName))
+    bookauthorName = bookauthorName.split('\n').map((a) => a.trim());
+  const bookAuthor = bookauthorName.map((author, i) => {
+    return <div key={i}>{author}</div>;
+  });
 
   return (
     <div className="publication-view artwork-view">
