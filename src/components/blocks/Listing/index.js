@@ -6,7 +6,6 @@ import BigCardsTemplate from './BigCardsTemplate';
 import ColoredCardsTemplate from './ColoredCardsTemplate';
 import ListingsBlockTemplate from './ListingTemplate';
 import SearchListingTemplate from './SearchListingTemplate';
-import SearchListingLayout from './SearchListingLayout';
 import SliderListingBlockTemplate from './SliderListing';
 
 const messages = defineMessages({
@@ -67,14 +66,6 @@ export default (config) => {
     return schema;
   };
 
-  config.blocks.blocksConfig.search.variations = [
-    ...config.blocks.blocksConfig.search.variations,
-    {
-      id: 'loadMore',
-      title: 'Load more',
-      view: SearchListingLayout,
-    },
-  ];
   config.blocks.blocksConfig.listing.variations = [
     // ...config.blocks.blocksConfig.listing.variations,
 
