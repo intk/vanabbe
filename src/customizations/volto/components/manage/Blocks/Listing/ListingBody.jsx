@@ -49,7 +49,7 @@ const ListingBodyComponent = (props) => {
 
   React.useEffect(() => {
     if (noLoadedItems) {
-      console.log('rewrite loaded items');
+      // console.log('rewrite loaded items');
       setDataBuffer({ ...dataBuffer, items: listingItems });
     }
   }, [noLoadedItems, dataBuffer, listingItems]);
@@ -60,7 +60,7 @@ const ListingBodyComponent = (props) => {
       (item) => loadedIds.indexOf(item['@id']) === -1,
     );
     if (otherItems.length) {
-      console.log('add data', { loadedItems, listingItems });
+      // console.log('add data', { loadedItems, listingItems });
       setDataBuffer({ currentPage, items: [...loadedItems, ...otherItems] });
     }
   }, [currentPage, setDataBuffer, lastRecorded, loadedItems, listingItems]);

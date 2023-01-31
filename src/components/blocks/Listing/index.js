@@ -21,6 +21,10 @@ const messages = defineMessages({
     id: 'Show date',
     defaultMessage: 'Show date',
   },
+  showCount: {
+    id: 'Show Count',
+    defaultMessage: 'Show Count',
+  },
 });
 
 export default (config) => {
@@ -53,6 +57,11 @@ export default (config) => {
         type: 'boolean',
         default: true,
       },
+      showCount: {
+        title: intl.formatMessage(messages.showCount),
+        type: 'boolean',
+        default: false,
+      },
     };
 
     schema.fieldsets[0].fields.splice(
@@ -61,6 +70,7 @@ export default (config) => {
       'linkHref',
       'linkTitle',
       'showDate',
+      'showCount',
     );
 
     return schema;
