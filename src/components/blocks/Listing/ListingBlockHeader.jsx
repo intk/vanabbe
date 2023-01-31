@@ -8,7 +8,6 @@ const ListingBlockHeader = ({ data }) => {
   const total = useSelector(
     (state) => state.querystringsearch.subrequests?.[block]?.total,
   );
-  console.log(total);
 
   return head ? (
     <div className="listing-block-header">
