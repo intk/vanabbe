@@ -69,24 +69,21 @@ export const Address = ({ contactTitle, address, phone, email }) => (
   </div>
 );
 
-// const useFooterBlock = (globalId) => {
-//   const footer = useSiteDataContent();
-//   const { blocks = {} } = footer;
-//   const blockId = Object.keys(blocks).find(
-//     (id) => blocks[id].globalId === globalId,
-//   );
-//   return blockId ? [blockId, blocks[blockId]] : [];
-// };
+const FooterLogos = () => {
+  const footer = useSiteDataContent();
+  const { blocks = {} } = footer;
+  const {
+    blocks: { blocksConfig },
+  } = config;
+  const imageBlock = Object.values(blocks).filter(
+    (id) => id['@type'] === 'imagecards',
+  );
+  const LogoCardsBlockView =
+    blocksConfig.imagecards.blockRenderers.logoCards.view;
+  const data = imageBlock[0];
 
-// const FooterLinks = ({ globalId }) => {
-//   const [blockId, block] = useFooterBlock(globalId);
-//   const properties = {
-//     blocks: { [blockId]: block },
-//     blocks_layout: { items: [blockId] },
-//   };
-
-//   return blockId ? <RenderBlocks content={properties} /> : null;
-// };
+  return <LogoCardsBlockView data={data} />;
+};
 
 const FooterBlocks = ({ includeTypes }) => {
   const siteDataContent = useSiteDataContent();
@@ -116,6 +113,7 @@ export function Footer(props) {
   return (
     <div className="footer">
       <Container>
+        <FooterLogos />
         <div className="footer-wrapper offset-2-right">
           <SocialLinks {...siteData} />
           <Address {...siteData} />
@@ -135,6 +133,25 @@ export function Footer(props) {
 }
 
 export default injectIntl(Footer);
+
+// const useFooterBlock = (globalId) => {
+//   const footer = useSiteDataContent();
+//   const { blocks = {} } = footer;
+//   const blockId = Object.keys(blocks).find(
+//     (id) => blocks[id].globalId === globalId,
+//   );
+//   return blockId ? [blockId, blocks[blockId]] : [];
+// };
+
+// const FooterLinks = ({ globalId }) => {
+//   const [blockId, block] = useFooterBlock(globalId);
+//   const properties = {
+//     blocks: { [blockId]: block },
+//     blocks_layout: { items: [blockId] },
+//   };
+
+//   return blockId ? <RenderBlocks content={properties} /> : null;
+// };
 
 // const FooterBlocks = ({
 //   excludeIds = [],

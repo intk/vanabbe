@@ -45,7 +45,7 @@ const Card = ({ card = {}, height, image_scale, mode = 'view' }) => {
 
 const LogoCards = (props) => {
   const { data = {}, editable = false } = props;
-  const { cards = [], image_scale, height = '80px' } = data;
+  const { cards = [], image_scale, height = '80px', title } = data;
 
   return !cards.length ? (
     editable ? (
@@ -54,17 +54,20 @@ const LogoCards = (props) => {
       ''
     )
   ) : (
-    <div className="logo-carousel">
-      {cards.map((card, i) => (
-        <Card
-          key={i}
-          mode={editable ? 'edit' : 'view'}
-          card={card}
-          height={height}
-          image_scale={image_scale}
-        />
-      ))}
-    </div>
+    <>
+      <div>{title}</div>
+      <div className="logo-carousel">
+        {cards.map((card, i) => (
+          <Card
+            key={i}
+            mode={editable ? 'edit' : 'view'}
+            card={card}
+            height={height}
+            image_scale={image_scale}
+          />
+        ))}
+      </div>
+    </>
   );
 };
 
