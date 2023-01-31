@@ -3,10 +3,6 @@ import { ListingBlockHeader } from '@package/components';
 
 const AgendaListingTemplate = (data) => {
   const { items = [], linkHref } = data;
-  // {items.map((item, i) => (
-  //   <Item item={item} showDate={showDate} key={i} />
-  // ))}
-  console.log('items', items);
   const groups = items.reduce(
     (acc, item) => ({
       ...acc,
