@@ -3,12 +3,14 @@
 import React, { createRef } from 'react';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { Dimmer, Loader } from 'semantic-ui-react';
-import { Icon } from '@plone/volto/components';
 import config from '@plone/volto/registry';
 import withQuerystringResults from '@plone/volto/components/manage/Blocks/Listing/withQuerystringResults';
 import Pagination from './LoadMorePagination';
+import { useLocation } from 'react-router-dom';
+import { compose } from 'redux';
+import qs from 'querystring';
 
-const ListingBody = withQuerystringResults((props) => {
+const ListingBodyComponent = (props) => {
   const {
     data = {},
     isEditMode,
@@ -17,8 +19,6 @@ const ListingBody = withQuerystringResults((props) => {
     onPaginationChange,
     variation,
     currentPage,
-    prevBatch,
-    nextBatch,
     isFolderContentsListing,
     hasLoaded,
   } = props;
@@ -124,6 +124,33 @@ const ListingBody = withQuerystringResults((props) => {
       </Dimmer>
     </div>
   );
-});
+};
 
-export default injectIntl(ListingBody);
+const withSearchText = (WrappedComponent) => {
+  function WithSearchText(props) {
+    const location = useLocation();
+    const searchText = qs.parse(location.search.slice(1))['SearchableText'];
+    let data = props.data || {};
+
+    if (searchText) {
+      const { querystring = {} } = data;
+      const { query = [] } = querystring;
+      if (!query.find((op) => op.i === 'SearchableText')) {
+        query.push({
+          i: 'SearchableText',
+          o: 'plone.app.querystring.operation.string.contains',
+          v: searchText,
+        });
+      }
+    }
+
+    return <WrappedComponent {...props} />;
+  }
+  return WithSearchText;
+};
+
+export default compose(
+  injectIntl,
+  withSearchText,
+  withQuerystringResults,
+)(ListingBodyComponent);
