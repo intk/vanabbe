@@ -51,7 +51,11 @@ export default function ExhibitionView(props) {
                         <SocialLinks />
                       </div>
                       <div className="artwork-meta">
-                        <h4 class="object-author">{content.eventArtist}</h4>
+                        {content.eventArtist?.map((a, i) => (
+                          <h4 class="object-author" key={i}>
+                            {a}
+                          </h4>
+                        ))}
                         <h5 className="event-time">{content.eventTimeFrom}</h5>
                         <div className="info">
                           <p>{content.eventCoorporation}</p>
