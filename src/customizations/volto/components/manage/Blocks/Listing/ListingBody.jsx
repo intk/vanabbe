@@ -8,9 +8,6 @@ import config from '@plone/volto/registry';
 import withQuerystringResults from '@plone/volto/components/manage/Blocks/Listing/withQuerystringResults';
 import Pagination from './LoadMorePagination';
 
-import paginationLeftSVG from '@plone/volto/icons/left-key.svg';
-import paginationRightSVG from '@plone/volto/icons/right-key.svg';
-
 const ListingBody = withQuerystringResults((props) => {
   const {
     data = {},
@@ -87,20 +84,6 @@ const ListingBody = withQuerystringResults((props) => {
               !isEditMode &&
                 listingRef.current.scrollIntoView({ behavior: 'smooth' });
               onPaginationChange(e, { activePage });
-            }}
-            firstItem={null}
-            lastItem={null}
-            prevItem={{
-              content: <Icon name={paginationLeftSVG} size="18px" />,
-              icon: true,
-              'aria-disabled': !prevBatch,
-              className: !prevBatch ? 'disabled' : null,
-            }}
-            nextItem={{
-              content: <Icon name={paginationRightSVG} size="18px" />,
-              icon: true,
-              'aria-disabled': !nextBatch,
-              className: !nextBatch ? 'disabled' : null,
             }}
           />
         </div>
