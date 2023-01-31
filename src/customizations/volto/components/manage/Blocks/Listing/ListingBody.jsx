@@ -1,4 +1,4 @@
-// Customizated for custom pagination
+// Customizated for custom pagination and custom showNotFound
 
 import React, { createRef } from 'react';
 import { FormattedMessage, injectIntl } from 'react-intl';
@@ -111,7 +111,7 @@ const ListingBodyComponent = (props) => {
     </div>
   ) : (
     <div>
-      {hasLoaded && (
+      {hasLoaded && data.showNotFound && (
         <FormattedMessage
           id="No results found."
           defaultMessage="No results found."

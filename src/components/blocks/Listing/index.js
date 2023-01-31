@@ -7,6 +7,7 @@ import ColoredCardsTemplate from './ColoredCardsTemplate';
 import ListingsBlockTemplate from './ListingTemplate';
 import SearchListingTemplate from './SearchListingTemplate';
 import SliderListingBlockTemplate from './SliderListing';
+import SimpleLinks from './SimpleLinks';
 
 const messages = defineMessages({
   buttonTitle: {
@@ -24,6 +25,10 @@ const messages = defineMessages({
   showCount: {
     id: 'Show Count',
     defaultMessage: 'Show Count',
+  },
+  showNotFound: {
+    id: 'Show Not Found',
+    defaultMessage: 'Show Not Found',
   },
 });
 
@@ -62,6 +67,11 @@ export default (config) => {
         type: 'boolean',
         default: false,
       },
+      showNotFound: {
+        title: intl.formatMessage(messages.showNotFound),
+        type: 'boolean',
+        default: false,
+      },
     };
 
     schema.fieldsets[0].fields.splice(
@@ -71,6 +81,7 @@ export default (config) => {
       'linkTitle',
       'showDate',
       'showCount',
+      'showNotFound',
     );
 
     return schema;
@@ -120,6 +131,12 @@ export default (config) => {
       isDefault: false,
       title: 'A-Z Listing',
       template: AZListing,
+    },
+    {
+      id: 'simple_listing',
+      isDefault: false,
+      title: 'Simple links',
+      template: SimpleLinks,
     },
   ];
 

@@ -13,6 +13,7 @@ import installContentDividerBlock from './ContentDivider';
 import installHeroUnitBlock from './HeroUnit';
 import installInformationBlock from './Information';
 import installVoltoFormBlock from './VoltoFormBlock';
+import installSearchOverviewBlock from './SearchOverview';
 
 import HeroView from './Hero/HeroView';
 
@@ -43,6 +44,7 @@ const installBlocks = (config) => {
     installHeroUnitBlock,
     installInformationBlock,
     installVoltoFormBlock,
+    installSearchOverviewBlock,
   )(config);
 };
 
