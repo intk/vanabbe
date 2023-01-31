@@ -107,11 +107,6 @@ msgstr ""
 msgid "Description"
 msgstr ""
 
-#: components/theme/View/ArtworkView
-# defaultMessage: Does this page contain inaccurate information or language that you feel we should improve or change?
-msgid "Does this page contain inaccurate information or language that you feel we should improve or change?"
-msgstr ""
-
 #: components/blocks/SiteData/schema
 # defaultMessage: E-mail
 msgid "E-mail"
@@ -136,11 +131,6 @@ msgstr ""
 #: components/blocks/HeroUnit/schema
 # defaultMessage: Headline level
 msgid "Headline level"
-msgstr ""
-
-#: components/theme/View/ArtworkView
-# defaultMessage: If you need specific information on this work or artist, remember that the Van Abbemuseum Library is at your disposal, or feel free to write to the library.
-msgid "If you need specific information on this work or artist, remember that the Van Abbemuseum Library is at your disposal, or feel free to write to the library."
 msgstr ""
 
 #: components/blocks/HeroUnit/schema
@@ -172,6 +162,11 @@ msgstr ""
 #: components/blocks/Facts/schema
 # defaultMessage: Action link
 msgid "LinkTo"
+msgstr ""
+
+#: config
+# defaultMessage: Load more
+msgid "Load more "
 msgstr ""
 
 #: components/theme/View/PublicationView
@@ -281,11 +276,6 @@ msgstr ""
 msgid "Source website"
 msgstr ""
 
-#: components/theme/View/ArtworkView
-# defaultMessage: The Van Abbemuseum Collection consists of over 2800 artworks. We publish texts and images on an ongoing basis, but this record is currently in the process of being documented.
-msgid "The Van Abbemuseum Collection consists of over 2800 artworks. We publish texts and images on an ongoing basis, but this record is currently in the process of being documented."
-msgstr ""
-
 #: components/blocks/ActionLinks/schema
 # defaultMessage: The global block is uniquely identifies this actions block and allows its use in the website
 msgid "The global block is uniquely identifies this actions block and allows its use in the website"
@@ -321,11 +311,6 @@ msgstr ""
 msgid "Watch The Video"
 msgstr ""
 
-#: components/theme/View/ArtworkView
-# defaultMessage: We would like to hear from you
-msgid "We would like to hear from you"
-msgstr ""
-
 #: components/blocks/ContentDivider/ContentDividerEdit
 # defaultMessage: White background applied before this divider
 msgid "White background applied before this divider"
@@ -359,6 +344,11 @@ msgstr ""
 #: components/blocks/VoltoFormBlock/formSchema
 # defaultMessage: Description
 msgid "description"
+msgstr ""
+
+#: components/theme/View/ArtworkView
+# defaultMessage: Does this page contain inaccurate information or language that you feel we should improve or change?
+msgid "does_this_contain_innacurate"
 msgstr ""
 
 #: components/blocks/VoltoFormBlock/formSchema
@@ -451,6 +441,11 @@ msgstr ""
 msgid "linkToDescription"
 msgstr ""
 
+#: components/theme/View/ArtworkView
+# defaultMessage: If you need specific information on this work or artist, remember that the Van Abbemuseum Library is at your disposal, or feel free to write to the library.
+msgid "need_info_specific"
+msgstr ""
+
 #: components/blocks/VoltoFormBlock/schemaExtender
 # defaultMessage: Placeholder
 msgid "placeholder"
@@ -466,4 +461,14 @@ msgstr ""
 #: components/blocks/VoltoFormBlock/formSchema
 # defaultMessage: Title
 msgid "title"
+msgstr ""
+
+#: components/theme/View/ArtworkView
+# defaultMessage: The Van Abbemuseum Collection consists of over 2800 artworks. We publish texts and images on an ongoing basis, but this record is currently in the process of being documented.
+msgid "van_abbe_2800"
+msgstr ""
+
+#: components/theme/View/ArtworkView
+# defaultMessage: We would like to hear from you
+msgid "would_like_to_hear"
 msgstr ""

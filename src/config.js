@@ -34,6 +34,7 @@ import '@plone/volto/config';
 //   gtmId: 'GTM-T8SF8PJ',
 // };
 
+// for ./customizations folder
 defineMessages({
   contact: {
     id: 'Contact',
@@ -46,6 +47,10 @@ defineMessages({
   homepage: {
     id: 'Go to the homepage of Van Abbemuseum',
     defaultMessage: 'Go to the homepage of Van Abbemuseum',
+  },
+  loadMore: {
+    id: 'Load more ',
+    defaultMessage: 'Load more ',
   },
 });
 

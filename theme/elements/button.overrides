@@ -17,6 +17,18 @@
   .primaryBtn(var(--text-color));
 }
 
+.ui.button.secondary.load-more {
+  display: flex !important;
+  align-items: center;
+  margin: 0 auto;
+  gap: 15px;
+  text-transform: lowercase;
+
+  svg {
+    margin: 0 !important;
+  }
+}
+
 .ui.secondary.button:not(.icon):not(.circular) {
   .secondaryBtn(var(--text-color));
 }
@@ -37,8 +49,8 @@
   }
 }
 
-.ui.button:active,
-.ui.button:focus,
+.ui.button:active:not(.primary):not(.secondary):not(.tertiary),
+.ui.button:focus:not(.primary):not(.secondary):not(.tertiary),
 .ui.basic.buttons .button:hover,
 .ui.basic.button:hover,
 .ui.basic.button:active,
