@@ -1,11 +1,13 @@
 import { defineMessages } from 'react-intl';
 
-import ListingsBlockTemplate from './ListingTemplate';
-import SliderListingBlockTemplate from './SliderListing';
-import BigCardsTemplate from './BigCardsTemplate';
+import AZListing from './AZListing';
 import AgendaListingTemplate from './AgendaListing';
+import BigCardsTemplate from './BigCardsTemplate';
 import ColoredCardsTemplate from './ColoredCardsTemplate';
+import ListingsBlockTemplate from './ListingTemplate';
 import SearchListingTemplate from './SearchListingTemplate';
+import SearchListingLayout from './SearchListingLayout';
+import SliderListingBlockTemplate from './SliderListing';
 
 const messages = defineMessages({
   buttonTitle: {
@@ -65,6 +67,14 @@ export default (config) => {
     return schema;
   };
 
+  config.blocks.blocksConfig.search.variations = [
+    ...config.blocks.blocksConfig.search.variations,
+    {
+      id: 'loadMore',
+      title: 'Load more',
+      view: SearchListingLayout,
+    },
+  ];
   config.blocks.blocksConfig.listing.variations = [
     // ...config.blocks.blocksConfig.listing.variations,
 
@@ -103,6 +113,12 @@ export default (config) => {
       isDefault: false,
       title: 'Slider',
       template: SliderListingBlockTemplate,
+    },
+    {
+      id: 'az_listing',
+      isDefault: false,
+      title: 'A-Z Listing',
+      template: AZListing,
     },
   ];
 
