@@ -145,12 +145,12 @@ export default function ArtworkView(props) {
                       </div>
                     </div>
                     <div className="artwork-content offset-1-left offset-2-right">
-                      <h3>
+                      <h4>
                         <FormattedMessage
                           id="Description"
                           defaultMessage="Description"
                         />
-                      </h3>
+                      </h4>
                       {columns.map((col, index) => (
                         <p key={index}>{col}</p>
                       ))}

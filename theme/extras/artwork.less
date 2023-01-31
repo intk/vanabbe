@@ -34,7 +34,7 @@
 
     .artwork-content-footer {
       max-width: 60ch;
-      font-size: small;
+      font-size: @smallFontSize;
 
       a {
         text-decoration: underline;
@@ -49,15 +49,9 @@
   }
 
   .social-links {
-    margin-top: var(--space-lg);
-
     p {
-      font-size: 16px;
+      font-size: @smallFontSize;
     }
-  }
-
-  .social-links {
-    font-size: @smallFontSize;
 
     .section-title {
       display: none;
@@ -99,7 +93,7 @@
 .publication-view,
 .exhibition {
   .social-links {
-    margin-top: 3em;
+    margin-top: 1.5em;
 
     .ui.list {
       justify-content: center;
@@ -129,12 +123,22 @@
   }
 }
 
+.info {
+  margin-top: var(--space-lg);
+
+  p {
+    margin-bottom: var(--space-sm);
+    font-size: @mediumFontSize;
+  }
+}
+
 // Exhibition
 
 .event-media-list {
   padding: 0;
 
   li {
+    font-size: @mediumFontSize;
     line-height: normal;
     list-style-type: none;
   }

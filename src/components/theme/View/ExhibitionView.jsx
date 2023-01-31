@@ -53,7 +53,9 @@ export default function ExhibitionView(props) {
                       <div className="artwork-meta">
                         <h4 class="object-author">{content.eventArtist}</h4>
                         <h5 className="event-time">{content.eventTimeFrom}</h5>
-                        <p>{content.eventCoorporation}</p>
+                        <div className="info">
+                          <p>{content.eventCoorporation}</p>
+                        </div>
 
                         {content.eventMedia?.length > 0 && (
                           <EventMedia value={content.eventMedia} />

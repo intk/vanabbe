@@ -54,16 +54,22 @@
 
     .agenda-description {
       color: var(--text-color);
-      font-size: @largeFontSize;
+      font-size: @tabletH4;
     }
 
     .agenda-right {
       display: flex;
+      flex: none;
       flex-direction: column;
       align-items: flex-end;
       color: var(--text-color);
-      gap: 10px;
+      font-size: @tabletH4;
       text-align: right;
+
+      p {
+        margin: 0;
+        font-size: @tabletH4;
+      }
     }
 
     .arrow.down {
