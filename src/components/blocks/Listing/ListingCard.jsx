@@ -52,9 +52,11 @@ const Card = ({
   );
 };
 
-const NewsItemCard = ({ item }) => {
-  const { image_field } = item;
+const NewsItemCard = ({ item, showDate, showTag, showContentType }) => {
   const size = 'large';
+  const { image_field, Subject } = item;
+  const tag = Subject && Subject.length > 0 ? Subject[0] : '';
+
   return (
     <section className="listing-card newsitem-card default-card">
       <Link
@@ -64,9 +66,11 @@ const NewsItemCard = ({ item }) => {
       >
         <div className="card-details">
           <div className="card-meta">
-            {!!item.effective && (
+            {showDate && !!item.effective && (
               <FormattedDate date={item.effective} format={dateOptions} />
             )}
+            {showContentType && <span>{item['@type']}</span>}
+            {showTag && <span>{tag}</span>}
           </div>
           <h3 className="card-title">{item.title}</h3>
           {!!image_field && (
@@ -81,9 +85,10 @@ const NewsItemCard = ({ item }) => {
   );
 };
 
-const EventCard = ({ item }) => {
-  const { image_field } = item;
+const EventCard = ({ item, showDate, showTag, showContentType }) => {
   const size = 'large';
+  const { image_field, Subject } = item;
+  const tag = Subject && Subject.length > 0 ? Subject[0] : '';
 
   return item.start ? (
     <section className="listing-card event-card default-card">
@@ -94,10 +99,20 @@ const EventCard = ({ item }) => {
       >
         <div className="card-details">
           <div className="card-meta">
-            {!!item.effective && (
-              <FormattedDate date={item.start} format={dateOptions} />
+            {showDate && (
+              <>
+                {!!item.effective && (
+                  <FormattedDate date={item.start} format={dateOptions} />
+                )}
+                {!!item.start && (
+                  <span>
+                    <FormattedTime value={new Date(item.start)} />
+                  </span>
+                )}
+              </>
             )}
-            {!!item.start && <FormattedTime value={new Date(item.start)} />}
+            {showContentType && <span>{item['@type']}</span>}
+            {showTag && <span>{tag}</span>}
           </div>
 
           <h3 className="card-title">{item.title}</h3>

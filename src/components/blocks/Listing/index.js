@@ -5,7 +5,7 @@ import AgendaListingTemplate from './AgendaListing';
 import BigCardsTemplate from './BigCardsTemplate';
 import ColoredCardsTemplate from './ColoredCardsTemplate';
 import ListingsBlockTemplate from './ListingTemplate';
-import SearchListingTemplate from './SearchListingTemplate';
+import MasonryTemplate from './MasonryTemplate';
 import SliderListingBlockTemplate from './SliderListing';
 import SimpleLinks from './SimpleLinks';
 
@@ -73,7 +73,7 @@ export default (config) => {
       showTag: {
         title: intl.formatMessage(messages.showTag),
         type: 'boolean',
-        default: true,
+        default: false,
       },
       showContentType: {
         title: intl.formatMessage(messages.showContentType),
@@ -137,8 +137,8 @@ export default (config) => {
     {
       id: 'search_listing',
       isDefault: false,
-      title: 'Search listing',
-      template: SearchListingTemplate,
+      title: 'Masonry',
+      template: MasonryTemplate,
     },
     {
       id: 'slider_listing',

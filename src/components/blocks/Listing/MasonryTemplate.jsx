@@ -11,7 +11,7 @@ import './less/search-listing.less';
 
 const Masonry = loadable(() => import('react-masonry-css'));
 
-const SearchListingTemplate = (props) => {
+const MasonryTemplate = (props) => {
   const { items, linkHref, linkTitle } = props;
   const { breakpointColumnsObj } = config.settings;
 
@@ -50,8 +50,8 @@ const SearchListingTemplate = (props) => {
   );
 };
 
-SearchListingTemplate.propTypes = {
+MasonryTemplate.propTypes = {
   items: PropTypes.arrayOf(PropTypes.any).isRequired,
 };
 
-export default SearchListingTemplate;
+export default MasonryTemplate;

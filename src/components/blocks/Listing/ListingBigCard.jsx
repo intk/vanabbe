@@ -11,14 +11,23 @@ const dateOptions = {
   day: 'numeric',
 };
 
-const Card = ({ item }) => {
-  const { image_field } = item;
+const Card = ({ item, showDate, showTag, showContentType }) => {
   const size = 'large';
+  const { image_field, Subject } = item;
+  const tag = Subject && Subject.length > 0 ? Subject[0] : '';
+
   return (
     <section className="listing-card default-card">
       <Link className="card-link" to={flattenToAppURL(item['@id'])}>
         <div className="card-details">
           <div className="card-content">
+            <div className="card-meta">
+              {showDate && !!item.effective && (
+                <FormattedDate date={item.effective} format={dateOptions} />
+              )}
+              {showContentType && <span>{item['@type']}</span>}
+              {showTag && <span>{tag}</span>}
+            </div>
             <h2 className="card-title">{item.title}</h2>
 
             {!!image_field && (
@@ -51,9 +60,11 @@ const Card = ({ item }) => {
   );
 };
 
-const NewsItemCard = ({ item }) => {
-  const { image_field } = item;
+const NewsItemCard = ({ item, showDate, showTag, showContentType }) => {
   const size = 'large';
+  const { image_field, Subject } = item;
+  const tag = Subject && Subject.length > 0 ? Subject[0] : '';
+
   return (
     <section className="listing-card newsitem-card default-card">
       <Link
@@ -63,10 +74,12 @@ const NewsItemCard = ({ item }) => {
       >
         <div className="card-details">
           <div className="card-content">
-            <div className="date">
-              {!!item.effective && (
+            <div className="card-meta">
+              {showDate && !!item.effective && (
                 <FormattedDate date={item.effective} format={dateOptions} />
               )}
+              {showContentType && <span>{item['@type']}</span>}
+              {showTag && <span>{tag}</span>}
             </div>
             <h2 className="card-title">{item.title}</h2>
 
@@ -99,9 +112,10 @@ const NewsItemCard = ({ item }) => {
   );
 };
 
-const EventCard = ({ item }) => {
-  const { image_field } = item;
+const EventCard = ({ item, showDate, showTag, showContentType }) => {
   const size = 'large';
+  const { image_field, Subject } = item;
+  const tag = Subject && Subject.length > 0 ? Subject[0] : '';
 
   return item.start ? (
     <section className="listing-card event-card default-card">
@@ -112,11 +126,21 @@ const EventCard = ({ item }) => {
       >
         <div className="card-details">
           <div className="card-content">
-            <div className="card-meta date">
-              {!!item.effective && (
-                <FormattedDate date={item.start} format={dateOptions} />
+            <div className="card-meta">
+              {showDate && (
+                <>
+                  {!!item.effective && (
+                    <FormattedDate date={item.start} format={dateOptions} />
+                  )}
+                  {!!item.start && (
+                    <span>
+                      <FormattedTime value={new Date(item.start)} />
+                    </span>
+                  )}
+                </>
               )}
-              {!!item.start && <FormattedTime value={new Date(item.start)} />}
+              {showContentType && <span>{item['@type']}</span>}
+              {showTag && <span>{tag}</span>}
             </div>
             <h2 className="card-title">{item.title}</h2>
 
@@ -157,9 +181,9 @@ const cardTypes = {
   Event: EventCard,
 };
 
-const UniversalCard = ({ item }) => {
+const UniversalCard = ({ item, ...rest }) => {
   const CardImpl = cardTypes[item['@type']] || cardTypes['default'];
-  return <CardImpl item={item} />;
+  return <CardImpl item={item} {...rest} />;
 };
 
 export default UniversalCard;
