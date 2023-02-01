@@ -199,3 +199,40 @@
     margin-top: 2em;
   }
 }
+
+/********  Simple links listing   ********/
+.simplelinks-content {
+  .simplelink-item {
+    display: flex;
+    align-items: flex-start;
+    padding: 10px 0;
+    font-size: 40px;
+    gap: 1.2em;
+
+    span {
+      width: 500px;
+    }
+
+    svg {
+      flex-shrink: 0;
+      margin-top: 10px;
+    }
+
+    @media only screen and (max-width: @largestTabletScreen) {
+      font-size: 30px;
+
+      span {
+        width: 100%;
+      }
+
+      svg {
+        height: 35px !important;
+        margin-top: 0;
+      }
+    }
+
+    @media only screen and (max-width: @largestMobileScreen) {
+      font-size: 25px;
+    }
+  }
+}

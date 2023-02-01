@@ -1,5 +1,7 @@
-import { UniversalLink } from '@plone/volto/components';
+import { UniversalLink, Icon } from '@plone/volto/components';
 import { ListingBlockHeader } from '@package/components';
+
+import aheadSVG from '@plone/volto/icons/ahead.svg';
 
 const SimpleLinks = (data) => {
   const { items = [], linkHref } = data;
@@ -15,13 +17,14 @@ const SimpleLinks = (data) => {
         )}
       </div>
       <div className="simplelinks-content">
-        <ul>
-          {items.map((item) => (
-            <li key={item['@id']}>
+        {items.map((item) => (
+          <div key={item['@id']} className="simplelink-item">
+            <span>
               <UniversalLink item={item}>{item.title}</UniversalLink>
-            </li>
-          ))}
-        </ul>
+            </span>
+            <Icon name={aheadSVG} size="45px" />
+          </div>
+        ))}
       </div>
     </div>
   );

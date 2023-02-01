@@ -190,6 +190,11 @@ msgstr ""
 msgid "Logout"
 msgstr ""
 
+#: components/blocks/SearchOverview/SearchOverviewView
+# defaultMessage: Make sure all words are spelled correctly. Try different or more
+msgid "Make sure all words are spelled correctly. Try different or more"
+msgstr ""
+
 #: components/theme/Navigation/Navigation
 # defaultMessage: Menu
 msgid "Menu"
@@ -203,6 +208,11 @@ msgstr ""
 #: components/blocks/ContentDivider/ContentDividerEdit
 # defaultMessage: No background applied after this divider
 msgid "No background applied after this divider"
+msgstr ""
+
+#: components/blocks/SearchOverview/SearchOverviewView
+# defaultMessage: No results for ''{searchText}''
+msgid "No results for ''{searchText}''"
 msgstr ""
 
 #: components/theme/View/ArtworkView
@@ -257,8 +267,23 @@ msgid "Selected theme"
 msgstr ""
 
 #: components/blocks/Listing/index
+# defaultMessage: Show Count
+msgid "Show Count"
+msgstr ""
+
+#: components/blocks/Listing/index
+# defaultMessage: Show Not Found
+msgid "Show Not Found"
+msgstr ""
+
+#: components/blocks/Listing/index
 # defaultMessage: Show date
 msgid "Show date"
+msgstr ""
+
+#: components/blocks/SearchOverview/SearchOverviewView
+# defaultMessage: Showing results for ''{searchText}''
+msgid "Showing results for ''{searchText}''"
 msgstr ""
 
 #: components/blocks/SiteTheme/schema
