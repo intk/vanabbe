@@ -204,8 +204,8 @@ msgid "Logout"
 msgstr ""
 
 #: components/blocks/SearchOverview/SearchOverviewView
-# defaultMessage: Make sure all words are spelled correctly. Try different or more
-msgid "Make sure all words are spelled correctly. Try different or more"
+# defaultMessage: Make sure all words are spelled correctly. Try different or more general search terms.
+msgid "Make sure all words are spelled correctly. Try different or more general search terms."
 msgstr ""
 
 #: components/theme/Navigation/Navigation
