@@ -19,8 +19,8 @@ const messages = defineMessages({
     defaultMessage: 'Button call to action',
   },
   showDate: {
-    id: 'Show date',
-    defaultMessage: 'Show date',
+    id: 'Show Date',
+    defaultMessage: 'Show Date',
   },
   showCount: {
     id: 'Show Count',
@@ -29,6 +29,10 @@ const messages = defineMessages({
   showNotFound: {
     id: 'Show Not Found',
     defaultMessage: 'Show Not Found',
+  },
+  showMeta: {
+    id: 'Show Meta',
+    defaultMessage: 'Show Meta',
   },
 });
 
@@ -62,6 +66,11 @@ export default (config) => {
         type: 'boolean',
         default: true,
       },
+      showMeta: {
+        title: intl.formatMessage(messages.showMeta),
+        type: 'boolean',
+        default: true,
+      },
       showCount: {
         title: intl.formatMessage(messages.showCount),
         type: 'boolean',
@@ -80,6 +89,7 @@ export default (config) => {
       'linkHref',
       'linkTitle',
       'showDate',
+      'showMeta',
       'showCount',
       'showNotFound',
     );

@@ -11,8 +11,14 @@ const dateOptions = {
   day: 'numeric',
 };
 
-const Card = ({ item, showDate, size = 'large', useFallbackImage }) => {
-  const { image_field } = item;
+const Card = ({
+  item,
+  showDate,
+  showMeta,
+  size = 'large',
+  useFallbackImage,
+}) => {
+  const { image_field, Subject } = item;
 
   return (
     <section className="listing-card  default-card">
@@ -22,7 +28,7 @@ const Card = ({ item, showDate, size = 'large', useFallbackImage }) => {
             {showDate && !!item.effective && (
               <FormattedDate date={item.effective} format={dateOptions} />
             )}
-            {item?.['@type']}
+            {showMeta && Subject.length > 0 && <span>{Subject[0]}</span>}
           </div>
           <h3 className="card-title">{item.title}</h3>
           {!!image_field && (
@@ -54,9 +60,11 @@ const NewsItemCard = ({ item }) => {
         title={item.title}
       >
         <div className="card-details">
-          {!!item.effective && (
-            <FormattedDate date={item.effective} format={dateOptions} />
-          )}
+          <div className="card-meta">
+            {!!item.effective && (
+              <FormattedDate date={item.effective} format={dateOptions} />
+            )}
+          </div>
           <h3 className="card-title">{item.title}</h3>
           {!!image_field && (
             <div className="image-wrapper">
@@ -137,9 +145,9 @@ const cardTypes = {
   artwork: ArtworkCard,
 };
 
-const UniversalCard = ({ item, showDate, ...rest }) => {
+const UniversalCard = ({ item, ...rest }) => {
   const CardImpl = cardTypes[item['@type']] || cardTypes['default'];
-  return <CardImpl item={item} showDate={showDate} {...rest} />;
+  return <CardImpl item={item} {...rest} />;
 };
 
 export default UniversalCard;
