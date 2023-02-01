@@ -4,6 +4,11 @@
 
 @cardBg: transparent;
 
+.block.listing {
+  margin-top: var(--space-xl);
+  margin-bottom: var(--space-xl);
+}
+
 .listing-card.default-card {
   height: 380px;
   background-color: var(--card-bg-color, @white);
@@ -56,6 +61,7 @@
 
   .card-description {
     .elipsisOverflow(2);
+    margin-top: auto;
     margin-bottom: 0;
     font-size: @smallFontSize;
   }
@@ -87,6 +93,7 @@
     .listing-card.default-card {
       .card-details {
         .card-content .card-description {
+          margin-top: auto;
           font-size: @largeFontSize;
         }
 
@@ -211,7 +218,7 @@
   .simplelink-item {
     display: flex;
     align-items: flex-start;
-    padding: 10px 0;
+    padding-bottom: 10px;
     font-size: 40px;
     gap: 1.2em;
 
