@@ -38,17 +38,29 @@ export default function PublicationView(props) {
 
                       <div className="artwork-meta">
                         <h2 className="object-author">{bookAuthor}</h2>
-                        <h3 className="object-artist">{content.bookArtist}</h3>
-                        <h4 className="object-publisher">
-                          {content.bookCity}, {content.bookPublisher}
-                        </h4>
 
-                        <div>{content.bookLanguage}</div>
-                        <div className="object-creation">
-                          {content.bookDatePublished}
+                        {content?.bookArtist.map((artist, i) => {
+                          return (
+                            <h3 className="object-artist" key={i}>
+                              {artist}
+                            </h3>
+                          );
+                        })}
+
+                        {/* <h4 className="object-publisher">
+                          {content.bookCity}, {content.bookPublisher}
+                        </h4> */}
+
+                        <div className="pub-info">
+                          <div>{content.bookLanguage}</div>
+                          <div className="object-creation">
+                            {content.bookDatePublished}
+                          </div>
+                          <div className="bookBinding">
+                            {content.bookBinding}
+                          </div>
+                          <div>{content.bookAnnotation}</div>
                         </div>
-                        <div className="bookBinding">{content.bookBinding}</div>
-                        <div>{content.bookAnnotation}</div>
 
                         {/* <div className="bookCity">{content.bookCity}</div> */}
 
