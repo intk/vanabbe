@@ -8,7 +8,7 @@ function SearchOverviewView(props) {
   const total = useSelector((state) => {
     const { content, querystringsearch = {} } = state;
     const { data = {} } = content;
-    const blocks = getBlocks(data);
+    const blocks = data?.blocks_layout ? getBlocks(data) : [];
     const blockIds = blocks.map(([blockId]) => blockId);
     const { subrequests = {} } = querystringsearch;
     return blockIds.reduce(
