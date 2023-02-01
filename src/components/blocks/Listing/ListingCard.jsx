@@ -135,7 +135,7 @@ const ArtworkCard = ({ item }) => {
   const size = 'preview';
 
   return (
-    <section className="listing-card search-card">
+    <section className="listing-card artwork-card">
       <Link
         className="card-link"
         to={flattenToAppURL(item['@id'])}
