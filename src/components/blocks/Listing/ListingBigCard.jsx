@@ -19,7 +19,7 @@ const Card = ({ item }) => {
       <Link className="card-link" to={flattenToAppURL(item['@id'])}>
         <div className="card-details">
           <div className="card-content">
-            <h3 className="card-title">{item.title}</h3>
+            <h2 className="card-title">{item.title}</h2>
 
             {!!image_field && (
               <div className="image-wrapper mobile tablet only">
@@ -68,7 +68,7 @@ const NewsItemCard = ({ item }) => {
                 <FormattedDate date={item.effective} format={dateOptions} />
               )}
             </div>
-            <h3 className="card-title">{item.title}</h3>
+            <h2 className="card-title">{item.title}</h2>
 
             {!!image_field && (
               <div className="image-wrapper mobile tablet only">
@@ -118,7 +118,7 @@ const EventCard = ({ item }) => {
               )}
               {!!item.start && <FormattedTime value={new Date(item.start)} />}
             </div>
-            <h3 className="card-title">{item.title}</h3>
+            <h2 className="card-title">{item.title}</h2>
 
             {!!image_field && (
               <div className="image-wrapper mobile tablet only">

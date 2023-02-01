@@ -1,9 +1,8 @@
 import React from 'react';
 import loadable from '@loadable/component';
 import { Modal, Image } from 'semantic-ui-react';
-import { PreviewImage } from '@package/components';
+import { PreviewImage, ArtworkPreviewImage } from '@package/components';
 import { flattenToAppURL } from '@plone/volto/helpers';
-import ArtworkPreviewImage from './ArtworkPreviewImage';
 
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
