@@ -35,7 +35,13 @@ body.has-hero-image {
   }
 }
 
-.blocks-wrapper,
+.blocks-wrapper {
+  .block.form {
+    padding-right: @twoWide;
+    padding-left: calc(@oneWide + 0.6rem);
+  }
+}
+
 .blocks-bg-wrapper {
   @media only screen and (min-width: @largestMobileScreen) {
     padding-right: @twoWide;
@@ -47,11 +53,7 @@ body.has-hero-image {
   }
 
   > .image-carousel,
-  > .quoteBlock-wrapper,
-  > .accordion-block,
-  > .block.listing,
-  > .block.hero,
-  > .hero-unit-block {
+  > .quoteBlock-wrapper {
     margin-right: -@twoWide;
     margin-left: calc(-@oneWide + 0.6rem);
 
@@ -201,8 +203,6 @@ body.view-viewview {
 // Form block
 
 #view .block.form {
-  max-width: 600px;
-
   .ui.grid {
     .row:first-child {
       .inline.field .wrapper {
