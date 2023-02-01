@@ -266,8 +266,18 @@ msgid "Selected theme"
 msgstr ""
 
 #: components/blocks/Listing/index
+# defaultMessage: Show Content Type
+msgid "Show Content Type"
+msgstr ""
+
+#: components/blocks/Listing/index
 # defaultMessage: Show Count
 msgid "Show Count"
+msgstr ""
+
+#: components/blocks/Listing/index
+# defaultMessage: Show Date
+msgid "Show Date"
 msgstr ""
 
 #: components/blocks/Listing/index
@@ -276,8 +286,8 @@ msgid "Show Not Found"
 msgstr ""
 
 #: components/blocks/Listing/index
-# defaultMessage: Show date
-msgid "Show date"
+# defaultMessage: Show Tag
+msgid "Show Tag"
 msgstr ""
 
 #: components/blocks/SearchOverview/SearchOverviewView

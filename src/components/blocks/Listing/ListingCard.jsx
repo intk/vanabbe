@@ -14,11 +14,13 @@ const dateOptions = {
 const Card = ({
   item,
   showDate,
-  showMeta,
+  showTag,
+  showContentType,
   size = 'large',
   useFallbackImage,
 }) => {
   const { image_field, Subject } = item;
+  const tag = Subject && Subject.length > 0 ? Subject[0] : '';
 
   return (
     <section className="listing-card  default-card">
@@ -28,7 +30,8 @@ const Card = ({
             {showDate && !!item.effective && (
               <FormattedDate date={item.effective} format={dateOptions} />
             )}
-            {showMeta && Subject.length > 0 && <span>{Subject[0]}</span>}
+            {showContentType && <span>{item['@type']}</span>}
+            {showTag && <span>{tag}</span>}
           </div>
           <h3 className="card-title">{item.title}</h3>
           {!!image_field && (

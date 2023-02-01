@@ -30,9 +30,13 @@ const messages = defineMessages({
     id: 'Show Not Found',
     defaultMessage: 'Show Not Found',
   },
-  showMeta: {
-    id: 'Show Meta',
-    defaultMessage: 'Show Meta',
+  showTag: {
+    id: 'Show Tag',
+    defaultMessage: 'Show Tag',
+  },
+  showContentType: {
+    id: 'Show Content Type',
+    defaultMessage: 'Show Content Type',
   },
 });
 
@@ -66,10 +70,15 @@ export default (config) => {
         type: 'boolean',
         default: true,
       },
-      showMeta: {
-        title: intl.formatMessage(messages.showMeta),
+      showTag: {
+        title: intl.formatMessage(messages.showTag),
         type: 'boolean',
         default: true,
+      },
+      showContentType: {
+        title: intl.formatMessage(messages.showContentType),
+        type: 'boolean',
+        default: false,
       },
       showCount: {
         title: intl.formatMessage(messages.showCount),
@@ -89,7 +98,8 @@ export default (config) => {
       'linkHref',
       'linkTitle',
       'showDate',
-      'showMeta',
+      'showTag',
+      'showContentType',
       'showCount',
       'showNotFound',
     );
