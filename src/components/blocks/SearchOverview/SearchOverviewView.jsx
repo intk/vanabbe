@@ -52,10 +52,8 @@ function SearchOverviewView(props) {
       {total === 0 && (
         <h3>
           <FormattedMessage
-            id="Make sure all words are spelled correctly. Try different or more
-            general search terms."
-            defaultMessage="Make sure all words are spelled correctly. Try different or more
-            general search terms."
+            id="Make sure all words are spelled correctly. Try different or more general search terms."
+            defaultMessage="Make sure all words are spelled correctly. Try different or more general search terms."
           />
         </h3>
       )}
