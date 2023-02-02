@@ -8,6 +8,7 @@ import ListingsBlockTemplate from './ListingTemplate';
 import MasonryTemplate from './MasonryTemplate';
 import SliderListingBlockTemplate from './SliderListing';
 import SimpleLinks from './SimpleLinks';
+import getAsyncData from './getAsyncData';
 
 const messages = defineMessages({
   buttonTitle: {
@@ -161,6 +162,7 @@ export default (config) => {
   ];
 
   // config.blocks.blocksConfig.listing.variations[0].isDefault = false;
+  config.blocks.blocksConfig.listing.getAsyncData = getAsyncData;
 
   return config;
 };
