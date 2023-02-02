@@ -79,9 +79,11 @@ const Header = (props) => {
               {title && (
                 <h1 className="content-title">{objectTitle || title}</h1>
               )}
-              {description && (
-                <p className="content-description">{description}</p>
-              )}
+              <div id="description">
+                {description && (
+                  <p className="content-description">{description}</p>
+                )}
+              </div>
             </div>
           </Container>
           <Container>

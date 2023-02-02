@@ -109,7 +109,7 @@ const SliderListing = (data) => {
           },
         },
         {
-          breakpoint: 400,
+          breakpoint: 480,
           settings: {
             slidesToShow: 1,
             slidesToScroll: 1,

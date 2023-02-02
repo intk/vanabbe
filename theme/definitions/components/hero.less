@@ -60,11 +60,17 @@
   margin-bottom: var(--space-sm) !important;
 }
 
-.content-description {
-  font-size: @extraFontSize;
+#description {
+  p {
+    font-size: @extraFontSize;
 
-  @media only screen and (max-width: @largestTabletScreen) {
-    font-size: 20px;
+    @media only screen and (max-width: @largestTabletScreen) {
+      font-size: @largeFontSize;
+    }
+
+    @media only screen and (max-width: @largestMobileScreen) {
+      font-size: @bigFontSize;
+    }
   }
 }
 

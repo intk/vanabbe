@@ -3,8 +3,19 @@
 *******************************/
 
 .contenttype-event {
+  .sticky-heading {
+    #description {
+      display: flex;
+      flex-direction: column-reverse;
+
+      p {
+        margin: 0;
+      }
+    }
+  }
+
   .event-details {
-    .top.event-listing {
+    .event-data.dates {
       margin-bottom: 2em;
     }
 
@@ -24,20 +35,7 @@
       }
 
       .event-calendar {
-        position: relative;
-
-        @media only screen and (min-width: @largestTabletScreen) {
-          &:before {
-            position: absolute;
-            top: 50%;
-            left: -10px;
-            width: 2px;
-            height: 70%;
-            background-color: var(--text-color);
-            content: '';
-            transform: translateY(-50%);
-          }
-        }
+        margin-top: 0.5em;
       }
 
       .event-data {
@@ -57,16 +55,6 @@
 
   .event-details.bottom {
     margin-top: var(--space-md);
-  }
-
-  .top-wrapper {
-    display: flex;
-    align-items: center;
-    gap: 3em;
-
-    p {
-      margin: 0;
-    }
   }
 
   .date-wrapper {
@@ -118,7 +106,7 @@
         &:not(:last-child):after {
           display: inline-block;
           padding-right: 10px;
-          content: ';';
+          content: ',';
           visibility: visible;
         }
       }
@@ -129,7 +117,6 @@
 @media only screen and (max-width: @largestTabletScreen) {
   .contenttype-event {
     .event-details {
-      .top-wrapper,
       .contact-wrapper,
       .date-wrapper {
         flex-direction: column;

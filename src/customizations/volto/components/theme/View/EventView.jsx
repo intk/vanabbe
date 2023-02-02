@@ -12,7 +12,7 @@ import {
   flattenHTMLToAppURL,
   expandToBackendURL,
 } from '@plone/volto/helpers';
-import { Image, Icon, List } from 'semantic-ui-react';
+import { Image, List } from 'semantic-ui-react';
 import RenderBlocks from '@plone/volto/components/theme/View/RenderBlocks';
 
 import {
@@ -71,7 +71,7 @@ const EventView = (props) => {
 
   return (
     <div id="page-document" className="ui container viewwrapper event-view">
-      <Portal node={isClient && document.getElementById('heading')}>
+      <Portal node={isClient && document.getElementById('description')}>
         <div>
           {start && (
             <When
@@ -80,6 +80,11 @@ const EventView = (props) => {
               whole_day={whole_day}
               open_end={open_end}
             />
+          )}
+          {location && (
+            <div className="event-data">
+              <p>{location}</p>
+            </div>
           )}
         </div>
       </Portal>
@@ -90,53 +95,11 @@ const EventView = (props) => {
               <div className="blocks-bg-wrapper">
                 <div className="event-details">
                   <div className="top event-listing">
-                    <div className="top-wrapper">
-                      <div className="date-wrapper">
-                        {start && (
-                          <div className="event-data">
-                            <Icon name="calendar alternate" />
-                            <When
-                              start={start}
-                              end={end}
-                              whole_day={whole_day}
-                              open_end={open_end}
-                            />
-                          </div>
-                        )}
-                        <div className="event-data event-calendar">
-                          <Icon name="calendar plus outline" />
-                          <p>
-                            <a
-                              className="ics-download"
-                              target="_blank"
-                              rel="noreferrer"
-                              href={`${expandToBackendURL(
-                                content['@id'],
-                              )}/ics_view`}
-                            >
-                              <FormattedMessage
-                                id="Add to calendar"
-                                defaultMessage="Add to calendar"
-                              />
-                            </a>
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-
                     {recurrence && (
                       <div itle="All dates" className="event-data dates">
-                        <Icon name="sync" />
                         <p>
                           <Recurrence recurrence={recurrence} start={start} />
                         </p>
-                      </div>
-                    )}
-
-                    {location && (
-                      <div className="event-data">
-                        <Icon name="map marker alternate" />
-                        <p>{location}</p>
                       </div>
                     )}
                   </div>
@@ -154,15 +117,12 @@ const EventView = (props) => {
                   <div className="event-listing">
                     {contact_name && (
                       <div className="event-data">
-                        <Icon name="user circle" />
-
                         <p>{contact_name}</p>
                       </div>
                     )}
 
                     {contact_email && (
                       <div className="event-data">
-                        <Icon name="mail" />
                         <p>
                           <a href={`mailto:${contact_email}`}>
                             {contact_email}
@@ -173,14 +133,12 @@ const EventView = (props) => {
 
                     {contact_phone && (
                       <div className="event-data">
-                        <Icon name="phone square" />
                         <p>{contact_phone}</p>
                       </div>
                     )}
 
                     {attendees.length > 0 && (
                       <div title="Attendees" className="event-data">
-                        <Icon name="users" />
                         <List className="attendees">
                           {attendees.map((attendee, i) => (
                             <List.Item key={i}>
@@ -194,7 +152,6 @@ const EventView = (props) => {
 
                     {event_url && (
                       <div title="Website" className="event-data">
-                        <Icon name="globe" />
                         <p>
                           <a
                             href={event_url}
@@ -209,6 +166,26 @@ const EventView = (props) => {
                         </p>
                       </div>
                     )}
+                  </div>
+
+                  <div className="event-listing">
+                    <div className="event-data event-calendar">
+                      <p>
+                        <a
+                          className="ics-download"
+                          target="_blank"
+                          rel="noreferrer"
+                          href={`${expandToBackendURL(
+                            content['@id'],
+                          )}/ics_view`}
+                        >
+                          <FormattedMessage
+                            id="Add event to calendar"
+                            defaultMessage="Add event to calendar"
+                          />
+                        </a>
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>

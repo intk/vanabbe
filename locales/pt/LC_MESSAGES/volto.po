@@ -40,8 +40,8 @@ msgid "Actions"
 msgstr ""
 
 #: config
-# defaultMessage: Add to calendar
-msgid "Add to calendar"
+# defaultMessage: Add event to calendar
+msgid "Add event to calendar"
 msgstr ""
 
 #: components/blocks/SiteData/schema

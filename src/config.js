@@ -41,8 +41,8 @@ defineMessages({
     defaultMessage: 'Contact',
   },
   calendar: {
-    id: 'Add to calendar',
-    defaultMessage: 'Add to calendar',
+    id: 'Add event to calendar',
+    defaultMessage: 'Add event to calendar',
   },
   homepage: {
     id: 'Go to the homepage of Van Abbemuseum',
