@@ -4,10 +4,8 @@ import qs from 'querystring';
 
 export default ({ dispatch, data, path, blocksConfig, store }) => {
   const { resolvedExtensions } = resolveBlockExtensions(data, blocksConfig);
-  // console.log('rest', rest);
   const state = store.getState();
   const { location } = state.router;
-  // console.log(state.router.location.search);
 
   const searchText = qs.parse(location.search.slice(1))['SearchableText'];
 
