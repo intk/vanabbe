@@ -105,6 +105,8 @@ export default function applyConfig(config) {
   config.blocks.blocksConfig.title.view = () => null;
   config.blocks.groupBlocksOrder.push({ id: 'site', title: 'Site' });
 
+  if (__SERVER__) config.settings.serverConfig.extractScripts.errorPages = true;
+
   config.settings = {
     ...config.settings,
     isMultilingual: true,
