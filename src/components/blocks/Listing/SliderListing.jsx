@@ -142,7 +142,7 @@ const SliderListing = (data) => {
                 className="slick-carousel slider-listing"
               >
                 {items.map((item, i) => (
-                  <UniversalCard item={item} key={i} />
+                  <UniversalCard item={item} key={i} {...data} />
                 ))}
               </Slider>
               <div className="slider-bottom">
