@@ -107,6 +107,11 @@ export default function applyConfig(config) {
 
   if (__SERVER__) config.settings.serverConfig.extractScripts.errorPages = true;
 
+  config.settings.nonContentRoutes = [
+    ...config.settings.nonContentRoutes.filter((p) => p !== '/search'),
+    // /.*\/ics_view$/,
+  ];
+
   config.settings = {
     ...config.settings,
     isMultilingual: true,

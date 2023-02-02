@@ -4,11 +4,14 @@ import React, { createRef } from 'react';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { Dimmer, Loader } from 'semantic-ui-react';
 import config from '@plone/volto/registry';
-import withQuerystringResults from '@plone/volto/components/manage/Blocks/Listing/withQuerystringResults';
+import { usePrevious } from '@plone/volto/helpers';
+// import withQuerystringResults from '@plone/volto/components/manage/Blocks/Listing/withQuerystringResults';
 import Pagination from './LoadMorePagination';
 import { useLocation } from 'react-router-dom';
 import { compose } from 'redux';
 import qs from 'querystring';
+
+import withQuerystringResults from './withQuerystringResults';
 
 const ListingBodyComponent = (props) => {
   const {
@@ -38,10 +41,21 @@ const ListingBodyComponent = (props) => {
       variation?.template ?? defaultVariation?.template ?? null;
   }
 
+  const location = useLocation();
+  const searchText = qs.parse(location.search.slice(1))['SearchableText'];
+  const previous = usePrevious(searchText);
+
   const [dataBuffer, setDataBuffer] = React.useState({
     currentPage,
     items: [...listingItems],
   });
+
+  React.useEffect(() => {
+    // the data buffer is reset whenever we change the search text
+    if (previous !== searchText) {
+      setDataBuffer({ ...dataBuffer, items: [] });
+    }
+  }, [dataBuffer, listingItems, previous, searchText]);
 
   const lastRecorded = dataBuffer.currentPage;
   const loadedItems = dataBuffer.items;
@@ -144,7 +158,7 @@ const withSearchText = (WrappedComponent) => {
       }
     }
 
-    return <WrappedComponent {...props} />;
+    return <WrappedComponent {...props} key={searchText} />;
   }
   return WithSearchText;
 };
