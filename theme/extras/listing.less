@@ -214,16 +214,18 @@
 }
 
 /********  Simple links listing   ********/
+
 .simplelinks-content {
   .simplelink-item {
     display: flex;
     align-items: flex-start;
-    padding-bottom: 10px;
+    padding-bottom: 20px;
     font-size: 40px;
     gap: 1.2em;
 
     span {
-      width: 500px;
+      .elipsisOverflow(2);
+      width: 600px;
     }
 
     svg {
@@ -247,5 +249,17 @@
     @media only screen and (max-width: @largestMobileScreen) {
       font-size: 25px;
     }
+  }
+}
+
+.pagination-wrapper .ui.button.load-more {
+  display: flex !important;
+  align-items: center;
+  margin: 4em auto;
+  gap: 15px;
+  text-transform: lowercase;
+
+  svg {
+    margin: 0 !important;
   }
 }

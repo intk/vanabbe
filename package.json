@@ -147,7 +147,7 @@
     "node": "^14 || ^16"
   },
   "dependencies": {
-    "@eeacms/volto-accordion-block": "5.0.0",
+    "@eeacms/volto-accordion-block": "6.0.0",
     "@eeacms/volto-block-divider": "3.0.2",
     "@eeacms/volto-block-image-cards": "0.6.3",
     "@eeacms/volto-block-toc": "3.0.1",

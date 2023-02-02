@@ -18,7 +18,7 @@ const SimpleLinks = (data) => {
       </div>
       <div className="simplelinks-content">
         {items.map((item) => (
-          <div key={item['@id']} className="simplelink-item">
+          <div key={item['@id']} className="simplelink-item" title={item.title}>
             <span>
               <UniversalLink item={item}>{item.title}</UniversalLink>
             </span>

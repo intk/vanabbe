@@ -1919,10 +1919,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@eeacms/volto-accordion-block@npm:5.0.0":
-  version: 5.0.0
-  resolution: "@eeacms/volto-accordion-block@npm:5.0.0"
-  checksum: 17aeda92998f2a651b2c8cff2facca2294228024f22f7dd766b822504d9bbbe4fd6d5aaad6058131c7d13013598fb0420c96ccc7c440148afaeed7cac42dd160
+"@eeacms/volto-accordion-block@npm:6.0.0":
+  version: 6.0.0
+  resolution: "@eeacms/volto-accordion-block@npm:6.0.0"
+  checksum: 9653d83ef89ae0a509dc9906606e1a66db47ef413f47a3ed6b875a68ebc034739f65c58fe1d26a1b1e56c1bb90ed0e46fcc35dc2cd17f8c649296450e783a92c
   languageName: node
   linkType: hard
 
@@ -26634,7 +26634,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "vanabbe-frontend@workspace:."
   dependencies:
-    "@eeacms/volto-accordion-block": 5.0.0
+    "@eeacms/volto-accordion-block": 6.0.0
     "@eeacms/volto-block-divider": 3.0.2
     "@eeacms/volto-block-image-cards": 0.6.3
     "@eeacms/volto-block-toc": 3.0.1

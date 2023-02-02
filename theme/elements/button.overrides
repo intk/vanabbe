@@ -17,19 +17,6 @@
   .primaryBtn(var(--text-color));
 }
 
-.ui.button.secondary.load-more {
-  display: flex !important;
-  align-items: center;
-  margin: 0 auto;
-  margin-top: 4em;
-  gap: 15px;
-  text-transform: lowercase;
-
-  svg {
-    margin: 0 !important;
-  }
-}
-
 .ui.secondary.button:not(.icon):not(.circular) {
   .secondaryBtn(var(--text-color));
 }

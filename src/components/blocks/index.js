@@ -29,6 +29,17 @@ const installBlocks = (config) => {
       closed: { leftPosition: addSVG, rightPosition: addSVG },
       opened: { leftPosition: removeSVG, rightPosition: removeSVG },
     },
+    schemaEnhancer: ({ schema }) => {
+      schema.properties = {
+        ...schema.properties,
+        title_size: {
+          ...schema.properties.title_size,
+          default: 'h2',
+        },
+      };
+
+      return schema;
+    },
   };
 
   return compose(
