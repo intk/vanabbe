@@ -1767,6 +1767,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@babel/runtime@npm:^7.20.13":
+  version: 7.20.13
+  resolution: "@babel/runtime@npm:7.20.13"
+  dependencies:
+    regenerator-runtime: ^0.13.11
+  checksum: 09b7a97a05c80540db6c9e4ddf8c5d2ebb06cae5caf3a87e33c33f27f8c4d49d9c67a2d72f1570e796045288fad569f98a26ceba0c4f5fad2af84b6ad855c4fb
+  languageName: node
+  linkType: hard
+
 "@babel/template@npm:^7.10.4, @babel/template@npm:^7.12.7, @babel/template@npm:^7.18.10, @babel/template@npm:^7.3.3, @babel/template@npm:^7.4.0":
   version: 7.18.10
   resolution: "@babel/template@npm:7.18.10"
@@ -4954,6 +4963,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@tanem/svg-injector@npm:^10.1.45":
+  version: 10.1.46
+  resolution: "@tanem/svg-injector@npm:10.1.46"
+  dependencies:
+    "@babel/runtime": ^7.20.13
+    content-type: ^1.0.5
+    tslib: ^2.5.0
+  checksum: 16b8313fdf8e0054dd9bf7eee63b4f1b2beffa3a02289b98ed2a1b99f2ccdb45a6bcf5c0215d262d2a864a5b90ffe132545d23a4d6a27428674f443d3f96ade3
+  languageName: node
+  linkType: hard
+
 "@testing-library/cypress@npm:8.0.7":
   version: 8.0.7
   resolution: "@testing-library/cypress@npm:8.0.7"
@@ -5414,7 +5434,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/prop-types@npm:*":
+"@types/prop-types@npm:*, @types/prop-types@npm:^15.7.5":
   version: 15.7.5
   resolution: "@types/prop-types@npm:15.7.5"
   checksum: 5b43b8b15415e1f298243165f1d44390403bb2bd42e662bca3b5b5633fdd39c938e91b7fce3a9483699db0f7a715d08cef220c121f723a634972fdf596aec980
@@ -9020,6 +9040,13 @@ __metadata:
   dependencies:
     safe-buffer: 5.2.1
   checksum: afb9d545e296a5171d7574fcad634b2fdf698875f4006a9dd04a3e1333880c5c0c98d47b560d01216fb6505a54a2ba6a843ee3a02ec86d7e911e8315255f56c3
+  languageName: node
+  linkType: hard
+
+"content-type@npm:^1.0.5":
+  version: 1.0.5
+  resolution: "content-type@npm:1.0.5"
+  checksum: 566271e0a251642254cde0f845f9dd4f9856e52d988f4eb0d0dcffbb7a1f8ec98de7a5215fc628f3bce30fe2fb6fd2bc064b562d721658c59b544e2d34ea2766
   languageName: node
   linkType: hard
 
@@ -22322,6 +22349,21 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-svg@npm:16.1.0":
+  version: 16.1.0
+  resolution: "react-svg@npm:16.1.0"
+  dependencies:
+    "@babel/runtime": ^7.20.13
+    "@tanem/svg-injector": ^10.1.45
+    "@types/prop-types": ^15.7.5
+    prop-types: ^15.8.1
+  peerDependencies:
+    react: ^16.0.0 || ^17.0.0 || ^18.0.0
+    react-dom: ^16.0.0 || ^17.0.0 || ^18.0.0
+  checksum: 2ea87c611295170edfba87cbd9358cd1fff495331ef5fc90007eea66396219880724d4e0b67b67283cce50d52d7a5f473367d2d8210282646cdeda25f09c2e5a
+  languageName: node
+  linkType: hard
+
 "react-syntax-highlighter@npm:^13.5.3":
   version: 13.5.3
   resolution: "react-syntax-highlighter@npm:13.5.3"
@@ -25890,6 +25932,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"tslib@npm:^2.5.0":
+  version: 2.5.0
+  resolution: "tslib@npm:2.5.0"
+  checksum: ae3ed5f9ce29932d049908ebfdf21b3a003a85653a9a140d614da6b767a93ef94f460e52c3d787f0e4f383546981713f165037dc2274df212ea9f8a4541004e1
+  languageName: node
+  linkType: hard
+
 "tty-browserify@npm:0.0.0":
   version: 0.0.0
   resolution: "tty-browserify@npm:0.0.0"
@@ -26666,6 +26715,7 @@ __metadata:
     react-player: 2.11.0
     react-resize-detector: 7.1.1
     react-slick: 0.29.0
+    react-svg: 16.1.0
     react-text-truncate: 0.19.0
     slick-carousel: 1.8.1
     stylelint: 14.0.1

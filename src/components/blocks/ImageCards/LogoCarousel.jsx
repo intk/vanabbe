@@ -2,12 +2,15 @@ import React from 'react';
 import { Image, Message, Popup } from 'semantic-ui-react';
 import { Placeholder } from 'semantic-ui-react';
 import { getScaleUrl, getPath } from '@package/utils';
+import { ReactSVG } from 'react-svg';
+
 import './less/logo-cards.less';
 
 export { LogoCardsSchema } from './schema';
 
 const Card = ({ card = {}, height, image_scale, mode = 'view' }) => {
   const { link, title } = card;
+  const isSVG = card?.attachedimage?.endsWith('.svg');
 
   const LinkWrapper =
     link && mode === 'view'
@@ -17,23 +20,39 @@ const Card = ({ card = {}, height, image_scale, mode = 'view' }) => {
           </a>
         )
       : ({ children }) => children;
+
   const PopupWrapper = title
     ? ({ children }) => <Popup content={title} trigger={children} on="hover" />
     : ({ children }) => children;
 
   return (
-    <div className="logo-slide-img" style={{ height, width: height }}>
+    <div className="logo-slide-img" style={{ height }}>
       <PopupWrapper>
         <LinkWrapper>
           {card.attachedimage ? (
-            <Image
-              style={{ height: height }}
-              className="bg-image"
-              src={getScaleUrl(
-                getPath(card.attachedimage),
-                image_scale || 'large',
+            <>
+              {isSVG ? (
+                <ReactSVG
+                  src={`${card.attachedimage}/@@images/image/large`}
+                  className="svg-wrapper"
+                  beforeInjection={(svg) => {
+                    svg.setAttribute(
+                      'style',
+                      `height: ${height}, 'width: auto'`,
+                    );
+                  }}
+                />
+              ) : (
+                <Image
+                  style={{ height: height }}
+                  className="bg-image"
+                  src={getScaleUrl(
+                    getPath(card.attachedimage),
+                    image_scale || 'large',
+                  )}
+                />
               )}
-            />
+            </>
           ) : (
             <Placeholder />
           )}
