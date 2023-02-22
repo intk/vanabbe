@@ -173,14 +173,15 @@ export default function ArtworkView(props) {
                     </div>
                   </div>
                 </div>
+
+                <h2 className="context-title">Context</h2>
+                <Grid columns={4} className="listings">
+                  {contextLinkCards}
+                </Grid>
               </Grid.Column>
             </Grid.Row>
           </Grid>
         </div>
-        <h2 className="context-title">Context</h2>
-        <Grid columns={4} className="listings">
-          {contextLinkCards}
-        </Grid>
       </Container>
     </div>
   );
