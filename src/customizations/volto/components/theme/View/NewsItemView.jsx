@@ -33,10 +33,12 @@ const NewsItemView = (props) => {
         id="page-document"
         className="ui container viewwrapper newsitem-view"
       >
-        <Portal node={isClient && document.getElementById('heading')}>
-          {!!content.effective && (
-            <FormattedDate isoDate={content.effective} format="long" />
-          )}
+        <Portal node={isClient && document.getElementById('description')}>
+          <p>
+            {!!content.effective && (
+              <FormattedDate isoDate={content.effective} format="long" />
+            )}
+          </p>
         </Portal>
 
         <div className="content-container">
