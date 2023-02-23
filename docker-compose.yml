@@ -52,48 +52,48 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
     profiles: ["production"]
 
-  nginx:
-    build: ./webserver/nginx
-    image: tiberiuichim/nginx
-    env_file:
-      - ./webserver.env
-    volumes:
-      - ./webserver/data/nginx_conf:/etc/nginx/sites
-      - ./webserver/data/letsencrypt_certs:/etc/letsencrypt
-      - ./webserver/data/certbot_acme_challenge:/var/www/certbot
-      - ./webserver/data/vhosts:/etc/nginx/vhosts
-      - ./webserver/data/html:/var/www/html
-    ports:
-      - "80:80"
-      - "443:443"
-    restart: unless-stopped
-    profiles: ["production"]
+# nginx:
+#   build: ./webserver/nginx
+#   image: tiberiuichim/nginx
+#   env_file:
+#     - ./webserver.env
+#   volumes:
+#     - ./webserver/data/nginx_conf:/etc/nginx/sites
+#     - ./webserver/data/letsencrypt_certs:/etc/letsencrypt
+#     - ./webserver/data/certbot_acme_challenge:/var/www/certbot
+#     - ./webserver/data/vhosts:/etc/nginx/vhosts
+#     - ./webserver/data/html:/var/www/html
+#   ports:
+#     - "80:80"
+#     - "443:443"
+#   restart: unless-stopped
+#   profiles: ["production"]
 
-  certbot:
-    depends_on:
-      - nginx
-    build: ./webserver/certbot
-    image: tiberiuichim/certbot
-    env_file:
-      - ./webserver.env
-    volumes:
-      - ./webserver/data/letsencrypt_certs:/etc/letsencrypt
-      - ./webserver/data/certbot_acme_challenge:/var/www/certbot
-    profiles: ["production"]
+# certbot:
+#   depends_on:
+#     - nginx
+#   build: ./webserver/certbot
+#   image: tiberiuichim/certbot
+#   env_file:
+#     - ./webserver.env
+#   volumes:
+#     - ./webserver/data/letsencrypt_certs:/etc/letsencrypt
+#     - ./webserver/data/certbot_acme_challenge:/var/www/certbot
+#   profiles: ["production"]
 
-  cron:
-    depends_on:
-      - certbot
-    build: ./webserver/cron
-    image: tiberiuichim/cron
-    environment:
-      COMPOSE_PROJECT_NAME: "${COMPOSE_PROJECT_NAME}"
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - ./:/workdir:ro
-    # needs direct access to current docker-compose project so that it can run `docker-compose` commands
-    restart: unless-stopped
-    profiles: ["production"]
+# cron:
+#   depends_on:
+#     - certbot
+#   build: ./webserver/cron
+#   image: tiberiuichim/cron
+#   environment:
+#     COMPOSE_PROJECT_NAME: "${COMPOSE_PROJECT_NAME}"
+#   volumes:
+#     - /var/run/docker.sock:/var/run/docker.sock
+#     - ./:/workdir:ro
+#   # needs direct access to current docker-compose project so that it can run `docker-compose` commands
+#   restart: unless-stopped
+#   profiles: ["production"]
 
 volumes:
   cache: {}
