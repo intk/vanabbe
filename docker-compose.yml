@@ -17,7 +17,7 @@ services:
       ofelia.job-exec.weekly-backup.command: "/app/bin/repozo -B -f /app/var/filestorage/Data.fs -r /app/var/backup"
 
   frontend:
-    image: tiberiuichim/vanabbe:1.26
+    image: tiberiuichim/vanabbe:1.27
     # depends_on:
     # - plone
     environment:
