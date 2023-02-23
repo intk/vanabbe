@@ -2,7 +2,7 @@ api
 .storybook
 cron
 build
-data
+./data
 node_modules
 omelette
 .env
