@@ -22,6 +22,10 @@ body {
 p {
   margin-bottom: var(--space-md);
   font-size: @desktopBodyFontSize;
+
+  a {
+    word-break: break-all;
+  }
 }
 
 p:empty {
@@ -69,11 +73,12 @@ h5 {
 
 ul,
 ol {
-  margin-top: 0;
-  margin-bottom: var(--space-md);
-
   li {
     font-size: @desktopBodyFontSize;
+
+    &:not(:last-child) {
+      padding-bottom: 0.3em;
+    }
   }
 }
 
@@ -110,7 +115,6 @@ ol {
 
   ul li {
     font-size: @tabletBodyFontSize;
-    line-height: 42px;
   }
 }
 

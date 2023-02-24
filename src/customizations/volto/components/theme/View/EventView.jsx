@@ -166,9 +166,6 @@ const EventView = (props) => {
                         </p>
                       </div>
                     )}
-                  </div>
-
-                  <div className="event-listing">
                     <div className="event-data event-calendar">
                       <p>
                         <a

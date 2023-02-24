@@ -7,6 +7,7 @@
 // }
 
 .block,
+blockquote,
 .table-of-contents {
   margin-top: var(--space-md);
   margin-bottom: var(--space-md);
@@ -43,9 +44,19 @@ body.has-hero-image {
 }
 
 .blocks-bg-wrapper {
-  // & :is(h2 + *, h3 + *, h4 + *) {
-  //   margin-bottom: var(--space-md);
-  // }
+  > *:first-child {
+    margin-top: 0;
+  }
+
+  > ul,
+  > ol {
+    margin-top: 0;
+    margin-bottom: var(--space-md);
+  }
+
+  > h2 {
+    margin-top: var(--space-lg);
+  }
 
   @media only screen and (min-width: @largestMobileScreen) {
     padding-right: @twoWide;

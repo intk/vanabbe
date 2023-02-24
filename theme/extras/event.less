@@ -12,6 +12,10 @@
       p {
         margin: 0;
         font-size: @extraFontSize;
+
+        @media only screen and (max-width: @largestMobileScreen) {
+          font-size: @mediumMobileFontSize;
+        }
       }
     }
   }
@@ -34,10 +38,6 @@
 
       p {
         margin: 0;
-      }
-
-      .event-calendar {
-        margin-top: 0.5em;
       }
     }
   }

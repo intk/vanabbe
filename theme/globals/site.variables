@@ -130,6 +130,7 @@
 @smallFontSize: unit((14 / @emSize), rem);
 
 @largeMobileFontSize: unit((24 / @emSize), rem);
+@mediumMobileFontSize: unit((20 / @emSize), rem);
 
 @desktopLargeBodyFontSize: @largeFontSize;
 @desktopBodyFontSize: @bigFontSize;
@@ -201,7 +202,6 @@
   .resetStyle();
   font-weight: normal;
   border-radius: 0 !important;
-  margin-bottom: 0 !important;
 }
 
 .primaryBtn(@color) {
