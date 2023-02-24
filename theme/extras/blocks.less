@@ -43,6 +43,10 @@ body.has-hero-image {
 }
 
 .blocks-bg-wrapper {
+  // & :is(h2 + *, h3 + *, h4 + *) {
+  //   margin-bottom: var(--space-md);
+  // }
+
   @media only screen and (min-width: @largestMobileScreen) {
     padding-right: @twoWide;
     padding-left: calc(@oneWide + 0.6rem);
@@ -198,6 +202,11 @@ body.view-viewview {
     font-size: @smallFontSize;
     line-height: @mediumLineHeight;
   }
+}
+
+.block .ui.grid {
+  margin-top: -0.6rem;
+  margin-bottom: -0.6rem;
 }
 
 // Form block
