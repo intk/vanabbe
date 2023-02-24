@@ -75,7 +75,7 @@ cypress/screenshots
 .env.test.local
 .env.production.local
 
-data
+/data
 omelette
 
 public/critical.css
@@ -91,3 +91,6 @@ src/addons/*
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
+
+webserver/data/letsencrypt_certs/
+webserver/data/nginx_conf/ssl
