@@ -30,6 +30,7 @@ body.homepage-view .blocks-wrapper .hero-unit-block,
 .hero-unit-wrapper {
   .logo,
   .logo svg {
+    display: inline-block;
     height: 100px !important;
   }
 }
@@ -63,19 +64,49 @@ body.homepage-view .blocks-wrapper .hero-unit-block,
   }
 }
 
-.big-hero {
+.big-logo {
+  .logo,
+  .logo svg {
+    height: 250px !important;
+
+    @media only screen and (max-width: 1080px) {
+      height: 140px !important;
+    }
+
+    @media only screen and (max-width: 480px) {
+      height: 100px !important;
+    }
+  }
+}
+
+.small-logo {
   .logo {
     height: 100px;
   }
 
   .logo svg {
     height: 100px !important;
-    transition: all 1s ease;
+    transition: all 1.5s ease;
   }
 
   .hero-unit-image-wrapper {
-    transition: height 1s ease;
+    transition: height 1.5s ease;
   }
+}
+
+.big-hero {
+  // .logo {
+  //   height: 100px;
+  // }
+
+  // .logo svg {
+  //   height: 100px !important;
+  //   transition: all 1s ease;
+  // }
+
+  // .hero-unit-image-wrapper {
+  //   transition: height 1s ease;
+  // }
 
   .hero-unit-title {
     display: none !important;
@@ -88,8 +119,27 @@ body.homepage-view .blocks-wrapper .hero-unit-block,
   direction: rtl;
 
   .hidden {
+    svg {
+      visibility: hidden;
+    }
     height: 0;
     visibility: hidden;
+  }
+}
+
+.hidden.big {
+  .logo,
+  .logo svg {
+    height: 100px !important;
+  }
+}
+
+.hidden.small {
+  .logo,
+  .logo svg {
+    display: inline-block;
+    height: 250px !important;
+    // transition: height 1s ease;
   }
 }
 
@@ -103,7 +153,15 @@ body.view-viewview {
 
   .logo-bottom {
     .visible .logo svg {
-      transition: all 2.2s ease;
+      transition: all 1.5s ease;
+    }
+  }
+
+  .scroll-logo {
+    .logo,
+    .logo svg {
+      transition: all 1.5s ease !important;
+      will-change: bottom;
     }
   }
 

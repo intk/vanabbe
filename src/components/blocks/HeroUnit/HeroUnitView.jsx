@@ -5,7 +5,7 @@ import { UniversalLink, Logo, Icon } from '@plone/volto/components';
 import { getScaleUrl, getPath } from '@package/utils';
 import { useWindowDimensions, useIntersection } from '@package/helpers';
 import logoImage from '../../../icons/vanabbe.svg';
-
+import cx from 'classnames';
 import './style.less';
 
 const ReactYoutubePlayer = loadable(() => import('react-player/youtube'));
@@ -18,7 +18,7 @@ const getPosition = (ref) => {
 };
 
 const VideoPlayer = (props) => {
-  const { playing, videoUrl, setActive } = props;
+  const { playing, videoUrl, setIsActive } = props;
   const vimeoURL = videoUrl?.match('vimeo');
   const youtubeURL = videoUrl?.match(/youtube|.be\//);
 
@@ -34,15 +34,16 @@ const VideoPlayer = (props) => {
   return (
     <>
       {vimeoURL ? (
-        <ReactVimeoPlayer {...playerProps} onPlay={() => setActive(true)} />
+        <ReactVimeoPlayer {...playerProps} onPlay={() => setIsActive(true)} />
       ) : youtubeURL ? (
-        <ReactYoutubePlayer {...playerProps} onPlay={() => setActive(true)} />
+        <ReactYoutubePlayer {...playerProps} onPlay={() => setIsActive(true)} />
       ) : null}
     </>
   );
 };
 
 const HeroUnitView = (props) => {
+  const { windowHeight } = useWindowDimensions();
   const { data = {}, mode = 'view' } = props;
   const {
     headline,
@@ -52,26 +53,29 @@ const HeroUnitView = (props) => {
     linkHref,
     attachedimage,
   } = data;
-
   const HeadlineTag = headlineTag || 'h2';
-  const isView = mode === 'edit';
+  const isView = mode !== 'edit';
   const href = linkHref?.[0]?.['@id'] || '';
 
   const logoRef = useRef();
   const heroRef = useRef();
-  const { windowHeight } = useWindowDimensions();
-  const inViewport = useIntersection(heroRef, {
+  const inViewportBlock = useIntersection(heroRef, {
     threshold: 0,
     rootMargin: '0px',
   });
+  const inViewportLogo = useIntersection(heroRef, {
+    threshold: 1,
+  });
 
-  const [isActive, setActive] = useState(false);
-  const [scrolling, setScrolling] = useState(false);
-  const [scrollBottom, setScrollBottom] = useState(0);
   const [playing, setPlaying] = useState(false);
+  const [isActive, setIsActive] = useState(false);
+  const [scrolling, setScrolling] = useState(null);
+  const [scrollDown, setScrollDown] = useState(null);
+  const [bottom, setBottom] = useState(0);
   const [top, setTop] = useState();
+  const [logoSize, setLogoSize] = useState('');
 
-  const setPosition = useCallback(() => {
+  const setLogoPosition = useCallback(() => {
     const position = getPosition(logoRef);
     setTop(position);
   }, []);
@@ -80,54 +84,82 @@ const HeroUnitView = (props) => {
     const position = getPosition(logoRef);
     const loginHeight = document.getElementById('login').clientHeight;
     const logoHeight = document.getElementById('logo').clientHeight;
-    const bottom = loginHeight + logoHeight;
+    const bottomLogo = loginHeight + logoHeight;
 
-    function onScroll() {
+    const handleScroll = () => {
+      setScrolling(true);
       let currentPosition = window.pageYOffset;
-      if (currentPosition > scrollBottom) {
-        setScrolling(true);
-        setTop(windowHeight - bottom);
+      if (currentPosition > bottom) {
+        setScrollDown(true);
+        setTop(windowHeight - bottomLogo);
       } else {
-        setScrolling(false);
-        if (inViewport) setTop(position + window.scrollY);
+        setScrollDown(false);
+        if (inViewportBlock) {
+          setTop(position - window.scrollY);
+        }
       }
-      setScrollBottom(currentPosition <= 0 ? 0 : currentPosition);
-    }
+      setBottom(currentPosition <= 0 ? 0 : currentPosition);
+    };
 
-    window.addEventListener('scroll', onScroll);
-    return () => window.removeEventListener('scroll', onScroll);
-  }, [inViewport, scrollBottom, windowHeight]);
-
-  useEffect(() => {
-    if (!isView && scrolling) {
-      setPlaying(true);
-      setActive(true);
-    }
-  }, [scrolling, isView]);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [bottom, inViewportBlock, windowHeight]);
 
   useEffect(() => {
-    window.addEventListener('resize', setPosition);
-    return () => window.addEventListener('resize', setPosition);
-  }, [setPosition]);
+    if (!isView) {
+      return;
+    }
+    setPlaying(true);
+  }, [isView]);
+
+  useEffect(() => {
+    if (!isView) {
+      return;
+    }
+    scrollDown ? setIsActive(true) : setIsActive(false);
+  }, [scrollDown, isView]);
+
+  useEffect(() => {
+    if (!isView) {
+      return;
+    }
+
+    if (scrolling) {
+      setLogoSize('small');
+    }
+    if (!scrollDown && inViewportLogo) {
+      setLogoSize('big');
+    }
+  }, [scrolling, isView, scrollDown, inViewportLogo]);
+
+  useEffect(() => {
+    window.addEventListener('resize', setLogoPosition);
+    return () => window.addEventListener('resize', setLogoPosition);
+  }, [setLogoPosition]);
 
   return (
-    <div className={`hero-unit-block ${isActive ? 'big-hero' : 'normal-hero'}`}>
+    <div
+      className={cx('hero-unit-block', {
+        'big-hero': isActive,
+        'normal-hero': !isActive,
+        'big-logo': logoSize === 'big',
+        'small-logo': logoSize === 'small',
+      })}
+    >
       <div>
         <HeadlineTag className="hero-unit-title">{headline}</HeadlineTag>
         <div className="hero-unit-wrapper" ref={heroRef}>
-          <div className={`hero-unit-image-wrapper ${videoUrl ? 'video' : ''}`}>
-            {videoUrl && (
-              <VideoPlayer
-                playing={playing}
-                videoUrl={videoUrl}
-                setActive={setActive}
-              />
-            )}
+          <div
+            className={cx('hero-unit-image-wrapper', {
+              video: videoUrl,
+            })}
+          >
+            {videoUrl && <VideoPlayer playing={playing} videoUrl={videoUrl} />}
 
             {attachedimage && (
               <Image
                 className="hero-unit-image"
-                onClick={() => setActive(true)}
+                onClick={() => setIsActive(true)}
                 src={getScaleUrl(getPath(attachedimage), 'large')}
               />
             )}
@@ -140,11 +172,15 @@ const HeroUnitView = (props) => {
           </div>
 
           <div
-            className={`hero-logo-wrapper ${
-              scrolling ? 'logo-bottom' : 'logo-top'
-            }`}
+            className={cx('hero-logo-wrapper', {
+              'logo-bottom': scrollDown,
+              'scroll-logo': scrollDown === false && inViewportLogo,
+            })}
           >
-            <div className="hidden" ref={logoRef}>
+            <div
+              className={`hidden ${isActive ? 'big' : 'small'}`}
+              ref={logoRef}
+            >
               <Logo />
             </div>
             <div className="visible">
