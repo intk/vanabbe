@@ -4,6 +4,7 @@
 from .request import HEADERS
 from intk_vanabbe.importer import scroll
 from plone.api import content
+from plone.api import portal
 from plone.api import relation
 from plone.app.multilingual.api import get_translation_manager
 from plone.app.multilingual.api import translate
@@ -21,6 +22,12 @@ import requests
 
 
 IMAGE_BASE_URL = "https://vanabbemuseum.nl/fileadmin/files/collectie/%s"
+IMPORT_LOCATIONS = {
+    "artwork": "/nl/collectie-onderzoek/vaste-collectie/kunstwerken",
+    "publication": "/nl/collectie-onderzoek/bibliotheek/publicaties",
+    "exhibition": "/nl/tentoonstellingen",
+    "author": "/nl/collectie-onderzoek/kunstenaars",
+}
 
 logger = logging.getLogger("vubis")
 
@@ -69,6 +76,11 @@ def extract_lang(rec, lang="nl"):
         res[k] = v
 
     return res
+
+
+def get_base_folder(context, portal_type):
+    base = portal.get()
+    return base.restrictedTraverse(IMPORT_LOCATIONS[portal_type])
 
 
 def import_images(container, urls):
@@ -142,7 +154,7 @@ class ImportVubis(BrowserView):
 
     def import_authors(self, rec, element):
 
-        container = self.context
+        container = get_base_folder(self.context, "author")
         authors = []
 
         urls = {}
@@ -224,7 +236,7 @@ class ImportVubis(BrowserView):
         return authors
 
     def import_artwork(self, rec, element):
-        container = self.context
+        container = get_base_folder(self.context, "artwork")
 
         filenames = rec.get("objectImage", [])
         if isinstance(filenames, str):
@@ -269,7 +281,7 @@ class ImportVubis(BrowserView):
         if bookArtist and not isinstance(bookArtist, list):
             rec["bookArtist"] = [bookArtist]
 
-        container = self.context
+        container = get_base_folder(self.context, "publication")
         rec["title"] = rec["BookTitle"]
         obj = content.create(
             type="publication",
@@ -290,7 +302,7 @@ class ImportVubis(BrowserView):
         return True
 
     def import_exhibition(self, rec, element):
-        container = self.context
+        container = get_base_folder(self.context, "exhibition")
 
         rec = convert_lists_to_text(rec, ["eventImages", "eventArtist"])
         if rec.get("eventArtist") and not isinstance(rec["eventArtist"], list):
