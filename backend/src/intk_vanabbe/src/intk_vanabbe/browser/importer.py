@@ -23,10 +23,10 @@ import requests
 
 IMAGE_BASE_URL = "https://vanabbemuseum.nl/fileadmin/files/collectie/%s"
 IMPORT_LOCATIONS = {
-    "artwork": "/nl/collectie-onderzoek/vaste-collectie/kunstwerken",
-    "publication": "/nl/collectie-onderzoek/bibliotheek/publicaties",
-    "exhibition": "/nl/tentoonstellingen",
-    "author": "/nl/collectie-onderzoek/kunstenaars",
+    "artwork": "nl/collectie-onderzoek/vaste-collectie/kunstwerken",
+    "publication": "nl/collectie-onderzoek/bibliotheek/publicaties",
+    "exhibition": "nl/tentoonstellingen",
+    "author": "nl/collectie-onderzoek/kunstenaars",
 }
 
 logger = logging.getLogger("vubis")
@@ -127,6 +127,17 @@ class ImportVubis(BrowserView):
         import_publication = lambda *args: None
         import_exhibition = lambda *args: None
 
+        if form.get("clean"):
+            for ptype in IMPORT_LOCATIONS.keys():
+                container = get_base_folder(self.context, ptype)
+                intl_mgr = get_translation_manager(container)
+                trans_container = intl_mgr.get_translation("en")
+
+                for obj in [container, trans_container]:
+                    ids = obj.contentIds()
+                    if ids:
+                        obj.manage_delObjects(ids)
+
         if form.get("import") == "artwork":
             import_artwork = self.import_artwork
         elif form.get("import") == "publication":
@@ -141,6 +152,8 @@ class ImportVubis(BrowserView):
         query = None
         if "query" in form:
             query = f'&query={form["query"]}'
+        else:
+            query = "&query=*=*"
 
         scroll(
             import_artwork,
@@ -217,7 +230,7 @@ class ImportVubis(BrowserView):
 
             author = content.create(
                 type="author",
-                id=f'author-{rec["authorID"]}',
+                # id=f'author-{rec["authorID"]}',
                 container=container,
                 **fields,
             )
@@ -236,6 +249,7 @@ class ImportVubis(BrowserView):
         return authors
 
     def import_artwork(self, rec, element):
+        logger.info(f"Importing artwork ccObjectID: {rec['ccObjectID']}")
         container = get_base_folder(self.context, "artwork")
 
         filenames = rec.get("objectImage", [])
@@ -253,7 +267,7 @@ class ImportVubis(BrowserView):
 
         obj = content.create(
             type="artwork",
-            id=f'art-{original["ccObjectID"]}',
+            # id=f'art-{original["ccObjectID"]}',
             container=container,
             **original,
         )
@@ -275,6 +289,7 @@ class ImportVubis(BrowserView):
         return True
 
     def import_publication(self, rec, element):
+        logger.info(f"Importing publication ccObjectID: {rec['ccObjectID']}")
 
         rec = convert_lists_to_text(rec, ["bookIllustrations", "bookArtist"])
         bookArtist = rec.get("bookArtist")
@@ -285,7 +300,7 @@ class ImportVubis(BrowserView):
         rec["title"] = rec["BookTitle"]
         obj = content.create(
             type="publication",
-            id=f'pub-{toid(rec["ccObjectID"])}',
+            # id=f'pub-{toid(rec["ccObjectID"])}',
             container=container,
             **rec,
         )
@@ -302,6 +317,7 @@ class ImportVubis(BrowserView):
         return True
 
     def import_exhibition(self, rec, element):
+        logger.info(f"Importing exhibition recordnumber: {rec['recordnumber']}")
         container = get_base_folder(self.context, "exhibition")
 
         rec = convert_lists_to_text(rec, ["eventImages", "eventArtist"])
@@ -322,7 +338,7 @@ class ImportVubis(BrowserView):
 
         obj = content.create(
             type="exhibition",
-            id=f'exh-{str(rec["recordnumber"])}',
+            # id=f'exh-{str(rec["recordnumber"])}',
             container=container,
             **rec,
         )
