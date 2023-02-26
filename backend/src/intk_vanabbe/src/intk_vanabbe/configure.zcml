@@ -28,4 +28,7 @@
   <include package=".services" />
   <include package=".subscribers" />
 
+ <subscriber factory=".transformers.ActionLinksTransformers"
+   provides="plone.restapi.interfaces.IBlockFieldSerializationTransformer"/>
+
 </configure>
