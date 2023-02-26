@@ -39,3 +39,25 @@ class ActionLinksTransformers(object):
                         link["@id"] = fix(link["@id"])
 
         return value
+
+
+@adapter(IBlocks, IBrowserRequest)
+class ImageCardsTransformers(object):
+    order = 100
+    block_type = "imagecards"
+
+    def __init__(self, context, request):
+        self.context = context
+        self.request = request
+
+    def __call__(self, value):
+        actions = value.get("cards", None)
+        if actions:
+            for action in actions:
+                if action.get("attachedimage", None):
+                    action["attachedimage"] = fix(action["attachedimage"])
+                if action.get("linkHref"):
+                    for link in action["linkHref"]:
+                        link["@id"] = fix(link["@id"])
+
+        return value

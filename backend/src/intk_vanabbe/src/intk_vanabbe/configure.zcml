@@ -31,4 +31,7 @@
  <subscriber factory=".transformers.ActionLinksTransformers"
    provides="plone.restapi.interfaces.IBlockFieldSerializationTransformer"/>
 
+ <subscriber factory=".transformers.ImageCardsTransformers"
+   provides="plone.restapi.interfaces.IBlockFieldSerializationTransformer"/>
+
 </configure>
