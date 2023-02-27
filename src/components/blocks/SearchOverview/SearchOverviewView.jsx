@@ -19,8 +19,6 @@ function SearchOverviewView(props) {
       .map((id) => [id, data.blocks?.[id], subrequests?.[id]?.total]);
   });
 
-  console.log('blocks', blocks);
-
   const total = blocks.reduce((allTotal, block) => block[2] + allTotal, 0);
 
   const location = useLocation();
@@ -34,11 +32,10 @@ function SearchOverviewView(props) {
         {total > 0 ? (
           <>
             <FormattedMessage
-              id="Showing results for ''{searchText}''"
-              defaultMessage="Showing results for ''{searchText}''"
+              id="show.results"
+              defaultMessage="Showing results for <b>something</b>"
               values={{
-                em: (...chunks) => <em>{chunks}</em>,
-                searchText: searchText,
+                b: (chunks) => <u>{searchText}</u>,
               }}
             />{' '}
             ({total})
