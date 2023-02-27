@@ -12,7 +12,7 @@ const ListingBlockHeader = ({ data }) => {
   return head ? (
     <div className="listing-block-header">
       {headline && (
-        <CustomTag>
+        <CustomTag id={block}>
           {headline}
           {data.showCount && total ? ` (${total})` : ''}
         </CustomTag>
