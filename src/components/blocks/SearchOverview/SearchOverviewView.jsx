@@ -65,7 +65,7 @@ function SearchOverviewView(props) {
       )}
 
       <div className="navigator">
-        <Button className="load-more" secondary as="a" href="">
+        <Button className="load-more" secondary as="a" onClick={() => {}}>
           {`All (${total})`}
         </Button>
 
