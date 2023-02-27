@@ -33,20 +33,19 @@ function SearchOverviewView(props) {
           <>
             <FormattedMessage
               id="show.results"
-              defaultMessage="Showing results for <b>something</b>"
+              defaultMessage="Showing results for <u>something</u>"
               values={{
-                b: (chunks) => <u>{searchText}</u>,
+                u: (chunks) => <u>{searchText}</u>,
               }}
             />{' '}
             ({total})
           </>
         ) : (
           <FormattedMessage
-            id="No results for ''{searchText}''"
-            defaultMessage="No results for ''{searchText}''"
+            id="no.results"
+            defaultMessage="No results for <u>something</u>"
             values={{
-              em: (...chunks) => <em>{chunks}</em>,
-              searchText: searchText,
+              u: (chunks) => <u>{searchText}</u>,
             }}
           />
         )}
