@@ -56,8 +56,8 @@ class ImageCardsTransformers(object):
             for action in actions:
                 if action.get("attachedimage", None):
                     action["attachedimage"] = fix(action["attachedimage"])
-                if action.get("linkHref"):
-                    for link in action["linkHref"]:
-                        link["@id"] = fix(link["@id"])
+                # if action.get("linkHref"):
+                #     for link in action["linkHref"]:
+                #         link["@id"] = fix(link["@id"])
 
         return value
