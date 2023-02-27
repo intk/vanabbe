@@ -63,17 +63,15 @@ const HeroUnitView = (props) => {
     threshold: 0,
     rootMargin: '0px',
   });
-  const inViewportLogo = useIntersection(heroRef, {
-    threshold: 1,
-  });
 
   const [playing, setPlaying] = useState(false);
   const [isActive, setIsActive] = useState(false);
-  const [scrolling, setScrolling] = useState(null);
   const [scrollDown, setScrollDown] = useState(null);
   const [bottom, setBottom] = useState(0);
   const [top, setTop] = useState();
   const [logoSize, setLogoSize] = useState('');
+  const [isTopOfPage, setIsTopOfPage] = useState(true);
+  const [initialPosition, setInitialPosition] = useState('');
 
   const setLogoPosition = useCallback(() => {
     const position = getPosition(logoRef);
@@ -81,29 +79,41 @@ const HeroUnitView = (props) => {
   }, []);
 
   useEffect(() => {
-    const position = getPosition(logoRef);
     const loginHeight = document.getElementById('login').clientHeight;
     const logoHeight = document.getElementById('logo').clientHeight;
     const bottomLogo = loginHeight + logoHeight;
 
     const handleScroll = () => {
-      setScrolling(true);
       let currentPosition = window.pageYOffset;
       if (currentPosition > bottom) {
         setScrollDown(true);
         setTop(windowHeight - bottomLogo);
       } else {
         setScrollDown(false);
-        if (inViewportBlock) {
-          setTop(position - window.scrollY);
-        }
       }
+
+      if (currentPosition === 0) {
+        setIsTopOfPage(true);
+        setTop(initialPosition);
+      } else {
+        setIsTopOfPage(false);
+      }
+
       setBottom(currentPosition <= 0 ? 0 : currentPosition);
     };
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [bottom, inViewportBlock, windowHeight]);
+  }, [bottom, inViewportBlock, initialPosition, windowHeight]);
+
+  useEffect(() => {
+    const position = getPosition(logoRef);
+    if (window.scrollY > 0) {
+      setInitialPosition(position + window.scrollY);
+    } else {
+      setInitialPosition(position);
+    }
+  }, []);
 
   useEffect(() => {
     if (!isView) {
@@ -124,13 +134,12 @@ const HeroUnitView = (props) => {
       return;
     }
 
-    if (scrolling) {
+    if (isTopOfPage) {
+      setLogoSize('big');
+    } else {
       setLogoSize('small');
     }
-    if (!scrollDown && inViewportLogo) {
-      setLogoSize('big');
-    }
-  }, [scrolling, isView, scrollDown, inViewportLogo]);
+  }, [isView, scrollDown, isTopOfPage]);
 
   useEffect(() => {
     window.addEventListener('resize', setLogoPosition);
@@ -144,6 +153,7 @@ const HeroUnitView = (props) => {
         'normal-hero': !isActive,
         'big-logo': logoSize === 'big',
         'small-logo': logoSize === 'small',
+        'scroll-in-view': scrollDown === false,
       })}
     >
       <div>
@@ -171,16 +181,8 @@ const HeroUnitView = (props) => {
             )}
           </div>
 
-          <div
-            className={cx('hero-logo-wrapper', {
-              'logo-bottom': scrollDown,
-              'scroll-logo': scrollDown === false && inViewportLogo,
-            })}
-          >
-            <div
-              className={`hidden ${isActive ? 'big' : 'small'}`}
-              ref={logoRef}
-            >
+          <div className="hero-logo-wrapper">
+            <div className="hidden" ref={logoRef}>
               <Logo />
             </div>
             <div className="visible">
