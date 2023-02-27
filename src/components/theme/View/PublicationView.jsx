@@ -11,7 +11,9 @@ export default function PublicationView(props) {
 
   let { bookauthorName = [] } = content;
   if (!Array.isArray(bookauthorName))
-    bookauthorName = bookauthorName.split('\n').map((a) => a.trim());
+    bookauthorName = bookauthorName
+      ? bookauthorName.split('\n').map((a) => a.trim())
+      : [];
   const bookAuthor = bookauthorName.map((author, i) => {
     return <div key={i}>{author}</div>;
   });

@@ -83,6 +83,22 @@ def get_base_folder(context, portal_type):
     return base.restrictedTraverse(IMPORT_LOCATIONS[portal_type])
 
 
+def debug(func):
+    def wrapper(*args):
+        try:
+            res = func(*args)
+        except Exception as e:
+            logger.error(f"Exception {e}")
+            return
+            # import pdb
+            #
+            # pdb.set_trace()
+
+        return res
+
+    return wrapper
+
+
 def import_images(container, urls):
     for url in urls:
         url = url.strip()
@@ -248,6 +264,7 @@ class ImportVubis(BrowserView):
 
         return authors
 
+    @debug
     def import_artwork(self, rec, element):
         logger.info(f"Importing artwork ccObjectID: {rec['ccObjectID']}")
         container = get_base_folder(self.context, "artwork")
@@ -288,6 +305,7 @@ class ImportVubis(BrowserView):
 
         return True
 
+    @debug
     def import_publication(self, rec, element):
         logger.info(f"Importing publication ccObjectID: {rec['ccObjectID']}")
 
@@ -297,6 +315,8 @@ class ImportVubis(BrowserView):
             rec["bookArtist"] = [bookArtist]
 
         container = get_base_folder(self.context, "publication")
+        if "BookTitle" not in rec:
+            return
         rec["title"] = rec["BookTitle"]
         obj = content.create(
             type="publication",
@@ -316,6 +336,7 @@ class ImportVubis(BrowserView):
 
         return True
 
+    @debug
     def import_exhibition(self, rec, element):
         logger.info(f"Importing exhibition recordnumber: {rec['recordnumber']}")
         container = get_base_folder(self.context, "exhibition")
