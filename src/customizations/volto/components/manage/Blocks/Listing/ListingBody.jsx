@@ -5,6 +5,7 @@ import { FormattedMessage, injectIntl } from 'react-intl';
 import { Dimmer, Loader } from 'semantic-ui-react';
 import config from '@plone/volto/registry';
 import { usePrevious } from '@plone/volto/helpers';
+import { useIsMounted } from '@package/helpers';
 // import withQuerystringResults from '@plone/volto/components/manage/Blocks/Listing/withQuerystringResults';
 import Pagination from './LoadMorePagination';
 import { useLocation } from 'react-router-dom';
@@ -25,6 +26,8 @@ const ListingBodyComponent = (props) => {
     isFolderContentsListing,
     hasLoaded,
   } = props;
+
+  const isMounted = useIsMounted();
 
   let ListingBodyTemplate;
   // Legacy support if template is present
@@ -52,32 +55,42 @@ const ListingBodyComponent = (props) => {
 
   React.useEffect(() => {
     // the data buffer is reset whenever we change the search text
-    if (previous !== searchText) {
+    if (isMounted() && previous !== searchText) {
+      // console.log('0');
       setDataBuffer({ ...dataBuffer, items: [] });
     }
-  }, [dataBuffer, listingItems, previous, searchText]);
+  }, [dataBuffer, listingItems, previous, searchText, isMounted]);
 
   const lastRecorded = dataBuffer.currentPage;
   const loadedItems = dataBuffer.items;
-  const noLoadedItems = listingItems && !loadedItems?.length;
+  // const noLoadedItems = listingItems && !loadedItems?.length;
 
-  React.useEffect(() => {
-    if (noLoadedItems) {
-      // console.log('rewrite loaded items');
-      setDataBuffer({ ...dataBuffer, items: listingItems });
-    }
-  }, [noLoadedItems, dataBuffer, listingItems]);
+  // React.useEffect(() => {
+  //   if (isMounted() && noLoadedItems) {
+  //     // console.log('rewrite loaded items');
+  //     console.log('1');
+  //     setDataBuffer({ ...dataBuffer, items: listingItems });
+  //   }
+  // }, [noLoadedItems, dataBuffer, listingItems, isMounted]);
 
   React.useEffect(() => {
     const loadedIds = loadedItems.map((item) => item['@id']);
     const otherItems = listingItems.filter(
       (item) => loadedIds.indexOf(item['@id']) === -1,
     );
-    if (otherItems.length) {
+    if (isMounted() && otherItems.length) {
       // console.log('add data', { loadedItems, listingItems });
+      // console.log('2');
       setDataBuffer({ currentPage, items: [...loadedItems, ...otherItems] });
     }
-  }, [currentPage, setDataBuffer, lastRecorded, loadedItems, listingItems]);
+  }, [
+    isMounted,
+    currentPage,
+    setDataBuffer,
+    lastRecorded,
+    loadedItems,
+    listingItems,
+  ]);
 
   const listingRef = createRef();
 

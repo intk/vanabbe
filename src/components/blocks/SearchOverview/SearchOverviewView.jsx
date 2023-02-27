@@ -3,19 +3,25 @@ import qs from 'querystring';
 import { useSelector } from 'react-redux';
 import { BodyClass, getBlocks } from '@plone/volto/helpers';
 import { FormattedMessage } from 'react-intl';
+import { Button } from 'semantic-ui-react';
+
+import addSVG from '@plone/volto/icons/add.svg';
 
 function SearchOverviewView(props) {
-  const total = useSelector((state) => {
+  const blocks = useSelector((state) => {
     const { content, querystringsearch = {} } = state;
     const { data = {} } = content;
     const blocks = data?.blocks_layout ? getBlocks(data) : [];
     const blockIds = blocks.map(([blockId]) => blockId);
     const { subrequests = {} } = querystringsearch;
-    return blockIds.reduce(
-      (total, blockId) => total + (subrequests?.[blockId]?.total || 0),
-      0,
-    );
+    return blockIds
+      .filter((id) => Object.keys(subrequests).indexOf(id) > -1)
+      .map((id) => [id, data.blocks?.[id], subrequests?.[id]?.total]);
   });
+
+  console.log('blocks', blocks);
+
+  const total = blocks.reduce((allTotal, block) => block[2] + allTotal, 0);
 
   const location = useLocation();
   const searchText = qs.parse(location.search.slice(1))['SearchableText'];
@@ -57,6 +63,26 @@ function SearchOverviewView(props) {
           />
         </h3>
       )}
+
+      <div className="navigator">
+        <Button className="load-more" secondary as="a" href="">
+          {`All (${total})`}
+        </Button>
+
+        {blocks
+          .filter(([, , total]) => total > 0)
+          .map(([id, block, total]) => (
+            <Button
+              key={id}
+              className="load-more"
+              secondary
+              as="a"
+              href={`#${id}`}
+            >
+              {`${block.headline} (${total})`}
+            </Button>
+          ))}
+      </div>
     </div>
   ) : null;
 }
