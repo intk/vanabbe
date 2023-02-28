@@ -5,6 +5,12 @@
 .footer {
   padding-top: var(--space-xl);
   background-color: var(--background-color);
+
+  .logo-carousel {
+    .logo-slide-img:first-child {
+      margin-left: 0;
+    }
+  }
 }
 
 .footer-info {
@@ -74,7 +80,15 @@
     width: 100%;
     flex-direction: column;
     margin: 0 !important;
+  }
 
+  .footer-wrapper .ui.list {
+    max-width: none;
+  }
+}
+
+@media only screen and (min-width: 480px) and (max-width: @largestTabletScreen) {
+  .footer-wrapper {
     .social-links {
       .ui.list {
         display: flex;
