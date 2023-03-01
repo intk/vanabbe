@@ -245,50 +245,85 @@ body.view-viewview {
 }
 
 @media only screen and (max-width: @largestMobileScreen) {
-  .hero-unit-block.active {
-    .hero-unit-image-wrapper {
-      width: 100% !important;
-    }
-
-    .hero-logo-wrapper {
-      .hidden,
-      .visible {
-        position: relative;
-        top: auto;
-      }
+  .blocks-wrapper {
+    .hero-unit-block ~ .block.listing {
+      margin-top: var(--space-xxs);
     }
   }
 
   .hero-unit-block {
     .hero-logo-wrapper {
-      .hidden,
-      .visible {
+      .logo {
         position: relative;
-        top: -60px;
+      }
+
+      .hidden {
+        top: 0;
       }
     }
 
     .hero-unit-image-wrapper {
-      width: 70% !important;
+      width: 100% !important;
       height: 380px;
     }
   }
-}
 
-@media only screen and (max-width: 580px) {
-  .hero-unit-block.active .hero-unit-image-wrapper {
-    height: 500px !important;
-  }
-
-  .hero-unit-block .hero-unit-image-wrapper {
-    width: 65% !important;
-  }
-}
-
-body.homepage-view {
-  @media only screen and (max-width: @mobileLandscapeBreakpoint) {
-    .hero-unit-block {
-      margin-right: 0 !important;
+  body.view-viewview {
+    .hero-unit-block,
+    .hero-unit-block.on-top {
+      .hero-unit-wrapper {
+        .logo,
+        .logo svg {
+          height: 80px !important;
+        }
+      }
     }
   }
+
+  // .hero-unit-block.active {
+  //   .hero-unit-image-wrapper {
+  //     width: 100% !important;
+  //   }
+
+  //   .hero-logo-wrapper {
+  //     .hidden,
+  //     .visible {
+  //       position: relative;
+  //       top: auto;
+  //     }
+  //   }
+  // }
+
+  // .hero-unit-block {
+  //   .hero-logo-wrapper {
+  //     .hidden,
+  //     .visible {
+  //       position: relative;
+  //       top: -60px;
+  //     }
+  //   }
+
+  //   .hero-unit-image-wrapper {
+  //     width: 70% !important;
+  //     height: 380px;
+  //   }
+  // }
 }
+
+// @media only screen and (max-width: 580px) {
+//   .hero-unit-block.active .hero-unit-image-wrapper {
+//     height: 500px !important;
+//   }
+
+//   .hero-unit-block .hero-unit-image-wrapper {
+//     width: 65% !important;
+//   }
+// }
+
+// body.homepage-view {
+//   @media only screen and (max-width: @mobileLandscapeBreakpoint) {
+//     .hero-unit-block {
+//       margin-right: 0 !important;
+//     }
+//   }
+// }
