@@ -14,26 +14,6 @@ body.homepage-view .blocks-wrapper .hero-unit-block,
   }
 }
 
-.hero-unit-wrapper {
-  display: flex;
-  gap: 2em;
-}
-
-.hero-unit-image-wrapper {
-  position: relative;
-  overflow: hidden;
-  width: 100%;
-  border-radius: 10px;
-}
-
-.hero-unit-wrapper {
-  .logo,
-  .logo svg {
-    display: inline-block;
-    height: 100px !important;
-  }
-}
-
 .hero-unit-image {
   width: 100%;
   height: 100%;
@@ -44,13 +24,21 @@ body.homepage-view .blocks-wrapper .hero-unit-block,
   transition: transform 0.5s ease;
 }
 
-.normal-hero {
-  .hero-unit-title {
-    margin-bottom: var(--space-sm);
-  }
+.hero-unit-image-wrapper {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  border-radius: 10px;
+}
+
+.hero-unit-wrapper {
+  position: relative;
+  display: flex;
+  gap: 2em;
 
   .logo,
   .logo svg {
+    display: inline-block;
     height: 250px !important;
 
     @media only screen and (max-width: 1080px) {
@@ -62,87 +50,94 @@ body.homepage-view .blocks-wrapper .hero-unit-block,
     }
   }
 
-  .hidden {
-    .logo,
-    .logo svg {
-      display: inline-block;
-      height: 250px !important;
+  .hero-logo-wrapper {
+    position: relative;
+    margin-top: auto;
+    direction: rtl;
+
+    .hidden {
+      height: 0;
+      visibility: hidden;
     }
   }
 }
 
-.big-hero {
+.logo-placeholder {
+  position: absolute;
+  bottom: 0;
+  display: inline-block;
+  width: 100px;
+  height: 100px;
+}
+
+.scroll-down {
+  .logo,
+  .logo svg {
+    transition: all 1.5s ease;
+  }
+}
+
+.scroll-up,
+.scroll-down {
+  .hidden {
+    .logo,
+    .logo svg {
+      transition: all 1.5s ease;
+    }
+  }
+
+  .visible {
+    .logo,
+    .logo svg {
+      height: 100px !important;
+    }
+  }
+
+  .logo-placeholder {
+    height: 100px;
+  }
+}
+
+.scroll-up.on-top {
+  .logo,
+  .logo svg {
+    height: 250px !important;
+    transition: all 1.5s ease;
+
+    @media only screen and (max-width: 1080px) {
+      height: 140px !important;
+    }
+
+    @media only screen and (max-width: 480px) {
+      height: 100px !important;
+    }
+  }
+}
+
+.hero-unit-block.active {
   .hero-unit-title {
     display: none !important;
   }
 
-  .hero-unit-wrapper {
-    margin-top: 7em;
-  }
-
-  .hidden {
-    .logo,
-    .logo svg {
-      height: 100px !important;
-    }
-  }
-}
-
-.big-logo {
   .logo,
-  .logo svg {
-    height: 250px !important;
-
-    @media only screen and (max-width: 1080px) {
-      height: 140px !important;
-    }
-
-    @media only screen and (max-width: 480px) {
-      height: 100px !important;
-    }
-  }
-}
-
-.small-logo {
-  .logo {
-    height: 100px;
-  }
-
   .logo svg {
     height: 100px !important;
     transition: all 1.5s ease;
   }
 
-  .hero-unit-image-wrapper {
-    transition: height 1.5s ease;
+  .hidden {
+    .logo,
+    .logo svg {
+      height: 100px !important;
+    }
   }
 }
 
-.hero-unit-wrapper .hero-logo-wrapper {
-  position: relative;
-  margin-top: auto;
-  direction: rtl;
-
-  .hidden {
-    svg {
-      visibility: hidden;
-    }
-    height: 0;
-    visibility: hidden;
-  }
+.hero-unit-title {
+  margin-bottom: var(--space-sm);
 }
 
 body.view-viewview {
-  .scroll-in-view {
-    .hero-logo-wrapper {
-      .logo,
-      .logo svg {
-        transition: all 1.5s ease !important;
-        will-change: bottom;
-      }
-    }
-  }
-
   .visible .logo svg {
     position: fixed;
     z-index: 10;
@@ -208,7 +203,7 @@ body.view-viewview {
     gap: 1em;
   }
 
-  .normal-hero {
+  .hero-unit-block {
     .hero-logo-wrapper {
       .logo {
         position: relative;
@@ -226,7 +221,15 @@ body.view-viewview {
     }
   }
 
-  .big-hero {
+  .hero-unit-block.on-top .visible .logo svg {
+    height: 140px !important;
+  }
+
+  .scroll-up .visible .logo svg {
+    height: 60px !important;
+  }
+
+  .hero-unit-block.active {
     .hero-unit-wrapper {
       .logo,
       .logo svg {
@@ -242,11 +245,26 @@ body.view-viewview {
 }
 
 @media only screen and (max-width: @largestMobileScreen) {
-  .normal-hero {
+  .hero-unit-block.active {
+    .hero-unit-image-wrapper {
+      width: 100% !important;
+    }
+
     .hero-logo-wrapper {
-      .hidden {
+      .hidden,
+      .visible {
         position: relative;
-        top: -40px;
+        top: auto;
+      }
+    }
+  }
+
+  .hero-unit-block {
+    .hero-logo-wrapper {
+      .hidden,
+      .visible {
+        position: relative;
+        top: -60px;
       }
     }
 
@@ -258,11 +276,11 @@ body.view-viewview {
 }
 
 @media only screen and (max-width: 580px) {
-  .big-hero .hero-unit-image-wrapper {
+  .hero-unit-block.active .hero-unit-image-wrapper {
     height: 500px !important;
   }
 
-  .normal-hero .hero-unit-image-wrapper {
+  .hero-unit-block .hero-unit-image-wrapper {
     width: 65% !important;
   }
 }

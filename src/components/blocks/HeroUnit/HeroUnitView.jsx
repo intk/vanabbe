@@ -1,15 +1,16 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import loadable from '@loadable/component';
 import { Image } from 'semantic-ui-react';
 import { UniversalLink, Logo, Icon } from '@plone/volto/components';
 import { getScaleUrl, getPath } from '@package/utils';
-import { useWindowDimensions, useIntersection } from '@package/helpers';
+import { useWindowDimensions } from '@package/helpers';
 import logoImage from '../../../icons/vanabbe.svg';
+import VideoPlayer from './VideoPlayer';
 import cx from 'classnames';
+
 import './style.less';
 
-const ReactYoutubePlayer = loadable(() => import('react-player/youtube'));
-const ReactVimeoPlayer = loadable(() => import('react-player/vimeo'));
+// left: 37, up: 38, right: 39, down: 40,
+const KEYS = { 40: 1 };
 
 const getPosition = (ref) => {
   if (!ref.current) return;
@@ -17,37 +18,12 @@ const getPosition = (ref) => {
   return position;
 };
 
-const VideoPlayer = (props) => {
-  const { playing, videoUrl, setIsActive } = props;
-  const vimeoURL = videoUrl?.match('vimeo');
-  const youtubeURL = videoUrl?.match(/youtube|.be\//);
-
-  const playerProps = {
-    muted: true,
-    playing: playing,
-    controls: false,
-    url: videoUrl,
-    width: '100%',
-    height: '100%',
-  };
-
-  return (
-    <>
-      {vimeoURL ? (
-        <ReactVimeoPlayer {...playerProps} onPlay={() => setIsActive(true)} />
-      ) : youtubeURL ? (
-        <ReactYoutubePlayer {...playerProps} onPlay={() => setIsActive(true)} />
-      ) : null}
-    </>
-  );
-};
-
 const HeroUnitView = (props) => {
   const { windowHeight } = useWindowDimensions();
   const { data = {}, mode = 'view' } = props;
   const {
     headline,
-    buttonText,
+    buttonTitle,
     headlineTag,
     videoUrl,
     linkHref,
@@ -59,60 +35,18 @@ const HeroUnitView = (props) => {
 
   const logoRef = useRef();
   const heroRef = useRef();
-  const inViewportBlock = useIntersection(heroRef, {
-    threshold: 0,
-    rootMargin: '0px',
-  });
 
   const [playing, setPlaying] = useState(false);
   const [isActive, setIsActive] = useState(false);
   const [scrollDown, setScrollDown] = useState(null);
   const [bottom, setBottom] = useState(0);
   const [top, setTop] = useState();
-  const [logoSize, setLogoSize] = useState('');
   const [isTopOfPage, setIsTopOfPage] = useState(true);
-  const [initialPosition, setInitialPosition] = useState('');
+  const [scrollCount, setScrollCount] = useState(0);
 
   const setLogoPosition = useCallback(() => {
     const position = getPosition(logoRef);
     setTop(position);
-  }, []);
-
-  useEffect(() => {
-    const loginHeight = document.getElementById('login').clientHeight;
-    const logoHeight = document.getElementById('logo').clientHeight;
-    const bottomLogo = loginHeight + logoHeight;
-
-    const handleScroll = () => {
-      let currentPosition = window.pageYOffset;
-      if (currentPosition > bottom) {
-        setScrollDown(true);
-        setTop(windowHeight - bottomLogo);
-      } else {
-        setScrollDown(false);
-      }
-
-      if (currentPosition === 0) {
-        setIsTopOfPage(true);
-        setTop(initialPosition);
-      } else {
-        setIsTopOfPage(false);
-      }
-
-      setBottom(currentPosition <= 0 ? 0 : currentPosition);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [bottom, inViewportBlock, initialPosition, windowHeight]);
-
-  useEffect(() => {
-    const position = getPosition(logoRef);
-    if (window.scrollY > 0) {
-      setInitialPosition(position + window.scrollY);
-    } else {
-      setInitialPosition(position);
-    }
   }, []);
 
   useEffect(() => {
@@ -126,20 +60,86 @@ const HeroUnitView = (props) => {
     if (!isView) {
       return;
     }
-    scrollDown ? setIsActive(true) : setIsActive(false);
-  }, [scrollDown, isView]);
+
+    const handleScroll = () => {
+      let currentPosition = window.pageYOffset;
+      if (currentPosition > bottom) {
+        setScrollDown(true);
+      } else {
+        setScrollDown(false);
+      }
+
+      if (currentPosition === 0) {
+        setScrollCount(0);
+        setTop('auto');
+        setIsTopOfPage(true);
+      } else {
+        setIsTopOfPage(false);
+      }
+
+      setBottom(currentPosition <= 0 ? 0 : currentPosition);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [bottom, isView]);
 
   useEffect(() => {
     if (!isView) {
       return;
     }
 
-    if (isTopOfPage) {
-      setLogoSize('big');
-    } else {
-      setLogoSize('small');
+    const handleScroll = (e) => {
+      const scrollDown = e.wheelDelta < 0 ? true : false;
+      if (scrollCount === 0 && (scrollDown || KEYS[e.keyCode])) {
+        setIsActive(true);
+
+        if (isActive) {
+          setScrollCount(scrollCount + 1);
+        }
+        e.preventDefault();
+      }
+    };
+
+    window.addEventListener('mousewheel', handleScroll, {
+      passive: false,
+    });
+    window.addEventListener('keydown', handleScroll);
+    window.addEventListener('touchmove', handleScroll, { passive: false });
+
+    return () => {
+      window.removeEventListener('mousewheel', handleScroll, {
+        passive: false,
+      });
+      window.removeEventListener('keydown', handleScroll);
+      window.removeEventListener('touchmove', handleScroll, { passive: false });
+    };
+  }, [scrollCount, isActive, isView]);
+
+  useEffect(() => {
+    if (!isView) {
+      return;
     }
-  }, [isView, scrollDown, isTopOfPage]);
+
+    if (!scrollDown) {
+      setIsActive(false);
+    }
+  }, [scrollDown, isView]);
+
+  useEffect(() => {
+    const loginHeight = document.getElementById('login').clientHeight;
+    const logoHeight = document.getElementById('logo').clientHeight;
+    const logoBottomPosition = loginHeight + logoHeight;
+
+    if (scrollDown) {
+      setTop(windowHeight - logoBottomPosition);
+    }
+  }, [scrollDown, windowHeight]);
+
+  useEffect(() => {
+    if (isActive) {
+    }
+  }, [isActive, scrollCount]);
 
   useEffect(() => {
     window.addEventListener('resize', setLogoPosition);
@@ -149,11 +149,10 @@ const HeroUnitView = (props) => {
   return (
     <div
       className={cx('hero-unit-block', {
-        'big-hero': isActive,
-        'normal-hero': !isActive,
-        'big-logo': logoSize === 'big',
-        'small-logo': logoSize === 'small',
-        'scroll-in-view': scrollDown === false,
+        active: isActive,
+        'on-top': isTopOfPage,
+        'scroll-down': scrollDown,
+        'scroll-up': scrollDown === false,
       })}
     >
       <div>
@@ -174,9 +173,9 @@ const HeroUnitView = (props) => {
               />
             )}
 
-            {buttonText && (
+            {buttonTitle && (
               <UniversalLink href={href} className="hero-unit-content">
-                {buttonText}
+                {buttonTitle}
               </UniversalLink>
             )}
           </div>
@@ -185,6 +184,7 @@ const HeroUnitView = (props) => {
             <div className="hidden" ref={logoRef}>
               <Logo />
             </div>
+
             <div className="visible">
               <div id="logo" className="logo">
                 <Icon name={logoImage} style={{ top: top }} />
