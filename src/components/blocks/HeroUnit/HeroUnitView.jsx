@@ -9,8 +9,8 @@ import cx from 'classnames';
 
 import './style.less';
 
-// left: 37, up: 38, right: 39, down: 40,
-const KEYS = { 40: 1 };
+// spacebar: 32, pagedown: 34, end: 35,  arrow down: 40
+const KEYS = { 32: 1, 34: 1, 35: 1, 40: 1 };
 
 const getPosition = (ref) => {
   if (!ref.current) return;
