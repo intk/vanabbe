@@ -57,10 +57,6 @@ const HeroUnitView = (props) => {
   }, [isView]);
 
   useEffect(() => {
-    if (!isView) {
-      return;
-    }
-
     const handleScroll = () => {
       let currentPosition = window.pageYOffset;
       if (currentPosition > bottom) {
@@ -70,8 +66,8 @@ const HeroUnitView = (props) => {
       }
 
       if (currentPosition === 0) {
-        setScrollCount(0);
         setTop('auto');
+        setScrollCount(0);
         setIsTopOfPage(true);
       } else {
         setIsTopOfPage(false);
@@ -82,49 +78,37 @@ const HeroUnitView = (props) => {
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [bottom, isView]);
+  }, [bottom]);
 
   useEffect(() => {
-    if (!isView) {
-      return;
-    }
-
     const handleScroll = (e) => {
       const scrollDown = e.wheelDelta < 0 ? true : false;
-      if (scrollCount === 0 && (scrollDown || KEYS[e.keyCode])) {
+      if (scrollCount > 0) {
+        return;
+      }
+      if (scrollDown || KEYS[e.keyCode]) {
         setIsActive(true);
-
         if (isActive) {
-          setScrollCount(scrollCount + 1);
+          setTimeout(() => {
+            setScrollCount(scrollCount + 1);
+          }, 300);
         }
         e.preventDefault();
       }
     };
 
-    window.addEventListener('mousewheel', handleScroll, {
-      passive: false,
-    });
-    window.addEventListener('keydown', handleScroll);
+    window.addEventListener('keydown', handleScroll, false);
+    window.addEventListener('mousewheel', handleScroll, { passive: false });
     window.addEventListener('touchmove', handleScroll, { passive: false });
 
     return () => {
+      window.removeEventListener('keydown', handleScroll, false);
       window.removeEventListener('mousewheel', handleScroll, {
         passive: false,
       });
-      window.removeEventListener('keydown', handleScroll);
       window.removeEventListener('touchmove', handleScroll, { passive: false });
     };
-  }, [scrollCount, isActive, isView]);
-
-  useEffect(() => {
-    if (!isView) {
-      return;
-    }
-
-    if (!scrollDown) {
-      setIsActive(false);
-    }
-  }, [scrollDown, isView]);
+  }, [scrollCount, isActive]);
 
   useEffect(() => {
     const loginHeight = document.getElementById('login').clientHeight;
@@ -132,14 +116,12 @@ const HeroUnitView = (props) => {
     const logoBottomPosition = loginHeight + logoHeight;
 
     if (scrollDown) {
+      setIsActive(true);
       setTop(windowHeight - logoBottomPosition);
+    } else {
+      setIsActive(false);
     }
   }, [scrollDown, windowHeight]);
-
-  useEffect(() => {
-    if (isActive) {
-    }
-  }, [isActive, scrollCount]);
 
   useEffect(() => {
     window.addEventListener('resize', setLogoPosition);
@@ -187,7 +169,10 @@ const HeroUnitView = (props) => {
 
             <div className="visible">
               <div id="logo" className="logo">
-                <Icon name={logoImage} style={{ top: top }} />
+                <Icon
+                  name={logoImage}
+                  style={isView ? { top: top } : { top: 'auto' }}
+                />
               </div>
             </div>
           </div>
