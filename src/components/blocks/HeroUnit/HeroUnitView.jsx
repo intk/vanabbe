@@ -112,8 +112,8 @@ const HeroUnitView = (props) => {
 
   useEffect(() => {
     const loginHeight = document.getElementById('login').clientHeight;
-    const logoHeight = document.getElementById('logo').clientHeight;
-    const logoBottomPosition = loginHeight + logoHeight;
+    // 100px is the logo height when the logo animation ends
+    const logoBottomPosition = loginHeight + 100;
 
     if (scrollDown) {
       setIsActive(true);
