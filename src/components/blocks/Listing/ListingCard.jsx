@@ -161,12 +161,21 @@ const PublicationCard = ({ item, ...rest }) => (
   <Card {...rest} item={{ ...item, description: item.authorName }} />
 );
 
+const ExhibitionCard = ({ item, ...rest }) => (
+  <Card
+    {...rest}
+    showTag={true}
+    item={{ ...item, Subject: [item.eventTimeFrom] }}
+  />
+);
+
 const cardTypes = {
   default: Card,
   'News Item': NewsItemCard,
   Event: EventCard,
   artwork: ArtworkCard,
   publication: PublicationCard,
+  exhibition: ExhibitionCard,
 };
 
 const UniversalCard = ({ item, ...rest }) => {

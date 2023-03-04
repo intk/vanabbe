@@ -1,16 +1,25 @@
+from intk_vanabbe.content.exhibition import IExhibition
 from intk_vanabbe.content.publication import IPublication
 from plone.indexer.decorator import indexer
 
 
 @indexer(IPublication)
-def fallback_image_indexer(obj):
-    """Indexer for knowing in a catalog search if a content has any image."""
-
+def publication_image_indexer(obj):
     return "fallback_image"  # handled by PreviewImage in frontend
 
     # enable if we want always a fallback image
     # if obj.contentIds():
     #     return "fallback_image"  # handled by PreviewImage in frontend
+
+
+@indexer(IExhibition)
+def exhibition_image_indexer(obj):
+    return "fallback_image"  # handled by PreviewImage in frontend
+
+
+@indexer(IExhibition)
+def exhibition_description(obj):
+    return obj.eventDescription
 
 
 @indexer(IPublication)

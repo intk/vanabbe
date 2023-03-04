@@ -16,5 +16,6 @@
   <column value="authorName"/>
   <column value="objectCreationDate"/>
   <column value="objectTitle"/>
+  <column value="eventTimeFrom"/>
 
 </object>

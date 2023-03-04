@@ -1,13 +1,23 @@
 <configure xmlns="http://namespaces.zope.org/zope">
 
   <adapter
-      factory=".indexes.fallback_image_indexer"
+      factory=".indexes.publication_image_indexer"
+      name="image_field"
+      />
+
+  <adapter
+      factory=".indexes.exhibition_image_indexer"
       name="image_field"
       />
 
   <adapter
       factory=".indexes.author_name"
       name="authorName"
+      />
+
+  <adapter
+      factory=".indexes.exhibition_description"
+      name="Description"
       />
 
 </configure>
