@@ -25,4 +25,9 @@
       name="decade"
       />
 
+  <adapter
+      factory=".indexes.artwork_technique"
+      name="technique"
+      />
+
 </configure>

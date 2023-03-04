@@ -17,6 +17,10 @@
     <indexed_attr value="decade"/>
   </index>
 
+  <index name="technique" meta_type="KeywordIndex">
+    <indexed_attr value="technique"/>
+  </index>
+
   <column value="authorName"/>
   <column value="objectCreationDate"/>
   <column value="objectTitle"/>

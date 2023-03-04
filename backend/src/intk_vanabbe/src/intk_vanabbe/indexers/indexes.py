@@ -36,3 +36,10 @@ def artwork_decade(obj):
     to_ = getattr(obj, "objectCreationDateTo", None)
 
     return [d for d in set([decade(created), decade(from_), decade(to_)]) if d]
+
+
+@indexer(IArtwork)
+def artwork_technique(obj):
+    medium = getattr(obj, "objectMedium", "")
+    if medium:
+        return [s.strip() for s in medium.split(",")]
