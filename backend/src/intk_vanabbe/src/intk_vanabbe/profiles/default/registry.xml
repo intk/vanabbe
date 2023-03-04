@@ -25,6 +25,28 @@
     <value key="vocabulary">decades_vocabulary</value>
   </records>
 
+  <records interface="plone.app.querystring.interfaces.IQueryField"
+           prefix="plone.app.querystring.field.technique"
+           purge="false"
+  >
+    <value key="title"
+           i18n:translate=""
+    >Technique</value>
+    <value key="description"
+           i18n:translate=""
+    />
+    <value key="enabled">True</value>
+    <value key="sortable">True</value>
+    <value key="operations">
+      <element>plone.app.querystring.operation.selection.any</element>
+      <element>plone.app.querystring.operation.selection.all</element>
+    </value>
+    <value key="group"
+           i18n:translate=""
+    >VanAbbe</value>
+    <value key="vocabulary">technique_vocabulary</value>
+  </records>
+
   <records interface="plone.base.interfaces.controlpanel.IMailSchema"
            prefix="plone"
            purge="false"

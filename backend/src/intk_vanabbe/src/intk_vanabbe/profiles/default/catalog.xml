@@ -21,6 +21,14 @@
     <indexed_attr value="technique"/>
   </index>
 
+  <index name="technique_en" meta_type="KeywordIndex">
+    <indexed_attr value="technique_en"/>
+  </index>
+
+  <index name="technique_nl" meta_type="KeywordIndex">
+    <indexed_attr value="technique_nl"/>
+  </index>
+
   <column value="authorName"/>
   <column value="objectCreationDate"/>
   <column value="objectTitle"/>

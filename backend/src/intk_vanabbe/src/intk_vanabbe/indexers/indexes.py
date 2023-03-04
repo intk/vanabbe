@@ -43,3 +43,22 @@ def artwork_technique(obj):
     medium = getattr(obj, "objectMedium", "")
     if medium:
         return [s.strip() for s in medium.split(",")]
+
+
+@indexer(IArtwork)
+def artwork_technique_en(obj):
+    if obj.language != "en":
+        return
+
+    medium = getattr(obj, "objectMedium", "")
+    if medium:
+        return [s.strip() for s in medium.split(",")]
+
+
+@indexer(IArtwork)
+def artwork_technique_nl(obj):
+    if obj.language != "nl":
+        return
+    medium = getattr(obj, "objectMedium", "")
+    if medium:
+        return [s.strip() for s in medium.split(",")]

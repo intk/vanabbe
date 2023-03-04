@@ -5,4 +5,9 @@
       component=".searchindex.DecadesVocabularyFactory"
       />
 
+  <utility
+      name="technique_vocabulary"
+      component=".searchindex.TechniqueVocabularyFactory"
+      />
+
 </configure>

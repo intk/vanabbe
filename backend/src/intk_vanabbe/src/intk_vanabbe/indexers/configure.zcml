@@ -30,4 +30,14 @@
       name="technique"
       />
 
+  <adapter
+      factory=".indexes.artwork_technique_en"
+      name="technique_en"
+      />
+
+  <adapter
+      factory=".indexes.artwork_technique_nl"
+      name="technique_nl"
+      />
+
 </configure>
