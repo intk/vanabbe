@@ -40,6 +40,8 @@ BASE_URL = (
     + "&range=%s-%s"
 )
 
+# http://62.221.199.184:17718/action=get&command=search&query=recordNumber=14633&fields=*&range=0-100
+
 # action=get&command=search&query=*=*&fields=*&range=1-100
 
 BATCH_SIZE = 100

@@ -1,6 +1,5 @@
 -c constraints.txt
 -e src/intk_vanabbe
--e src/collective.previewimage
 
 collective.volto.formsupport
 collective.volto.cookieconsent

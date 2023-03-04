@@ -20,6 +20,7 @@ const Card = ({
   useFallbackImage,
 }) => {
   const { image_field, Subject } = item;
+  useFallbackImage = useFallbackImage || image_field === 'fallback_image';
   const tag = Subject && Subject.length > 0 ? Subject[0] : '';
 
   return (
@@ -34,7 +35,7 @@ const Card = ({
             {showTag && <span>{tag}</span>}
           </div>
           <h3 className="card-title">{item.title}</h3>
-          {!!image_field && (
+          {(image_field || useFallbackImage) && (
             <div className="image-wrapper">
               <PreviewImage
                 item={item}
@@ -156,11 +157,16 @@ const ArtworkCard = ({ item }) => {
   );
 };
 
+const PublicationCard = ({ item, ...rest }) => (
+  <Card {...rest} item={{ ...item, description: item.authorName }} />
+);
+
 const cardTypes = {
   default: Card,
   'News Item': NewsItemCard,
   Event: EventCard,
   artwork: ArtworkCard,
+  publication: PublicationCard,
 };
 
 const UniversalCard = ({ item, ...rest }) => {

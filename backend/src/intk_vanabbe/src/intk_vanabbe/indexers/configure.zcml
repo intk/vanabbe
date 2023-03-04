@@ -1,10 +1,13 @@
 <configure xmlns="http://namespaces.zope.org/zope">
 
-  <!-- Indexers/Metadata -->
-  <!--
   <adapter
-      factory=".indexer.industry_indexer"
-      name="industry"
+      factory=".indexes.fallback_image_indexer"
+      name="image_field"
       />
--->
+
+  <adapter
+      factory=".indexes.author_name"
+      name="authorName"
+      />
+
 </configure>

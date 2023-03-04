@@ -1,3 +1,9 @@
 <configure xmlns="http://namespaces.zope.org/zope">
 
+ <subscriber factory=".transformers.ActionLinksTransformers"
+   provides="plone.restapi.interfaces.IBlockFieldSerializationTransformer"/>
+
+ <subscriber factory=".transformers.ImageCardsTransformers"
+   provides="plone.restapi.interfaces.IBlockFieldSerializationTransformer"/>
+
 </configure>
