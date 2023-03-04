@@ -30,7 +30,7 @@ def author_name(obj):
 
 
 @indexer(IArtwork)
-def artwork_decade(obj):
+def artwork_decades(obj):
     created = getattr(obj, "objectCreationDate", None)
     from_ = getattr(obj, "objectCreationDateFrom", None)
     to_ = getattr(obj, "objectCreationDateTo", None)

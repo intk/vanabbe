@@ -13,8 +13,8 @@
     <indexed_attr value="eventArtist"/>
   </index>
 
-  <index name="decade" meta_type="KeywordIndex">
-    <indexed_attr value="decade"/>
+  <index name="decades" meta_type="KeywordIndex">
+    <indexed_attr value="decades"/>
   </index>
 
   <index name="technique" meta_type="KeywordIndex">

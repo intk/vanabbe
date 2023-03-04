@@ -14,6 +14,7 @@ import installHeroUnitBlock from './HeroUnit';
 import installInformationBlock from './Information';
 import installVoltoFormBlock from './VoltoFormBlock';
 import installSearchOverviewBlock from './SearchOverview';
+import installSearchBlock from './Search';
 
 import HeroView from './Hero/HeroView';
 
@@ -56,6 +57,7 @@ const installBlocks = (config) => {
     installInformationBlock,
     installVoltoFormBlock,
     installSearchOverviewBlock,
+    installSearchBlock,
   )(config);
 };
 

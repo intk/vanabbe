@@ -21,8 +21,8 @@
       />
 
   <adapter
-      factory=".indexes.artwork_decade"
-      name="decade"
+      factory=".indexes.artwork_decades"
+      name="decades"
       />
 
   <adapter
