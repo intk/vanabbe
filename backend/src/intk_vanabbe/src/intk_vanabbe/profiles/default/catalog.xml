@@ -13,6 +13,10 @@
     <indexed_attr value="eventArtist"/>
   </index>
 
+  <index name="decade" meta_type="KeywordIndex">
+    <indexed_attr value="decade"/>
+  </index>
+
   <column value="authorName"/>
   <column value="objectCreationDate"/>
   <column value="objectTitle"/>

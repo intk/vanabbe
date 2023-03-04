@@ -20,4 +20,9 @@
       name="Description"
       />
 
+  <adapter
+      factory=".indexes.artwork_decade"
+      name="decade"
+      />
+
 </configure>
