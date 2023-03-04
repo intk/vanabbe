@@ -86,7 +86,7 @@ const NewsItemCard = ({ item, showDate, showTag, showContentType }) => {
   );
 };
 
-const EventCard = ({ item, showDate, showTag, showContentType }) => {
+const EventCard = ({ item, showDate = true, showTag, showContentType }) => {
   const size = 'large';
   const { image_field, Subject } = item;
   const tag = Subject && Subject.length > 0 ? Subject[0] : '';
