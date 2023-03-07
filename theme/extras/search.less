@@ -145,3 +145,140 @@
     color: var(--text-color);
   }
 }
+
+/********   Search block   ********/
+
+.block.search {
+  .search-details,
+  .search-input-actions .ui.button {
+    color: var(--text-color) !important;
+    opacity: 0.5;
+  }
+
+  .search-sort-wrapper {
+    margin-left: auto;
+  }
+
+  .facets {
+    display: flex;
+    flex-direction: column;
+    margin-top: 2.5em;
+    row-gap: 2.5em;
+  }
+
+  .button-facet {
+    .ui.header {
+      color: var(--text-color);
+      font-size: @mediumFontSize;
+      text-transform: lowercase;
+    }
+
+    .entries {
+      display: flex;
+      flex-wrap: wrap;
+      column-gap: 1em;
+      row-gap: 0.5em;
+    }
+
+    .ui.checkbox:not(.radio):not(.toggle) {
+      .secondaryBtn(var(--text-color));
+      padding: 0.48em 0.75em;
+      font-size: @mediumFontSize;
+      text-transform: lowercase;
+
+      &:hover {
+        background-color: var(--background-color);
+      }
+
+      label {
+        padding: 0;
+        padding-right: 2.3em !important;
+        color: var(--text-color);
+
+        &:before {
+          display: none; // hide box
+        }
+
+        &:after {
+          top: -4px;
+          right: 0;
+          left: auto;
+          width: auto;
+          height: 100%;
+          color: var(--text-color);
+          content: '+' !important;
+          font-size: 38px !important;
+          opacity: 1;
+        }
+      }
+
+      &.checked {
+        border: 2px solid var(--text-color);
+        background-color: var(--text-color);
+
+        label {
+          color: var(--background-color);
+
+          &:after {
+            top: -3px;
+            color: var(--background-color);
+            transform: rotate(45deg);
+          }
+        }
+      }
+    }
+  }
+
+  .ui.accordion.filter-listing {
+    svg.icon {
+      height: 30px !important;
+    }
+
+    .filter-list {
+      margin-top: 0.8em;
+    }
+
+    .filter-list-group {
+      margin: 0;
+      margin-bottom: 0.3em;
+
+      .label-title {
+        &:after {
+          content: ':';
+        }
+      }
+
+      .ui.small.label {
+        .secondaryBtn(var(--text-color));
+        padding: 0.38em 0.45em;
+        border: none;
+        margin-left: 0.8em;
+        font-size: small;
+
+        &:hover {
+          border: none;
+          background-color: transparent;
+          color: var(--text-color);
+        }
+      }
+    }
+
+    .filter-list-header {
+      justify-content: left;
+      padding: 0;
+      background-color: transparent;
+      color: var(--text-color);
+      gap: 0.5em;
+
+      .ui.button {
+        color: var(--text-color) !important;
+        font-size: 0;
+
+        i.icon {
+          height: auto;
+          font-size: 15px;
+        }
+      }
+    }
+  }
+}

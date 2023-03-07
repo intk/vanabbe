@@ -120,20 +120,19 @@ const TopSideFacets = (props) => {
           {data.facets?.length > 0 && (
             <div className="facets">
               {data.facetsTitle && <h3>{data.facetsTitle}</h3>}
-              <Grid verticalAlign="bottom" columns={12}>
-                <Facets
-                  data={data}
-                  querystring={querystring}
-                  facets={facets}
-                  setFacets={(f) => {
-                    flushSync(() => {
-                      setFacets(f);
-                      onTriggerSearch(searchedText || '', f);
-                    });
-                  }}
-                  facetWrapper={FacetWrapper}
-                />
-              </Grid>
+
+              <Facets
+                data={data}
+                querystring={querystring}
+                facets={facets}
+                setFacets={(f) => {
+                  flushSync(() => {
+                    setFacets(f);
+                    onTriggerSearch(searchedText || '', f);
+                  });
+                }}
+                facetWrapper={FacetWrapper}
+              />
             </div>
           )}
           <SearchDetails
