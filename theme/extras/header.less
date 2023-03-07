@@ -76,7 +76,17 @@ body.homepage-view {
 
     .logo,
     .logo a {
+      display: inline-block;
       color: @wood;
+    }
+  }
+}
+
+body[data-theme='contrast-mode'].open-menu {
+  .popup-bottom {
+    .logo,
+    .logo a {
+      color: var(--text-color);
     }
   }
 }
