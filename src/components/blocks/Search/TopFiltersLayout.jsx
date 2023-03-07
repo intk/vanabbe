@@ -2,6 +2,8 @@ import React from 'react';
 import { flushSync } from 'react-dom';
 import { defineMessages, useIntl } from 'react-intl';
 import { Button, Grid } from 'semantic-ui-react';
+import { Icon } from '@plone/volto/components';
+import downSVG from '@plone/volto/icons/down-key.svg';
 
 import {
   SearchInput,
@@ -49,6 +51,8 @@ const TopSideFacets = (props) => {
   const isLive = !showSearchButton;
   const intl = useIntl();
 
+  const [showFilters, setShowFilters] = React.useState(false);
+
   return (
     <Grid className="searchBlock-facets" stackable>
       {data.headline && (
@@ -76,16 +80,14 @@ const TopSideFacets = (props) => {
           )}
 
           <div className="search-filters-sort">
-            <FilterList
-              {...props}
-              isEditMode={isEditMode}
-              setFacets={(f) => {
-                flushSync(() => {
-                  setFacets(f);
-                  onTriggerSearch(searchedText || '', f);
-                });
-              }}
-            />
+            <Button
+              className="filters-btn"
+              // primary
+              onClick={() => setShowFilters(!showFilters)}
+            >
+              filters
+              <Icon name={downSVG} size="26px" />
+            </Button>
 
             {data.showSortOn && (
               <SortOn
@@ -117,7 +119,7 @@ const TopSideFacets = (props) => {
               <ViewSwitcher {...props} />
             )}
           </div>
-          {data.facets?.length > 0 && (
+          {showFilters && data.facets?.length > 0 && (
             <div className="facets">
               {data.facetsTitle && <h3>{data.facetsTitle}</h3>}
 

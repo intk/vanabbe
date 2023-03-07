@@ -166,6 +166,24 @@
     row-gap: 2.5em;
   }
 
+  .filters-btn {
+    display: flex;
+    align-items: center;
+    padding: calc(0.38em - 2px) calc(1.2em - 2px) !important;
+    border: 2px solid var(--text-color);
+    font-size: @mediumFontSize;
+
+    &:active,
+    &:focus,
+    &:hover {
+      color: var(--text-color);
+    }
+
+    svg {
+      margin: 0 !important;
+    }
+  }
+
   .button-facet {
     .ui.header {
       color: var(--text-color);
@@ -224,59 +242,6 @@
             color: var(--background-color);
             transform: rotate(45deg);
           }
-        }
-      }
-    }
-  }
-
-  .ui.accordion.filter-listing {
-    svg.icon {
-      height: 30px !important;
-    }
-
-    .filter-list {
-      margin-top: 0.8em;
-    }
-
-    .filter-list-group {
-      margin: 0;
-      margin-bottom: 0.3em;
-
-      .label-title {
-        &:after {
-          content: ':';
-        }
-      }
-
-      .ui.small.label {
-        .secondaryBtn(var(--text-color));
-        padding: 0.38em 0.45em;
-        border: none;
-        margin-left: 0.8em;
-        font-size: small;
-
-        &:hover {
-          border: none;
-          background-color: transparent;
-          color: var(--text-color);
-        }
-      }
-    }
-
-    .filter-list-header {
-      justify-content: left;
-      padding: 0;
-      background-color: transparent;
-      color: var(--text-color);
-      gap: 0.5em;
-
-      .ui.button {
-        color: var(--text-color) !important;
-        font-size: 0;
-
-        i.icon {
-          height: auto;
-          font-size: 15px;
         }
       }
     }
