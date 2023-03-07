@@ -58,19 +58,12 @@ const Item = ({ item, showDate }) => {
 };
 
 const AgendaListingTemplate = (data) => {
-  const { items, showDate, linkHref } = data;
+  const { items, showDate } = data;
 
   return (
     <div className="agenda-listing">
-      <div className="listing-header">
-        <ListingBlockHeader data={data} />
+      <ListingBlockHeader data={data} />
 
-        {linkHref && (
-          <UniversalLink href={linkHref?.[0]['@id']}>
-            {data.linkTitle || '...'}
-          </UniversalLink>
-        )}
-      </div>
       <div className="agenda-listing-content">
         {items.map((item, i) => (
           <Item item={item} showDate={showDate} key={i} />

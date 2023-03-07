@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import loadable from '@loadable/component';
 import { BodyClass } from '@plone/volto/helpers';
-import { LinkMore, UniversalLink } from '@plone/volto/components';
 import { ListingBlockHeader } from '@package/components';
 import config from '@plone/volto/registry';
 
@@ -12,21 +11,13 @@ import './less/search-listing.less';
 const Masonry = loadable(() => import('react-masonry-css'));
 
 const MasonryTemplate = (props) => {
-  const { items, linkHref, linkTitle } = props;
+  const { items } = props;
   const { breakpointColumnsObj } = config.settings;
 
   return (
     <>
       <BodyClass className="has-search-listing" />
-      <div className="listing-header">
-        <ListingBlockHeader data={props} />
-
-        {linkHref && (
-          <UniversalLink href={linkHref?.[0]['@id']}>
-            {linkTitle || '...'}
-          </UniversalLink>
-        )}
-      </div>
+      <ListingBlockHeader data={props} />
 
       <div className="masonry-layout-listing">
         <div className="listings">
@@ -44,7 +35,6 @@ const MasonryTemplate = (props) => {
             </Masonry>
           </div>
         </div>
-        {props.linkHref ? <LinkMore data={props} /> : ''}
       </div>
     </>
   );

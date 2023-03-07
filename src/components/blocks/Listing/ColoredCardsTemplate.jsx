@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import loadable from '@loadable/component';
 import { Container } from 'semantic-ui-react';
-import { UniversalLink } from '@plone/volto/components';
 import { useWindowDimensions } from '@package/helpers';
 import { ResponsiveContainer, ListingBlockHeader } from '@package/components';
 import Card from './ListingCard';
@@ -21,7 +20,7 @@ const breakpointColumnsObj = {
 };
 
 const ColoredCardsTemplate = (props) => {
-  const { items, linkHref, linkTitle } = props;
+  const { items } = props;
   const { windowWidth } = useWindowDimensions();
 
   const sliderRef = React.useRef();
@@ -40,15 +39,7 @@ const ColoredCardsTemplate = (props) => {
 
   return (
     <>
-      <div className="listing-header">
-        <ListingBlockHeader data={props} />
-
-        {linkHref && (
-          <UniversalLink href={linkHref?.[0]['@id']} className="link-more">
-            {linkTitle || '...'}
-          </UniversalLink>
-        )}
-      </div>
+      <ListingBlockHeader data={props} />
 
       {windowWidth > BREAKPOINT ? (
         <div className="colored-cards card-listing">

@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { LinkMore } from '@plone/volto/components';
 import { Grid } from 'semantic-ui-react';
 import { ListingBlockHeader } from '@package/components';
 
@@ -12,6 +11,7 @@ const BigCardsTemplate = (props) => {
   return (
     <>
       <ListingBlockHeader data={props} />
+
       <div className="listings big-cards">
         <Grid columns={4} className="listings">
           {items.map((item, i) => (
@@ -29,7 +29,6 @@ const BigCardsTemplate = (props) => {
           ))}
         </Grid>
       </div>
-      {props.linkHref ? <LinkMore data={props} /> : ''}
     </>
   );
 };

@@ -4,18 +4,11 @@ import { ListingBlockHeader } from '@package/components';
 import aheadSVG from '@plone/volto/icons/ahead.svg';
 
 const SimpleLinks = (data) => {
-  const { items = [], linkHref } = data;
+  const { items = [] } = data;
   return (
     <div className="simplelinks-listing">
-      <div className="listing-header">
-        <ListingBlockHeader data={data} />
+      <ListingBlockHeader data={data} />
 
-        {linkHref && (
-          <UniversalLink href={linkHref?.[0]['@id']}>
-            {data.linkTitle || '...'}
-          </UniversalLink>
-        )}
-      </div>
       <div className="simplelinks-content">
         {items.map((item) => (
           <div key={item['@id']} className="simplelink-item" title={item.title}>

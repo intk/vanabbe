@@ -4,7 +4,7 @@ import { ListingBlockHeader } from '@package/components';
 import './less/az-listing.less';
 
 const AgendaListingTemplate = (data) => {
-  const { items = [], linkHref } = data;
+  const { items = [] } = data;
   const groups = items.reduce(
     (acc, item) => ({
       ...acc,
@@ -18,15 +18,8 @@ const AgendaListingTemplate = (data) => {
 
   return (
     <div className="az-listing">
-      <div className="listing-header">
-        <ListingBlockHeader data={data} />
+      <ListingBlockHeader data={data} />
 
-        {linkHref && (
-          <UniversalLink href={linkHref?.[0]['@id']}>
-            {data.linkTitle || '...'}
-          </UniversalLink>
-        )}
-      </div>
       <div className="az-listing-nav">
         {Object.keys(groups)
           .sort()

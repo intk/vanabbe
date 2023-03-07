@@ -1,7 +1,8 @@
 import { useSelector } from 'react-redux';
+import { UniversalLink } from '@plone/volto/components';
 
 const ListingBlockHeader = ({ data }) => {
-  const { title, headline, headlineTag, block } = data;
+  const { title, headline, headlineTag, block, linkHref, linkTitle } = data;
   const head = title || headline;
   const CustomTag = `${headlineTag || 'h2'}`;
 
@@ -10,12 +11,20 @@ const ListingBlockHeader = ({ data }) => {
   );
 
   return head ? (
-    <div className="listing-block-header">
-      {headline && (
-        <CustomTag id={block}>
-          {headline}
-          {data.showCount && total ? ` (${total})` : ''}
-        </CustomTag>
+    <div className="listing-header">
+      <div>
+        {headline && (
+          <CustomTag id={block}>
+            {headline}
+            {data.showCount && total ? ` (${total})` : ''}
+          </CustomTag>
+        )}
+      </div>
+
+      {linkHref && (
+        <UniversalLink href={linkHref?.[0]['@id']}>
+          {linkTitle || '...'}
+        </UniversalLink>
       )}
     </div>
   ) : (
