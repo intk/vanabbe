@@ -13,6 +13,7 @@ import { compose } from 'redux';
 import qs from 'querystring';
 
 import withQuerystringResults from './withQuerystringResults';
+// import { log } from 'console';
 
 const ListingBodyComponent = (props) => {
   const {
@@ -108,8 +109,8 @@ const ListingBodyComponent = (props) => {
             activePage={currentPage}
             totalPages={totalPages}
             onPageChange={(e, { activePage }) => {
-              !isEditMode &&
-                listingRef.current.scrollIntoView({ behavior: 'smooth' });
+              // !isEditMode &&
+              //   listingRef.current.scrollIntoView({ behavior: 'smooth' });
               onPaginationChange(e, { activePage });
             }}
           />
