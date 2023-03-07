@@ -61,20 +61,14 @@ function SearchOverviewView(props) {
       )}
 
       <div className="navigator">
-        <Button className="load-more" secondary as="a" onClick={() => {}}>
+        <Button secondary as="a" onClick={() => {}}>
           {`All (${total})`}
         </Button>
 
         {blocks
           .filter(([, , total]) => total > 0)
           .map(([id, block, total]) => (
-            <Button
-              key={id}
-              className="load-more"
-              secondary
-              as="a"
-              href={`#${id}`}
-            >
+            <Button secondary key={id} as="a" href={`#${id}`}>
               {`${block.headline} (${total})`}
             </Button>
           ))}
