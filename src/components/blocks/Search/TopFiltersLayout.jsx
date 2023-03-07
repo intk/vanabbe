@@ -9,7 +9,6 @@ import {
   SearchInput,
   SearchDetails,
   Facets,
-  FilterList,
   SortOn,
   ViewSwitcher,
 } from '@plone/volto/components/manage/Blocks/Search/components';
@@ -82,7 +81,6 @@ const TopSideFacets = (props) => {
           <div className="search-filters-sort">
             <Button
               className="filters-btn"
-              // primary
               onClick={() => setShowFilters(!showFilters)}
             >
               filters

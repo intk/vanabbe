@@ -15,7 +15,6 @@ export default function installSearchBlock(config) {
     ],
     extensions: {
       ...config.blocks.blocksConfig.search.extensions,
-
       facetWidgets: {
         ...config.blocks.blocksConfig.search.extensions.facetWidgets,
         types: [
