@@ -6,7 +6,6 @@ import { Dimmer, Loader } from 'semantic-ui-react';
 import config from '@plone/volto/registry';
 import { usePrevious } from '@plone/volto/helpers';
 import { useIsMounted } from '@package/helpers';
-// import withQuerystringResults from '@plone/volto/components/manage/Blocks/Listing/withQuerystringResults';
 import Pagination from './LoadMorePagination';
 import { useLocation } from 'react-router-dom';
 import { compose } from 'redux';
@@ -15,7 +14,6 @@ import { useDeepCompareMemoize } from 'use-deep-compare-effect';
 import { dequal as deepEqual } from 'dequal';
 
 import withQuerystringResults from './withQuerystringResults';
-// import { log } from 'console';
 
 const ListingBodyComponent = (props) => {
   const {
@@ -56,25 +54,22 @@ const ListingBodyComponent = (props) => {
   const isChanged =
     previousSearchText !== searchText || !deepEqual(stableData, previousData);
 
-  // console.log(isChanged, previousData, stableData);
-
   const [dataBuffer, setDataBuffer] = React.useState({
     currentPage,
     items: [...listingItems],
   });
 
   React.useEffect(() => {
-    // the data buffer is reset whenever we change the search text
+    // the data buffer is reset whenever we change the query or search text
     if (isMounted() && isChanged) {
-      // console.log('0');
       setDataBuffer({ ...dataBuffer, items: [] });
     }
   }, [dataBuffer, listingItems, isChanged, isMounted]);
 
   const lastRecorded = dataBuffer.currentPage;
   const loadedItems = dataBuffer.items;
-  // const noLoadedItems = listingItems && !loadedItems?.length;
 
+  // const noLoadedItems = listingItems && !loadedItems?.length;
   // React.useEffect(() => {
   //   if (isMounted() && noLoadedItems) {
   //     // console.log('rewrite loaded items');
@@ -89,8 +84,6 @@ const ListingBodyComponent = (props) => {
       (item) => loadedIds.indexOf(item['@id']) === -1,
     );
     if (isMounted() && otherItems.length) {
-      // console.log('add data', { loadedItems, listingItems });
-      // console.log('2');
       setDataBuffer({ currentPage, items: [...loadedItems, ...otherItems] });
     }
   }, [
