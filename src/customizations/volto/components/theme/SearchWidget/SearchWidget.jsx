@@ -87,8 +87,6 @@ const SearchWidgetWrapper = (props) => {
 };
 
 const GlobalSearchWidget = (props) => {
-  const { setPopupSearchOpen, popupSearchOpen } = props;
-
   return (
     <SearchWidgetWrapper {...props}>
       <SearchWidget {...props} />
