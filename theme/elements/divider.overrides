@@ -3,5 +3,10 @@
 *******************************/
 
 .ui.divider {
+  margin: var(--space-md) 0;
+  color: var(--text-color);
+}
+
+.ui.divider:not(.horizontal) {
   border-top: 1px solid var(--text-color) !important;
 }
