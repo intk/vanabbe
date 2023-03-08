@@ -19,7 +19,11 @@ const CheckboxButtonFacet = (props) => {
             <Checkbox
               disabled={isEditMode}
               label={label}
-              checked={!!facetValue?.find((f) => f.value === value)}
+              checked={
+                isMulti
+                  ? !!facetValue?.find((f) => f.value === value)
+                  : facetValue && facetValue.value === value
+              }
               onChange={(e, { checked }) =>
                 onChange(
                   facet.field.value,

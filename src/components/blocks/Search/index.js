@@ -26,7 +26,7 @@ export default function installSearchBlock(config) {
             stateToValue: CheckboxButtonFacet.stateToValue,
             valueToQuery: CheckboxButtonFacet.valueToQuery,
             filterListComponent: SelectFacetFilterListEntry,
-            // schemaEnhancer: CheckboxButtonFacet.schemaEnhancer,
+            schemaEnhancer: CheckboxButtonFacet.schemaEnhancer,
           },
           ...config.blocks.blocksConfig.search.extensions.facetWidgets.types,
         ],
