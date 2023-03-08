@@ -79,13 +79,15 @@ const TopSideFacets = (props) => {
           )}
 
           <div className="search-filters-sort">
-            <Button
-              className="filters-btn"
-              onClick={() => setShowFilters(!showFilters)}
-            >
-              filters
-              <Icon name={downSVG} size="26px" />
-            </Button>
+            {data.facets?.length > 0 && data?.facets[0]?.field && (
+              <Button
+                className="filters-btn"
+                onClick={() => setShowFilters(!showFilters)}
+              >
+                Filters
+                <Icon name={downSVG} size="26px" />
+              </Button>
+            )}
 
             {data.showSortOn && (
               <SortOn
