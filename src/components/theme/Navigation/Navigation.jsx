@@ -29,13 +29,30 @@ const messages = defineMessages({
   },
 });
 
-function Navigation({ pathname, intl, items, lang }) {
+function Navigation({
+  // pathname,
+  intl,
+  items,
+  lang,
+  setMenuPopupOpen,
+  searchPopupOpen,
+}) {
   const [isOpened, setIsOpened] = React.useState(false);
   const location = useLocation();
 
   React.useEffect(() => {
     setIsOpened(false);
   }, [location]);
+
+  React.useEffect(() => {
+    setMenuPopupOpen(isOpened);
+  }, [isOpened, setMenuPopupOpen]);
+
+  React.useEffect(() => {
+    if (searchPopupOpen) {
+      setIsOpened(false);
+    }
+  }, [searchPopupOpen, setIsOpened]);
 
   React.useEffect(() => {
     const handleEsc = (event) => {

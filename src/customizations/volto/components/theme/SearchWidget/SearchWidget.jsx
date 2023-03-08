@@ -20,6 +20,7 @@ const messages = defineMessages({
 });
 
 const SearchWidgetWrapper = (props) => {
+  const { setSearchPopupOpen, menuPopupOpen } = props;
   const intl = useIntl();
   const [showPopup, setShowPopup] = React.useState();
   const location = useLocation();
@@ -27,6 +28,16 @@ const SearchWidgetWrapper = (props) => {
   React.useEffect(() => {
     setShowPopup(false);
   }, [location]);
+
+  React.useEffect(() => {
+    if (menuPopupOpen) {
+      setShowPopup(false);
+    }
+  }, [menuPopupOpen, setSearchPopupOpen]);
+
+  React.useEffect(() => {
+    setSearchPopupOpen(showPopup);
+  }, [setSearchPopupOpen, showPopup]);
 
   React.useEffect(() => {
     const handleEsc = (event) => {
@@ -75,10 +86,14 @@ const SearchWidgetWrapper = (props) => {
   );
 };
 
-const GlobalSearchWidget = (props) => (
-  <SearchWidgetWrapper>
-    <SearchWidget {...props} />
-  </SearchWidgetWrapper>
-);
+const GlobalSearchWidget = (props) => {
+  const { setPopupSearchOpen, popupSearchOpen } = props;
+
+  return (
+    <SearchWidgetWrapper {...props}>
+      <SearchWidget {...props} />
+    </SearchWidgetWrapper>
+  );
+};
 
 export default GlobalSearchWidget;

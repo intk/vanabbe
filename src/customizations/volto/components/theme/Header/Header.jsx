@@ -30,6 +30,8 @@ const Header = (props) => {
   const isHomePage = contentType === 'Plone Site' || contentType === 'LRF';
   const cmsView = isCmsUi(pathname);
   const homePageView = isHomePage && !cmsView;
+  const [menuPopupOpen, setMenuPopupOpen] = React.useState(false);
+  const [searchPopupOpen, setSearchPopupOpen] = React.useState(false);
 
   return (
     <>
@@ -60,8 +62,14 @@ const Header = (props) => {
                   </div>
                 </div>
                 <div className="right-section">
-                  <SearchWidget pathname={pathname} />
+                  <SearchWidget
+                    pathname={pathname}
+                    setSearchPopupOpen={setSearchPopupOpen}
+                    menuPopupOpen={menuPopupOpen}
+                  />
                   <Navigation
+                    setMenuPopupOpen={setMenuPopupOpen}
+                    searchPopupOpen={searchPopupOpen}
                     pathname={pathname}
                     navigation={navigationItems}
                   />
