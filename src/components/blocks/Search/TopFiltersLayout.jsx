@@ -52,6 +52,12 @@ const TopSideFacets = (props) => {
 
   const [showFilters, setShowFilters] = React.useState(false);
 
+  React.useState(() => {
+    if (isEditMode) {
+      setShowFilters(true);
+    }
+  }, [isEditMode]);
+
   return (
     <Grid className="searchBlock-facets" stackable>
       {data.headline && (
