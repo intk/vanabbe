@@ -11,6 +11,8 @@ import Pagination from './LoadMorePagination';
 import { useLocation } from 'react-router-dom';
 import { compose } from 'redux';
 import qs from 'querystring';
+import { useDeepCompareMemoize } from 'use-deep-compare-effect';
+import { dequal as deepEqual } from 'dequal';
 
 import withQuerystringResults from './withQuerystringResults';
 // import { log } from 'console';
@@ -47,7 +49,14 @@ const ListingBodyComponent = (props) => {
 
   const location = useLocation();
   const searchText = qs.parse(location.search.slice(1))['SearchableText'];
-  const previous = usePrevious(searchText);
+  const previousSearchText = usePrevious(searchText);
+  const stableData = useDeepCompareMemoize(data);
+  const previousData = usePrevious(stableData);
+
+  const isChanged =
+    previousSearchText !== searchText || !deepEqual(stableData, previousData);
+
+  // console.log(isChanged, previousData, stableData);
 
   const [dataBuffer, setDataBuffer] = React.useState({
     currentPage,
@@ -56,11 +65,11 @@ const ListingBodyComponent = (props) => {
 
   React.useEffect(() => {
     // the data buffer is reset whenever we change the search text
-    if (isMounted() && previous !== searchText) {
+    if (isMounted() && isChanged) {
       // console.log('0');
       setDataBuffer({ ...dataBuffer, items: [] });
     }
-  }, [dataBuffer, listingItems, previous, searchText, isMounted]);
+  }, [dataBuffer, listingItems, isChanged, isMounted]);
 
   const lastRecorded = dataBuffer.currentPage;
   const loadedItems = dataBuffer.items;
