@@ -133,7 +133,15 @@ body.view-viewview {
 
   .ui.styled.accordion .content,
   .ui.styled.accordion .accordion .content {
-    padding: 1.5em @oneWide;
+    padding: 1.5em @oneWide var(--space-md) @oneWide;
+
+    h2 {
+      margin-bottom: var(--space-lg) !important;
+    }
+
+    h3 {
+      margin-bottom: var(--space-xxs) !important;
+    }
   }
 }
 
@@ -449,22 +457,6 @@ body.view-viewview {
       color: var(--text-color);
       content: '*';
       font-size: 20px;
-    }
-  }
-}
-
-.accordion-block {
-  .content {
-    h2 {
-      margin-bottom: var(--space-lg) !important;
-    }
-
-    h3 {
-      margin-bottom: var(--space-md) !important;
-    }
-
-    h4 {
-      margin-bottom: var(--space-sm) !important;
     }
   }
 }
