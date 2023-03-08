@@ -12,14 +12,12 @@ const ListingBlockHeader = ({ data }) => {
 
   return head ? (
     <div className="listing-header">
-      <div>
-        {headline && (
-          <CustomTag id={block}>
-            {headline}
-            {data.showCount && total ? ` (${total})` : ''}
-          </CustomTag>
-        )}
-      </div>
+      {headline && (
+        <CustomTag id={block}>
+          {headline}
+          {data.showCount && total ? ` (${total})` : ''}
+        </CustomTag>
+      )}
 
       {linkHref && (
         <UniversalLink href={linkHref?.[0]['@id']}>

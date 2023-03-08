@@ -46,6 +46,11 @@ body.homepage-view .blocks-wrapper .hero-unit-block {
     width: 100%;
     border-radius: 10px;
   }
+
+  .visible,
+  .hidden {
+    display: flex;
+  }
 }
 
 .hero-unit-wrapper {
@@ -89,7 +94,7 @@ body.view-viewview {
   .scroll-down {
     .logo,
     .logo svg {
-      transition: all 1.5s ease;
+      transition: top 1.5s ease, height 1.5s ease;
     }
   }
 
@@ -98,7 +103,7 @@ body.view-viewview {
     .hidden {
       .logo,
       .logo svg {
-        transition: all 1.5s ease;
+        transition: top 1.5s ease, height 1.5s ease;
       }
     }
 
@@ -116,7 +121,7 @@ body.view-viewview {
     .logo,
     .logo svg {
       height: 250px !important;
-      transition: all 1.5s ease;
+      transition: top 1.5s ease, height 1.5s ease;
 
       @media only screen and (max-width: 1080px) {
         height: 140px !important;
@@ -136,7 +141,7 @@ body.view-viewview {
     .logo,
     .logo svg {
       height: 100px !important;
-      transition: all 1.5s ease;
+      transition: top 1.5s ease, height 1.5s ease;
     }
   }
 }
@@ -217,7 +222,7 @@ body.view-viewview {
     .hero-unit-image-wrapper {
       width: 80% !important;
       height: 380px;
-      transition: all 1.5s ease;
+      transition: top 1.5s ease, height 1.5s ease;
     }
   }
 
@@ -265,7 +270,7 @@ body.view-viewview {
     .hero-unit-image-wrapper {
       width: 100% !important;
       height: 380px;
-      transition: all 1.5s ease;
+      transition: top 1.5s ease, height 1.5s ease;
     }
 
     &.active {
