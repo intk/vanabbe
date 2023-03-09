@@ -4,14 +4,16 @@ import { defineMessages, useIntl } from 'react-intl';
 import { Button, Grid } from 'semantic-ui-react';
 import { Icon } from '@plone/volto/components';
 import downSVG from '@plone/volto/icons/down-key.svg';
+import upSVG from '@plone/volto/icons/up-key.svg';
+import cx from 'classnames';
 
 import {
   SearchInput,
   SearchDetails,
   Facets,
-  SortOn,
   ViewSwitcher,
 } from '@plone/volto/components/manage/Blocks/Search/components';
+import SortOn from './SortOn';
 
 const messages = defineMessages({
   searchButtonText: {
@@ -87,11 +89,17 @@ const TopSideFacets = (props) => {
           <div className="search-filters-sort">
             {data.facets?.length > 0 && data?.facets[0]?.field && (
               <Button
-                className="filters-btn"
+                className={cx('secondary filters-btn', {
+                  open: showFilters,
+                })}
                 onClick={() => setShowFilters(!showFilters)}
               >
                 Filters
-                <Icon name={downSVG} size="26px" />
+                {showFilters ? (
+                  <Icon name={upSVG} size="30px" />
+                ) : (
+                  <Icon name={downSVG} size="30px" />
+                )}
               </Button>
             )}
 

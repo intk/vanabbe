@@ -28,37 +28,39 @@ function SearchOverviewView(props) {
     <div className="search-overview">
       <BodyClass className="has-search-overview" />
 
-      <h1>
-        {total > 0 ? (
-          <>
+      <div className="search-verview-heading">
+        <h1>
+          {total > 0 ? (
+            <>
+              <FormattedMessage
+                id="show.results"
+                defaultMessage="Showing results for <u>something</u>"
+                values={{
+                  u: (chunks) => <u>{searchText}</u>,
+                }}
+              />{' '}
+              ({total})
+            </>
+          ) : (
             <FormattedMessage
-              id="show.results"
-              defaultMessage="Showing results for <u>something</u>"
+              id="no.results"
+              defaultMessage="No results for <u>something</u>"
               values={{
                 u: (chunks) => <u>{searchText}</u>,
               }}
-            />{' '}
-            ({total})
-          </>
-        ) : (
-          <FormattedMessage
-            id="no.results"
-            defaultMessage="No results for <u>something</u>"
-            values={{
-              u: (chunks) => <u>{searchText}</u>,
-            }}
-          />
-        )}
-      </h1>
+            />
+          )}
+        </h1>
 
-      {total === 0 && (
-        <h3>
-          <FormattedMessage
-            id="Make sure all words are spelled correctly. Try different or more general search terms."
-            defaultMessage="Make sure all words are spelled correctly. Try different or more general search terms."
-          />
-        </h3>
-      )}
+        {total === 0 && (
+          <h3>
+            <FormattedMessage
+              id="Make sure all words are spelled correctly. Try different or more general search terms."
+              defaultMessage="Make sure all words are spelled correctly. Try different or more general search terms."
+            />
+          </h3>
+        )}
+      </div>
 
       <div className="navigator">
         <Button secondary as="a" onClick={() => {}}>

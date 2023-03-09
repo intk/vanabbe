@@ -55,7 +55,7 @@
 
   .card-title {
     margin-top: 0;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
     overflow-wrap: break-word;
     .elipsisOverflow(3);
   }
@@ -89,12 +89,23 @@
 .listings.big-cards {
   .listing-column-one {
     .listing-card {
-      height: 450px;
+      height: 450px !important;
     }
 
     .listing-card.default-card {
       .card-title {
         font-size: @desktopH2;
+      }
+
+      @media only screen and (max-width: @largestTabletScreen) {
+        .card-title {
+          font-size: @mobileH2;
+        }
+
+        .card-meta,
+        .card-description {
+          font-size: @mediumFontSize !important;
+        }
       }
 
       .card-meta {
@@ -149,6 +160,20 @@
 
 .listings.big-cards {
   .listing-card.default-card {
+    height: 360px;
+
+    @media only screen and (max-width: @largestTabletScreen) {
+      height: 430px;
+
+      .card-title {
+        font-size: @largeMobileFontSize;
+      }
+
+      .card-meta {
+        font-size: @mediumFontSize;
+      }
+    }
+
     .card-title {
       font-size: @extraFontSize;
     }
@@ -196,7 +221,7 @@
     }
 
     .card-title {
-      margin: 10px 0;
+      margin-bottom: 15px;
       .elipsisOverflow(3);
     }
   }
