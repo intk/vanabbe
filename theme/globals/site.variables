@@ -137,11 +137,17 @@
 @tabletBodyFontSize: @mediumFontSize;
 @mobileBodyFontSize: @smallFontSize;
 
+@letterSpacing: 0.15px;
+
 /*---   Line height  ---*/
 @smallLineHeight: 1.1;
 @mediumLineHeight: 1.2;
 @bigLineHeight: 1.3;
 @largeLineHeight: 2.6;
+
+@textLineHeight: 1.75;
+@listDesktopLineHeight: 46px;
+@listTabletLineHeight: 42px;
 
 /*-------------------
     Border Radius

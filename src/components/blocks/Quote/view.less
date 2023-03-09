@@ -3,8 +3,10 @@
 
 @import (multiple, reference, optional) '../../theme.config';
 
-.quoteBlock-wrapper {
-  min-height: 3em;
+.block.quoteBlock,
+.block.quoteBlock-wrapper {
+  margin-top: var(--space-xl);
+  margin-bottom: var(--space-xl);
 
   .icon-wrapper {
     text-align: center;
@@ -19,10 +21,12 @@
   }
 
   p {
-    font-size: @mobileH1;
+    font-size: @mobileH1 !important;
+    line-height: @smallLineHeight !important;
 
     @media only screen and (max-width: @largestTabletScreen) {
-      font-size: @mobileH2;
+      font-size: @mobileH2 !important;
+      line-height: @smallLineHeight !important;
     }
   }
 }

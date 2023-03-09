@@ -4,23 +4,6 @@
 
 .loadVanabbeFonts();
 
-html {
-  font-size: @fontSize;
-
-  @media only screen and (max-width: @largestSmallMonitor) {
-    font-size: 18px;
-  }
-}
-
-body {
-  position: relative;
-  background: @pageBackground;
-  color: @textColor;
-  font-family: @pageFont;
-  font-size: @fontSize;
-  line-height: @bigLineHeight;
-}
-
 #page-add,
 #page-edit,
 #page-controlpanel {

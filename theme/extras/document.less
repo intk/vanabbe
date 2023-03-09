@@ -13,18 +13,39 @@
   --space-xxl: 160px;
 }
 
+html {
+  font-size: @fontSize;
+
+  @media only screen and (max-width: @largestSmallMonitor) {
+    font-size: 18px;
+  }
+}
+
 body {
+  position: relative;
   height: auto;
   background-color: var(--background-color, #fff);
+  color: @textColor;
   color: var(--text-color, #444);
+  font-family: @pageFont;
+  font-size: @fontSize;
+  letter-spacing: @letterSpacing;
+  line-height: @bigLineHeight;
 }
 
 p {
   margin-bottom: var(--space-md);
   font-size: @desktopBodyFontSize;
+  line-height: @textLineHeight;
 
   a {
     word-break: break-all;
+  }
+}
+
+.content-wrapper {
+  p:last-child {
+    margin-bottom: var(--space-md);
   }
 }
 
@@ -73,11 +94,17 @@ h5 {
 
 ul,
 ol {
+  padding-left: 20px;
+  margin-top: 0;
+  margin-bottom: var(--space-s);
+
   li {
     font-size: @desktopBodyFontSize;
+    letter-spacing: @letterSpacing;
+    line-height: @listDesktopLineHeight;
 
-    &:not(:last-child) {
-      padding-bottom: 0.3em;
+    @media only screen and (max-width: @largestTabletScreen) {
+      line-height: @listTabletLineHeight;
     }
   }
 }

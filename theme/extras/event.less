@@ -11,10 +11,12 @@
 
       p {
         margin: 0;
-        font-size: @extraFontSize;
+        font-size: @extraFontSize !important;
+        line-height: @bigLineHeight;
 
         @media only screen and (max-width: @largestMobileScreen) {
-          font-size: @mediumMobileFontSize;
+          font-size: @mediumMobileFontSize !important;
+          line-height: @bigLineHeight;
         }
       }
     }

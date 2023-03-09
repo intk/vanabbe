@@ -120,24 +120,7 @@ body[data-theme='contrast-mode'].open-menu {
   align-items: center;
   font-size: @smallFontSize;
   gap: 1.5em;
-
-  .ui.button {
-    font-size: @smallFontSize;
-  }
 }
-
-// body.open-popup #main .header-out-of-view {
-//   .header > .ui.container {
-//     max-width: none !important;
-//     padding: 0 !important;
-//   }
-
-//   .header {
-//     right: 0;
-//     left: 0 !important;
-//     width: 100% !important;
-//   }
-// }
 
 .portal-top {
   position: sticky;
@@ -157,7 +140,9 @@ body[data-theme='contrast-mode'].open-menu {
   margin-bottom: var(--space-xl) !important;
 
   .content-description {
-    font-size: @mediumMobileFontSize;
+    margin: 0;
+    font-size: @desktopH3;
+    line-height: @bigLineHeight;
   }
 
   @media only screen and (max-width: @largestMobileScreen) {

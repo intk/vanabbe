@@ -44,6 +44,7 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    margin-bottom: 5px;
     font-size: @smallFontSize;
     text-transform: capitalize;
 
@@ -64,6 +65,7 @@
     margin-top: auto;
     margin-bottom: 0;
     font-size: @smallFontSize;
+    line-height: @bigLineHeight;
   }
 
   .image-wrapper {
@@ -88,6 +90,16 @@
   .listing-column-one {
     .listing-card {
       height: 450px;
+    }
+
+    .listing-card.default-card {
+      .card-title {
+        font-size: @desktopH2;
+      }
+
+      .card-meta {
+        font-size: @desktopH4;
+      }
     }
 
     .listing-card.default-card {
@@ -139,6 +151,10 @@
   .listing-card.default-card {
     .card-title {
       font-size: @extraFontSize;
+    }
+
+    .card-meta {
+      font-size: @desktopH5;
     }
 
     .card-link {

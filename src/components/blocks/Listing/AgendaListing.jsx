@@ -11,7 +11,7 @@ const Item = ({ item, showDate }) => {
         <div className="agenda-wrapper">
           <div>
             <h3 className="agenda-title">{item.title}</h3>
-            <div className="agenda-description">{item.description}</div>
+            <p className="agenda-description">{item.description}</p>
           </div>
 
           <div className="agenda-right">
