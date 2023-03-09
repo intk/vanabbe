@@ -27,18 +27,18 @@ const Caption = ({ card }) => {
 };
 
 const Card = ({ card = {}, height, image_scale, mode = 'view' }) => {
-  const { link, title } = card;
+  const { linkHref, title } = card;
 
   const LinkWrapper = React.useMemo(
     () =>
-      link && mode === 'view'
+      linkHref && mode === 'view'
         ? ({ children }) => (
-            <a href={link} target="_blank" rel="noreferrer" title={title}>
+            <a href={linkHref} target="_blank" rel="noreferrer" title={title}>
               {children}
             </a>
           )
         : ({ children }) => children,
-    [link, mode, title],
+    [linkHref, mode, title],
   );
 
   return (

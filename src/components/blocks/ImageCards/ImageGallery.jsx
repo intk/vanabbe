@@ -112,6 +112,7 @@ const ImageGallery = (props) => {
             {cards?.map((item, i) => {
               return (
                 <Image
+                  key={i}
                   className="modal-slide-img"
                   src={getScaleUrl(getPath(item.attachedimage), 'large')}
                 />
