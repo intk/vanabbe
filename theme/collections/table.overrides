@@ -2,3 +2,34 @@
          Table Overrides
 *******************************/
 
+.ui.table,
+.ui.basic.table {
+  border-color: var(--text-color);
+  color: var(--text-color);
+
+  thead {
+    th,
+    th:hover,
+    th.sorted,
+    th.sorted:hover {
+      color: var(--text-color);
+    }
+
+    tr,
+    th {
+      border-color: var(--text-color);
+      background-color: transparent;
+    }
+  }
+
+  tbody {
+    tr,
+    td {
+      border-color: var(--text-color);
+    }
+  }
+
+  p {
+    margin: 0 !important;
+  }
+}
