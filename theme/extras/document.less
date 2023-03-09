@@ -49,6 +49,11 @@ p:empty {
   margin: 0 !important;
 }
 
+p:has(+ ul),
+p:has(+ ol) {
+  margin-bottom: var(--space-xxs);
+}
+
 h1,
 h2,
 h3,
