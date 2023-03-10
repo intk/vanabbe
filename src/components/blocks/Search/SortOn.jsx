@@ -55,8 +55,8 @@ const SortOn = (props) => {
         </span>
 
         <div className="entries">
-          {sortOnOptions.map((opt) => (
-            <div className="entry">
+          {sortOnOptions.map((opt, i) => (
+            <div className="entry" key={i}>
               <Checkbox
                 radio
                 disabled={isEditMode}
