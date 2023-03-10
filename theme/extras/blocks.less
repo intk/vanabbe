@@ -64,9 +64,17 @@ body.has-hero-image {
   // }
 
   > .image-carousel,
-  > .image-gallery,
-  > .quoteBlock-wrapper {
+  > .image-gallery {
     margin-right: -@twoWide;
+    margin-left: calc(-@oneWide + 0.6rem);
+
+    @media only screen and (max-width: @largestTabletScreen) {
+      margin-right: 0;
+      margin-left: 0;
+    }
+  }
+
+  > .quoteBlock-wrapper {
     margin-left: calc(-@oneWide + 0.6rem);
 
     @media only screen and (max-width: @largestTabletScreen) {

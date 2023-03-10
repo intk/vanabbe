@@ -8,6 +8,10 @@
   margin-top: var(--space-xl);
   margin-bottom: var(--space-xl);
 
+  @media only screen and (max-width: @largestTabletScreen) {
+    margin: var(--space-lg) 0;
+  }
+
   .icon-wrapper {
     text-align: center;
   }
@@ -21,6 +25,7 @@
   }
 
   p {
+    margin: 0;
     font-size: @mobileH1 !important;
     line-height: @smallLineHeight !important;
 
