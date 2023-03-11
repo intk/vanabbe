@@ -3,4 +3,11 @@
     xmlns:plone="http://namespaces.plone.org/plone"
     >
 
+    <plone:behavior
+        name="intk.featured"
+        title="Featured"
+        description="Allows items to be featured in listings"
+        provides=".featured.IFeatured"
+        />
+
 </configure>

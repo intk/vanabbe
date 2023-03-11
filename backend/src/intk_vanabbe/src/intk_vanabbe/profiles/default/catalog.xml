@@ -5,6 +5,10 @@
     <indexed_attr value="authorID"/>
   </index>
 
+  <index name="is_featured" meta_type="FieldIndex">
+    <indexed_attr value="is_featured"/>
+  </index>
+
   <index name="bookArtist" meta_type="KeywordIndex">
     <indexed_attr value="bookArtist"/>
   </index>
