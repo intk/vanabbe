@@ -13,13 +13,70 @@ import {
   flattenHTMLToAppURL,
   expandToBackendURL,
 } from '@plone/volto/helpers';
-import { Image, List } from 'semantic-ui-react';
+import { Image, List, Accordion, Icon } from 'semantic-ui-react';
 import RenderBlocks from '@plone/volto/components/theme/View/RenderBlocks';
 
 import {
   When,
-  Recurrence,
+  datesForDisplay,
 } from '@plone/volto/components/theme/View/EventDatesInfo';
+
+export const Recurrence_ = ({
+  recurrence,
+  start,
+  moment: momentlib,
+  rrule,
+}) => {
+  const moment = momentlib.default;
+  const { RRule, rrulestr } = rrule;
+  if (recurrence.indexOf('DTSTART') < 0) {
+    var dtstart = RRule.optionsToString({
+      dtstart: new Date(start),
+    });
+    recurrence = dtstart + '\n' + recurrence;
+  }
+  const rule = rrulestr(recurrence, { unfold: true, forceset: true });
+  const all = rule.all();
+  const first = all.slice(0, 3);
+  const rest = all.slice(3, all.length);
+  const [showMore, setShowMore] = React.useState();
+
+  return (
+    <>
+      <List
+        items={first
+          .map((date) => datesForDisplay(date, undefined, moment))
+          .map((date) => date.startDate)}
+      />
+      {rest ? (
+        <Accordion>
+          <Accordion.Title
+            active={showMore}
+            index={0}
+            onClick={() => setShowMore(!showMore)}
+          >
+            <Icon name="dropdown" />
+            See all
+          </Accordion.Title>
+          <Accordion.Content active={showMore}>
+            <List
+              items={rest
+                .map((date) => datesForDisplay(date, undefined, moment))
+                .map((date) => date.startDate)}
+            />
+          </Accordion.Content>
+        </Accordion>
+      ) : null}
+    </>
+  );
+};
+
+export const Recurrence = injectLazyLibs(['moment', 'rrule'])(Recurrence_);
+
+Recurrence.propTypes = {
+  recurrence: PropTypes.string.isRequired,
+  start: PropTypes.string.isRequired,
+};
 
 const EventTextfieldView = ({ content }) => (
   <React.Fragment>
