@@ -3,6 +3,7 @@
  * @module components/theme/View/EventView
  */
 
+import { injectLazyLibs } from '@plone/volto/helpers/Loadable/Loadable';
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Portal } from 'react-portal';
@@ -63,9 +64,14 @@ const EventView = (props) => {
     contact_phone,
     attendees,
     event_url,
+    recurence_description,
   } = content;
 
   const [isClient, setIsClient] = React.useState();
+
+  // const { rrulestr } = props.rrule;
+  // const rule = rrulestr(recurrence);
+  // console.log(rule.toText());
 
   React.useEffect(() => setIsClient(true), []);
 
@@ -98,6 +104,7 @@ const EventView = (props) => {
                     {recurrence && (
                       <div itle="All dates" className="event-data dates">
                         <p>
+                          {recurence_description}
                           <Recurrence recurrence={recurrence} start={start} />
                         </p>
                       </div>
@@ -223,4 +230,4 @@ EventView.propTypes = {
   }).isRequired,
 };
 
-export default EventView;
+export default injectLazyLibs(['moment', 'rrule'])(EventView);

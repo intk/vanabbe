@@ -10,4 +10,11 @@
         provides=".featured.IFeatured"
         />
 
+    <plone:behavior
+        name="intk.event"
+        title="INTK Event Enhancements"
+        description="Adds recurrence description field"
+        provides=".event.IRecurenceDescription"
+        />
+
 </configure>
