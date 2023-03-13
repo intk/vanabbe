@@ -2,10 +2,6 @@
              Blocks
 *******************************/
 
-// .block .block:not(.inner)::before {
-//   z-index: 1;
-// }
-
 .block,
 blockquote,
 .table-of-contents,
@@ -46,7 +42,9 @@ body.has-hero-image {
 
 .blocks-bg-wrapper {
   > *:first-child,
-  > h2:first-of-type {
+  > h2:first-of-type,
+  > h3:first-of-type,
+  > h4:first-of-type {
     margin-top: 0;
   }
 
@@ -58,10 +56,6 @@ body.has-hero-image {
     padding-right: @twoWide;
     padding-left: calc(@oneWide + 0.6rem);
   }
-
-  // > *:last-child {
-  //   margin-bottom: 0;
-  // }
 
   > .image-carousel,
   > .image-gallery {

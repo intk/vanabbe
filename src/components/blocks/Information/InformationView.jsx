@@ -4,7 +4,6 @@ import { isInternalURL } from '@plone/volto/helpers/Url/Url';
 import { ConditionalLink, UniversalLink } from '@plone/volto/components';
 import { serializeNodes } from '@plone/volto-slate/editor/render';
 import { Icon } from '@plone/volto/components';
-import cx from 'classnames';
 
 import aheadSVG from '@plone/volto/icons/ahead.svg';
 import './style.less';
@@ -13,7 +12,6 @@ const InformationView = ({ data, mode = 'view' }) => {
   const { headline, headlineTag, buttons, text } = data;
   const isEditMode = mode === 'edit';
   const HeadlineTag = headlineTag || 'h2';
-  const classNames = cx('ui button btn-block', data.btnStyle || 'primary');
 
   return (
     <div className="block info-block">
@@ -26,35 +24,31 @@ const InformationView = ({ data, mode = 'view' }) => {
         </div>
         <div> {!!text && serializeNodes(text)}</div>
         <div className="info-block-buttons">
-          {(buttons || []).map((l, i) => {
-            let href = l.href?.[0]?.['@id'] || '';
+          {(buttons || []).map((btn, i) => {
+            let href = btn.href?.[0]?.['@id'] || '';
 
             return (
-              <span key={i}>
+              <React.Fragment key={i}>
                 {isInternalURL(href) ? (
                   isEditMode ? (
-                    <div className={classNames}>{l.title}</div>
+                    <div className="ui button primary">{btn.title}</div>
                   ) : (
-                    <span>
-                      <ConditionalLink
-                        to={flattenToAppURL(href)}
-                        condition={!isEditMode}
-                        className={classNames}
-                      >
-                        {l.title}
-                      </ConditionalLink>
-                    </span>
+                    <ConditionalLink
+                      to={flattenToAppURL(href)}
+                      condition={!isEditMode}
+                      className="ui button primary"
+                    >
+                      {btn.title}
+                    </ConditionalLink>
                   )
                 ) : href ? (
-                  <span>
-                    <UniversalLink href={href} className={classNames}>
-                      {l.title}
-                    </UniversalLink>
-                  </span>
+                  <UniversalLink href={href} className="ui button primary">
+                    {btn.title}
+                  </UniversalLink>
                 ) : isEditMode ? (
                   'Button'
                 ) : null}
-              </span>
+              </React.Fragment>
             );
           })}
         </div>
