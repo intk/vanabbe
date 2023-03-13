@@ -1,4 +1,6 @@
 import React from 'react';
+import { compose } from 'redux';
+import { connect } from 'react-redux';
 import { NavLink, Link } from 'react-router-dom';
 import { Menu, Dropdown } from 'semantic-ui-react';
 import { Icon } from '@plone/volto/components';
@@ -9,7 +11,8 @@ import upKeySVG from '@plone/volto/icons/up-key.svg';
 
 const HOME = ['', '/', '/en', '/nl'];
 
-const MenuItem = ({ item, lang }) => {
+const MenuItem = (props) => {
+  const { item, lang, token } = props;
   const [isOpened, setIsOpened] = React.useState(false);
 
   const { settings } = config;
@@ -22,17 +25,22 @@ const MenuItem = ({ item, lang }) => {
       open={isOpened}
       trigger={
         <div className="item-wrapper">
-          <NavLink
-            to={item.url === '' ? '/' : item.url}
-            activeClassName="active"
-            exact={
-              settings.isMultilingual
-                ? item.url === `/${lang}`
-                : item.url === ''
-            }
-          >
-            {item.title}
-          </NavLink>
+          {token ? (
+            <NavLink
+              to={item.url === '' ? '/' : item.url}
+              activeClassName="active"
+              exact={
+                settings.isMultilingual
+                  ? item.url === `/${lang}`
+                  : item.url === ''
+              }
+            >
+              {item.title}
+            </NavLink>
+          ) : (
+            <>{item.title}</>
+          )}
+
           {isOpened ? (
             <Icon name={upKeySVG} size="40px" />
           ) : (
@@ -61,15 +69,19 @@ const MenuItem = ({ item, lang }) => {
     </Dropdown>
   ) : (
     <div className="ui item simple dropdown firstLevel">
-      <Link to={item.url === '' ? '/' : item.url} key={item.url}>
-        {item.title}
-      </Link>
+      {token ? (
+        <Link to={item.url === '' ? '/' : item.url} key={item.url}>
+          {item.title}
+        </Link>
+      ) : (
+        <>{item.title}</>
+      )}
     </div>
   );
 };
 
-export default function MobileMenu(props) {
-  const { items, lang } = props;
+const MobileMenu = (props) => {
+  const { items } = props;
 
   return (
     <Menu
@@ -81,8 +93,14 @@ export default function MobileMenu(props) {
       {items
         .filter((item) => HOME.indexOf(item.url) === -1)
         .map((item, i) => {
-          return <MenuItem item={item} lang={lang} key={i} />;
+          return <MenuItem key={i} item={item} {...props} />;
         })}
     </Menu>
   );
-}
+};
+
+export default compose(
+  connect((state) => ({
+    token: state.userSession.token,
+  })),
+)(MobileMenu);

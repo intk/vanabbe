@@ -1,4 +1,6 @@
 import React from 'react';
+import { compose } from 'redux';
+import { connect } from 'react-redux';
 import { NavLink, Link } from 'react-router-dom';
 import { List } from 'semantic-ui-react';
 
@@ -6,8 +8,8 @@ import config from '@plone/volto/registry';
 
 const HOME = ['', '/', '/en', '/nl'];
 
-export default function DesktopMenu(props) {
-  const { items, lang } = props;
+const DesktopMenu = (props) => {
+  const { items, lang, token } = props;
   const { settings } = config;
 
   return (
@@ -18,17 +20,21 @@ export default function DesktopMenu(props) {
           return item.items && item.items.length ? (
             <List.Item className="firstLevel" key={i}>
               <List.Content>
-                <NavLink
-                  to={item.url === '' ? '/' : item.url}
-                  activeClassName="active"
-                  exact={
-                    settings.isMultilingual
-                      ? item.url === `/${lang}`
-                      : item.url === ''
-                  }
-                >
-                  {item.title}
-                </NavLink>
+                {token ? (
+                  <NavLink
+                    to={item.url === '' ? '/' : item.url}
+                    activeClassName="active"
+                    exact={
+                      settings.isMultilingual
+                        ? item.url === `/${lang}`
+                        : item.url === ''
+                    }
+                  >
+                    {item.title}
+                  </NavLink>
+                ) : (
+                  <>{item.title}</>
+                )}
                 <List.List>
                   {item.items.map((subitem, y) => {
                     return (
@@ -65,12 +71,22 @@ export default function DesktopMenu(props) {
             </List.Item>
           ) : (
             <div className="ui item simple firstLevel" key={i}>
-              <Link to={item.url === '' ? '/' : item.url} key={item.url}>
-                {item.title}
-              </Link>
+              {token ? (
+                <Link to={item.url === '' ? '/' : item.url} key={item.url}>
+                  {item.title}
+                </Link>
+              ) : (
+                <> {item.title}</>
+              )}
             </div>
           );
         })}
     </List>
   );
-}
+};
+
+export default compose(
+  connect((state) => ({
+    token: state.userSession.token,
+  })),
+)(DesktopMenu);
