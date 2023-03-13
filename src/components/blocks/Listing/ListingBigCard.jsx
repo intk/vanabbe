@@ -129,13 +129,19 @@ const EventCard = ({ item, showDate, showTag, showContentType }) => {
             <div className="card-meta">
               {showDate && (
                 <>
-                  {!!item.effective && (
-                    <FormattedDate date={item.start} format={dateOptions} />
-                  )}
-                  {!item.whole_day && !!item.start && (
-                    <span>
-                      <FormattedTime value={new Date(item.start)} />
-                    </span>
+                  {item.recurrence && item.recurence_description ? (
+                    <>{item.recurence_description}</>
+                  ) : (
+                    <>
+                      {!!item.effective && (
+                        <FormattedDate date={item.start} format={dateOptions} />
+                      )}
+                      {!item.whole_day && !!item.start && (
+                        <span>
+                          <FormattedTime value={new Date(item.start)} />
+                        </span>
+                      )}
+                    </>
                   )}
                 </>
               )}

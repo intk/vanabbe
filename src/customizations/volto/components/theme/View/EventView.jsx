@@ -13,8 +13,11 @@ import {
   flattenHTMLToAppURL,
   expandToBackendURL,
 } from '@plone/volto/helpers';
-import { Image, List, Accordion, Icon } from 'semantic-ui-react';
+import { Image, List, Accordion } from 'semantic-ui-react';
 import RenderBlocks from '@plone/volto/components/theme/View/RenderBlocks';
+import { Icon } from '@plone/volto/components';
+import downSVG from '@plone/volto/icons/down-key.svg';
+import upSVG from '@plone/volto/icons/up-key.svg';
 
 import {
   When,
@@ -55,8 +58,16 @@ export const Recurrence_ = ({
             index={0}
             onClick={() => setShowMore(!showMore)}
           >
-            <Icon name="dropdown" />
-            See all
+            <FormattedMessage
+              id="See all dates"
+              defaultMessage="See all dates"
+            />
+
+            {showMore ? (
+              <Icon name={upSVG} size="28px" />
+            ) : (
+              <Icon name={downSVG} size="28px" />
+            )}
           </Accordion.Title>
           <Accordion.Content active={showMore}>
             <List
@@ -136,14 +147,23 @@ const EventView = (props) => {
     <div id="page-document" className="ui container viewwrapper event-view">
       <Portal node={isClient && document.getElementById('description')}>
         <div>
-          {start && (
-            <When
-              start={start}
-              end={end}
-              whole_day={whole_day}
-              open_end={open_end}
-            />
-          )}
+          <>
+            {recurrence && recurence_description ? (
+              <p>{recurence_description}</p>
+            ) : (
+              <>
+                {start && (
+                  <When
+                    start={start}
+                    end={end}
+                    whole_day={whole_day}
+                    open_end={open_end}
+                  />
+                )}
+              </>
+            )}
+          </>
+
           {location && (
             <div className="event-data">
               <p>{location}</p>
@@ -159,11 +179,9 @@ const EventView = (props) => {
                 <div className="event-details">
                   <div className="top event-listing">
                     {recurrence && (
-                      <div itle="All dates" className="event-data dates">
-                        <p>
-                          {recurence_description}
-                          <Recurrence recurrence={recurrence} start={start} />
-                        </p>
+                      <div title="All dates" className="event-data dates">
+                        {/* <p>{recurence_description}</p> */}
+                        <Recurrence recurrence={recurrence} start={start} />
                       </div>
                     )}
                   </div>

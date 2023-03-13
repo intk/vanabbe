@@ -25,6 +25,18 @@
   .event-details {
     .event-data.dates {
       margin-bottom: 2em;
+
+      .ui.accordion {
+        .title:not(.ui) {
+          display: flex;
+          padding: 0;
+          line-height: @textLineHeight;
+        }
+
+        .content {
+          padding: 0;
+        }
+      }
     }
 
     a {
@@ -84,6 +96,7 @@
       .item {
         position: relative;
         padding: 0;
+        line-height: @textLineHeight;
 
         &:not(:last-child):after {
           display: inline-block;

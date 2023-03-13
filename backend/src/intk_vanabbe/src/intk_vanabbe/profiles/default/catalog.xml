@@ -38,5 +38,7 @@
   <column value="objectTitle"/>
   <column value="eventTimeFrom"/>
   <column value="whole_day"/>
+  <column value="recurrence" />
+  <column value="recurence_description"/>
 
 </object>

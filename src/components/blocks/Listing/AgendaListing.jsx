@@ -18,12 +18,18 @@ const Item = ({ item, showDate }) => {
             {showDate && (
               <>
                 {item['@type'] === 'Event' ? (
-                  <When
-                    start={item.start}
-                    end={item.end}
-                    whole_day={true}
-                    open_end={item.open_end}
-                  />
+                  <>
+                    {item.recurrence && item.recurence_description ? (
+                      <>{item.recurence_description}</>
+                    ) : (
+                      <When
+                        start={item.start}
+                        end={item.end}
+                        whole_day={true}
+                        open_end={item.open_end}
+                      />
+                    )}
+                  </>
                 ) : (
                   <>
                     {item.EffectiveDate !== 'None' ? (

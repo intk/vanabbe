@@ -44,6 +44,10 @@ defineMessages({
     id: 'Add event to calendar',
     defaultMessage: 'Add event to calendar',
   },
+  seeAllDates: {
+    id: 'See all dates',
+    defaultMessage: 'See all dates',
+  },
   homepage: {
     id: 'Go to the homepage of Van Abbemuseum',
     defaultMessage: 'Go to the homepage of Van Abbemuseum',
