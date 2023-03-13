@@ -60,6 +60,11 @@ msgstr ""
 msgid "Address"
 msgstr ""
 
+#: components/blocks/Search/SortOn
+# defaultMessage: Ascending
+msgid "Ascending"
+msgstr ""
+
 #: components/blocks/Image/ImageBlockEdit
 # defaultMessage: Browse the site, drop an image, or type an URL
 msgid "Browse the site, drop an image, or type an URL"
@@ -118,6 +123,11 @@ msgstr ""
 #: components/theme/ContrastToggle/ContrastToggle
 # defaultMessage: Contrast
 msgid "Contrast"
+msgstr ""
+
+#: components/blocks/Search/SortOn
+# defaultMessage: Descending
+msgid "Descending"
 msgstr ""
 
 #: components/theme/View/ArtworkView
@@ -223,9 +233,9 @@ msgstr ""
 msgid "No background applied after this divider"
 msgstr ""
 
-#: components/blocks/SearchOverview/SearchOverviewView
-# defaultMessage: No results for ''{searchText}''
-msgid "No results for ''{searchText}''"
+#: components/blocks/Search/SortOn
+# defaultMessage: No selection
+msgid "No selection"
 msgstr ""
 
 #: components/theme/View/ArtworkView
@@ -249,6 +259,7 @@ msgstr ""
 msgid "Phone"
 msgstr ""
 
+#: components/blocks/Search/TopFiltersLayout
 #: components/theme/SearchWidget/SearchWidget
 # defaultMessage: Search
 msgid "Search"
@@ -262,6 +273,11 @@ msgstr ""
 #: components/blocks/SiteData/schema
 # defaultMessage: Section title
 msgid "Section title"
+msgstr ""
+
+#: config
+# defaultMessage: See all dates
+msgid "See all dates"
 msgstr ""
 
 #: components/blocks/SiteTheme/schema
@@ -304,11 +320,6 @@ msgstr ""
 msgid "Show Tag"
 msgstr ""
 
-#: components/blocks/SearchOverview/SearchOverviewView
-# defaultMessage: Showing results for ''{searchText}''
-msgid "Showing results for ''{searchText}''"
-msgstr ""
-
 #: components/blocks/SiteTheme/schema
 # defaultMessage: Site Theme
 msgid "Site Theme"
@@ -323,6 +334,11 @@ msgstr ""
 #: components/blocks/SiteData/SiteDataView
 # defaultMessage: Social links
 msgid "Social links"
+msgstr ""
+
+#: components/blocks/Search/SortOn
+# defaultMessage: Sort
+msgid "Sort"
 msgstr ""
 
 #: components/blocks/Image/schema
@@ -500,9 +516,19 @@ msgstr ""
 msgid "need_info_specific"
 msgstr ""
 
+#: components/blocks/SearchOverview/SearchOverviewView
+# defaultMessage: No results for <u>something</u>
+msgid "no.results"
+msgstr ""
+
 #: components/blocks/VoltoFormBlock/schemaExtender
 # defaultMessage: Placeholder
 msgid "placeholder"
+msgstr ""
+
+#: components/blocks/SearchOverview/SearchOverviewView
+# defaultMessage: Showing results for <u>something</u>
+msgid "show.results"
 msgstr ""
 
 #: components/blocks/Facts/schema

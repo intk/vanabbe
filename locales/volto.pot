@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Plone\n"
-"POT-Creation-Date: 2023-02-02T14:03:03.871Z\n"
+"POT-Creation-Date: 2023-03-13T10:57:06.245Z\n"
 "Last-Translator: Plone i18n <plone-i18n@lists.sourceforge.net>\n"
 "Language-Team: Plone i18n <plone-i18n@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -41,6 +41,11 @@ msgstr ""
 #: components/blocks/SiteData/schema
 # defaultMessage: Address
 msgid "Address"
+msgstr ""
+
+#: components/blocks/Search/SortOn
+# defaultMessage: Ascending
+msgid "Ascending"
 msgstr ""
 
 #: components/blocks/Image/ImageBlockEdit
@@ -101,6 +106,11 @@ msgstr ""
 #: components/theme/ContrastToggle/ContrastToggle
 # defaultMessage: Contrast
 msgid "Contrast"
+msgstr ""
+
+#: components/blocks/Search/SortOn
+# defaultMessage: Descending
+msgid "Descending"
 msgstr ""
 
 #: components/theme/View/ArtworkView
@@ -206,9 +216,9 @@ msgstr ""
 msgid "No background applied after this divider"
 msgstr ""
 
-#: components/blocks/SearchOverview/SearchOverviewView
-# defaultMessage: No results for ''{searchText}''
-msgid "No results for ''{searchText}''"
+#: components/blocks/Search/SortOn
+# defaultMessage: No selection
+msgid "No selection"
 msgstr ""
 
 #: components/theme/View/ArtworkView
@@ -232,6 +242,7 @@ msgstr ""
 msgid "Phone"
 msgstr ""
 
+#: components/blocks/Search/TopFiltersLayout
 #: components/theme/SearchWidget/SearchWidget
 # defaultMessage: Search
 msgid "Search"
@@ -245,6 +256,11 @@ msgstr ""
 #: components/blocks/SiteData/schema
 # defaultMessage: Section title
 msgid "Section title"
+msgstr ""
+
+#: config
+# defaultMessage: See all dates
+msgid "See all dates"
 msgstr ""
 
 #: components/blocks/SiteTheme/schema
@@ -287,11 +303,6 @@ msgstr ""
 msgid "Show Tag"
 msgstr ""
 
-#: components/blocks/SearchOverview/SearchOverviewView
-# defaultMessage: Showing results for ''{searchText}''
-msgid "Showing results for ''{searchText}''"
-msgstr ""
-
 #: components/blocks/SiteTheme/schema
 # defaultMessage: Site Theme
 msgid "Site Theme"
@@ -306,6 +317,11 @@ msgstr ""
 #: components/blocks/SiteData/SiteDataView
 # defaultMessage: Social links
 msgid "Social links"
+msgstr ""
+
+#: components/blocks/Search/SortOn
+# defaultMessage: Sort
+msgid "Sort"
 msgstr ""
 
 #: components/blocks/Image/schema
@@ -483,9 +499,19 @@ msgstr ""
 msgid "need_info_specific"
 msgstr ""
 
+#: components/blocks/SearchOverview/SearchOverviewView
+# defaultMessage: No results for <u>something</u>
+msgid "no.results"
+msgstr ""
+
 #: components/blocks/VoltoFormBlock/schemaExtender
 # defaultMessage: Placeholder
 msgid "placeholder"
+msgstr ""
+
+#: components/blocks/SearchOverview/SearchOverviewView
+# defaultMessage: Showing results for <u>something</u>
+msgid "show.results"
 msgstr ""
 
 #: components/blocks/Facts/schema
