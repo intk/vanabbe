@@ -64,9 +64,9 @@ export const Recurrence_ = ({
             />
 
             {showMore ? (
-              <Icon name={upSVG} size="28px" />
+              <Icon name={upSVG} size="26px" />
             ) : (
-              <Icon name={downSVG} size="28px" />
+              <Icon name={downSVG} size="26px" />
             )}
           </Accordion.Title>
           <Accordion.Content active={showMore}>
