@@ -23,7 +23,10 @@ http://62.221.199.184:17718/action=get&command=search&query=bookArtist=Gordon,%2
 Import artwork
 """
 
+import argparse
+import hashlib
 import lxml.etree
+import os.path
 import requests
 import transaction
 
@@ -47,6 +50,8 @@ BASE_URL = (
 BATCH_SIZE = 100
 
 ROOT = "//collectionConnection-resultset"
+
+IMAGE_BASE_URL = "https://vanabbemuseum.nl/fileadmin/files/collectie/%s"
 
 INT_FIELDS = [
     "bookDatePublished",
@@ -296,5 +301,121 @@ def scroll(
                 break
 
 
+def extract_images(record):
+    images = []
+
+    for img in record.xpath("eventImages/text()"):
+        images.append(img)
+
+    for img in record.xpath("bookIllustrations/text()"):
+        images.append(img)
+
+    for img in record.xpath("objectImage/text()"):
+        img = IMAGE_BASE_URL % img
+        images.append(img)
+
+    return images
+
+
+def get_filename(url):
+    m = hashlib.sha1()
+    m.update(url.encode("ascii"))
+
+    ext = url.rsplit(".", 1)[-1]
+
+    return f"{m.hexdigest()}.{ext}"
+
+
+def download_image(url, filename):
+    _headers = [
+        "Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
+        "Accept-Language: en,ro-RO;q=0.9,ro;q=0.8",
+        "Cache-Control: no-cache",
+        "Connection: keep-alive",
+        "Cookie: vam=lasturi&%2Fvam%2Ffiles%2Falexandria%2Fpubliciteit%2Fzaaloverzichten%2F2022%2Falastingtruthischange%2FM10P6879.jpg; gridWidthSize=width=1200&height=1000; TS01b41909=01a17e7670f1c83c0a893e8bd7a582528a8201baac266c3f7d751e0c96aa5acb6962c0dfc5df056f9c5720c54d801a6badbfbfa37dba80b6588e1d603343047d8776aef87ddfd408e9f4ace6a701ebcf3c3a7e6d53; TSd8810ea4027=08cee8bad7ab2000b4ff69515fd3a62ed8685f4ae1facb1ccfdd3ea385561a7b41e63f2901ef2386089f7a7e90113000250c4e692be171e4ca37386fb8daa575a67e88da9eac3d30c1c45de282c1f081cdb0c404ced8133f30470bcaf799d59a",
+        "DNT: 1",
+        "Pragma: no-cache",
+        "Sec-Fetch-Dest: document",
+        "Sec-Fetch-Mode: navigate",
+        "Sec-Fetch-Site: none",
+        "Sec-Fetch-User: ?1",
+        "Upgrade-Insecure-Requests: 1",
+        "User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36",
+        'sec-ch-ua: "Not?A_Brand";v="8", "Chromium";v="108", "Google Chrome";v="108"',
+        "sec-ch-ua-mobile: ?0" 'sec-ch-ua-platform: "Linux"',
+    ]
+
+    HEADERS = dict([line.split(":", 1) for line in _headers])
+
+    for k, v in HEADERS.items():
+        HEADERS[k] = v.strip()
+
+    try:
+        with requests.get(url, stream=True, verify=False, headers=HEADERS) as req:
+            data = req.raw.read()
+
+            if "DOCTYP" in str(data[:10]):  # avoids missing images
+                return
+            with open(filename, "wb") as f:
+                f.write(data)
+    except Exception:
+        print(f"Error fetching {url}")
+
+
+def dump(record, destination):
+    rec_id = record.xpath("recordnumber/text()")[0]
+
+    fname = f"{rec_id}.xml"
+    location = os.path.join(destination, fname)
+
+    if not os.path.isfile(location):
+        with open(location, "wb") as f:
+            printed = lxml.etree.tostring(record)
+            f.write(printed)
+
+            print("Dumped", fname)
+
+        images = extract_images(record)
+        if images:
+            dirname = os.path.join(destination, rec_id)
+            if not os.path.isdir(dirname):
+                os.makedirs(dirname)
+            for img in images:
+                fname = os.path.join(dirname, get_filename(img))
+                download_image(img, fname)
+                print("Downloaded", img)
+
+
+def copy_vubis():
+    parser = argparse.ArgumentParser(
+        prog="Copy Vubis",
+        description="Command line tool to create an offline copy of Vubis",
+    )
+    parser.add_argument("destination")
+    parser.add_argument("-c", "--maxcount", type=int, help="Max records copied")
+
+    args = parser.parse_args()
+    destination = args.destination
+    query = "&query=*=*"
+
+    max_records = args.maxcount or 1000000000
+
+    cur = 1
+    count = 0
+
+    while count < max_records:
+        url = (BASE_URL + query) % (cur, cur + BATCH_SIZE)
+        print("Fetch records: ", cur, cur + BATCH_SIZE, url)
+        resp = requests.get(url, verify=False)
+        cur = cur + BATCH_SIZE + 1
+        doc = lxml.etree.fromstring(resp.text.encode("utf-8"))
+        # max_records = int(doc.xpath('number(%s/request/count/text())' % ROOT))
+
+        records = doc.xpath("%s/records/record/data/dc_record" % ROOT)
+        for rec in records:
+            dump(rec, destination)
+            count += 1
+
+
 if __name__ == "__main__":
-    scroll()
+    copy_vubis()

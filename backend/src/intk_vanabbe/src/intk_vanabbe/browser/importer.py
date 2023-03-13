@@ -2,6 +2,8 @@
 """
 
 from .request import HEADERS
+from intk_vanabbe.importer import get_filename
+from intk_vanabbe.importer import IMAGE_BASE_URL
 from intk_vanabbe.importer import scroll
 from plone.api import content
 from plone.api import portal
@@ -15,13 +17,11 @@ from Products.Five.browser import BrowserView
 # from z3c.relationfield import RelationValue
 from zope.interface import alsoProvides
 
-import hashlib
 import logging
 import os
 import requests
 
 
-IMAGE_BASE_URL = "https://vanabbemuseum.nl/fileadmin/files/collectie/%s"
 IMPORT_LOCATIONS = {
     "artwork": "nl/collectie-onderzoek/vaste-collectie/kunstwerken",
     "publication": "nl/collectie-onderzoek/bibliotheek/publicaties",
@@ -30,15 +30,6 @@ IMPORT_LOCATIONS = {
 }
 
 logger = logging.getLogger("vubis")
-
-
-def get_filename(url):
-    m = hashlib.sha1()
-    m.update(url.encode("ascii"))
-
-    ext = url.rsplit(".", 1)[-1]
-
-    return f"{m.hexdigest()}.{ext}"
 
 
 def toid(s):
@@ -250,6 +241,7 @@ class ImportVubis(BrowserView):
                 container=container,
                 **fields,
             )
+            content.transition(obj=author, transition="publish")
             authors.append(author)
 
             if urls.get("en"):
@@ -288,6 +280,7 @@ class ImportVubis(BrowserView):
             container=container,
             **original,
         )
+        content.transition(obj=obj, transition="publish")
         for author in authors:
             relation.create(source=obj, target=author, relationship="authors")
 
@@ -324,6 +317,7 @@ class ImportVubis(BrowserView):
             container=container,
             **rec,
         )
+        content.transition(obj=obj, transition="publish")
 
         filenames = rec.get("bookIllustrations", [])
         if isinstance(filenames, str):
@@ -363,6 +357,7 @@ class ImportVubis(BrowserView):
             container=container,
             **rec,
         )
+        content.transition(obj=obj, transition="publish")
         print("Imported exhibition", path(obj))
 
         if en_title:
@@ -386,6 +381,7 @@ class ImportVubis(BrowserView):
             # TODO: use translator instead of copy
             content.copy(child, trans)
 
+        content.transition(obj=trans, transition="publish")
         trans._p_changed = True
         trans.reindexObject()
 

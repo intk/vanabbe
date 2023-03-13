@@ -20,12 +20,18 @@
       />
 
   <browser:page
+      name="import_vubis"
+      for="*"
+      class=".importer.ImportVubis"
+      permission="cmf.ManagePortal"
+      />
+
+  <browser:page
       name="gopdb"
       for="*"
       class=".GoPDB"
       permission="zope.Public"
       />
-
 
   <browser:page
       name="fallback-image"
