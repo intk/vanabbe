@@ -132,7 +132,7 @@ const EventCard = ({ item, showDate, showTag, showContentType }) => {
                   {!!item.effective && (
                     <FormattedDate date={item.start} format={dateOptions} />
                   )}
-                  {!!item.start && (
+                  {!item.whole_day && !!item.start && (
                     <span>
                       <FormattedTime value={new Date(item.start)} />
                     </span>

@@ -37,5 +37,6 @@
   <column value="objectCreationDate"/>
   <column value="objectTitle"/>
   <column value="eventTimeFrom"/>
+  <column value="whole_day"/>
 
 </object>
