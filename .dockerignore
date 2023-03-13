@@ -12,3 +12,4 @@ docker-compose.yml
 *.tgz
 docker-compose.yml
 docker-compose.override.yml
+./data-import
