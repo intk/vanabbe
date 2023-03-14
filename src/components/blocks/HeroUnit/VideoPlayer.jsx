@@ -12,10 +12,11 @@ const VideoPlayer = (props) => {
   const youtubeURL = videoUrl?.match(/youtube|.be\//);
 
   const playerProps = {
+    loop: true,
     muted: true,
-    playing: playing,
     controls: false,
     url: videoUrl,
+    playing: playing,
     width: '100%',
     height: '100%',
   };
