@@ -11,6 +11,7 @@ import './style.less';
 
 // spacebar: 32, pagedown: 34, end: 35,  arrow down: 40
 const KEYS = { 32: 1, 34: 1, 35: 1, 40: 1 };
+const animationDuration = 1500;
 
 const getPosition = (ref) => {
   if (!ref.current) return;
@@ -34,19 +35,18 @@ const HeroUnitView = (props) => {
   const href = linkHref?.[0]?.['@id'] || '';
 
   const logoRef = useRef();
-  const heroRef = useRef();
 
   const [playing, setPlaying] = useState(false);
   const [isActive, setIsActive] = useState(false);
   const [scrollDown, setScrollDown] = useState(null);
   const [bottom, setBottom] = useState(0);
-  const [top, setTop] = useState();
+  const [logoTopPosition, setLogoTopPosition] = useState();
   const [isTopOfPage, setIsTopOfPage] = useState(true);
   const [scrollCount, setScrollCount] = useState(0);
 
   const setLogoPosition = useCallback(() => {
     const position = getPosition(logoRef);
-    setTop(position);
+    setLogoTopPosition(position);
   }, []);
 
   useEffect(() => {
@@ -55,6 +55,22 @@ const HeroUnitView = (props) => {
     }
     setPlaying(true);
   }, [isView]);
+
+  useEffect(() => {
+    if (isTopOfPage) {
+      setLogoTopPosition('auto');
+      setIsActive(false);
+    }
+  }, [isTopOfPage]);
+
+  useEffect(() => {
+    if (isActive && isTopOfPage) {
+      let timer = setTimeout(function () {
+        setLogoTopPosition(getPosition(logoRef));
+      }, animationDuration);
+      return () => clearTimeout(timer);
+    }
+  }, [isActive, isTopOfPage]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -66,7 +82,7 @@ const HeroUnitView = (props) => {
       }
 
       if (currentPosition === 0) {
-        setTop('auto');
+        setLogoTopPosition('auto');
         setScrollCount(0);
         setIsTopOfPage(true);
       } else {
@@ -91,7 +107,7 @@ const HeroUnitView = (props) => {
         if (isActive) {
           setTimeout(() => {
             setScrollCount(scrollCount + 1);
-          }, 300);
+          }, animationDuration);
         }
         e.preventDefault();
       }
@@ -117,9 +133,7 @@ const HeroUnitView = (props) => {
 
     if (scrollDown) {
       setIsActive(true);
-      setTop(windowHeight - logoBottomPosition);
-    } else {
-      setIsActive(false);
+      setLogoTopPosition(windowHeight - logoBottomPosition);
     }
   }, [scrollDown, windowHeight]);
 
@@ -139,7 +153,7 @@ const HeroUnitView = (props) => {
     >
       <div>
         <HeadlineTag className="hero-unit-title">{headline}</HeadlineTag>
-        <div className="hero-unit-wrapper" ref={heroRef}>
+        <div className="hero-unit-wrapper">
           <div
             className={cx('hero-unit-image-wrapper', {
               video: videoUrl,
@@ -171,7 +185,7 @@ const HeroUnitView = (props) => {
               <div id="logo" className="logo">
                 <Icon
                   name={logoImage}
-                  style={isView ? { top: top } : { top: 'auto' }}
+                  style={isView ? { top: logoTopPosition } : { top: 'auto' }}
                 />
               </div>
             </div>
