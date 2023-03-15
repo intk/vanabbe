@@ -12,12 +12,14 @@ import {
   hasBlocksData,
   flattenHTMLToAppURL,
   expandToBackendURL,
+  getBaseUrl,
 } from '@plone/volto/helpers';
 import { Image, List, Accordion } from 'semantic-ui-react';
 import RenderBlocks from '@plone/volto/components/theme/View/RenderBlocks';
 import { Icon } from '@plone/volto/components';
 import downSVG from '@plone/volto/icons/down-key.svg';
 import upSVG from '@plone/volto/icons/up-key.svg';
+import { useContentDivider } from '@package/helpers';
 
 import {
   When,
@@ -112,6 +114,89 @@ const EventTextfieldView = ({ content }) => (
   </React.Fragment>
 );
 
+const EventContact = (props) => {
+  const {
+    contact_name,
+    contact_email,
+    contact_phone,
+    attendees,
+    event_url,
+  } = props.content;
+
+  return (
+    <div className="bottom event-details">
+      {(contact_name || contact_email || contact_phone) && (
+        <h3>
+          <FormattedMessage id="Contact" defaultMessage="Contact" />:
+        </h3>
+      )}
+
+      <div className="event-listing">
+        {contact_name && (
+          <div className="event-data">
+            <p>{contact_name}</p>
+          </div>
+        )}
+
+        {contact_email && (
+          <div className="event-data">
+            <p>
+              <a href={`mailto:${contact_email}`}>{contact_email}</a>
+            </p>
+          </div>
+        )}
+
+        {contact_phone && (
+          <div className="event-data">
+            <p>{contact_phone}</p>
+          </div>
+        )}
+
+        {attendees.length > 0 && (
+          <div title="Attendees" className="event-data">
+            <List className="attendees">
+              {attendees.map((attendee, i) => (
+                <List.Item key={i}>
+                  {attendee}
+                  {i < attendees.length - 1 ? ', ' : ''}
+                </List.Item>
+              ))}
+            </List>
+          </div>
+        )}
+
+        {event_url && (
+          <div title="Website" className="event-data">
+            <p>
+              <a href={event_url} target="_blank" rel="noopener noreferrer">
+                <FormattedMessage
+                  id="visit_external_website"
+                  defaultMessage="Visit external website"
+                />
+              </a>
+            </p>
+          </div>
+        )}
+        <div className="event-data event-calendar">
+          <p>
+            <a
+              className="ics-download"
+              target="_blank"
+              rel="noreferrer"
+              href={`${expandToBackendURL(props.content['@id'])}/ics_view`}
+            >
+              <FormattedMessage
+                id="Add event to calendar"
+                defaultMessage="Add event to calendar"
+              />
+            </a>
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 /**
  * EventView view component class.
  * @function EventView
@@ -127,19 +212,20 @@ const EventView = (props) => {
     open_end,
     location,
     recurrence,
-    contact_name,
-    contact_email,
-    contact_phone,
-    attendees,
-    event_url,
     recurence_description,
   } = content;
 
   const [isClient, setIsClient] = React.useState();
 
-  // const { rrulestr } = props.rrule;
-  // const rule = rrulestr(recurrence);
-  // console.log(rule.toText());
+  const hiddenBlocks = ['title', 'description'];
+  const path = getBaseUrl(location?.pathname || '');
+
+  const {
+    dividerBlock,
+    filterContent,
+    filterContentBlocksBefore,
+    filterContentBlocksAfter,
+  } = useContentDivider(content, hiddenBlocks);
 
   React.useEffect(() => setIsClient(true), []);
 
@@ -175,98 +261,55 @@ const EventView = (props) => {
         <div className="offset-1-right">
           <div className="content-wrapper">
             {hasBlocksData(content) ? (
-              <div className="blocks-bg-wrapper">
-                <div className="event-details">
-                  <div className="top event-listing">
-                    {recurrence && (
-                      <div title="All dates" className="event-data dates">
-                        {/* <p>{recurence_description}</p> */}
-                        <Recurrence recurrence={recurrence} start={start} />
+              <div>
+                {dividerBlock ? (
+                  <>
+                    <div className="blocks-bg-wrapper">
+                      <div className="event-details">
+                        <div className="top event-listing">
+                          {recurrence && (
+                            <div title="All dates" className="event-data dates">
+                              <Recurrence
+                                recurrence={recurrence}
+                                start={start}
+                              />
+                            </div>
+                          )}
+                        </div>
                       </div>
-                    )}
-                  </div>
-                </div>
-                <RenderBlocks {...props} />
+                      <RenderBlocks
+                        {...props}
+                        path={path}
+                        content={filterContentBlocksBefore}
+                      />
 
-                <div className="bottom event-details">
-                  {(contact_name || contact_email || contact_phone) && (
-                    <h3>
-                      <FormattedMessage id="Contact" defaultMessage="Contact" />
-                      :
-                    </h3>
-                  )}
-
-                  <div className="event-listing">
-                    {contact_name && (
-                      <div className="event-data">
-                        <p>{contact_name}</p>
-                      </div>
-                    )}
-
-                    {contact_email && (
-                      <div className="event-data">
-                        <p>
-                          <a href={`mailto:${contact_email}`}>
-                            {contact_email}
-                          </a>
-                        </p>
-                      </div>
-                    )}
-
-                    {contact_phone && (
-                      <div className="event-data">
-                        <p>{contact_phone}</p>
-                      </div>
-                    )}
-
-                    {attendees.length > 0 && (
-                      <div title="Attendees" className="event-data">
-                        <List className="attendees">
-                          {attendees.map((attendee, i) => (
-                            <List.Item key={i}>
-                              {attendee}
-                              {i < attendees.length - 1 ? ', ' : ''}
-                            </List.Item>
-                          ))}
-                        </List>
-                      </div>
-                    )}
-
-                    {event_url && (
-                      <div title="Website" className="event-data">
-                        <p>
-                          <a
-                            href={event_url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                          >
-                            <FormattedMessage
-                              id="visit_external_website"
-                              defaultMessage="Visit external website"
-                            />
-                          </a>
-                        </p>
-                      </div>
-                    )}
-                    <div className="event-data event-calendar">
-                      <p>
-                        <a
-                          className="ics-download"
-                          target="_blank"
-                          rel="noreferrer"
-                          href={`${expandToBackendURL(
-                            content['@id'],
-                          )}/ics_view`}
-                        >
-                          <FormattedMessage
-                            id="Add event to calendar"
-                            defaultMessage="Add event to calendar"
-                          />
-                        </a>
-                      </p>
+                      <EventContact {...props} content={content} />
                     </div>
+                    <RenderBlocks
+                      {...props}
+                      path={path}
+                      content={filterContentBlocksAfter}
+                    />
+                  </>
+                ) : (
+                  <div className="blocks-bg-wrapper">
+                    <div className="event-details">
+                      <div className="top event-listing">
+                        {recurrence && (
+                          <div title="All dates" className="event-data dates">
+                            <Recurrence recurrence={recurrence} start={start} />
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                    <RenderBlocks
+                      {...props}
+                      path={path}
+                      content={filterContent}
+                    />
+                    <EventContact {...props} content={content} />
                   </div>
-                </div>
+                )}
               </div>
             ) : (
               <EventTextfieldView {...props} />

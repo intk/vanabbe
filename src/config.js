@@ -258,8 +258,20 @@ export default function applyConfig(config) {
       'slate',
       'contentDividerBlock',
     ],
-    Event: ['title', 'siteTheme', 'description', 'slate'],
-    'News Item': ['title', 'siteTheme', 'description', 'slate'],
+    Event: [
+      'title',
+      'siteTheme',
+      'description',
+      'slate',
+      'contentDividerBlock',
+    ],
+    'News Item': [
+      'title',
+      'siteTheme',
+      'description',
+      'slate',
+      'contentDividerBlock',
+    ],
   };
 
   config.blocks.initialBlocksFocus = {

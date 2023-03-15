@@ -14,6 +14,7 @@ import {
 } from '@plone/volto/helpers';
 import RenderBlocks from '@plone/volto/components/theme/View/RenderBlocks';
 import { FormattedDate } from '@package/components';
+import { useContentDivider } from '@package/helpers';
 
 /**
  * NewsItemView view component class.
@@ -24,6 +25,14 @@ import { FormattedDate } from '@package/components';
 const NewsItemView = (props) => {
   const { content } = props;
   const [isClient, setIsClient] = React.useState();
+  const hiddenBlocks = ['title', 'description'];
+
+  const {
+    dividerBlock,
+    filterContent,
+    filterContentBlocksBefore,
+    filterContentBlocksAfter,
+  } = useContentDivider(content, hiddenBlocks);
 
   React.useEffect(() => setIsClient(true), []);
 
@@ -45,8 +54,25 @@ const NewsItemView = (props) => {
           <div className="offset-1-right">
             <div className="content-wrapper">
               {hasBlocksData(content) ? (
-                <div className="blocks-bg-wrapper">
-                  <RenderBlocks content={content} />
+                <div>
+                  {dividerBlock ? (
+                    <>
+                      <div className="blocks-bg-wrapper">
+                        <RenderBlocks
+                          {...props}
+                          content={filterContentBlocksBefore}
+                        />
+                      </div>
+                      <RenderBlocks
+                        {...props}
+                        content={filterContentBlocksAfter}
+                      />
+                    </>
+                  ) : (
+                    <div className="blocks-bg-wrapper">
+                      <RenderBlocks {...props} content={filterContent} />
+                    </div>
+                  )}
                 </div>
               ) : (
                 <Container className="view-wrapper">
