@@ -5,6 +5,7 @@ from .request import HEADERS
 from intk_vanabbe.importer import get_filename
 from intk_vanabbe.importer import IMAGE_BASE_URL
 from intk_vanabbe.importer import scroll
+from intk_vanabbe.importer import scroll_from_archive
 from plone.api import content
 from plone.api import portal
 from plone.api import relation
@@ -137,13 +138,22 @@ class ImportVubis(BrowserView):
         if form.get("clean"):
             for ptype in IMPORT_LOCATIONS.keys():
                 container = get_base_folder(self.context, ptype)
+                print(f"Cleaning {container.absolute_url(relative=1)}")
                 intl_mgr = get_translation_manager(container)
                 trans_container = intl_mgr.get_translation("en")
 
-                for obj in [container, trans_container]:
-                    ids = obj.contentIds()
-                    if ids:
-                        obj.manage_delObjects(ids)
+                trans_container.manage_delAllObjects()
+                container.manage_delAllObjects()
+
+                # for obj in [container, trans_container]:
+                #     ids = obj.contentIds()
+                #     if ids:
+                #         obj.manage_delObjects(ids)
+
+        if form.get("live"):
+            scroller = scroll
+        else:
+            scroller = scroll_from_archive
 
         if form.get("import") == "artwork":
             import_artwork = self.import_artwork
@@ -162,7 +172,7 @@ class ImportVubis(BrowserView):
         else:
             query = "&query=*=*"
 
-        scroll(
+        scroller(
             import_artwork,
             import_publication,
             import_exhibition,
@@ -172,7 +182,7 @@ class ImportVubis(BrowserView):
 
         return "done"
 
-    def import_authors(self, rec, element):
+    def import_authors(self, rec, element, use_archive=True):
 
         container = get_base_folder(self.context, "author")
         authors = []
@@ -257,7 +267,7 @@ class ImportVubis(BrowserView):
         return authors
 
     @debug
-    def import_artwork(self, rec, element):
+    def import_artwork(self, rec, element, use_archive=True):
         logger.info(f"Importing artwork ccObjectID: {rec['ccObjectID']}")
         container = get_base_folder(self.context, "artwork")
 
@@ -284,7 +294,7 @@ class ImportVubis(BrowserView):
         for author in authors:
             relation.create(source=obj, target=author, relationship="authors")
 
-        import_images(obj, filenames)
+        import_images(obj, filenames, use_archive)
 
         trans_rec = extract_lang(converted, "en")
         translated_authors = self.get_translations(authors, language="en")
@@ -299,7 +309,7 @@ class ImportVubis(BrowserView):
         return True
 
     @debug
-    def import_publication(self, rec, element):
+    def import_publication(self, rec, element, use_archive=True):
         logger.info(f"Importing publication ccObjectID: {rec['ccObjectID']}")
 
         rec = convert_lists_to_text(rec, ["bookIllustrations", "bookArtist"])
@@ -323,7 +333,7 @@ class ImportVubis(BrowserView):
         if isinstance(filenames, str):
             filenames = [filenames]
 
-        import_images(obj, filenames)
+        import_images(obj, filenames, use_archive)
 
         self.translate(obj, rec)
         print("Imported publication", path(obj))
@@ -331,7 +341,7 @@ class ImportVubis(BrowserView):
         return True
 
     @debug
-    def import_exhibition(self, rec, element):
+    def import_exhibition(self, rec, element, use_archive=True):
         logger.info(f"Importing exhibition recordnumber: {rec['recordnumber']}")
         container = get_base_folder(self.context, "exhibition")
 
@@ -364,7 +374,7 @@ class ImportVubis(BrowserView):
             rec["title"] = en_title
             rec["eventTitle"] = en_title
 
-        import_images(obj, filenames)
+        import_images(obj, filenames, use_archive)
 
         self.translate(obj, rec)
 

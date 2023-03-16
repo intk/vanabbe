@@ -265,6 +265,7 @@ def scroll(
     """Fetch information from URL"""
     cur = 1
     count = 0
+    use_archive = False
 
     while count < max_records:
         url = (BASE_URL + query) % (cur, cur + BATCH_SIZE)
@@ -285,11 +286,11 @@ def scroll(
             imported = False
 
             if element.xpath("./AuthorBio"):
-                imported = import_artwork(infodict, element)
+                imported = import_artwork(infodict, element, use_archive)
             elif element.xpath("./eventCoorporation"):
-                imported = import_exhibition(infodict, element)
+                imported = import_exhibition(infodict, element, use_archive)
             else:
-                imported = import_publication(infodict, element)
+                imported = import_publication(infodict, element, use_archive)
 
             if imported:
                 count += 1
@@ -299,6 +300,54 @@ def scroll(
 
             if count == max_records:
                 break
+
+
+def scroll_from_archive(
+    import_artwork,
+    import_publication,
+    import_exhibition,
+    max_records=10,
+    query=None,
+):
+    use_archive = True
+    repo = "/data-import"
+    filenames = [
+        os.path.join(repo, f)
+        for f in next(os.walk(repo), (None, None, []))[2]
+        if f.endswith(".xml")
+    ]
+    cur = 0
+    count = 0
+
+    while count < max_records:
+        fname = filenames[cur]
+
+        with open(fname) as f:
+            xml = f.read()
+
+        element = lxml.etree.fromstring(xml)
+
+        infodict = to_dict(element)
+
+        imported = False
+
+        if element.xpath("./AuthorBio"):
+            imported = import_artwork(infodict, element, use_archive)
+        elif element.xpath("./eventCoorporation"):
+            imported = import_exhibition(infodict, element, use_archive)
+        else:
+            imported = import_publication(infodict, element, use_archive)
+
+        if imported:
+            count += 1
+
+        if count % 100 == 0:
+            transaction.savepoint()
+
+        if count == max_records:
+            break
+
+        cur += 1
 
 
 def extract_images(record):
