@@ -20,4 +20,16 @@
     padding-left: @mobilePadding !important;
     margin: 0 auto !important;
   }
+
+   @media only screen and (max-width: @largestMobileScreen) {
+    .offset-1-right {
+      margin-right: 46px;
+    }
+  }
+
+  &#page-document {
+    @media only screen and (max-width: @largestTabletScreen) {
+      padding-right: 0 !important;
+    }
+  }
 }

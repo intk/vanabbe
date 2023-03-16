@@ -45,7 +45,9 @@ const Card = ({
             </div>
           )}
           {!!item.description && (
-            <p className="card-description">{item.description}</p>
+            <div className="card-bottom">
+              <p className="card-description">{item.description}</p>
+            </div>
           )}
         </div>
       </Link>
@@ -79,7 +81,11 @@ const NewsItemCard = ({ item, showDate, showTag, showContentType }) => {
               <PreviewImage item={item} size={size} isFallback={!image_field} />
             </div>
           )}
-          <p className="card-description">{item.description}</p>
+          {!!item.description && (
+            <div className="card-bottom">
+              <p className="card-description">{item.description}</p>
+            </div>
+          )}
         </div>
       </Link>
     </section>
@@ -128,7 +134,11 @@ const EventCard = ({ item, showDate = true, showTag, showContentType }) => {
               <PreviewImage item={item} size={size} isFallback={!image_field} />
             </div>
           )}
-          <p className="card-description">{item.description}</p>
+          {!!item.description && (
+            <div className="card-bottom">
+              <p className="card-description">{item.description}</p>
+            </div>
+          )}
         </div>
       </Link>
     </section>

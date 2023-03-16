@@ -48,6 +48,7 @@
     .agenda-title {
       color: var(--text-color);
       font-size: @tabletH2;
+      line-height: 43px;
     }
 
     .agenda-description {
@@ -119,7 +120,7 @@
     .agenda-wrapper {
       flex-direction: column-reverse;
       align-items: flex-start;
-      gap: 1.5em;
+      gap: 1em;
 
       .agenda-right {
         align-items: flex-start;
@@ -131,7 +132,8 @@
       font-size: @largeMobileFontSize;
     }
 
-    .agenda-description {
+    .agenda-description,
+    .agenda-right p {
       font-size: @mobileBodyFontSize;
     }
   }

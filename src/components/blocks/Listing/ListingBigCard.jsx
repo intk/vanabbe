@@ -40,7 +40,9 @@ const Card = ({ item, showDate, showTag, showContentType }) => {
               </div>
             )}
             {!!item.description && (
-              <p className="card-description">{item.description}</p>
+              <div className="card-bottom">
+                <p className="card-description">{item.description}</p>
+              </div>
             )}
           </div>
           <div className="computer large screen widescreen only">
@@ -93,7 +95,11 @@ const NewsItemCard = ({ item, showDate, showTag, showContentType }) => {
               </div>
             )}
 
-            <p className="card-description">{item.description}</p>
+            {!!item.description && (
+              <div className="card-bottom">
+                <p className="card-description">{item.description}</p>
+              </div>
+            )}
           </div>
           <div className="computer large screen widescreen only">
             {!!image_field && (
@@ -160,7 +166,11 @@ const EventCard = ({ item, showDate, showTag, showContentType }) => {
               </div>
             )}
 
-            <p className="card-description">{item.description}</p>
+            {!!item.description && (
+              <div className="card-bottom">
+                <p className="card-description">{item.description}</p>
+              </div>
+            )}
           </div>
           <div className="computer large screen widescreen only">
             {!!image_field && (

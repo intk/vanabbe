@@ -10,6 +10,26 @@ blockquote,
   margin-bottom: var(--space-md);
 }
 
+.homepage-view {
+  .block.listing {
+    margin-top: var(--space-xl);
+    margin-bottom: var(--space-xl);
+  }
+
+  .coloredCards {
+    margin-top: var(--space-xl) !important;
+    margin-bottom: var(--space-xl);
+  }
+}
+
+// .block.listing.listing_big_cards {
+//   margin-bottom: var(--space-s);
+// }
+
+.block.listing {
+  margin-bottom: var(--space-xl);
+}
+
 .btn-block {
   margin: var(--space-xs) 0 !important;
 }
@@ -37,6 +57,14 @@ body.has-hero-image {
   .block.form {
     padding-right: @twoWide;
     padding-left: calc(@oneWide + 0.6rem);
+  }
+
+  > .block.listing.listing_big_cards:first-of-type {
+    margin-bottom: var(--space-s);
+  }
+
+  h2 {
+    margin-bottom: var(--space-sm);
   }
 }
 
