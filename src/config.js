@@ -40,10 +40,6 @@ defineMessages({
     id: 'Contact',
     defaultMessage: 'Contact',
   },
-  calendar: {
-    id: 'Add event to calendar',
-    defaultMessage: 'Add event to calendar',
-  },
   seeAllDates: {
     id: 'See all dates',
     defaultMessage: 'See all dates',
@@ -56,6 +52,10 @@ defineMessages({
     id: 'Load more ',
     defaultMessage: 'Load more ',
   },
+  // calendar: {
+  //   id: 'Add event to calendar',
+  //   defaultMessage: 'Add event to calendar',
+  // },
 });
 
 const THEMES = [

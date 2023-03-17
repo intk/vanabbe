@@ -31,11 +31,6 @@ msgstr ""
 msgid "Actions"
 msgstr ""
 
-#: config
-# defaultMessage: Add event to calendar
-msgid "Add event to calendar"
-msgstr ""
-
 #: components/blocks/SiteData/schema
 # defaultMessage: Address
 msgid "Address"
@@ -348,6 +343,7 @@ msgid "Tickets button. Displayed in the header"
 msgstr ""
 
 #: components/blocks/Quote/EditBlockWrapper
+#: components/blocks/StyledTextBlock/EditBlockWrapper
 # defaultMessage: Unknown Block {block}
 msgid "Unknown Block"
 msgstr ""
@@ -355,11 +351,6 @@ msgstr ""
 #: components/theme/View/PublicationView
 # defaultMessage: VUBIS
 msgid "VUBIS"
-msgstr ""
-
-#: components/blocks/ImageCards/SplashyCarousel
-# defaultMessage: Watch The Video
-msgid "Watch The Video"
 msgstr ""
 
 #: components/blocks/ContentDivider/ContentDividerEdit
@@ -388,6 +379,7 @@ msgid "captcha"
 msgstr ""
 
 #: components/blocks/Quote/EditBlockWrapper
+#: components/blocks/StyledTextBlock/EditBlockWrapper
 # defaultMessage: delete
 msgid "delete"
 msgstr ""

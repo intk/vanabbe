@@ -177,7 +177,7 @@ const EventContact = (props) => {
             </p>
           </div>
         )}
-        <div className="event-data event-calendar">
+        {/* <div className="event-data event-calendar">
           <p>
             <a
               className="ics-download"
@@ -191,7 +191,7 @@ const EventContact = (props) => {
               />
             </a>
           </p>
-        </div>
+        </div> */}
       </div>
     </div>
   );
