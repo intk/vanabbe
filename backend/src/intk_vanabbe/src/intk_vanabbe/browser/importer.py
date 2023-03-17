@@ -62,9 +62,9 @@ def extract_lang(rec, lang="nl"):
         if isinstance(v, dict):
             v = v.get(lang, v.get("nl"))
             if not v:
-                lang = list(rec[k].keys())[0]
-                v = rec[k][lang]
-                print("Falling back to value", lang, k)
+                fallback_lang = list(rec[k].keys())[0]
+                v = rec[k][fallback_lang]
+                print("Falling back to value", fallback_lang, k)
                 # sometimes only the english version exists
 
         res[k] = v
