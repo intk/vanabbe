@@ -26,11 +26,7 @@ export default function applyConfig(config) {
         isDefault: true,
         title: 'Default',
         template: SmallText,
-        schemaEnhancer: ({ schema }) => {
-          // TODO: there is a bug here, Victor said that he fixed it, but it's
-          // not in current Volto
-          return { ...schema, title: 'Small text' };
-        },
+        schemaEnhancer: ({ schema }) => ({ ...schema, title: 'Small text' }),
       },
     ],
   };

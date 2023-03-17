@@ -1,12 +1,18 @@
 import React from 'react';
 import { SidebarPortal, BlockDataForm } from '@plone/volto/components';
+import { applySchemaEnhancer } from '@plone/volto/helpers';
+
 import ColumnEdit from './ColumnEdit';
 import Schema from './schema';
 
 const StyledTextBlockEdit = (props) => {
-  const { selected, onChangeBlock, block, data } = props;
+  const { selected, onChangeBlock, block, data, intl } = props;
 
-  const schema = Schema();
+  const schema = applySchemaEnhancer({
+    schema: Schema(),
+    formData: data,
+    intl,
+  });
 
   return (
     <div className="block-editor-group">
