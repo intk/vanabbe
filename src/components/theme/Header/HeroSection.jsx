@@ -5,7 +5,7 @@ import { BodyClass } from '@plone/volto/helpers';
 
 function HeroSection(props) {
   const { image_url, content } = props;
-  const { preview_caption } = content || {};
+  const { preview_caption, hide_header_image } = content || {};
   // const location = useLocation();
 
   return (
@@ -14,7 +14,7 @@ function HeroSection(props) {
 
       <div className="herosection">
         <div className="herosection-content-wrapper">
-          {image_url ? (
+          {!hide_header_image && image_url ? (
             <>
               <BodyClass className="has-hero-image" />
               <div
