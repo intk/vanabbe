@@ -2,7 +2,7 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { Grid, Container } from 'semantic-ui-react';
-import { SocialLinks, Card } from '@package/components';
+import { Card } from '@package/components'; // SocialLinks,
 import ImageAlbum from '../ImageAlbum/ImageAlbum';
 import config from '@plone/volto/registry';
 
@@ -138,9 +138,9 @@ export default function ArtworkView(props) {
                               defaultMessage="If you need specific information on this work or artist, remember that the Van Abbemuseum Library is at your disposal, or feel free to write to the library."
                             />
                           </p>
-                          <div className="computer large screen widescreen only">
-                            <SocialLinks />
-                          </div>
+                          {/* <div className="computer large screen widescreen only"> */}
+                          {/*   <SocialLinks /> */}
+                          {/* </div> */}
                         </div>
                       </div>
                     </div>
@@ -167,9 +167,9 @@ export default function ArtworkView(props) {
                           .
                         </a>
                       </p>
-                      <div className="image-wrapper mobile tablet only">
-                        <SocialLinks />
-                      </div>
+                      {/* <div className="image-wrapper mobile tablet only"> */}
+                      {/*   <SocialLinks /> */}
+                      {/* </div> */}
                     </div>
                   </div>
                 </div>

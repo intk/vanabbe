@@ -7,6 +7,7 @@ import installImageBlock from './Image';
 import installImageCards from './ImageCards';
 import installListingBlock from './Listing';
 import installQuoteBlock from './Quote';
+import installStyledTextBlock from './StyledTextBlock';
 import installSiteDataBlock from './SiteData';
 import installSiteThemeBlock from './SiteTheme';
 import installContentDividerBlock from './ContentDivider';
@@ -57,6 +58,7 @@ const installBlocks = (config) => {
     installInformationBlock,
     installVoltoFormBlock,
     installSearchOverviewBlock,
+    installStyledTextBlock,
     installSearchBlock,
   )(config);
 };

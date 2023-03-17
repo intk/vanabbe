@@ -5,15 +5,16 @@ import Schema from './schema';
 
 const StyledTextBlockEdit = (props) => {
   const { selected, onChangeBlock, block, data } = props;
+
   const schema = Schema();
 
   return (
     <div className="block-editor-group">
-      <ColumnEdit {...props} title="Quote block" />
+      <ColumnEdit {...props} title={schema.title} />
 
       <SidebarPortal selected={selected}>
         <BlockDataForm
-          title="Quote"
+          title={schema.title}
           schema={schema}
           onChangeField={(id, value) => {
             onChangeBlock(block, {
