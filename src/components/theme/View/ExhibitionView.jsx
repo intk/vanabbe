@@ -8,7 +8,7 @@
 // https://vanabbemuseum.nl/collectie/details/tentoonstellingen/index.html@lookup[6039][filter][0]=exhibitionCode_stringS%253A1826.html
 
 import { Grid, Container } from 'semantic-ui-react';
-import { ImageAlbum, SocialLinks } from '@package/components';
+import { ImageAlbum } from '@package/components'; // SocialLinks
 
 const EventMedia = ({ value }) => (
   <ul className="event-media-list">
@@ -29,8 +29,6 @@ const EventMedia = ({ value }) => (
 export default function ExhibitionView(props) {
   const { content } = props;
 
-  console.log(content);
-
   return (
     <div className="exhibition artwork-view">
       <Container>
@@ -48,7 +46,7 @@ export default function ExhibitionView(props) {
                           itemAuthor={content.eventArtist}
                         />
 
-                        <SocialLinks />
+                        {/* <SocialLinks /> */}
                       </div>
                       <div className="artwork-meta">
                         {content.eventArtist?.map((a, i) => (

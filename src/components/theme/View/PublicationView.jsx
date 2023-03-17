@@ -4,7 +4,7 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { Grid, Container } from 'semantic-ui-react';
-import { ImageAlbum, SocialLinks } from '@package/components';
+import { ImageAlbum } from '@package/components'; // SocialLinks
 
 export default function PublicationView(props) {
   const { content } = props;
@@ -35,7 +35,7 @@ export default function PublicationView(props) {
                           itemAuthor={bookAuthor}
                         />
 
-                        <SocialLinks />
+                        {/* <SocialLinks /> */}
                       </div>
 
                       <div className="artwork-meta">
