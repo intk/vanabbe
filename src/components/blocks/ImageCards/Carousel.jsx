@@ -74,11 +74,11 @@ const ImageCarousel = (props) => {
     hideNavigationDots = false,
     autoplay = false,
     autoplaySpeed = 3000,
-    image_scale = 'large',
     display = '',
   } = data;
 
   const slidesToShow = Math.min(cards.length, itemsPerRow);
+  const image_scale = 'great';
 
   const carouselSettings = React.useMemo(
     () => ({

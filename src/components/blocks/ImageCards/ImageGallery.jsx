@@ -61,7 +61,7 @@ const ImageGallery = (props) => {
           <Image
             style={{ height: height }}
             className="bg-image"
-            src={getScaleUrl(getPath(cards?.[0].attachedimage), 'large')}
+            src={getScaleUrl(getPath(cards?.[0].attachedimage), 'great')}
           />
         ) : null}
       </div>
@@ -88,7 +88,7 @@ const ImageGallery = (props) => {
             >
               <Image
                 className="img-thumb"
-                src={getScaleUrl(getPath(thumb.attachedimage), 'large')}
+                src={getScaleUrl(getPath(thumb.attachedimage), 'thumb')}
               />
             </div>
           ))}
@@ -114,7 +114,7 @@ const ImageGallery = (props) => {
                 <Image
                   key={i}
                   className="modal-slide-img"
-                  src={getScaleUrl(getPath(item.attachedimage), 'large')}
+                  src={getScaleUrl(getPath(item.attachedimage), 'huge')}
                 />
               );
             })}
