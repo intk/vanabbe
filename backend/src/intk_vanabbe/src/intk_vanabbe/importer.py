@@ -311,15 +311,19 @@ def scroll_from_archive(
 ):
     use_archive = True
     repo = "/data-import"
-    filenames = [
-        os.path.join(repo, f)
-        for f in next(os.walk(repo), (None, None, []))[2]
-        if f.endswith(".xml")
-    ]
+
+    if query:
+        filenames = [os.path.join(repo, f"{query}.xml")]
+    else:
+        filenames = [
+            os.path.join(repo, f)
+            for f in next(os.walk(repo), (None, None, []))[2]
+            if f.endswith(".xml")
+        ]
     cur = 0
     count = 0
 
-    while count < max_records:
+    while count < min(len(filenames), max_records):
         fname = filenames[cur]
 
         with open(fname) as f:

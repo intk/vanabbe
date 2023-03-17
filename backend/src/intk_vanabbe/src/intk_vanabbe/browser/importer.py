@@ -30,6 +30,8 @@ IMPORT_LOCATIONS = {
     "author": "nl/collectie-onderzoek/kunstenaars",
 }
 
+DATA_REPO = "/data-import"
+
 logger = logging.getLogger("vubis")
 
 
@@ -91,37 +93,47 @@ def debug(func):
     return wrapper
 
 
-def import_images(container, urls):
+def import_images(container, urls, use_archive):
+    recordnumber = container.recordnumber
+
     for url in urls:
         url = url.strip()
 
         fname = get_filename(url)
 
-        if os.path.isfile(fname):
-            print("File already exists", fname)
+        if not use_archive:
+            if os.path.isfile(fname):
+                print("File already exists", fname)
 
-        with requests.get(url, stream=True, verify=False, headers=HEADERS) as req:
-            data = req.raw.read()
+            with requests.get(url, stream=True, verify=False, headers=HEADERS) as req:
+                data = req.raw.read()
 
-            if "DOCTYP" in str(data[:10]):  # avoids missing images
+                if "DOCTYP" in str(data[:10]):  # avoids missing images
+                    continue
+        else:
+            fpath = os.path.join(DATA_REPO, str(recordnumber), fname)
+            if not os.path.exists(fpath):
+                print(f"Image is not downloaded: {url}")
                 continue
+            with open(fpath, "rb") as f:
+                data = f.read()
 
-            # TODO: should use streaming
-            imagefield = NamedBlobImage(
-                # TODO: are all images jpegs?
-                data=data,
-                contentType="image/jpeg",
-                filename=fname,
-            )
-            image = content.create(
-                type="Image",
-                id=fname,
-                title=fname,
-                image=imagefield,
-                container=container,
-            )
+        # TODO: should use streaming
+        imagefield = NamedBlobImage(
+            # TODO: are all images jpegs?
+            data=data,
+            contentType="image/jpeg",
+            filename=fname,
+        )
+        image = content.create(
+            type="Image",
+            id=fname,
+            title=fname,
+            image=imagefield,
+            container=container,
+        )
 
-            print("Created image", path(image))
+        print("Created image", path(image))
 
 
 class ImportVubis(BrowserView):
@@ -145,12 +157,8 @@ class ImportVubis(BrowserView):
                 trans_container.manage_delAllObjects()
                 container.manage_delAllObjects()
 
-                # for obj in [container, trans_container]:
-                #     ids = obj.contentIds()
-                #     if ids:
-                #         obj.manage_delObjects(ids)
-
-        if form.get("live"):
+        is_live = form.get("live")
+        if is_live:
             scroller = scroll
         else:
             scroller = scroll_from_archive
@@ -167,10 +175,13 @@ class ImportVubis(BrowserView):
             import_exhibition = self.import_exhibition
 
         query = None
-        if "query" in form:
-            query = f'&query={form["query"]}'
+        if not is_live:
+            query = form.get("query")
         else:
-            query = "&query=*=*"
+            if "query" in form:
+                query = f'&query={form["query"]}'
+            else:
+                query = "&query=*=*"
 
         scroller(
             import_artwork,
