@@ -100,9 +100,9 @@ class ArtworkContextLinks(object):
         self.request = request
 
     @instance.memoize
-    def repo_artwork_url(self):
+    def repo_url(self, type_):
         site = portal.get()
-        repo = site.restrictedTraverse(IMPORT_LOCATIONS["artwork"])
+        repo = site.restrictedTraverse(IMPORT_LOCATIONS[type_])
         if self.context.language == "en":
             intl_mgr = get_translation_manager(repo)
             repo = intl_mgr.get_translation("en")
@@ -153,7 +153,7 @@ class ArtworkContextLinks(object):
                 {
                     "type": "period",
                     "preview": choice(arts).getURL(),
-                    "href": f"{self.repo_artwork_url()}#query={encoded}",
+                    "href": f"{self.repo_url('artwork')}#query={encoded}",
                 }
             )
 
@@ -185,7 +185,7 @@ class ArtworkContextLinks(object):
                         "authorName": author.authorName,
                         "preview": choice(arts).getURL(),
                         "type": "other_artworks",
-                        "href": f"{self.repo_artwork_url()}#query={encoded}",
+                        "href": f"{self.repo_url('artwork')}#query={encoded}",
                     }
                 )
 
@@ -209,11 +209,21 @@ class ArtworkContextLinks(object):
                 bookArtist=[authorSortName],
             )
             if publications:
+                query = [
+                    {
+                        "i": "SearchableText",
+                        "o": "plone.app.querystring.operation.string.contains",
+                        "v": author.authorName,
+                    }
+                ]  # extra
+                encoded = quote(json.dumps(query), safe=QUOTE_SAFE)
+
                 pubs.append(
                     {
                         "type": "publications",
                         "authorName": author.authorName,
                         "preview": choice(publications).getURL(),
+                        "href": f"{self.repo_url('publication')}#query={encoded}",
                     }
                 )
         if pubs:
@@ -235,11 +245,20 @@ class ArtworkContextLinks(object):
                 eventArtist=[authorSortName],
             )
             if exhibitions:
+                query = [
+                    {
+                        "i": "SearchableText",
+                        "o": "plone.app.querystring.operation.string.contains",
+                        "v": author.authorName,
+                    }
+                ]  # extra
+                encoded = quote(json.dumps(query), safe=QUOTE_SAFE)
                 arts.append(
                     {
                         "type": "exhibitions",
                         "authorName": author.authorName,
                         "preview": choice(exhibitions).getURL(),
+                        "href": f"{self.repo_url('exhibition')}#query={encoded}",
                     }
                 )
 

@@ -23,11 +23,13 @@ const getItem = (info, content) => {
     ? {
         '@id': info['preview'],
         title: `Publications with or about ${info.authorName}`,
+        href: info.href,
       }
     : info.type === 'exhibitions'
     ? {
         '@id': info['preview'],
         title: `Exhibitions with ${info.authorName}`,
+        href: info.href,
       }
     : null;
 };
