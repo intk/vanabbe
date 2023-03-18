@@ -50,9 +50,9 @@ export default function ExhibitionView(props) {
                       </div>
                       <div className="artwork-meta">
                         {content.eventArtist?.map((a, i) => (
-                          <h4 class="object-author" key={i}>
+                          <div class="object-author" key={i}>
                             {a}
-                          </h4>
+                          </div>
                         ))}
                         <h5 className="event-time">{content.eventTimeFrom}</h5>
                         <div className="info">
