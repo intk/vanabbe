@@ -154,8 +154,20 @@ class ImportVubis(BrowserView):
                 intl_mgr = get_translation_manager(container)
                 trans_container = intl_mgr.get_translation("en")
 
-                trans_container.manage_delAllObjects()
-                container.manage_delAllObjects()
+                assert (
+                    trans_container.absolute_url() != container.absolute_url()
+                )  # noqa
+
+                for obj in [container, trans_container]:
+                    if obj.contentIds():
+                        obj.manage_delAllObjects()
+
+                #     ids = obj.contentIds()
+                #     if ids:
+                #         obj.manage_delObjects(ids)
+                #
+                # trans_container.manage_delAllObjects()
+                # container.manage_delAllObjects()
 
         is_live = form.get("live")
         if is_live:
