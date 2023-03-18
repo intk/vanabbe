@@ -1,6 +1,10 @@
 import TopFiltersLayout from './TopFiltersLayout';
 import CheckboxButtonFacet from './CheckboxButtonFacet';
 import { SelectFacetFilterListEntry } from '@plone/volto/components/manage/Blocks/Search/components';
+import {
+  hasNonValueOperation,
+  hasDateOperation,
+} from '@plone/volto/components/manage/Blocks/Search/utils';
 
 export default function installSearchBlock(config) {
   config.blocks.blocksConfig.search = {
@@ -11,6 +15,36 @@ export default function installSearchBlock(config) {
         title: 'Facets on top',
         view: TopFiltersLayout,
         isDefault: true,
+        schemaEnhancer: ({ schema }) => {
+          const { facets } = schema.properties;
+          const { schemaExtender } = facets;
+          facets.schemaExtender = (originalSchema, formData) => {
+            const schema = schemaExtender(originalSchema, formData);
+
+            // allow all the fields
+            delete schema.properties.field.filterOptions;
+            schema.properties.field.filterOptions = (options) => {
+              // Only allows indexes that provide simple, fixed vocabularies.
+              // This should be improved, together with the facets. The querystring
+              // widget implementation should serve as inspiration for those dynamic
+              // types of facets.
+              return Object.assign(
+                {},
+                ...Object.keys(options).map((k) =>
+                  Object.keys(options[k].values || {}).length ||
+                  hasNonValueOperation(options[k].operations) ||
+                  hasDateOperation(options[k].operations) ||
+                  k === 'authorID'
+                    ? { [k]: options[k] }
+                    : {},
+                ),
+              );
+            };
+            return schema;
+          };
+
+          return schema;
+        },
       },
     ],
     extensions: {
