@@ -42,7 +42,8 @@ def artwork_decades(obj):
 def artwork_technique(obj):
     medium = getattr(obj, "objectMedium", "")
     if medium:
-        return [s.strip() for s in medium.split(",")]
+        sep = ";" if ";" in medium else ","
+        return [s.strip() for s in medium.split(sep)]
 
 
 @indexer(IArtwork)
