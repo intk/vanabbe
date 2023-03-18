@@ -1,13 +1,21 @@
 from intk_vanabbe.config import IMPORT_LOCATIONS
+from plone.api import portal
 from plone.api.content import find
+from plone.app.multilingual.api import get_translation_manager
 from plone.restapi.interfaces import IExpandableElement
 from plone.restapi.interfaces import ISerializeToJsonSummary
 from plone.restapi.services import Service
 from random import choice
+from urllib.parse import quote
 from zope.component import adapter
 from zope.component import getMultiAdapter
 from zope.interface import implementer
 from zope.interface import Interface
+
+import json
+
+
+QUOTE_SAFE = "!~*'()\""
 
 
 def tojson(brain, request):
@@ -72,11 +80,13 @@ class AuthorContextLinks(object):
 
         publication_art = self.get_publications()
         if publication_art:
-            items.append({"id": "publication", "url": publication_art.getURL()})
+            items.append(
+                {"id": "publication", "preview": publication_art.getURL()}
+            )  # noqa
 
         exhibition_art = self.get_exhibition_art()
         if exhibition_art:
-            items.append({"id": "exhibition", "url": exhibition_art.getURL()})
+            items.append({"id": "exhibition", "preview": exhibition_art.getURL()})
 
         result["contextLinks"]["items"] = items
         return result
@@ -119,16 +129,32 @@ class ArtworkContextLinks(object):
         arts = [b for b in brains if b.id != self.context.id]
         if arts:
             result["contextLinks"]["items"].append(
-                {"type": "period", "url": choice(arts).getURL()}
+                {"type": "period", "preview": choice(arts).getURL()}
             )
 
         return result
 
     def get_other_art(self, result):
         other_arts = []
+        site = portal.get()
+        repo = site.restrictedTraverse(IMPORT_LOCATIONS["artwork"])
+
+        if self.context.language == "en":
+            intl_mgr = get_translation_manager(repo)
+            repo = intl_mgr.get_translation("en")
+
+        repo_url = repo.absolute_url()
 
         for rel in self.context.authors:
             author = rel.to_object
+            query = [
+                {
+                    "i": "authorID",
+                    "v": author.authorID,
+                    "o": "paqo.selection.is",
+                }
+            ]  # extra
+            encoded = quote(json.dumps(query), safe=QUOTE_SAFE)
 
             brains = find(
                 portal_type="artwork",
@@ -140,8 +166,9 @@ class ArtworkContextLinks(object):
                 other_arts.append(
                     {
                         "authorName": author.authorName,
-                        "url": choice(arts).getURL(),
+                        "preview": choice(arts).getURL(),
                         "type": "other_artworks",
+                        "href": f"{repo_url}#query={encoded}",
                     }
                 )
 
@@ -169,7 +196,7 @@ class ArtworkContextLinks(object):
                     {
                         "type": "publications",
                         "authorName": author.authorName,
-                        "url": choice(publications).getURL(),
+                        "preview": choice(publications).getURL(),
                     }
                 )
         if pubs:
@@ -195,12 +222,14 @@ class ArtworkContextLinks(object):
                     {
                         "type": "exhibitions",
                         "authorName": author.authorName,
-                        "url": choice(exhibitions).getURL(),
+                        "preview": choice(exhibitions).getURL(),
                     }
                 )
 
         if arts:
-            result["contextLinks"]["items"].append({"id": "exhibitions", "items": arts})
+            result["contextLinks"]["items"].append(
+                {"id": "exhibitions", "items": arts}
+            )  # extra
 
         return result
 
@@ -226,10 +255,15 @@ class ContextLinks:
 
     def __call__(self, expand=False):
         result = {
-            "contextLinks": {"@id": f"{self.context.absolute_url()}/@contextLinks"}
+            "contextLinks": {
+                "@id": f"{self.context.absolute_url()}/@contextLinks"
+            }  # extra
         }
 
-        factories = {"artwork": ArtworkContextLinks, "author": AuthorContextLinks}
+        factories = {
+            "artwork": ArtworkContextLinks,
+            "author": AuthorContextLinks,
+        }  # extra
 
         ptype = self.context.portal_type
         if ptype not in factories:  # autoexpand

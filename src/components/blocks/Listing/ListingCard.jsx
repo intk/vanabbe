@@ -25,7 +25,10 @@ const Card = ({
 
   return (
     <section className="listing-card  default-card">
-      <Link className="card-link" to={flattenToAppURL(item['@id'])}>
+      <Link
+        className="card-link"
+        to={flattenToAppURL(item.href || item['@id'])}
+      >
         <div className="card-details">
           <div className="card-meta">
             {showDate && !!item.effective && (

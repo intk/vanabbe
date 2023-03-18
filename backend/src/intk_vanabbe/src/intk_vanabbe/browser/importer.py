@@ -16,8 +16,6 @@ from plone.app.multilingual.api import translate
 from plone.namedfile.file import NamedBlobImage
 from plone.protect.interfaces import IDisableCSRFProtection
 from Products.Five.browser import BrowserView
-
-# from z3c.relationfield import RelationValue
 from zope.interface import alsoProvides
 
 import logging
@@ -98,7 +96,9 @@ def import_images(container, urls, use_archive):
             if os.path.isfile(fname):
                 print("File already exists", fname)
 
-            with requests.get(url, stream=True, verify=False, headers=HEADERS) as req:
+            with requests.get(
+                url, stream=True, verify=False, headers=HEADERS
+            ) as req:  # noqa
                 data = req.raw.read()
 
                 if "DOCTYP" in str(data[:10]):  # avoids missing images
@@ -136,9 +136,9 @@ class ImportVubis(BrowserView):
         alsoProvides(self.request, IDisableCSRFProtection)
         form = self.request.form
 
-        import_artwork = lambda *args: None
-        import_publication = lambda *args: None
-        import_exhibition = lambda *args: None
+        import_artwork = lambda *args: None  # noqa
+        import_publication = lambda *args: None  # noqa
+        import_exhibition = lambda *args: None  # noqa
 
         if form.get("clean"):
             for ptype in IMPORT_LOCATIONS.keys():
@@ -188,10 +188,19 @@ class ImportVubis(BrowserView):
             else:
                 query = "&query=*=*"
 
+        imported_records = []
+        site = portal.get()
+        catalog = site.portal_catalog
+        records_index = catalog._catalog.indexes.get("recordnumber")
+
+        if records_index:
+            imported_records = list(records_index._index.keys())
+
         scroller(
             import_artwork,
             import_publication,
             import_exhibition,
+            imported_records,
             max_records=int(form.get("max", 100)),
             query=query,
         )
@@ -229,11 +238,11 @@ class ImportVubis(BrowserView):
             authorSortName = el.get("authorSortName")
             authorName = el.text
 
-            authorBirthDate = x(f"authorBirthDate[@authorID={authorID}]/text()")
+            authorBirthDate = x(f"authorBirthDate[@authorID={authorID}]/text()")  # noqa
             if authorBirthDate:
                 authorBirthDate = authorBirthDate[0]
 
-            authorDeathDate = x(f"authorDeathDate[@authorID={authorID}]/text()")
+            authorDeathDate = x(f"authorDeathDate[@authorID={authorID}]/text()")  # noqa
             if authorDeathDate:
                 authorDeathDate = authorDeathDate[0]
 
@@ -358,7 +367,7 @@ class ImportVubis(BrowserView):
 
     @debug
     def import_exhibition(self, rec, element, use_archive=True):
-        logger.info(f"Importing exhibition recordnumber: {rec['recordnumber']}")
+        logger.info(f"Importing exhibition recordnumber: {rec['recordnumber']}")  # noqa
         container = get_base_folder(self.context, "exhibition")
 
         rec = convert_lists_to_text(rec, ["eventImages", "eventArtist"])

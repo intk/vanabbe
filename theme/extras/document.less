@@ -11,6 +11,8 @@
   --space-lg: 56px;
   --space-xl: 80px;
   --space-xxl: 160px;
+
+  // --desktop-h1: @desktopH1;
 }
 
 html {
@@ -63,6 +65,7 @@ h6 {
 h1 {
   margin-bottom: var(--space-sm);
   font-size: @desktopH1;
+  // font-size: ~'min(calc(60vh / 8), var(--desktop-h1)) !important';
   line-height: @smallLineHeight !important;
 }
 

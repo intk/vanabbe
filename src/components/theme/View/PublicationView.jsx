@@ -43,9 +43,9 @@ export default function PublicationView(props) {
 
                         {content?.bookArtist?.map((artist, i) => {
                           return (
-                            <h3 className="object-artist" key={i}>
+                            <div className="object-artist" key={i}>
                               {artist}
-                            </h3>
+                            </div>
                           );
                         })}
 

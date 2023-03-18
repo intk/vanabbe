@@ -11,7 +11,7 @@ import { Card } from '@package/components';
 const Masonry = loadable(() => import('react-masonry-css'));
 
 // TODO: we need special url for exhibitions archive
-const getUrl = (info, content) => info['url'];
+const getUrl = (info, content) => info['preview'];
 
 const getLinkLabel = (infoId, content) => {
   let label;

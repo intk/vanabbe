@@ -293,9 +293,11 @@ def scroll_from_archive(
     import_artwork,
     import_publication,
     import_exhibition,
+    imported_records=None,
     max_records=10,
     query=None,
 ):
+    imported_records = imported_records or []
     use_archive = True
     repo = "/data-import"
 
@@ -312,6 +314,7 @@ def scroll_from_archive(
 
     while count < min(len(filenames), max_records):
         fname = filenames[cur]
+        cur += 1
 
         with open(fname) as f:
             xml = f.read()
@@ -319,6 +322,11 @@ def scroll_from_archive(
         element = lxml.etree.fromstring(xml)
 
         infodict = to_dict(element)
+
+        recordnumber = int(element.xpath("./recordnumber/text()")[0])
+        if recordnumber in imported_records:
+            print(f"Skipping {recordnumber}, already imported")
+            continue
 
         imported = False
 
@@ -335,10 +343,11 @@ def scroll_from_archive(
         if count % 100 == 0:
             transaction.savepoint()
 
+        if count % 500 == 0:
+            transaction.commit()
+
         if count == max_records:
             break
-
-        cur += 1
 
 
 def extract_images(record):

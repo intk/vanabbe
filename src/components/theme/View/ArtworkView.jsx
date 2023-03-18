@@ -9,22 +9,23 @@ import config from '@plone/volto/registry';
 const getItem = (info, content) => {
   return info.type === 'other_artworks'
     ? {
-        '@id': info['url'],
+        '@id': info['preview'],
         title: `More artworks by ${info.authorName}`,
+        href: info.href,
       }
     : info.type === 'period'
     ? {
-        '@id': info['url'],
+        '@id': info['preview'],
         title: `More artworks from this period`,
       }
     : info.type === 'publications'
     ? {
-        '@id': info['url'],
+        '@id': info['preview'],
         title: `Publications with or about ${info.authorName}`,
       }
     : info.type === 'exhibitions'
     ? {
-        '@id': info['url'],
+        '@id': info['preview'],
         title: `Exhibitions with ${info.authorName}`,
       }
     : null;
@@ -64,7 +65,7 @@ export default function ArtworkView(props) {
   };
 
   const authors = content.authors.map((auth) => auth.title).join(', ');
-  console.log(contextLinks.items);
+  // console.log(contextLinks.items);
   const contextLinkCards = contextLinks.items?.reduce((acc, info) => {
     const local = info.items
       ? info.items.map((item, index) => (
