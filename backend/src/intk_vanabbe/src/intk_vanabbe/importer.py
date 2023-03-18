@@ -21,7 +21,11 @@ Import publications:
 http://62.221.199.184:17718/action=get&command=search&query=bookArtist=Gordon,%20Douglas&fields=*&range=0-100
 
 Import artwork
-"""
+"""  # noqa
+
+from intk_vanabbe.config import IMAGE_BASE_URL
+from intk_vanabbe.config import INT_FIELDS
+from intk_vanabbe.config import INTL_FIELDS
 
 import argparse
 import hashlib
@@ -50,24 +54,6 @@ BASE_URL = (
 BATCH_SIZE = 100
 
 ROOT = "//collectionConnection-resultset"
-
-IMAGE_BASE_URL = "https://vanabbemuseum.nl/fileadmin/files/collectie/%s"
-
-INT_FIELDS = [
-    "bookDatePublished",
-    "recordnumber",
-    "authorBirthDate",
-    "authorDeathDate",
-    "objectCreationDateFrom",
-    "objectCreationDateTo",
-    "objectYearPurchase",
-]
-
-INTL_FIELDS = [
-    "authorURL",
-    "objectMedium",
-    "objectDescription",
-]
 
 
 def to_dict(rec):
@@ -126,12 +112,12 @@ def _import_artwork(rec):
     <objectTitle Rangorde="1">Paardenrennen te Clingendaal</objectTitle>
     <objectYearPurchase>1948</objectYearPurchase>
     <recordnumber>1</recordnumber>
-    </dc_record>"""
-    # keys = ['ccObjectID', 'AuthorBio', 'authorBirthDate', 'authorDeathDate', 'authorID',
-    #         'authorName', 'authorURL', 'ccIdentifier', 'ccIndexName', 'Dimensions',
-    #         'objectCreationDate', 'objectCredit', 'objectID', 'objectImage',
-    #         'objectIsVisible', 'objectMedium', 'objectTitle', 'objectYearPurchase',
-    #         'recordnumber']
+    </dc_record>"""  # noqa
+
+    # keys = ['ccObjectID', 'AuthorBio', 'authorBirthDate', 'authorDeathDate',
+    # 'authorID', 'authorName', 'authorURL', 'ccIdentifier', 'ccIndexName', 'Dimensions',
+    # 'objectCreationDate', 'objectCredit', 'objectID', 'objectImage', 'objectIsVisible',
+    # 'objectMedium', 'objectTitle', 'objectYearPurchase', 'recordnumber']
 
     pass
 
@@ -159,7 +145,7 @@ def _import_exhibition(rec):
     <eventTitle_EN>William T. Wiley : Assemblages and watercolours</eventTitle_EN>
     <recordnumber>102971</recordnumber>
     </dc_record>
-    """
+    """  # noqa
     pass
 
 
@@ -247,7 +233,7 @@ def _import_publication(rec):
     <VubisID>2:44573</VubisID>
     </dc_record>
 
-    """
+    """  # noqa
     # keys = ['ccObjectID', 'bookBarcode', 'bookBBCode', 'bookBbnummer', 'bookBinding',
     #         'bookCity', 'bookDatePublished', 'bookLanguage', 'bookPublisher',
     #         'bookShelfmark', 'BookTitle', 'bookVubisid', 'ccIdentifier', 'ccIndexName',
@@ -273,7 +259,8 @@ def scroll(
         resp = requests.get(url, verify=False)
         cur = cur + BATCH_SIZE + 1
         doc = lxml.etree.fromstring(resp.text.encode("utf-8"))
-        # max_records = int(doc.xpath('number(%s/request/count/text())' % ROOT))
+        # max_records = int(doc.xpath(
+        # 'number(%s/request/count/text())' % ROOT))
 
         records = doc.xpath("%s/records/record/data/dc_record" % ROOT)
 
@@ -404,7 +391,9 @@ def download_image(url, filename):
         HEADERS[k] = v.strip()
 
     try:
-        with requests.get(url, stream=True, verify=False, headers=HEADERS) as req:
+        with requests.get(
+            url, stream=True, verify=False, headers=HEADERS
+        ) as req:  # noqa
             data = req.raw.read()
 
             if "DOCTYP" in str(data[:10]):  # avoids missing images
@@ -445,7 +434,7 @@ def copy_vubis():
         description="Command line tool to create an offline copy of Vubis",
     )
     parser.add_argument("destination")
-    parser.add_argument("-c", "--maxcount", type=int, help="Max records copied")
+    parser.add_argument("-c", "--maxcount", type=int, help="Max records copied")  # noqa
 
     args = parser.parse_args()
     destination = args.destination
@@ -462,7 +451,8 @@ def copy_vubis():
         resp = requests.get(url, verify=False)
         cur = cur + BATCH_SIZE + 1
         doc = lxml.etree.fromstring(resp.text.encode("utf-8"))
-        # max_records = int(doc.xpath('number(%s/request/count/text())' % ROOT))
+        # max_records = int(doc.xpath(
+        # 'number(%s/request/count/text())' % ROOT))
 
         records = doc.xpath("%s/records/record/data/dc_record" % ROOT)
         for rec in records:

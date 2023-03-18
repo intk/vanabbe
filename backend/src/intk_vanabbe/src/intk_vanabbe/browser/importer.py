@@ -2,8 +2,10 @@
 """
 
 from .request import HEADERS
+from intk_vanabbe.config import DATA_REPO
+from intk_vanabbe.config import IMAGE_BASE_URL
+from intk_vanabbe.config import IMPORT_LOCATIONS
 from intk_vanabbe.importer import get_filename
-from intk_vanabbe.importer import IMAGE_BASE_URL
 from intk_vanabbe.importer import scroll
 from intk_vanabbe.importer import scroll_from_archive
 from plone.api import content
@@ -22,15 +24,6 @@ import logging
 import os
 import requests
 
-
-IMPORT_LOCATIONS = {
-    "artwork": "nl/collectie-onderzoek/vaste-collectie/kunstwerken",
-    "publication": "nl/collectie-onderzoek/bibliotheek/publicaties",
-    "exhibition": "nl/tentoonstellingen",
-    "author": "nl/collectie-onderzoek/kunstenaars",
-}
-
-DATA_REPO = "/data-import"
 
 logger = logging.getLogger("vubis")
 

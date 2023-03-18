@@ -1,3 +1,4 @@
+from intk_vanabbe.config import IMPORT_LOCATIONS
 from plone.api.content import find
 from plone.restapi.interfaces import IExpandableElement
 from plone.restapi.interfaces import ISerializeToJsonSummary
