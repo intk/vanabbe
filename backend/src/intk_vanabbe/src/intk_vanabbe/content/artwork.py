@@ -7,6 +7,8 @@ from z3c.relationfield.schema import RelationChoice
 from z3c.relationfield.schema import RelationList
 from zope import schema
 
+import math
+
 
 class IArtwork(model.Schema):
     """Schema for Artwork content type."""
@@ -80,3 +82,24 @@ class IArtwork(model.Schema):
     )
 
     searchable("objectTitle", "objectDescription", "objectCredit")
+
+
+def decade(year):
+    if not isinstance(year, int):
+        try:
+            year = int(year)
+        except Exception:
+            return
+
+    start = math.floor(year / 10) * 10
+    end = start + 10
+
+    return f"{start}-{end}"
+
+
+def get_decades(obj):
+    created = getattr(obj, "objectCreationDate", None)
+    from_ = getattr(obj, "objectCreationDateFrom", None)
+    to_ = getattr(obj, "objectCreationDateTo", None)
+
+    return [d for d in set([decade(created), decade(from_), decade(to_)]) if d]

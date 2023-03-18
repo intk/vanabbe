@@ -1,7 +1,9 @@
 from intk_vanabbe.config import IMPORT_LOCATIONS
+from intk_vanabbe.content.artwork import get_decades
 from plone.api import portal
 from plone.api.content import find
 from plone.app.multilingual.api import get_translation_manager
+from plone.memoize import instance
 from plone.restapi.interfaces import IExpandableElement
 from plone.restapi.interfaces import ISerializeToJsonSummary
 from plone.restapi.services import Service
@@ -97,6 +99,16 @@ class ArtworkContextLinks(object):
         self.context = context
         self.request = request
 
+    @instance.memoize
+    def repo_artwork_url(self):
+        site = portal.get()
+        repo = site.restrictedTraverse(IMPORT_LOCATIONS["artwork"])
+        if self.context.language == "en":
+            intl_mgr = get_translation_manager(repo)
+            repo = intl_mgr.get_translation("en")
+        repo_url = repo.absolute_url()
+        return repo_url
+
     def get_period_art(self, result):
         ctx = self.context
 
@@ -128,22 +140,27 @@ class ArtworkContextLinks(object):
 
         arts = [b for b in brains if b.id != self.context.id]
         if arts:
+            decades = get_decades(self.context)
+            query = [
+                {
+                    "i": "decades",
+                    "v": decades,
+                    "o": "paqo.operation.list.contains",
+                }
+            ]  # extra
+            encoded = quote(json.dumps(query), safe=QUOTE_SAFE)
             result["contextLinks"]["items"].append(
-                {"type": "period", "preview": choice(arts).getURL()}
+                {
+                    "type": "period",
+                    "preview": choice(arts).getURL(),
+                    "href": f"{self.repo_artwork_url()}#query={encoded}",
+                }
             )
 
         return result
 
     def get_other_art(self, result):
         other_arts = []
-        site = portal.get()
-        repo = site.restrictedTraverse(IMPORT_LOCATIONS["artwork"])
-
-        if self.context.language == "en":
-            intl_mgr = get_translation_manager(repo)
-            repo = intl_mgr.get_translation("en")
-
-        repo_url = repo.absolute_url()
 
         for rel in self.context.authors:
             author = rel.to_object
@@ -168,7 +185,7 @@ class ArtworkContextLinks(object):
                         "authorName": author.authorName,
                         "preview": choice(arts).getURL(),
                         "type": "other_artworks",
-                        "href": f"{repo_url}#query={encoded}",
+                        "href": f"{self.repo_artwork_url()}#query={encoded}",
                     }
                 )
 

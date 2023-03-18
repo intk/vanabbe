@@ -17,6 +17,7 @@ const getItem = (info, content) => {
     ? {
         '@id': info['preview'],
         title: `More artworks from this period`,
+        href: info.href,
       }
     : info.type === 'publications'
     ? {

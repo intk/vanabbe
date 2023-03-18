@@ -1,4 +1,4 @@
-from .utils import decade
+from intk_vanabbe.content.artwork import get_decades
 from intk_vanabbe.content.artwork import IArtwork
 from intk_vanabbe.content.exhibition import IExhibition
 from intk_vanabbe.content.publication import IPublication
@@ -31,11 +31,7 @@ def author_name(obj):
 
 @indexer(IArtwork)
 def artwork_decades(obj):
-    created = getattr(obj, "objectCreationDate", None)
-    from_ = getattr(obj, "objectCreationDateFrom", None)
-    to_ = getattr(obj, "objectCreationDateTo", None)
-
-    return [d for d in set([decade(created), decade(from_), decade(to_)]) if d]
+    return get_decades(obj)
 
 
 @indexer(IArtwork)
