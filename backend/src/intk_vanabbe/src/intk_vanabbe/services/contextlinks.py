@@ -30,6 +30,16 @@ class AuthorContextLinks(object):
         self.context = context
         self.request = request
 
+    @instance.memoize
+    def repo_url(self, type_):
+        site = portal.get()
+        repo = site.restrictedTraverse(IMPORT_LOCATIONS[type_])
+        if self.context.language == "en":
+            intl_mgr = get_translation_manager(repo)
+            repo = intl_mgr.get_translation("en")
+        repo_url = repo.absolute_url()
+        return repo_url
+
     def get_publications(self):
         # ctx = self.context
         authorSortName = self.context.authorSortName
@@ -82,13 +92,40 @@ class AuthorContextLinks(object):
 
         publication_art = self.get_publications()
         if publication_art:
+
+            query = [
+                {
+                    "i": "SearchableText",
+                    "o": "plone.app.querystring.operation.string.contains",
+                    "v": self.context.authorSortName,
+                }
+            ]  # extra
+            encoded = quote(json.dumps(query), safe=QUOTE_SAFE)
             items.append(
-                {"id": "publication", "preview": publication_art.getURL()}
+                {
+                    "id": "publication",
+                    "preview": publication_art.getURL(),
+                    "href": f"{self.repo_url('publication')}#query={encoded}",
+                }
             )  # noqa
 
         exhibition_art = self.get_exhibition_art()
         if exhibition_art:
-            items.append({"id": "exhibition", "preview": exhibition_art.getURL()})
+            query = [
+                {
+                    "i": "SearchableText",
+                    "o": "plone.app.querystring.operation.string.contains",
+                    "v": self.context.authorSortName,
+                }
+            ]  # extra
+            encoded = quote(json.dumps(query), safe=QUOTE_SAFE)
+            items.append(
+                {
+                    "id": "exhibition",
+                    "preview": exhibition_art.getURL(),
+                    "href": f"{self.repo_url('exhibition')}#query={encoded}",
+                }
+            )
 
         result["contextLinks"]["items"] = items
         return result

@@ -32,6 +32,7 @@ const getItem = (info, content) => {
   const item = {
     '@id': getUrl(info, content),
     title: getLinkLabel(info.id, content),
+    href: info.href,
   };
   return item;
 };
