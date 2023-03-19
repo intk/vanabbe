@@ -218,6 +218,7 @@ export default function applyConfig(config) {
     },
   ];
 
+  delete config.views.layoutViews.document_view;
   config.views.layoutViews.multiple_content = MultipleContentView;
   config.views.layoutViews.listing_view = ListingView;
   config.views.layoutViewsNamesMapping = {
