@@ -73,7 +73,7 @@ def debug(func):
         try:
             res = func(*args)
         except Exception as e:
-            logger.error(f"Exception {e}")
+            logger.exception(f"Exception {e}")
             return
             # import pdb
             #
