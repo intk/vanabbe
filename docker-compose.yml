@@ -45,6 +45,9 @@ services:
     healthcheck:
       disable: true
 
+  worker:
+    extends: plone
+
   # See https://github.com/mcuadros/ofelia
   ofelia:
     image: mcuadros/ofelia:latest
