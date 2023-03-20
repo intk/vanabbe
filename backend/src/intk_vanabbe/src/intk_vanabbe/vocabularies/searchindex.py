@@ -1,6 +1,8 @@
+from plone.api import content
 from plone.api import portal
 from plone.app.vocabularies.catalog import KeywordsVocabulary as BKV
 from zope.interface import implementer
+from zope.schema.interfaces import ISource
 from zope.schema.interfaces import IVocabularyFactory
 
 
@@ -30,3 +32,27 @@ class MultilingualKeywordsVocabulary(BKV):
 
 DecadesVocabularyFactory = KeywordsVocabulary("decades")
 TechniqueVocabularyFactory = MultilingualKeywordsVocabulary("technique")
+
+
+@implementer(ISource)
+class AuthorSource:
+    """ """
+
+    def __init__(self, context=None):
+        pass
+
+    def __contains__(self, value):
+        """used during validation to make sure the selected item is found with
+        the specified query.
+        value can be either a string (hex value of uuid or path) or a plone
+        content object.
+        """
+        query = {"authorID": str(value)}
+
+        return bool(self.search_catalog(query))
+
+    def search_catalog(self, authorID):
+        res = content.find(
+            context=portal.get(), portal_type="author", authorID=authorID
+        )
+        return res

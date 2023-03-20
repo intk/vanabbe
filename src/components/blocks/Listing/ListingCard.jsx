@@ -167,7 +167,11 @@ const ArtworkCard = ({ item }) => {
           </div>
           <div className="card-title-wrapper">
             <h5 className="artwork-title">{item.objectTitle}</h5>
-            <div className="artwork-creation">{item.objectCreationDate}</div>
+            <div className="artwork-creation">
+              {(item.objectCreationDate || '')
+                .replace(/\(|\)/g, '')
+                .slice(0, 10)}
+            </div>
           </div>
           <div className="author-name">{item.authorName}</div>
         </div>

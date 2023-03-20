@@ -1,5 +1,6 @@
 import TopFiltersLayout from './TopFiltersLayout';
 import CheckboxButtonFacet from './CheckboxButtonFacet';
+import ToggleSingleValueFacet from './ToggleSingleValueFacet';
 import { SelectFacetFilterListEntry } from '@plone/volto/components/manage/Blocks/Search/components';
 import {
   hasNonValueOperation,
@@ -61,6 +62,17 @@ export default function installSearchBlock(config) {
             valueToQuery: CheckboxButtonFacet.valueToQuery,
             filterListComponent: SelectFacetFilterListEntry,
             schemaEnhancer: CheckboxButtonFacet.schemaEnhancer,
+          },
+          {
+            id: 'toggleSingleValueFacet',
+            title: 'Single Value',
+            view: ToggleSingleValueFacet,
+            isDefault: false,
+            stateToValue: CheckboxButtonFacet.stateToValue,
+            valueToQuery: CheckboxButtonFacet.valueToQuery,
+            filterListComponent: SelectFacetFilterListEntry,
+            schemaEnhancer: CheckboxButtonFacet.schemaEnhancer,
+            showFacet: () => true,
           },
           ...config.blocks.blocksConfig.search.extensions.facetWidgets.types,
         ],

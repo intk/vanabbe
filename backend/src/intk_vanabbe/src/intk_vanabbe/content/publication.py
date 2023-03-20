@@ -42,6 +42,7 @@ class IPublication(model.Schema):
     bookLanguage = schema.TextLine(title="bookLanguage", required=False)
 
     bookStream = schema.TextLine(title="bookStream", required=False)
+    bookMedia = schema.Text(title="bookMedia", required=False)
 
     # TODO: is this a line or text?
     bookArtist = schema.List(
@@ -66,6 +67,7 @@ class IPublication(model.Schema):
         "bookPublisher",
         "bookShelfmark",
         "bookSubTitle",
+        "bookMedia",
         "BookTitle",
         "bookVubisid",
         "ccIdentifier",
