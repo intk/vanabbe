@@ -11,6 +11,10 @@
       margin-left: 0;
     }
   }
+
+  @media only screen and (max-width: @largestMobileScreen) {
+    padding-top: var(--space-md);
+  }
 }
 
 .footer-info {
@@ -114,5 +118,32 @@
 .view-viewview {
   .footer {
     z-index: 2;
+  }
+}
+
+// Cookie banner
+
+.cookieConsent {
+  align-items: center !important;
+  background-color: var(--text-color) !important;
+  color: var(--background-color) !important;
+
+  a,
+  p {
+    color: var(--background-color) !important;
+  }
+
+  a {
+    &:hover,
+    &:focus,
+    &:active:focus {
+      color: var(--background-color) !important;
+      text-decoration: underline;
+    }
+  }
+
+  button {
+    .primaryBtn(var(--background-color)) !important;
+    font-family: @pageFont !important;
   }
 }
