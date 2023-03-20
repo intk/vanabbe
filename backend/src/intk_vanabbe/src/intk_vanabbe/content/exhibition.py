@@ -4,6 +4,13 @@ from plone.supermodel import model
 from zope import schema
 
 
+# fields extracted from archive dump
+
+# {'ccObjectID', 'eventTitle', 'eventDescription', 'ccIdentifier', 'eventTimeFrom',
+# 'eventArtist', 'eventTitle_EN', 'eventSub', 'ccIndexName', 'eventMedia',
+# 'eventCoorporation', 'eventImages', 'recordnumber'}
+
+
 class IExhibition(model.Schema):
     """Schema for 'exhibition' content type."""
 

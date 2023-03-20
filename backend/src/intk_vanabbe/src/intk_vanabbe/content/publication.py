@@ -4,6 +4,21 @@ from plone.supermodel import model
 from zope import schema
 
 
+# fields extracted from archive dump
+
+# {'eventTitle', 'bookLanguage', 'bookBBCode', 'bookCity', 'objectCreationDateTo',
+# 'authorName', 'objectCreationDate', 'eventArtist', 'bookDatePublished', 'authorURL',
+# 'ccObjectID', 'bookMedia', 'objectMedium', 'objectTitle', 'bookISBN',
+# 'bookIllustrations', 'BookTitle_ALT', 'bookDescription', 'BookSubTitle',
+# 'authorBirthDate', 'objectCreationDateFrom', 'bookauthorName', 'VubisID',
+# 'objectIsVisible', 'objectImage', 'bookVubisid', 'objectID', 'eventTimeFrom',
+# 'bookPublisher', 'ccIndexName', 'eventMedia', 'bookArtist', 'bookBbnummer',
+# 'Dimensions', 'recordnumber', 'objectCredit', 'bookCountry', 'BookTitle', 'authorID',
+# 'eventDescription', 'ccIdentifier', 'bookStream', 'bookBinding', 'bookShelfmark',
+# 'objectYearPurchase', 'bookAnnotation', 'bookBarcode', 'eventImages', 'eventSub',
+# 'objectDescription', 'ObjectVideo'}
+
+
 class IPublication(model.Schema):
     """Schema for 'publication' content type."""
 
@@ -42,6 +57,8 @@ class IPublication(model.Schema):
     bookLanguage = schema.TextLine(title="bookLanguage", required=False)
 
     bookStream = schema.TextLine(title="bookStream", required=False)
+
+    # fields that need to be re-imported
     bookMedia = schema.Text(title="bookMedia", required=False)
 
     # TODO: is this a line or text?

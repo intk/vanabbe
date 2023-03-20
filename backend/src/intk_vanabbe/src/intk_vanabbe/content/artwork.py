@@ -10,6 +10,17 @@ from zope import schema
 import math
 
 
+# fields extracted from the archive dump:
+
+# {'authorDeathDate', 'subjectandkeywords', 'objectCreationDateTo', 'authorName',
+# 'objectCreationDate', 'trefwoord', 'authorURL', 'objectPosition', 'ccObjectID',
+# 'objectMedium', 'objectTitle', 'objectFormatWidth', 'objectKeys', 'authorBirthDate',
+# 'objectCreationDateFrom', 'ObjectAudio', 'objectIsVisible', 'objectImage',
+# 'objectFormatDepth', 'objectID', 'ccIndexName', 'objectFormatLength', 'Dimensions',
+# 'objectCredit', 'recordnumber', 'authorID', 'ccIdentifier', 'AuthorBio',
+# 'objectYearPurchase', 'objectDescription', 'ObjectVideo'}
+
+
 class IArtwork(model.Schema):
     """Schema for Artwork content type."""
 
