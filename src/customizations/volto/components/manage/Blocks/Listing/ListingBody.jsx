@@ -97,7 +97,7 @@ const ListingBodyComponent = (props) => {
 
   const listingRef = createRef();
 
-  return listingItems?.length > 0 ? (
+  return loadedItems?.length > 0 ? (
     <div ref={listingRef}>
       <ListingBodyTemplate
         items={loadedItems}
