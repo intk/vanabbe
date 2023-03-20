@@ -20,7 +20,7 @@ const getPosition = (ref) => {
 };
 
 const HeroUnitView = (props) => {
-  const { windowHeight } = useWindowDimensions();
+  const { windowHeight, windowWidth } = useWindowDimensions();
   const { data = {}, mode = 'view' } = props;
   const {
     headline,
@@ -129,13 +129,14 @@ const HeroUnitView = (props) => {
   useEffect(() => {
     const loginHeight = document.getElementById('login').clientHeight;
     // 100px is the logo height when the logo animation ends
-    const logoBottomPosition = loginHeight + 100;
+    const height = windowWidth > 791 ? 100 : 44;
+    const logoBottomPosition = loginHeight + height;
 
     if (scrollDown) {
       setIsActive(true);
       setLogoTopPosition(windowHeight - logoBottomPosition);
     }
-  }, [scrollDown, windowHeight]);
+  }, [scrollDown, windowHeight, windowWidth]);
 
   useEffect(() => {
     window.addEventListener('resize', setLogoPosition);
