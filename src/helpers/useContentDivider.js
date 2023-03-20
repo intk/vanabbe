@@ -20,7 +20,8 @@ const useContentDivider = (content, hiddenBlocks) => {
     ? Object.keys(content?.blocks).find(
         (id) => content?.blocks?.[id]?.['@type'] === 'contentDividerBlock',
       )
-    : {};
+    : null;
+
   const blockIndexToSplit = blocksLayout.indexOf(dividerBlock);
   const blocksWithBG = blocksLayout.slice(0, blockIndexToSplit);
   const blocksWithoutBG = blocksLayout.slice(blockIndexToSplit + 1);

@@ -10,12 +10,13 @@ const DefaultView = (props) => {
   const { content, location } = props;
   const path = getBaseUrl(location?.pathname || '');
   const hiddenBlocks = ['title', 'description']; //  hide title and description blocks, as they are included in the header
+  const divider = useContentDivider(content, hiddenBlocks);
   const {
     dividerBlock,
     filterContent,
     filterContentBlocksBefore,
     filterContentBlocksAfter,
-  } = useContentDivider(content, hiddenBlocks);
+  } = divider;
 
   return hasBlocksData(content) ? (
     <div id="page-document" className="ui container">

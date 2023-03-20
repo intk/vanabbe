@@ -8,6 +8,7 @@ const installContentDividerBlock = (config) => {
     icon: iconSVG,
     group: 'site',
     edit: ContentDividerEdit,
+    view: () => null,
     restricted: false,
     mostUsed: false,
     sidebarTab: 1,
