@@ -12,6 +12,7 @@ import { compose } from 'redux';
 import qs from 'querystring';
 import { useDeepCompareMemoize } from 'use-deep-compare-effect';
 import { dequal as deepEqual } from 'dequal';
+import { useDispatch } from 'react-redux';
 
 import withQuerystringResults from './withQuerystringResults';
 
@@ -27,6 +28,27 @@ const ListingBodyComponent = (props) => {
     isFolderContentsListing,
     hasLoaded,
   } = props;
+
+  const { block } = data;
+  const dispatch = useDispatch();
+
+  React.useEffect(
+    () => () => {
+      // reset the block data on unmount
+      // we need to do this because the data arrives async and the load more
+      // loader will get confused
+      const action = {
+        type: 'GET_QUERYSTRING_RESULTS_SUCCESS',
+        subrequest: block,
+        result: {
+          items: [],
+          items_total: 0,
+        },
+      };
+      dispatch(action);
+    },
+    [block, dispatch],
+  );
 
   const isMounted = useIsMounted();
 
@@ -54,6 +76,8 @@ const ListingBodyComponent = (props) => {
   const isChanged =
     previousSearchText !== searchText || !deepEqual(stableData, previousData);
 
+  // console.log({ isChanged, stableData, previousData });
+
   const [dataBuffer, setDataBuffer] = React.useState({
     currentPage,
     items: [...listingItems],
@@ -63,6 +87,7 @@ const ListingBodyComponent = (props) => {
     // the data buffer is reset whenever we change the query or search text
     if (isMounted() && isChanged) {
       setDataBuffer({ ...dataBuffer, items: [] });
+      // console.log('resetting items to []');
     }
   }, [dataBuffer, listingItems, isChanged, isMounted]);
 
@@ -84,6 +109,7 @@ const ListingBodyComponent = (props) => {
       (item) => loadedIds.indexOf(item['@id']) === -1,
     );
     if (isMounted() && otherItems.length) {
+      // console.log('adding items', { loadedItems, otherItems });
       setDataBuffer({ currentPage, items: [...loadedItems, ...otherItems] });
     }
   }, [
