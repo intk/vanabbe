@@ -6,6 +6,7 @@ import { Icon } from '@plone/volto/components';
 import downSVG from '@plone/volto/icons/down-key.svg';
 import upSVG from '@plone/volto/icons/up-key.svg';
 import cx from 'classnames';
+import { isEqual } from 'lodash';
 
 import {
   SearchInput,
@@ -28,6 +29,17 @@ const FacetWrapper = ({ children }) => (
   </Grid.Column>
 );
 
+const isDirty = (searchDataQuery, query) => {
+  let isDirty = searchDataQuery.find((q) => {
+    const predefined = query.find((pf) => pf.i === q.i);
+    return predefined
+      ? !isEqual(predefined.v, q.v) || predefined.o !== q.o
+      : true;
+  });
+
+  return isDirty;
+};
+
 const TopSideFacets = (props) => {
   const {
     children,
@@ -44,7 +56,7 @@ const TopSideFacets = (props) => {
     searchText, // search text currently being entered (controlled input)
     isEditMode,
     querystring = {},
-    // searchData,
+    searchData,
     // mode = 'view',
     // variation,
   } = props;
@@ -52,7 +64,11 @@ const TopSideFacets = (props) => {
   const isLive = !showSearchButton;
   const intl = useIntl();
 
-  const [showFilters, setShowFilters] = React.useState(false);
+  const defaultOpened = isDirty(
+    searchData.query || [],
+    data.query?.query || [],
+  );
+  const [showFilters, setShowFilters] = React.useState(defaultOpened);
 
   React.useState(() => {
     if (isEditMode) {
