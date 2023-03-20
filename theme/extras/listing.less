@@ -9,12 +9,6 @@
   background-color: var(--card-bg-color, @white);
   border-radius: 6px;
 
-  .card-title {
-    @media only screen and (max-width: @largestTabletScreen) {
-      font-size: @largeMobileFontSize;
-    }
-  }
-
   .card-link {
     display: block;
     height: 100%;
@@ -258,11 +252,11 @@
 
     @media only screen and (max-width: @mobileLandscapeBreakpoint) {
       .card-title {
-        font-size: @extraFontSize !important;
+        font-size: @largeMobileFontSize !important;
       }
 
-      .card-meta {
-        font-size: @smallFontSize !important;
+      .card-description {
+        font-size: @bigFontSize !important;
       }
     }
   }

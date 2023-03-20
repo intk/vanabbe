@@ -94,7 +94,7 @@ const Header = (props) => {
               </div>
             </div>
           </Container>
-          <Container>
+          <Container className="hero-container">
             <div className="offset-1-right">
               <div className="header-bg">
                 <div className="header-container">

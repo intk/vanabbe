@@ -105,7 +105,7 @@ ol {
   li {
     font-size: @desktopBodyFontSize;
     letter-spacing: @letterSpacing;
-    line-height: @listDesktopLineHeight;
+    line-height: @listDesktopLineHeight !important;
 
     @media only screen and (max-width: @largestTabletScreen) {
       line-height: @listTabletLineHeight;
@@ -136,7 +136,9 @@ ol {
 
   p,
   ul li,
-  ol li {
+  ol li,
+  .ui.list,
+  .ui.accordion .title:not(.ui) {
     font-size: @tabletBodyFontSize;
   }
 }

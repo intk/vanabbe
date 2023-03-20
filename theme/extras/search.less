@@ -159,10 +159,15 @@
 /********   Search block   ********/
 
 .block.search {
+  .search-wrapper .search-input {
+    input::-webkit-input-placeholder {
+      opacity: 1 !important;
+    }
+  }
+
   .search-details,
   .search-input-actions .ui.button {
     color: var(--text-color) !important;
-    opacity: 0.5;
   }
 
   .search-input-live-icon-button {
@@ -171,6 +176,11 @@
 
   .search-sort-wrapper {
     margin-left: auto;
+
+    @media only screen and (max-width: @largestTabletScreen) {
+      align-items: end;
+      margin-left: 0;
+    }
   }
 
   .facets {
@@ -208,6 +218,13 @@
     .ui.active.basic.icon.button {
       border-color: transparent;
       opacity: 1;
+    }
+  }
+
+  .search-filters-sort {
+    @media only screen and (max-width: @largestTabletScreen) {
+      flex-direction: column-reverse;
+      row-gap: 1em;
     }
   }
 
@@ -250,6 +267,12 @@
           color: var(--background-color);
         }
       }
+    }
+
+    @media only screen and (max-width: @largestTabletScreen) {
+      flex-direction: column;
+      align-items: start;
+      row-gap: 0.5em;
     }
   }
 
