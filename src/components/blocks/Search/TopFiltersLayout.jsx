@@ -81,16 +81,14 @@ const TopSideFacets = (props) => {
 
   const _hiddenData = {
     ...data,
-    facets: data.facets
-      // ?.filter((f) => f.hidden)
-      .map((f) => ({
-        ...f,
-        hidden: f.hidden
-          ? Object.keys(facets).includes(f.field.value) && facets[f.field.value]
-            ? false
-            : true
-          : false,
-      })),
+    facets: data.facets?.map((f) => ({
+      ...f,
+      hidden: f.hidden
+        ? Object.keys(facets).includes(f.field.value) && facets[f.field.value]
+          ? false
+          : true
+        : false,
+    })),
   };
   const hiddenData = useDeepCompareMemoize(_hiddenData);
 
