@@ -7,13 +7,16 @@ import downSVG from '@plone/volto/icons/down-key.svg';
 import upSVG from '@plone/volto/icons/up-key.svg';
 import cx from 'classnames';
 import { isEqual } from 'lodash';
+import { useDeepCompareMemoize } from 'use-deep-compare-effect';
 
 import {
   SearchInput,
   SearchDetails,
-  Facets,
   ViewSwitcher,
 } from '@plone/volto/components/manage/Blocks/Search/components';
+import Facets from './Facets';
+
+// import HiddenFacets from './HiddenFacets';
 import SortOn from './SortOn';
 
 const messages = defineMessages({
@@ -75,6 +78,21 @@ const TopSideFacets = (props) => {
       setShowFilters(true);
     }
   }, [isEditMode]);
+
+  const _hiddenData = {
+    ...data,
+    facets: data.facets
+      // ?.filter((f) => f.hidden)
+      .map((f) => ({
+        ...f,
+        hidden: f.hidden
+          ? Object.keys(facets).includes(f.field.value) && facets[f.field.value]
+            ? false
+            : true
+          : false,
+      })),
+  };
+  const hiddenData = useDeepCompareMemoize(_hiddenData);
 
   return (
     <Grid className="searchBlock-facets" stackable>
@@ -153,8 +171,21 @@ const TopSideFacets = (props) => {
             <div className="facets">
               {data.facetsTitle && <h3>{data.facetsTitle}</h3>}
 
+              {/* <Facets */}
+              {/*   data={data} */}
+              {/*   querystring={querystring} */}
+              {/*   facets={facets} */}
+              {/*   setFacets={(f) => { */}
+              {/*     flushSync(() => { */}
+              {/*       setFacets(f); */}
+              {/*       onTriggerSearch(searchedText || '', f); */}
+              {/*     }); */}
+              {/*   }} */}
+              {/*   facetWrapper={FacetWrapper} */}
+              {/* /> */}
+
               <Facets
-                data={data}
+                data={hiddenData}
                 querystring={querystring}
                 facets={facets}
                 setFacets={(f) => {
