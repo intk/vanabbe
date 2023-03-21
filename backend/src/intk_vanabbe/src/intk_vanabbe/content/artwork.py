@@ -10,6 +10,9 @@ from zope import schema
 import math
 
 
+# 3013.xml
+# https://vanabbemuseum.nl/details/collectie/index.html@lookup[41][filter][0]=id%253AC12624.html
+
 # fields extracted from the archive dump:
 
 # {'authorDeathDate', 'subjectandkeywords', 'objectCreationDateTo', 'authorName',
@@ -42,6 +45,10 @@ class IArtwork(model.Schema):
     objectYearPurchase = schema.TextLine(title="objectYearPurchase", required=False)
     recordnumber = schema.TextLine(title="recordnumber", required=False)
 
+    # to migrate: trefwoord (subject)
+    # objectPosition, objectFormatWidth, objectKeys, ObjectAudio, objectIsVisible,
+    # objectImage, objectFormatDepth, objectFormatLength, Dimmensions, ObjectVideo
+
     authors = RelationList(
         title="Authors",
         default=[],
@@ -59,21 +66,6 @@ class IArtwork(model.Schema):
             ],
         },
     )
-
-    # ccObjectID
-    # ccIdentifier
-    # ccIndexName
-    # dimensions
-    # objectCreationDate
-    # objectCreationDateFrom
-    # objectCreationDateTo
-    # objectDescription
-    # objectID
-    # objectMedium
-    # objectCredit
-    # objectTitle
-    # objectYearPurchase
-    # recordnumber
 
     lang_directives.languageindependent(
         "ccObjectID",
@@ -114,3 +106,19 @@ def get_decades(obj):
     to_ = getattr(obj, "objectCreationDateTo", None)
 
     return [d for d in set([decade(created), decade(from_), decade(to_)]) if d]
+
+
+# ccObjectID
+# ccIdentifier
+# ccIndexName
+# dimensions
+# objectCreationDate
+# objectCreationDateFrom
+# objectCreationDateTo
+# objectDescription
+# objectID
+# objectMedium
+# objectCredit
+# objectTitle
+# objectYearPurchase
+# recordnumber
