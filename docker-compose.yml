@@ -26,8 +26,8 @@ services:
 
   plone:
     image: tiberiuichim/vanabbe-backend:6.0.0-5
-    depends_on:
-      - zeo
+    # depends_on:
+    # - zeo
     environment:
       ZEO_ADDRESS: zeo:8100
       # ADDONS: "collective.volto.cookieconsent collective.volto.formsupport"
