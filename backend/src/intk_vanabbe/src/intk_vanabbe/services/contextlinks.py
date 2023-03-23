@@ -5,7 +5,7 @@ from plone.api.content import find
 from plone.app.multilingual.api import get_translation_manager
 from plone.memoize import instance
 from plone.restapi.interfaces import IExpandableElement
-from plone.restapi.interfaces import ISerializeToJsonSummary
+from plone.restapi.interfaces import ISerializeToJsonSummary  # Summary
 from plone.restapi.services import Service
 from random import choice
 from urllib.parse import quote
@@ -20,7 +20,20 @@ import json
 QUOTE_SAFE = "!~*'()\""
 
 
-def tojson(brain, request):
+class FakeRequest:
+    def __init__(self, form):
+        self.form = form
+
+    def set(self, k, value):
+        self.form[k] = value
+
+    def get(self, k, default=None):
+        return self.form.get(k, default)
+
+
+def tojson(brain):
+    form = {"metadata_fields": "_all"}
+    request = FakeRequest(form)
     serializer = getMultiAdapter((brain, request), ISerializeToJsonSummary)
     return serializer()
 
@@ -81,9 +94,7 @@ class AuthorContextLinks(object):
 
         artworks = self.get_artworks()
         if artworks:
-            items.append(
-                {"id": "artworks", "items": [tojson(b, req) for b in artworks]}
-            )
+            items.append({"id": "artworks", "items": [tojson(b) for b in artworks]})
 
         # TODO: this makes no sense for authors
         # period_art = self.get_period_art()
