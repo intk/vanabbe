@@ -17,7 +17,7 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 
 #: components/theme/View/ArtworkView
-# defaultMessage: Acquired in
+# defaultMessage: Acquired in {objectYearPurchase}
 msgid "Acquired in"
 msgstr ""
 
@@ -101,6 +101,11 @@ msgstr ""
 msgid "Contact"
 msgstr ""
 
+#: components/theme/View/ArtworkView
+# defaultMessage: Context
+msgid "Context"
+msgstr ""
+
 #: components/theme/ContrastToggle/ContrastToggle
 # defaultMessage: Contrast
 msgid "Contrast"
@@ -125,6 +130,11 @@ msgstr ""
 #: components/blocks/VoltoFormBlock/FormView
 # defaultMessage: Error
 msgid "Error"
+msgstr ""
+
+#: components/blocks/Search/TopFiltersLayout
+# defaultMessage: Filters
+msgid "Filters"
 msgstr ""
 
 #: config
@@ -164,7 +174,7 @@ msgid "Internal page or path"
 msgstr ""
 
 #: components/theme/View/ArtworkView
-# defaultMessage: Inventory number
+# defaultMessage: Inventory number {objectID}
 msgid "Inventory number"
 msgstr ""
 
@@ -180,7 +190,7 @@ msgid "Load more "
 msgstr ""
 
 #: components/theme/View/PublicationView
-# defaultMessage: Located in
+# defaultMessage: Located in: {bookShelfmark}
 msgid "Located in"
 msgstr ""
 
@@ -368,6 +378,11 @@ msgstr ""
 msgid "Write here the source/copyright of this image"
 msgstr ""
 
+#: components/theme/View/AuthorView
+# defaultMessage: Artworks ({count})
+msgid "artworks_title_count"
+msgstr ""
+
 #: components/blocks/ActionLinks/schema
 # defaultMessage: Block title
 msgid "blockTitle"
@@ -397,6 +412,12 @@ msgstr ""
 #: components/theme/View/ArtworkView
 # defaultMessage: Does this page contain inaccurate information or language that you feel we should improve or change?
 msgid "does_this_contain_innacurate"
+msgstr ""
+
+#: components/theme/View/ArtworkView
+#: components/theme/View/AuthorView
+# defaultMessage: Exhibitions with {authorName}
+msgid "exhibitions_by_author_name"
 msgstr ""
 
 #: components/blocks/VoltoFormBlock/formSchema
@@ -490,6 +511,16 @@ msgid "linkToDescription"
 msgstr ""
 
 #: components/theme/View/ArtworkView
+# defaultMessage: More artworks by {authorName}
+msgid "more_artworks_by"
+msgstr ""
+
+#: components/theme/View/ArtworkView
+# defaultMessage: More artworks from this period
+msgid "more_artworks_in_period"
+msgstr ""
+
+#: components/theme/View/ArtworkView
 # defaultMessage: If you need specific information on this work or artist, remember that the Van Abbemuseum Library is at your disposal, or feel free to write to the library.
 msgid "need_info_specific"
 msgstr ""
@@ -502,6 +533,17 @@ msgstr ""
 #: components/blocks/VoltoFormBlock/schemaExtender
 # defaultMessage: Placeholder
 msgid "placeholder"
+msgstr ""
+
+#: components/theme/View/ArtworkView
+#: components/theme/View/AuthorView
+# defaultMessage: Publications with or about {authorName}
+msgid "publications_by_author_name"
+msgstr ""
+
+#: components/theme/ScrollToTop/ScrollToTop
+# defaultMessage: Scroll to top
+msgid "scroll_to_top"
 msgstr ""
 
 #: components/blocks/SearchOverview/SearchOverviewView
