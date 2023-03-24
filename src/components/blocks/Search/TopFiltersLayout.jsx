@@ -1,4 +1,5 @@
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
 import { flushSync } from 'react-dom';
 import { defineMessages, useIntl } from 'react-intl';
 import { Button, Grid } from 'semantic-ui-react';
@@ -126,7 +127,7 @@ const TopSideFacets = (props) => {
                 })}
                 onClick={() => setShowFilters(!showFilters)}
               >
-                Filters
+                <FormattedMessage id="Filters" defaultMessage="Filters" />
                 {showFilters ? (
                   <Icon name={upSVG} size="30px" />
                 ) : (

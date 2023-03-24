@@ -10,25 +10,48 @@ const getItem = (info, content) => {
   return info.type === 'other_artworks'
     ? {
         '@id': info['preview'],
-        title: `More artworks by ${info.authorName}`,
+        title: (
+          <FormattedMessage
+            id="more_artworks_by"
+            defaultMessage="More artworks by {authorName}"
+            values={{ authorName: info.authorName }}
+          />
+        ),
         href: info.href,
       }
     : info.type === 'period'
     ? {
         '@id': info['preview'],
-        title: `More artworks from this period`,
+        title: (
+          <FormattedMessage
+            id="more_artworks_in_period"
+            defaultMessage="More artworks from this period"
+          />
+        ),
         href: info.href,
       }
     : info.type === 'publications'
     ? {
         '@id': info['preview'],
-        title: `Publications with or about ${info.authorName}`,
+        title: (
+          <FormattedMessage
+            id="publications_by_author_name"
+            defaultMessage="Publications with or about {authorName}"
+            values={info}
+          />
+        ),
         href: info.href,
       }
     : info.type === 'exhibitions'
     ? {
         '@id': info['preview'],
-        title: `Exhibitions with ${info.authorName}`,
+        title: (
+          <FormattedMessage
+            id="exhibitions_by_author_name"
+            defaultMessage="Exhibitions with {authorName}"
+            values={info}
+          />
+        ),
         href: info.href,
       }
     : null;
@@ -117,16 +140,16 @@ export default function ArtworkView(props) {
                         <div className="acquired">
                           <FormattedMessage
                             id="Acquired in"
-                            defaultMessage="Acquired in"
-                          />{' '}
-                          {content.objectYearPurchase}
+                            defaultMessage="Acquired in {objectYearPurchase}"
+                            values={content}
+                          />
                         </div>
                         <div className="inventory-number">
                           <FormattedMessage
                             id="Inventory number"
-                            defaultMessage="Inventory number"
-                          />{' '}
-                          {content.objectID}
+                            defaultMessage="Inventory number {objectID}"
+                            values={content}
+                          />
                         </div>
 
                         <div className="info">
@@ -178,7 +201,9 @@ export default function ArtworkView(props) {
                   </div>
                 </div>
 
-                <h2 className="context-title">Context</h2>
+                <h2 className="context-title">
+                  <FormattedMessage id="Context" defaultMessage="Context" />
+                </h2>
                 <Grid columns={4} className="listings">
                   {contextLinkCards}
                 </Grid>

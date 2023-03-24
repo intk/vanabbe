@@ -5,7 +5,7 @@ import { BodyClass, getBlocks } from '@plone/volto/helpers';
 import { FormattedMessage } from 'react-intl';
 import { Button } from 'semantic-ui-react';
 
-import addSVG from '@plone/volto/icons/add.svg';
+// import addSVG from '@plone/volto/icons/add.svg';
 
 function SearchOverviewView(props) {
   const blocks = useSelector((state) => {

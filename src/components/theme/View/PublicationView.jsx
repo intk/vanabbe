@@ -69,9 +69,9 @@ export default function PublicationView(props) {
                         <div className="object-shelfmark">
                           <FormattedMessage
                             id="Located in"
-                            defaultMessage="Located in"
+                            defaultMessage="Located in: {bookShelfmark}"
+                            values={content}
                           />
-                          : {content.bookShelfmark}
                         </div>
                         <div className="object-id">
                           <FormattedMessage id="VUBIS" defaultMessage="VUBIS" />

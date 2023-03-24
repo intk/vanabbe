@@ -6,6 +6,7 @@ import { Portal } from 'react-portal';
 import loadable from '@loadable/component';
 import config from '@plone/volto/registry';
 import { Container, Grid } from 'semantic-ui-react';
+import { FormattedMessage } from 'react-intl';
 import { Card } from '@package/components';
 
 const Masonry = loadable(() => import('react-masonry-css'));
@@ -17,10 +18,22 @@ const getLinkLabel = (infoId, content) => {
   let label;
   switch (infoId) {
     case 'publication':
-      label = `Literature by or about ${content.authorName}`;
+      label = (
+        <FormattedMessage
+          id="publications_by_author_name"
+          defaultMessage="Publications with or about {authorName}"
+          values={content}
+        />
+      );
       break;
     case 'exhibition':
-      label = `Exhibitions with ${content.authorName}`;
+      label = (
+        <FormattedMessage
+          id="exhibitions_by_author_name"
+          defaultMessage="Exhibitions with {authorName}"
+          values={content}
+        />
+      );
       break;
     default:
       break;
@@ -48,7 +61,7 @@ export default function AuthorView(props) {
 
   // TODO: format the AuthorBio. It needs to go into the header part of the
   // view, not in the content part
-  console.log(content);
+  // console.log(content);
 
   const [isClient, setIsClient] = React.useState();
   React.useEffect(() => setIsClient(true), []);
@@ -62,7 +75,13 @@ export default function AuthorView(props) {
         <Container>
           <div className="content-container">
             <div className="offset-1-right">
-              <h2>Artworks ({artworks.length})</h2>
+              <h2>
+                <FormattedMessage
+                  id="artworks_title_count"
+                  defaultMessage="Artworks ({count})"
+                  values={{ count: artworks.length || 0 }}
+                />
+              </h2>
               <div className="masonry-layout-listing">
                 <div className="listings">
                   <div className="listings ">
