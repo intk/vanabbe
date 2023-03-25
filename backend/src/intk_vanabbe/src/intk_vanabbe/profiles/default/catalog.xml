@@ -38,6 +38,7 @@
   </index>
 
   <column value="authorName"/>
+  <column value="authorSortName"/>
   <column value="objectCreationDate"/>
   <column value="objectTitle"/>
   <column value="eventTimeFrom"/>
