@@ -29,10 +29,14 @@ from intk_vanabbe.config import INTL_FIELDS
 
 import argparse
 import hashlib
+import logging
 import lxml.etree
 import os.path
 import requests
 import transaction
+
+
+logger = logging.getLogger("vubis")
 
 
 opts = {
@@ -313,7 +317,12 @@ def scroll_from_archive(
     count = 0
 
     while count < min(len(filenames), max_records):
-        fname = filenames[cur]
+        try:
+            fname = filenames[cur]
+        except Exception:
+            logger.exception("Finished?")
+            break
+
         cur += 1
 
         with open(fname) as f:
