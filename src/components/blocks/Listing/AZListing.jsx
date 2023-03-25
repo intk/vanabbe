@@ -4,12 +4,13 @@ import { ListingBlockHeader } from '@package/components';
 import './less/az-listing.less';
 
 const AgendaListingTemplate = (data) => {
-  const { items = [] } = data;
+  const { items = [], titleField } = data;
+  const field = titleField?.value || 'title';
   const groups = items.reduce(
     (acc, item) => ({
       ...acc,
-      [item.title[0].toLowerCase()]: [
-        ...(acc[item.title[0].toLowerCase()] || []),
+      [(item[field] || item.title)[0].toLowerCase()]: [
+        ...(acc[(item[field] || item.title)[0].toLowerCase()] || []),
         item,
       ],
     }),
@@ -45,7 +46,9 @@ const AgendaListingTemplate = (data) => {
               >
                 {groups[letter].map((item) => (
                   <li key={item['@id']}>
-                    <UniversalLink item={item}>{item.title}</UniversalLink>
+                    <UniversalLink item={item}>
+                      {item[field] || item.title}
+                    </UniversalLink>
                   </li>
                 ))}
               </ul>
