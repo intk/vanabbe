@@ -152,6 +152,15 @@ export default (config) => {
       isDefault: false,
       title: 'A-Z Listing',
       template: AZListing,
+      schemaEnhancer: ({ schema }) => {
+        schema.properties.titleField = {
+          title: 'Title field',
+          widget: 'select_querystring_field',
+          vocabulary: { '@id': 'plone.app.vocabularies.MetadataFields' },
+        };
+        schema.fieldsets[0].fields.push('titleField');
+        return schema;
+      },
     },
     {
       id: 'simple_listing',
