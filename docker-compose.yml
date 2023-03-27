@@ -25,6 +25,8 @@ services:
     #RAZZLE_INTERNAL_API_PATH: "http://plone:8080/Plone"
 
   plone:
+    depends_on:
+      - lb
     image: tiberiuichim/vanabbe-backend:6.0.0-5
     # depends_on:
     # - zeo
@@ -47,6 +49,19 @@ services:
 
   worker:
     extends: plone
+
+  lb:
+    image: traefik:v2.9
+    command: --api.insecure=true --providers.docker --entrypoints.lb.address=:8090
+    ports:
+      # The Web UI (enabled by --api.insecure=true)
+      - "8080:8080"
+      # the lb entrypoint
+      - "8090:8090"
+    volumes:
+      # So that Traefik can listen to the Docker events
+      - /var/run/docker.sock:/var/run/docker.sock
+      # - ./traefik.yml:/etc/traefik/traefik.yml
 
   # See https://github.com/mcuadros/ofelia
   ofelia:
