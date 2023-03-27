@@ -1,7 +1,7 @@
 DATA_REPO = "/data-import"
 
 IMPORT_LOCATIONS = {
-    "artwork": "nl/collectie-onderzoek/vaste-collectie/kunstwerken",
+    "artwork": "nl/collectie-onderzoek/collectie/kunstwerken",
     "publication": "nl/collectie-onderzoek/bibliotheek/publicaties",
     "exhibition": "nl/tentoonstellingen",
     "author": "nl/collectie-onderzoek/kunstenaars",
