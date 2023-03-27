@@ -33,6 +33,7 @@ import logging
 import lxml.etree
 import os.path
 import requests
+import time
 import transaction
 
 
@@ -55,7 +56,7 @@ BASE_URL = (
 
 # action=get&command=search&query=*=*&fields=*&range=1-100
 
-BATCH_SIZE = 100
+BATCH_SIZE = 500
 
 ROOT = "//collectionConnection-resultset"
 
@@ -444,6 +445,18 @@ def dump(record, destination):
                 fname = os.path.join(dirname, get_filename(img))
                 download_image(img, fname)
                 print("Downloaded", img)
+                return 1
+
+    return 0
+
+
+def get_max_records():
+    query = "&query=*=*"
+    url = (BASE_URL + query) % (1, 1 + BATCH_SIZE)
+    resp = requests.get(url, verify=False)
+    doc = lxml.etree.fromstring(resp.text.encode("utf-8"))
+    count = int(doc.xpath(f'{ROOT}/request/count/text()')[0])
+    return count
 
 
 def copy_vubis():
@@ -458,14 +471,19 @@ def copy_vubis():
     destination = args.destination
     query = "&query=*=*"
 
-    max_records = args.maxcount or 1000000000
+    max_records = args.maxcount or get_max_records()
+
+    print(f"Fetching vubis archive of {max_records} records")
 
     cur = 1
     count = 0
+    new = 0
+
+    start = time.time()
 
     while count < max_records:
         url = (BASE_URL + query) % (cur, cur + BATCH_SIZE)
-        print("Fetch records: ", cur, cur + BATCH_SIZE, url)
+        # print("Fetch records: ", cur, cur + BATCH_SIZE, url)
         resp = requests.get(url, verify=False)
         cur = cur + BATCH_SIZE + 1
         doc = lxml.etree.fromstring(resp.text.encode("utf-8"))
@@ -474,8 +492,13 @@ def copy_vubis():
 
         records = doc.xpath("%s/records/record/data/dc_record" % ROOT)
         for rec in records:
-            dump(rec, destination)
+            new += dump(rec, destination)
             count += 1
+
+    end = time.time()
+
+    print(f"Saved {count} records. {new} new records. No failures")
+    print(f"Elapsed time: {end - start} seconds")
 
 
 if __name__ == "__main__":
