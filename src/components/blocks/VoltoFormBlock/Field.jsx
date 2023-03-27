@@ -1,22 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useIntl, defineMessages } from 'react-intl';
-
 import WysiwygWidget from '@plone/volto/components/manage/Widgets/WysiwygWidget';
-
-import EmailWidget from 'volto-form-block/components/Widget/EmailWidget';
-import FileWidget from 'volto-form-block/components/Widget/FileWidget';
-import DatetimeWidget from 'volto-form-block/components/Widget/DatetimeWidget';
-import CheckboxWidget from 'volto-form-block/components/Widget/CheckboxWidget';
-import SelectWidget from 'volto-form-block/components/Widget/SelectWidget';
-import TextWidget from 'volto-form-block/components/Widget/TextWidget';
-import TextareaWidget from 'volto-form-block/components/Widget/TextareaWidget';
-import CheckboxListWidget from 'volto-form-block/components/Widget/CheckboxListWidget';
-import RadioWidget from 'volto-form-block/components/Widget/RadioWidget';
-
-// import './Field.css';
-
+import {
+  EmailWidget,
+  FileWidget,
+  DatetimeWidget,
+  CheckboxWidget,
+  SelectWidget,
+  TextWidget,
+  TextareaWidget,
+  CheckboxListWidget,
+  RadioWidget,
+} from 'volto-form-block/components/Widget';
 import config from '@plone/volto/registry';
+
+/* Style */
+import 'volto-form-block/components/Field.css';
 
 const messages = defineMessages({
   select_a_value: {
@@ -35,7 +35,6 @@ const Field = ({
   description,
   name,
   field_type,
-  placeholder,
   required,
   input_values,
   value,
@@ -45,6 +44,7 @@ const Field = ({
   disabled = false,
   formHasErrors = false,
   id,
+  labelsAsPlaceholders,
 }) => {
   const intl = useIntl();
 
@@ -58,14 +58,15 @@ const Field = ({
         <TextWidget
           id={name}
           name={name}
-          title={label}
+          title={labelsAsPlaceholders ? '' : label}
+          placeholder={labelsAsPlaceholders ? label : ''}
           description={description}
-          placeholder={placeholder}
           required={required}
           onChange={onChange}
           value={value}
           isDisabled={disabled}
           invalid={isInvalid().toString()}
+          columns={labelsAsPlaceholders ? 1 : undefined}
           {...(isInvalid() ? { className: 'is-invalid' } : {})}
         />
       )}
@@ -73,9 +74,9 @@ const Field = ({
         <TextareaWidget
           id={name}
           name={name}
-          title={label}
+          title={labelsAsPlaceholders ? '' : label}
+          placeholder={labelsAsPlaceholders ? label : ''}
           description={description}
-          placeholder={placeholder}
           required={required}
           onChange={onChange}
           value={value}
@@ -89,7 +90,7 @@ const Field = ({
         <SelectWidget
           id={name}
           name={name}
-          title={label}
+          title={labelsAsPlaceholders ? '' : label}
           description={description}
           getVocabulary={() => {}}
           getVocabularyTokenTitle={() => {}}
@@ -188,12 +189,12 @@ const Field = ({
         <EmailWidget
           id={name}
           name={name}
-          title={label}
+          title={labelsAsPlaceholders ? '' : label}
+          placeholder={labelsAsPlaceholders ? label : ''}
           description={description}
           required={required}
           onChange={onChange}
           value={value}
-          placeholder={placeholder}
           isDisabled={disabled}
           invalid={isInvalid().toString()}
           {...(isInvalid() ? { className: 'is-invalid' } : {})}
@@ -207,7 +208,6 @@ const Field = ({
             name={name}
             title={label}
             description={description}
-            placeholder={placeholder}
             onChange={onChange}
             value={value}
           />

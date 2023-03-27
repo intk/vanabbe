@@ -1,4 +1,4 @@
-import React, { useCallback, useRef } from 'react';
+import React from 'react';
 import { useIntl, defineMessages } from 'react-intl';
 import {
   Segment,
@@ -9,13 +9,11 @@ import {
   Button,
 } from 'semantic-ui-react';
 import { getFieldName } from 'volto-form-block/components/utils';
-import Field from './Field';
-import GoogleReCaptchaWidget from 'volto-form-block/components/Widget/GoogleReCaptchaWidget';
-import HCaptchaWidget from 'volto-form-block/components/Widget/HCaptchaWidget';
-import { serializeNodes } from '@plone/volto-slate/editor/render';
-import { Icon } from 'semantic-ui-react';
+import Field from 'volto-form-block/components/Field';
 import config from '@plone/volto/registry';
-// import './FormView.css';
+
+/* Style */
+import 'volto-form-block/components/FormView.css';
 
 const messages = defineMessages({
   default_submit_label: {
@@ -48,35 +46,16 @@ const FormView = ({
   data,
   onSubmit,
   resetFormState,
+  resetFormOnError,
+  captcha,
+  id,
 }) => {
   const intl = useIntl();
-
-  const captcha = !!process.env.RAZZLE_HCAPTCHA_KEY
-    ? 'HCaptcha'
-    : !!process.env.RAZZLE_RECAPTCHA_KEY
-    ? 'GoogleReCaptcha'
-    : null;
-
-  let validToken = useRef('');
-  const onVerifyCaptcha = useCallback(
-    (token) => {
-      validToken.current = token;
-    },
-    [validToken],
-  );
+  const FieldSchema = config.blocks.blocksConfig.form.fieldSchema;
 
   const isValidField = (field) => {
     return formErrors?.indexOf(field) < 0;
   };
-
-  var FieldSchema = config.blocks.blocksConfig.form.fieldSchema;
-  var fieldSchemaProperties = FieldSchema()?.properties;
-  var fields_to_send = [];
-  for (var key in fieldSchemaProperties) {
-    if (fieldSchemaProperties[key].send_to_backend) {
-      fields_to_send.push(key);
-    }
-  }
 
   return (
     <div className="block form">
@@ -92,7 +71,7 @@ const FormView = ({
                 {intl.formatMessage(messages.error)}
               </Message.Header>
               <p>{formState.error}</p>
-              <Button secondary type="clear" onClick={resetFormState}>
+              <Button secondary type="clear" onClick={resetFormOnError}>
                 {intl.formatMessage(messages.reset)}
               </Button>
             </Message>
@@ -108,6 +87,7 @@ const FormView = ({
             </Message>
           ) : (
             <Form
+              id={id}
               loading={formState.loading}
               onSubmit={onSubmit}
               autoComplete="off"
@@ -130,12 +110,22 @@ const FormView = ({
                         disabled
                         valid
                         formHasErrors={formErrors?.length > 0}
+                        labelsAsPlaceholders={data.labelsAsPlaceholders}
                       />
                     </Grid.Column>
                   </Grid.Row>
                 ))}
                 {data.subblocks?.map((subblock, index) => {
                   let name = getFieldName(subblock.label, subblock.id);
+
+                  var fields_to_send = [];
+                  var fieldSchemaProperties = FieldSchema(subblock)?.properties;
+                  for (var key in fieldSchemaProperties) {
+                    if (fieldSchemaProperties[key].send_to_backend) {
+                      fields_to_send.push(key);
+                    }
+                  }
+
                   var fields_to_send_with_value = Object.assign(
                     {},
                     ...fields_to_send.map((field) => {
@@ -166,54 +156,24 @@ const FormView = ({
                           }
                           valid={isValidField(name)}
                           formHasErrors={formErrors?.length > 0}
+                          labelsAsPlaceholders={data.labelsAsPlaceholders}
                         />
                       </Grid.Column>
                     </Grid.Row>
                   );
                 })}
-
-                {captcha === 'GoogleReCaptcha' && (
-                  <GoogleReCaptchaWidget onVerify={onVerifyCaptcha} />
-                )}
-
-                {captcha === 'HCaptcha' && (
-                  <HCaptchaWidget
-                    sitekey={process.env.RAZZLE_HCAPTCHA_KEY}
-                    onVerify={onVerifyCaptcha}
-                    size={data.invisibleHCaptcha ? 'invisible' : 'normal'}
-                  />
-                )}
-
+                {captcha.render()}
                 {formErrors.length > 0 && (
-                  <Grid.Row>
-                    <Grid.Column>
-                      <Message error role="alert" icon>
-                        <Icon name="exclamation circle" />
-                        <Message.Content>
-                          <Message.Header as="h4">
-                            {intl.formatMessage(messages.error)}
-                          </Message.Header>
-                          <p>{intl.formatMessage(messages.empty_values)}</p>
-                        </Message.Content>
-                      </Message>
-                    </Grid.Column>
-                  </Grid.Row>
+                  <Message error role="alert">
+                    <Message.Header as="h4">
+                      {intl.formatMessage(messages.error)}
+                    </Message.Header>
+                    <p>{intl.formatMessage(messages.empty_values)}</p>
+                  </Message>
                 )}
-
-                <Grid.Row>
-                  <Grid.Column>
-                    {data.bottomText && (
-                      <div className="bottom-description">
-                        {serializeNodes(data.bottomText)}
-                      </div>
-                    )}
-                    <Button
-                      className="tertiary"
-                      type="submit"
-                      disabled={
-                        (captcha && !validToken?.current) || formState.loading
-                      }
-                    >
+                <Grid.Row centered className="row-padded-top">
+                  <Grid.Column textAlign="center">
+                    <Button primary type="submit" disabled={formState.loading}>
                       {data.submit_label ||
                         intl.formatMessage(messages.default_submit_label)}
 
