@@ -1,3 +1,4 @@
+from intk_vanabbe.utils import decade
 from plone.app.dexterity.textindexer.directives import searchable
 from plone.app.multilingual.dx import directives as lang_directives
 from plone.app.z3cform.widget import RelatedItemsFieldWidget
@@ -6,8 +7,6 @@ from plone.supermodel import model
 from z3c.relationfield.schema import RelationChoice
 from z3c.relationfield.schema import RelationList
 from zope import schema
-
-import math
 
 
 # 3013.xml
@@ -32,17 +31,23 @@ class IArtwork(model.Schema):
     ccIdentifier = schema.TextLine(title="ccIdentifier", required=False)
     ccIndexName = schema.TextLine(title="ccIndexName", required=False)
     dimensions = schema.TextLine(title="dimensions", required=False)
-    objectCreationDate = schema.TextLine(title="objectCreationDate", required=False)
+    objectCreationDate = schema.TextLine(
+        title="objectCreationDate", required=False)
     objectCreationDateFrom = schema.TextLine(
         title="objectCreationDateFrom", required=False
     )
-    objectCreationDateTo = schema.TextLine(title="objectCreationDateTo", required=False)
-    objectDescription = schema.TextLine(title="objectDescription", required=False)
+    objectCreationDateTo = schema.TextLine(
+        title="objectCreationDateTo", required=False)
+    objectDescription = schema.TextLine(
+        title="objectDescription", required=False)
     objectID = schema.TextLine(title="objectID", required=False)
+    objectIsVisible = schema.Bool(
+        title="objectIsVisible", required=False, default=False)
     objectMedium = schema.TextLine(title="objectMedium", required=False)
     objectCredit = schema.TextLine(title="objectCredit", required=False)
     objectTitle = schema.TextLine(title="objectTitle", required=False)
-    objectYearPurchase = schema.TextLine(title="objectYearPurchase", required=False)
+    objectYearPurchase = schema.TextLine(
+        title="objectYearPurchase", required=False)
     recordnumber = schema.TextLine(title="recordnumber", required=False)
 
     # to migrate: trefwoord (subject)
@@ -85,19 +90,6 @@ class IArtwork(model.Schema):
     )
 
     searchable("objectTitle", "objectDescription", "objectCredit")
-
-
-def decade(year):
-    if not isinstance(year, int):
-        try:
-            year = int(year)
-        except Exception:
-            return
-
-    start = math.floor(year / 10) * 10
-    end = start + 10
-
-    return f"{start}-{end}"
 
 
 def get_decades(obj):

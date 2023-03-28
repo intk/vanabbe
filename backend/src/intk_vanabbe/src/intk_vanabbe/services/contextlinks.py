@@ -15,6 +15,10 @@ from zope.interface import implementer
 from zope.interface import Interface
 
 import json
+import logging
+
+
+logger = logging.getLogger('vubis')
 
 
 QUOTE_SAFE = "!~*'()\""
@@ -46,7 +50,11 @@ class AuthorContextLinks(object):
     @instance.memoize
     def repo_url(self, type_):
         site = portal.get()
-        repo = site.restrictedTraverse(IMPORT_LOCATIONS[type_])
+        try:
+            repo = site.restrictedTraverse(IMPORT_LOCATIONS[type_])
+        except Exception:
+            logger.error("Could not find %s", IMPORT_LOCATIONS[type_])
+            return "/"
         if self.context.language == "en":
             intl_mgr = get_translation_manager(repo)
             repo = intl_mgr.get_translation("en")
@@ -94,7 +102,8 @@ class AuthorContextLinks(object):
 
         artworks = self.get_artworks()
         if artworks:
-            items.append({"id": "artworks", "items": [tojson(b) for b in artworks]})
+            items.append({"id": "artworks", "items": [
+                         tojson(b) for b in artworks]})
 
         # TODO: this makes no sense for authors
         # period_art = self.get_period_art()
@@ -150,7 +159,11 @@ class ArtworkContextLinks(object):
     @instance.memoize
     def repo_url(self, type_):
         site = portal.get()
-        repo = site.restrictedTraverse(IMPORT_LOCATIONS[type_])
+        try:
+            repo = site.restrictedTraverse(IMPORT_LOCATIONS[type_])
+        except Exception:
+            logger.error("Could not find %s", IMPORT_LOCATIONS[type_])
+            return "/"
         if self.context.language == "en":
             intl_mgr = get_translation_manager(repo)
             repo = intl_mgr.get_translation("en")

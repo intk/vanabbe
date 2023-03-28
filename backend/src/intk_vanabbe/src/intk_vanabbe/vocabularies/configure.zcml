@@ -10,4 +10,9 @@
       component=".searchindex.TechniqueVocabularyFactory"
       />
 
+  <utility
+      name="publication_types_vocabulary"
+      component=".searchindex.PublicationTypesVocabularyFactory"
+      />
+
 </configure>

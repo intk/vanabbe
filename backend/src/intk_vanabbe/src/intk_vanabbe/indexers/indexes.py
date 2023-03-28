@@ -1,6 +1,7 @@
 from intk_vanabbe.content.artwork import get_decades
 from intk_vanabbe.content.artwork import IArtwork
 from intk_vanabbe.content.exhibition import IExhibition
+from intk_vanabbe.content.publication import get_publication_decades
 from intk_vanabbe.content.publication import IPublication
 from plone.indexer.decorator import indexer
 
@@ -27,6 +28,19 @@ def exhibition_description(obj):
 @indexer(IPublication)
 def author_name(obj):
     return obj.bookauthorName
+
+
+@indexer(IPublication)
+def publication_type(obj):
+    binding = getattr(obj, 'bookBinding', None)
+    if not binding:
+        return None
+    return [binding.split(';', 1)[0].strip()]
+
+
+@indexer(IPublication)
+def publication_decades(obj):
+    return get_publication_decades(obj)
 
 
 @indexer(IArtwork)

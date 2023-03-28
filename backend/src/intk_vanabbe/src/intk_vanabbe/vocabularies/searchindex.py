@@ -33,6 +33,7 @@ class MultilingualKeywordsVocabulary(BKV):
 
 
 DecadesVocabularyFactory = KeywordsVocabulary("decades")
+PublicationTypesVocabularyFactory = KeywordsVocabulary("publication_type")
 TechniqueVocabularyFactory = MultilingualKeywordsVocabulary("technique")
 
 

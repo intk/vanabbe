@@ -1,3 +1,4 @@
+from intk_vanabbe.utils import decade
 from plone.app.dexterity.textindexer.directives import searchable
 from plone.app.multilingual.dx import directives
 from plone.supermodel import model
@@ -116,3 +117,15 @@ class IPublication(model.Schema):
     searchable("vubisID")
     searchable("bookArtist")
     searchable("bookTitle_ALT")
+
+
+def get_publication_decades(obj):
+    published = getattr(obj, 'bookDatePublished', None)
+    if not published:
+        return None
+    try:
+        published = int(published)
+    except Exception:
+        return None
+
+    return [decade(published)]

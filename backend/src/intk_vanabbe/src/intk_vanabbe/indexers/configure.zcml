@@ -26,6 +26,16 @@
       />
 
   <adapter
+      factory=".indexes.publication_decades"
+      name="decades"
+      />
+
+  <adapter
+      factory=".indexes.publication_type"
+      name="publication_type"
+      />
+
+  <adapter
       factory=".indexes.artwork_technique"
       name="technique"
       />

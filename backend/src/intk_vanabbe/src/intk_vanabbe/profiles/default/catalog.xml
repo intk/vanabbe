@@ -13,6 +13,10 @@
     <indexed_attr value="is_featured"/>
   </index>
 
+  <index name="objectIsVisible" meta_type="FieldIndex">
+    <indexed_attr value="objectIsVisible"/>
+  </index>
+
   <index name="bookArtist" meta_type="KeywordIndex">
     <indexed_attr value="bookArtist"/>
   </index>
@@ -27,6 +31,10 @@
 
   <index name="technique" meta_type="KeywordIndex">
     <indexed_attr value="technique"/>
+  </index>
+
+  <index name="publication_type" meta_type="KeywordIndex">
+    <indexed_attr value="publication_type"/>
   </index>
 
   <index name="technique_en" meta_type="KeywordIndex">
@@ -45,5 +53,6 @@
   <column value="whole_day"/>
   <column value="recurrence" />
   <column value="recurence_description"/>
+  <column value="publication_type"/>
 
 </object>

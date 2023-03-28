@@ -20,6 +20,13 @@
       />
 
   <browser:page
+      name="admin_fixes"
+      for="*"
+      class=".admin.AdminFixes"
+      permission="cmf.ManagePortal"
+      />
+
+  <browser:page
       name="gopdb"
       for="*"
       class=".GoPDB"
