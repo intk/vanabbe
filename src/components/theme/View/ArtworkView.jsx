@@ -131,12 +131,14 @@ export default function ArtworkView(props) {
                         <div className="object-medium">
                           {content.objectMedium}
                         </div>
-                        <div className="object-location">
-                          <FormattedMessage
-                            id="Not on display"
-                            defaultMessage="Not on display"
-                          />
-                        </div>
+                        {!content.objectIsVisible && (
+                          <div className="object-location">
+                            <FormattedMessage
+                              id="Not on display"
+                              defaultMessage="Not on display"
+                            />
+                          </div>
+                        )}
                         <div className="acquired">
                           <FormattedMessage
                             id="Acquired in"
