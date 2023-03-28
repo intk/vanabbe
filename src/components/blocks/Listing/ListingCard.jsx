@@ -181,7 +181,15 @@ const ArtworkCard = ({ item }) => {
 };
 
 const PublicationCard = ({ item, ...rest }) => (
-  <Card {...rest} item={{ ...item, description: item.authorName }} />
+  <Card
+    {...rest}
+    item={{
+      ...item,
+      description: item.authorName,
+      Subject: item.publication_type || [],
+    }}
+    showTag={true}
+  />
 );
 
 const ExhibitionCard = ({ item, ...rest }) => (

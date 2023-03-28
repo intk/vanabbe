@@ -43,16 +43,24 @@ const messages = defineMessages({
 
 export default (config) => {
   config.blocks.blocksConfig.listing.schemaEnhancer = ({ schema, intl }) => {
+    // console.log('schema enhancer');
     // move querystring to its own fieldset;
 
-    schema.fieldsets[0].fields = schema.fieldsets[0].fields.filter(
-      (f) => f !== 'querystring',
+    const hasQuerystring = schema.fieldsets.reduce(
+      (acc, { fields }) => acc || fields.indexOf('querystring') > -1,
+      false,
     );
-    schema.fieldsets.splice(1, 0, {
-      id: 'querystring',
-      title: 'Query',
-      fields: ['querystring'],
-    });
+
+    if (hasQuerystring) {
+      schema.fieldsets[0].fields = schema.fieldsets[0].fields.filter(
+        (f) => f !== 'querystring',
+      );
+      schema.fieldsets.splice(1, 0, {
+        id: 'querystring',
+        title: 'Query',
+        fields: ['querystring'],
+      });
+    }
 
     schema.properties = {
       ...schema.properties,
