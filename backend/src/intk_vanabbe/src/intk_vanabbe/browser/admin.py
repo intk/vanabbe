@@ -32,7 +32,7 @@ class AdminFixes(BrowserView):
 
         for count, brain in enumerate(brains):
             brain.getObject().reindexObject(
-                idxs=['portal_type'], update_metadata=True)
+                idxs=['publication_type', 'decades'], update_metadata=True)
             if count % 1000 == 0:
                 transaction.savepoint(optimistic=True)
                 logger.info(f"Processed {count}")
