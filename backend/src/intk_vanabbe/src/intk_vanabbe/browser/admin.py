@@ -5,6 +5,7 @@ from Products.Five.browser import BrowserView
 from zope.interface import alsoProvides
 
 import logging
+import lxml.etree
 import os
 import transaction
 
@@ -12,17 +13,29 @@ import transaction
 logger = logging.getLogger('vubis')
 
 
+def _get_filenames():
+    repo = DATA_REPO
+    filenames = [
+        os.path.join(repo, f)
+        for f in next(os.walk(repo), (None, None, []))[2]
+        if f.endswith(".xml")
+    ]
+    return filenames
+
+
+def find_files(search):
+    found = []
+    for fname in _get_filenames():
+        with open(fname) as f:
+            content = f.read()
+            if search in content:
+                found.append(fname)
+
+    return found
+
+
 class AdminFixes(BrowserView):
     """Vubis import on demand, for debugging"""
-
-    def _get_filenames(self):
-        repo = DATA_REPO
-        filenames = [
-            os.path.join(repo, f)
-            for f in next(os.walk(repo), (None, None, []))[2]
-            if f.endswith(".xml")
-        ]
-        return filenames
 
     def reindex_publications(self):
         site = portal.get()
@@ -43,12 +56,7 @@ class AdminFixes(BrowserView):
         return "Done"
 
     def import_objectvisible(self):
-        to_import = []
-        for fname in self._get_filenames():
-            with open(fname) as f:
-                content = f.read()
-                if "<objectIsVisible>1</objectIsVisible>" in content:
-                    to_import.append(fname)
+        to_import = find_files("<objectIsVisible>1</objectIsVisible>")
 
         recordnumbers = []
         for fpath in to_import:
@@ -67,7 +75,36 @@ class AdminFixes(BrowserView):
 
         return "ok"
 
+    def import_images(self):
+        to_import = find_files("</objectImage>")
+
+        site = portal.get()
+        catalog = site.portal_catalog
+
+        for fpath in to_import:
+            with open(fpath) as f:
+                xml = f.read()
+            element = lxml.etree.fromstring(xml)
+            img_urls = element.xpath("//dc_record/objectImage/text()")
+            img_count = len(img_urls)
+
+            recordnumber = fpath.rsplit('/', 1)[-1].split('.')[0]
+            brains = catalog.searchResults(recordnumber=int(recordnumber))
+
+            for brain in brains:
+                obj = brain.getObject()
+                childrenIds = obj.contentIds()
+                if len(childrenIds) != img_count:
+                    import pdb
+                    pdb.set_trace()
+                # obj.objectIsVisible = True
+                # obj.reindexObject(idxs=['objectIsVisible'])
+                # logger.info("Fixed %s", obj.absolute_url(relative=1))
+
+        return "ok"
+
     def __call__(self):
         alsoProvides(self.request, IDisableCSRFProtection)
         op = self.request.form.get('op')
+
         return getattr(self, op)()

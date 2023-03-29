@@ -436,16 +436,19 @@ def dump(record, destination):
 
             print("Dumped", fname)
 
-        images = extract_images(record)
-        if images:
-            dirname = os.path.join(destination, rec_id)
-            if not os.path.isdir(dirname):
-                os.makedirs(dirname)
-            for img in images:
-                fname = os.path.join(dirname, get_filename(img))
+    images = extract_images(record)
+    if images:
+        dirname = os.path.join(destination, rec_id)
+        if not os.path.isdir(dirname):
+            os.makedirs(dirname)
+
+        for img in images:
+            fname = os.path.join(dirname, get_filename(img))
+
+            if not os.path.isfile(fname):
                 download_image(img, fname)
                 print("Downloaded", img)
-                return 1
+        # return 1
 
     return 0
 
