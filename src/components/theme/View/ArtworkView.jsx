@@ -106,9 +106,12 @@ export default function ArtworkView(props) {
       (content.objectDescription || '').split('%').forEach((text) => {
         const col = [];
 
-        text.split('\n').forEach((p) => {
-          col.push(p);
-        });
+        text
+          .split('\n')
+          .filter((p) => !!p)
+          .forEach((p) => {
+            col.push(p);
+          });
         columns.push(col);
       });
     } else {
