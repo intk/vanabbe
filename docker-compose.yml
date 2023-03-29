@@ -43,11 +43,11 @@ services:
       ofelia.enabled: "true"
       ofelia.job-exec.monthly-pack.schedule: "0 0 0 1 * *"
       ofelia.job-exec.monthly-pack.command: "/app/bin/zeopack -h zeo -p 8100 -d 3"
-    #entrypoint: sh -c "tail -f /dev/null"
     healthcheck:
       disable: true
 
   worker:
+    entrypoint: sh -c "tail -f /dev/null"
     extends: plone
 
   lb:
