@@ -33,8 +33,11 @@ class AdminFixes(BrowserView):
         for count, brain in enumerate(brains):
             brain.getObject().reindexObject(
                 idxs=['publication_type', 'decades'], update_metadata=True)
+#           if count % 100 == 0:
+#               transaction.savepoint(optimistic=True)
+#               logger.info(f"Processed {count}")
             if count % 1000 == 0:
-                transaction.savepoint(optimistic=True)
+                transaction.commit()
                 logger.info(f"Processed {count}")
 
         return "Done"
