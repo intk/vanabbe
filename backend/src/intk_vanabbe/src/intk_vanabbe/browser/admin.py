@@ -210,6 +210,22 @@ class AdminFixes(BrowserView):
                         for el in els
                     ]
 
+            for lang in intl.keys():
+                fields = element.xpath(
+                    f"//dc_record/objectDescription[@Language='{lang.upper()}']")
+                if len(fields) > 1:
+                    dirty = True
+                    for el in fields:
+                        title = el.get('Title')
+                        scope = el.get('Scope')
+                        if title or scope:
+                            info[lang]['objectDescription_extra'] = str(
+                                el.text)
+                            info[lang]['objectDescription_extra_title'] = title
+                            info[lang]['objectDescription_extra_scope'] = scope
+                        else:
+                            info[lang]['objectDescription'] = str(el.text)
+
             if not dirty:
                 continue
             for brain in brains:

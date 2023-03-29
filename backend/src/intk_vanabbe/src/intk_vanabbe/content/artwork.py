@@ -61,6 +61,14 @@ class IArtwork(model.Schema):
     ObjectAudio = schema.Text(title="ObjectAudio", required=False)
     ObjectVideo = schema.Text(title="ObjectVideo", required=False)
 
+    # custom fields
+    objectDescription_extra = schema.Text(
+        title="objectDescription_extra", required=False)
+    objectDescription_extra_title = schema.TextLine(
+        title="objectDescription_extra_title", required=False)
+    objectDescription_extra_scope = schema.TextLine(
+        title="objectDescription_extra_scope", required=False)
+
     # to migrate: trefwoord (subject), subjectandkeywords
 
     # objectPosition, objectFormatWidth, objectKeys, ObjectAudio, objectIsVisible,
@@ -110,7 +118,8 @@ class IArtwork(model.Schema):
         # "ObjectVideo",
     )
 
-    searchable("objectTitle", "objectDescription", "objectCredit")
+    searchable("objectTitle", "objectDescription",
+               "objectDescription_extra_title", "objectCredit")
 
 
 def get_decades(obj):

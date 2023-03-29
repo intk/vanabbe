@@ -57,6 +57,42 @@ const getItem = (info, content) => {
     : null;
 };
 
+const ObjectLinks = ({ content }) => {
+  const res = [];
+
+  if (content.ObjectAudio) {
+    const audio = JSON.parse(content.ObjectAudio);
+    try {
+      res.push(
+        audio.map(({ title, filename }, ix) => (
+          <div className="object-audio">
+            <a key={`${ix}-${filename}`} href={`#${filename}`}>
+              {title}
+            </a>
+          </div>
+        )),
+      );
+    } catch {}
+  }
+
+  if (content.ObjectVideo) {
+    try {
+      const video = JSON.parse(content.ObjectVideo);
+      res.push(
+        video.map(({ title, filename }, ix) => (
+          <div className="object-video">
+            <a key={`${ix}-${filename}`} href={`#${filename}`}>
+              {title}
+            </a>
+          </div>
+        )),
+      );
+    } catch {}
+  }
+
+  return res;
+};
+
 export default function ArtworkView(props) {
   const { registratorMail } = config.settings;
   const { content } = props;
@@ -65,7 +101,6 @@ export default function ArtworkView(props) {
   const components = content['@components'] || {};
   const { contextLinks = {} } = components;
 
-  // console.log(content);
   if (content.objectDescription) {
     if (!content.objectDescription.match(/<br|<a/g)) {
       (content.objectDescription || '').split('%').forEach((text) => {
@@ -96,6 +131,8 @@ export default function ArtworkView(props) {
       </Grid.Column>
     );
   };
+
+  console.log(content);
 
   const authors = content.authors.map((auth) => auth.title).join(', ');
   // console.log(contextLinks.items);
@@ -171,6 +208,12 @@ export default function ArtworkView(props) {
                           {content.objectCredit}
                         </div>
 
+                        {content.ObjectAudio || content.ObjectVideo ? (
+                          <div className="object-links">
+                            <ObjectLinks content={content} />
+                          </div>
+                        ) : null}
+
                         <div className="info">
                           <p>
                             <FormattedMessage
@@ -203,6 +246,17 @@ export default function ArtworkView(props) {
                           dangerouslySetInnerHTML={{ __html: col }}
                         />
                       ))}
+                      {content.objectDescription_extra ? (
+                        <>
+                          <h4>{content.objectDescription_extra_title}</h4>
+                          <p
+                            dangerouslySetInnerHTML={{
+                              __html: content.objectDescription_extra,
+                            }}
+                          />
+                        </>
+                      ) : null}
+
                       <p className="artwork-content-footer">
                         <FormattedMessage
                           id="does_this_contain_innacurate"
