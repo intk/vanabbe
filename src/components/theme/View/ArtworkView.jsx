@@ -65,14 +65,21 @@ export default function ArtworkView(props) {
   const components = content['@components'] || {};
   const { contextLinks = {} } = components;
 
-  (content.objectDescription || '').split('%').forEach((text) => {
-    const col = [];
+  // console.log(content);
+  if (content.objectDescription) {
+    if (!content.objectDescription.match(/<br|<a/g)) {
+      (content.objectDescription || '').split('%').forEach((text) => {
+        const col = [];
 
-    text.split('\n').forEach((p) => {
-      col.push(p);
-    });
-    columns.push(col);
-  });
+        text.split('\n').forEach((p) => {
+          col.push(p);
+        });
+        columns.push(col);
+      });
+    } else {
+      columns.push([content.objectDescription]);
+    }
+  }
 
   const Item = ({ info }) => {
     return (
@@ -128,9 +135,14 @@ export default function ArtworkView(props) {
                           <h2 key={index}>{auth.title}</h2>
                         ))}
 
-                        <div className="object-medium">
+                        <div className="object-medium object-metadata">
                           {content.objectMedium}
                         </div>
+
+                        <div className="object-dimensions object-metadata">
+                          {content.dimensions}
+                        </div>
+
                         {!content.objectIsVisible && (
                           <div className="object-location">
                             <FormattedMessage
@@ -139,6 +151,7 @@ export default function ArtworkView(props) {
                             />
                           </div>
                         )}
+
                         <div className="acquired">
                           <FormattedMessage
                             id="Acquired in"
@@ -181,7 +194,10 @@ export default function ArtworkView(props) {
                         />
                       </h4>
                       {columns.map((col, index) => (
-                        <p key={index}>{col}</p>
+                        <p
+                          key={index}
+                          dangerouslySetInnerHTML={{ __html: col }}
+                        />
                       ))}
                       <p className="artwork-content-footer">
                         <FormattedMessage

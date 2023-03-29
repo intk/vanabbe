@@ -192,7 +192,7 @@ msgstr "Interne pagina of pad"
 #: components/theme/View/ArtworkView
 # defaultMessage: Inventaris nummer {objectID}
 msgid "Inventory number"
-msgstr "Inventaris nummer"
+msgstr "Inventaris nummer {objectID}"
 
 #: components/blocks/ActionLinks/schema
 #: components/blocks/Facts/schema

@@ -29,6 +29,7 @@ from intk_vanabbe.config import INTL_FIELDS
 
 import argparse
 import hashlib
+import json
 import logging
 import lxml.etree
 import os.path
@@ -59,6 +60,8 @@ BASE_URL = (
 BATCH_SIZE = 500
 
 ROOT = "//collectionConnection-resultset"
+
+errors = []
 
 
 def to_dict(rec):
@@ -416,10 +419,12 @@ def download_image(url, filename):
             data = req.raw.read()
 
             if "DOCTYP" in str(data[:10]):  # avoids missing images
-                return
+                raise Exception(f"Find not found {url}")
             with open(filename, "wb") as f:
                 f.write(data)
+            return filename
     except Exception:
+        errors.append(url)
         print(f"Error fetching {url}")
 
 
@@ -446,8 +451,10 @@ def dump(record, destination):
             fname = os.path.join(dirname, get_filename(img))
 
             if not os.path.isfile(fname):
-                download_image(img, fname)
-                print("Downloaded", img)
+                img_path = download_image(img, fname)
+                print(f"Downloaded {img} --> {img_path}")
+            else:
+                print(f"Image exists {fname} {img}")
         # return 1
 
     return 0
@@ -500,8 +507,11 @@ def copy_vubis():
 
     end = time.time()
 
-    print(f"Saved {count} records. {new} new records. No failures")
+    print(f"Saved {count} records. {new} new records. {len(errors)} failures")
     print(f"Elapsed time: {end - start} seconds")
+
+    with open(os.path.join(destination, 'errors.json'), 'w') as log:
+        log.write(json.dumps(errors))
 
 
 if __name__ == "__main__":

@@ -302,6 +302,8 @@ class ImportVubis(BrowserView):
         filenames = [IMAGE_BASE_URL % fname for fname in filenames]
         rec["objectImage"] = "\n".join(filenames)
 
+        # todo: dimensions from Dimensions
+
         converted = convert_lists_to_text(rec)
         converted["title"] = converted["objectTitle"].split("\n")[0]
 

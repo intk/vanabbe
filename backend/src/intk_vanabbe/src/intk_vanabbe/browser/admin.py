@@ -75,6 +75,33 @@ class AdminFixes(BrowserView):
 
         return "ok"
 
+    def import_dimensions(self):
+        to_import = find_files("</Dimensions>")
+
+        recordnumbers = []
+        for fpath in to_import:
+            fname = fpath.rsplit('/', 1)[-1].split('.')[0]
+            recordnumbers.append(fname)
+
+        site = portal.get()
+        catalog = site.portal_catalog
+
+        for fpath in to_import:
+            with open(fpath) as f:
+                xml = f.read()
+            element = lxml.etree.fromstring(xml)
+            dimensions = element.xpath("//dc_record/Dimensions/text()")[0]
+
+            recordnumber = fpath.rsplit('/', 1)[-1].split('.')[0]
+            brains = catalog.searchResults(recordnumber=int(recordnumber))
+
+            for brain in brains:
+                obj = brain.getObject()
+                obj.dimensions = str(dimensions or "")
+                logger.info("Fixed %s", obj.absolute_url(relative=1))
+
+        return "ok"
+
     def import_images(self):
         to_import = find_files("</objectImage>")
 
