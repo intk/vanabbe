@@ -167,6 +167,10 @@ export default function ArtworkView(props) {
                           />
                         </div>
 
+                        <div className="inventory-number">
+                          {content.objectCredit}
+                        </div>
+
                         <div className="info">
                           <p>
                             <FormattedMessage

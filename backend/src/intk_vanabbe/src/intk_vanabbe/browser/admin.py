@@ -7,6 +7,7 @@ from plone.protect.interfaces import IDisableCSRFProtection
 from Products.Five.browser import BrowserView
 from zope.interface import alsoProvides
 
+import json
 import logging
 import lxml.etree
 import os
@@ -152,6 +153,80 @@ class AdminFixes(BrowserView):
                 # logger.info("Fixed %s", obj.absolute_url(relative=1))
 
         return f"Processed: {processed_brains}\n{error_urls}"
+
+    def import_artworks(self):
+        to_import = find_files("</AuthorBio>")
+
+        site = portal.get()
+        catalog = site.portal_catalog
+
+        for fpath in to_import:
+            recordnumber = fpath.rsplit('/', 1)[-1].split('.')[0]
+
+            brains = catalog.searchResults(recordnumber=int(recordnumber))
+
+            with open(fpath) as f:
+                xml = f.read()
+
+            element = lxml.etree.fromstring(xml)
+
+            fields = [
+                "objectPosition",
+                "objectFormatWidth",
+                "objectFormatDepth",
+                "objectFormatLength",
+                "objectKeys",
+            ]
+            intl_fields = ["ObjectAudio", "ObjectVideo"]
+
+            info = {'nl': {}, 'en': {}}
+            intl = {'nl': {}, 'en': {}}
+            dirty = False
+
+            titles = element.xpath("//dc_record/objectTitle")
+            if len(titles) > 1:
+                titles.sort(key=lambda x: x.get("Rangorde") or "")
+                title = titles[0].text
+                info['nl']['objectTitle'] = title
+                info['en']['objectTitle'] = title
+
+            for attr in fields:
+                value = element.xpath(f"//dc_record/{attr}/text()")
+                if value:
+                    dirty = True
+                    info['en'][attr] = str(value[0])
+                    info['nl'][attr] = str(value[0])
+
+            for field in intl_fields:
+                for lang in intl.keys():
+                    els = element.xpath(
+                        f"//dc_record/{field}[@Language='{lang.upper()}']")
+                    if not els:
+                        continue
+                    dirty = True
+                    intl[lang][field] = [
+                        {"title": (el.get("Title") or "").strip(),
+                            "filename": (el.text or "").strip()}
+                        for el in els
+                    ]
+
+            if not dirty:
+                continue
+            for brain in brains:
+                obj = brain.getObject()
+                lang = obj.language
+                for k, v in info[lang].items():
+                    if v:
+                        setattr(obj, k, v)
+
+                for k, v in intl[lang].items():
+                    if v:
+                        setattr(obj, k, json.dumps(v))
+
+                logger.info("Fixed %s", obj.absolute_url(relative=1))
+                obj.reindexObject(idxs=['objectTitle'])
+
+        return "done"
 
     def __call__(self):
         alsoProvides(self.request, IDisableCSRFProtection)

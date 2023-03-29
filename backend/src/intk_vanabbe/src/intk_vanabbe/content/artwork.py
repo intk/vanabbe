@@ -50,7 +50,19 @@ class IArtwork(model.Schema):
         title="objectYearPurchase", required=False)
     recordnumber = schema.TextLine(title="recordnumber", required=False)
 
-    # to migrate: trefwoord (subject)
+    objectPosition = schema.TextLine(title="objectPosition", required=False)
+    objectFormatWidth = schema.TextLine(
+        title="objectFormatWidth", required=False)
+    objectFormatDepth = schema.TextLine(
+        title="objectFormatDepth", required=False)
+    objectFormatLength = schema.TextLine(
+        title="objectFormatLength", required=False)
+    objectKeys = schema.TextLine(title="objectKeys", required=False)
+    ObjectAudio = schema.Text(title="ObjectAudio", required=False)
+    ObjectVideo = schema.Text(title="ObjectVideo", required=False)
+
+    # to migrate: trefwoord (subject), subjectandkeywords
+
     # objectPosition, objectFormatWidth, objectKeys, ObjectAudio, objectIsVisible,
     # objectImage, objectFormatDepth, objectFormatLength, Dimmensions, ObjectVideo
 
@@ -73,6 +85,8 @@ class IArtwork(model.Schema):
     )
 
     lang_directives.languageindependent(
+        # "objectDescription",
+        # "objectMedium",
         "ccObjectID",
         "ccIdentifier",
         "ccIndexName",
@@ -80,13 +94,20 @@ class IArtwork(model.Schema):
         "objectCreationDate",
         "objectCreationDateFrom",
         "objectCreationDateTo",
-        # "objectDescription",
         "objectID",
-        # "objectMedium",
         "objectCredit",
         "objectTitle",
         "objectYearPurchase",
         "recordnumber",
+
+        "objectPosition",
+        "objectFormatWidth",
+        "objectFormatDepth",
+        "objectFormatLength",
+        "objectKeys",
+
+        # "ObjectAudio",
+        # "ObjectVideo",
     )
 
     searchable("objectTitle", "objectDescription", "objectCredit")
