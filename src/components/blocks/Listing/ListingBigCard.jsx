@@ -31,7 +31,7 @@ const Card = ({ item, showDate, showTag, showContentType }) => {
             <h2 className="card-title">{item.title}</h2>
 
             {!!image_field && (
-              <div className="image-wrapper mobile tablet only">
+              <div className="image-wrapper image-wrapper-mobile">
                 <PreviewImage
                   item={item}
                   size={size}
@@ -45,7 +45,7 @@ const Card = ({ item, showDate, showTag, showContentType }) => {
               </div>
             )}
           </div>
-          <div className="computer large screen widescreen only">
+          <div className="image-wrapper-desktop">
             {!!image_field && (
               <div className="image-wrapper">
                 <PreviewImage
@@ -86,7 +86,7 @@ const NewsItemCard = ({ item, showDate, showTag, showContentType }) => {
             <h2 className="card-title">{item.title}</h2>
 
             {!!image_field && (
-              <div className="image-wrapper mobile tablet only">
+              <div className="image-wrapper image-wrapper-mobile">
                 <PreviewImage
                   item={item}
                   size={size}
@@ -101,7 +101,7 @@ const NewsItemCard = ({ item, showDate, showTag, showContentType }) => {
               </div>
             )}
           </div>
-          <div className="computer large screen widescreen only">
+          <div className="image-wrapper-desktop">
             {!!image_field && (
               <div className="image-wrapper">
                 <PreviewImage
@@ -157,7 +157,7 @@ const EventCard = ({ item, showDate, showTag, showContentType }) => {
             <h2 className="card-title">{item.title}</h2>
 
             {!!image_field && (
-              <div className="image-wrapper mobile tablet only">
+              <div className="image-wrapper image-wrapper-mobile">
                 <PreviewImage
                   item={item}
                   size={size}
@@ -172,7 +172,7 @@ const EventCard = ({ item, showDate, showTag, showContentType }) => {
               </div>
             )}
           </div>
-          <div className="computer large screen widescreen only">
+          <div className="image-wrapper-desktop">
             {!!image_field && (
               <div className="image-wrapper">
                 <PreviewImage

@@ -136,7 +136,11 @@ const HeroUnitView = (props) => {
       setIsActive(true);
       setLogoTopPosition(windowHeight - logoBottomPosition);
     }
-  }, [scrollDown, windowHeight, windowWidth]);
+
+    if (!isTopOfPage && !scrollDown) {
+      setLogoTopPosition(windowHeight - logoBottomPosition);
+    }
+  }, [isTopOfPage, scrollDown, windowHeight, windowWidth]);
 
   useEffect(() => {
     window.addEventListener('resize', setLogoPosition);

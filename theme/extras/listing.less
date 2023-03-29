@@ -94,8 +94,8 @@
 
 .listings.big-cards {
   .listing-column-one {
-    .listing-card {
-      height: 450px !important;
+    .listing-card.default-card {
+      height: 450px;
     }
 
     .card-details {
@@ -105,18 +105,16 @@
     .listing-card.default-card {
       .card-title {
         font-size: @desktopH2;
-
-        @media only screen and (max-width: @largestMobileScreen) {
-          margin-bottom: var(--space-xl);
-        }
       }
 
       .card-meta {
         font-size: @desktopH4;
       }
-    }
 
-    .listing-card.default-card {
+      .image-wrapper {
+        margin-bottom: 30px;
+      }
+
       .card-details {
         .card-content .card-description {
           margin-top: auto;
@@ -127,6 +125,20 @@
           font-size: @largeFontSize;
         }
       }
+    }
+  }
+
+  .image-wrapper-mobile {
+    display: none;
+    @media only screen and (max-width: @largestTabletScreen) {
+      display: block;
+    }
+  }
+
+  .image-wrapper-desktop {
+    display: block;
+    @media only screen and (max-width: @largestTabletScreen) {
+      display: none;
     }
   }
 }
@@ -165,10 +177,6 @@
 .listings.big-cards {
   .listing-card.default-card {
     height: 360px;
-
-    @media only screen and (max-width: @largestTabletScreen) {
-      height: 430px;
-    }
 
     .card-title {
       font-size: @extraFontSize;
@@ -233,31 +241,6 @@
       height: 100% !important;
       object-fit: cover;
       object-position: center;
-    }
-  }
-}
-
-.listings {
-  .listing-card {
-    @media only screen and (max-width: @largestTabletScreen) {
-      .card-title {
-        font-size: @mobileH2 !important;
-      }
-
-      .card-meta,
-      .card-description {
-        font-size: @mediumFontSize !important;
-      }
-    }
-
-    @media only screen and (max-width: @mobileLandscapeBreakpoint) {
-      .card-title {
-        font-size: @largeMobileFontSize !important;
-      }
-
-      .card-description {
-        font-size: @bigFontSize !important;
-      }
     }
   }
 }
@@ -333,5 +316,51 @@
 
   svg {
     margin: 0 !important;
+  }
+}
+
+@media only screen and (max-width: @largestTabletScreen) {
+  .listing-card.default-card {
+    .card-title {
+      font-size: @mobileH2 !important;
+    }
+
+    .card-meta,
+    .card-description {
+      font-size: @mediumFontSize !important;
+    }
+  }
+
+  .listings.big-cards {
+    .listing-column-one {
+      .listing-card.default-card {
+        height: 496px;
+      }
+
+      .listing-card.default-card {
+        .card-title {
+          margin-bottom: var(--space-xl);
+          font-size: @mobileH2 !important;
+        }
+
+        .card-details {
+          .card-content .card-description {
+            font-size: @tabletH5 !important;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: @mobileLandscapeBreakpoint) {
+  .listing-card.default-card {
+    .card-title {
+      font-size: @largeMobileFontSize !important;
+    }
+
+    .card-description {
+      font-size: @bigFontSize !important;
+    }
   }
 }
