@@ -2,9 +2,16 @@
          Table Overrides
 *******************************/
 
-.ui.table,
-.ui.basic.table {
-  border-color: var(--text-color);
+.ui.table.unstackable {
+  tr {
+    > td:last-child {
+      text-align: right;
+    }
+  }
+}
+
+.ui.table {
+  border-color: var(--text-color) !important;
   color: var(--text-color);
 
   thead {
@@ -14,22 +21,64 @@
     th.sorted:hover {
       color: var(--text-color);
     }
+  }
 
-    tr,
-    th {
-      border-color: var(--text-color);
-      background-color: transparent;
+  td,
+  tr {
+    border-color: var(--text-color) !important;
+    font-weight: normal !important;
+  }
+}
+
+.ui.table:not(.basic) {
+  tr {
+    border-bottom: 1px solid var(--text-color) !important;
+
+    > td:not(:last-child) {
+      border-right: 1px solid var(--text-color) !important;
     }
   }
 
-  tbody {
-    tr,
-    td {
-      border-color: var(--text-color);
+  td {
+    padding: 0.3em;
+
+    @media only screen and (max-width: @largestMobileScreen) {
+      padding: 0.6em 0.3em;
+    }
+  }
+}
+
+.ui.table.basic {
+  tr {
+    border-bottom: 1px solid var(--text-color) !important;
+
+    > td:first-child {
+      padding-left: 0;
+    }
+  }
+
+  td {
+    padding: 0.3em;
+    border: none !important;
+    border-top: none !important;
+    vertical-align: baseline;
+
+    @media only screen and (max-width: @largestMobileScreen) {
+      padding: 0.6em 0.3em;
     }
   }
 
   p {
     margin: 0 !important;
+  }
+}
+
+@media only screen and (max-width: @largestMobileScreen) {
+  .ui.table {
+    tr {
+      td:first-child {
+        max-width: 190px;
+      }
+    }
   }
 }
