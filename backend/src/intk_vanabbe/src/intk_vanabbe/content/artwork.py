@@ -41,8 +41,11 @@ class IArtwork(model.Schema):
     objectDescription = schema.TextLine(
         title="objectDescription", required=False)
     objectID = schema.TextLine(title="objectID", required=False)
+
+    # TODO: needs to be treated in the importer
     objectIsVisible = schema.Bool(
         title="objectIsVisible", required=False, default=False)
+
     objectMedium = schema.TextLine(title="objectMedium", required=False)
     objectCredit = schema.TextLine(title="objectCredit", required=False)
     objectTitle = schema.TextLine(title="objectTitle", required=False)

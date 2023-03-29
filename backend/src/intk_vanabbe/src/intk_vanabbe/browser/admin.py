@@ -50,9 +50,6 @@ class AdminFixes(BrowserView):
         for count, brain in enumerate(brains):
             brain.getObject().reindexObject(
                 idxs=['publication_type', 'decades'], update_metadata=True)
-#           if count % 100 == 0:
-#               transaction.savepoint(optimistic=True)
-#               logger.info(f"Processed {count}")
             if count % 1000 == 0:
                 transaction.commit()
                 logger.info(f"Processed {count}")
@@ -60,6 +57,12 @@ class AdminFixes(BrowserView):
         return "Done"
 
     def import_objectvisible(self):
+        site = portal.get()
+        catalog = site.portal_catalog
+
+        for brain in catalog.searchResults(portal_type="artwork"):
+            brain.getObject().objectIsVisible = False
+
         to_import = find_files("<objectIsVisible>1</objectIsVisible>")
 
         recordnumbers = []
@@ -67,8 +70,6 @@ class AdminFixes(BrowserView):
             fname = fpath.rsplit('/', 1)[-1].split('.')[0]
             recordnumbers.append(fname)
 
-        site = portal.get()
-        catalog = site.portal_catalog
         for nr in recordnumbers:
             brains = catalog.searchResults(recordnumber=int(nr))
             for brain in brains:
@@ -116,11 +117,6 @@ class AdminFixes(BrowserView):
         processed_brains = 0
         error_urls = []
         for fpath in to_import:
-            # if "1744.xml" not in fpath:
-            #     continue
-            #
-            # import pdb
-            # pdb.set_trace()
             with open(fpath) as f:
                 xml = f.read()
             element = lxml.etree.fromstring(xml)
@@ -147,10 +143,6 @@ class AdminFixes(BrowserView):
                     processed_brains += 1
                     errors = import_images(obj, img_urls, use_archive=True)
                     error_urls.extend(errors)
-
-                # obj.objectIsVisible = True
-                # obj.reindexObject(idxs=['objectIsVisible'])
-                # logger.info("Fixed %s", obj.absolute_url(relative=1))
 
         return f"Processed: {processed_brains}\n{error_urls}"
 
