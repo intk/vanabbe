@@ -34,7 +34,7 @@ export function getContent(url, subrequest) {
 }
 
 const ImageAlbum = (props) => {
-  // const { items = [] } = props;
+  const { items = [] } = props;
   const pathname = useSelector((state) => state.router.location.pathname);
   const id = `full-items@${pathname}`;
 
@@ -43,14 +43,14 @@ const ImageAlbum = (props) => {
   );
   const isRequested = !!selectorItems;
 
-  const [items, setItems] = React.useState(selectorItems || []);
+  const [albumItems, setAlbumItems] = React.useState(selectorItems || items);
   const dispatch = useDispatch();
 
   React.useEffect(() => {
     if (!isRequested) {
       const action = getContent(pathname, null, id);
       dispatch(action).then((content) => {
-        setItems(content.items);
+        setAlbumItems(content.items);
       });
     }
   }, [dispatch, id, pathname, isRequested]);
@@ -88,7 +88,7 @@ const ImageAlbum = (props) => {
     }
   };
 
-  return items.length > 0 ? (
+  return albumItems.length > 0 ? (
     <div className="image-album">
       <div
         tabIndex={0}
