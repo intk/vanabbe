@@ -10,6 +10,7 @@ omelette
 backend
 docker-compose.yml
 *.tgz
+*.tar
 docker-compose.yml
 docker-compose.override.yml
 ./data-import

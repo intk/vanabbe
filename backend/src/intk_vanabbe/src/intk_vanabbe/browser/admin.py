@@ -1,4 +1,7 @@
+# from intk_vanabbe.importer import get_filename
+from .importer import import_images
 from intk_vanabbe.config import DATA_REPO
+from intk_vanabbe.config import IMAGE_BASE_URL
 from plone.api import portal
 from plone.protect.interfaces import IDisableCSRFProtection
 from Products.Five.browser import BrowserView
@@ -104,11 +107,19 @@ class AdminFixes(BrowserView):
 
     def import_images(self):
         to_import = find_files("</objectImage>")
+        print(f"To import: {len(to_import)}")
 
         site = portal.get()
         catalog = site.portal_catalog
 
+        processed_brains = 0
+        error_urls = []
         for fpath in to_import:
+            # if "1744.xml" not in fpath:
+            #     continue
+            #
+            # import pdb
+            # pdb.set_trace()
             with open(fpath) as f:
                 xml = f.read()
             element = lxml.etree.fromstring(xml)
@@ -120,15 +131,27 @@ class AdminFixes(BrowserView):
 
             for brain in brains:
                 obj = brain.getObject()
+
+                if obj.portal_type == 'artwork':
+                    urls = []
+                    for fname in img_urls:
+                        if 'http' not in fname:
+                            fname = IMAGE_BASE_URL % fname
+                        urls.append(fname)
+                    img_urls = urls
+
                 childrenIds = obj.contentIds()
+
                 if len(childrenIds) != img_count:
-                    import pdb
-                    pdb.set_trace()
+                    processed_brains += 1
+                    errors = import_images(obj, img_urls, use_archive=True)
+                    error_urls.extend(errors)
+
                 # obj.objectIsVisible = True
                 # obj.reindexObject(idxs=['objectIsVisible'])
                 # logger.info("Fixed %s", obj.absolute_url(relative=1))
 
-        return "ok"
+        return f"Processed: {processed_brains}\n{error_urls}"
 
     def __call__(self):
         alsoProvides(self.request, IDisableCSRFProtection)

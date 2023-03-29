@@ -3,6 +3,8 @@ import loadable from '@loadable/component';
 import { Modal, Image } from 'semantic-ui-react';
 import { PreviewImage, ArtworkPreviewImage } from '@package/components';
 import { flattenToAppURL } from '@plone/volto/helpers';
+import { useSelector, useDispatch } from 'react-redux';
+import { GET_CONTENT } from '@plone/volto/constants/ActionTypes';
 
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -12,8 +14,47 @@ const Slider = loadable(() => import('react-slick'));
 
 const MAX_THUMBS = 4;
 
+export function getContent(url, subrequest) {
+  const query = { b_size: 1000000 };
+
+  let qs = Object.keys(query)
+    .map(function (key) {
+      return key + '=' + query[key];
+    })
+    .join('&');
+
+  return {
+    type: GET_CONTENT,
+    subrequest,
+    request: {
+      op: 'get',
+      path: `${url}${qs ? `?${qs}` : ''}`,
+    },
+  };
+}
+
 const ImageAlbum = (props) => {
   const { items = [] } = props;
+  const pathname = useSelector((state) => state.router.location.pathname);
+  const id = `full-items@${pathname}`;
+
+  const selectorItems = useSelector(
+    (state) => state.content.subrequests?.[id]?.items,
+  );
+  const isRequested = !!selectorItems;
+
+  const [albumItems, setAlbumItems] = React.useState(selectorItems || items);
+  const dispatch = useDispatch();
+
+  React.useEffect(() => {
+    if (!isRequested) {
+      const action = getContent(pathname, null, id);
+      dispatch(action).then((content) => {
+        setAlbumItems(content.items);
+      });
+    }
+  }, [dispatch, id, pathname, isRequested]);
+
   const [open, setOpen] = React.useState(false);
   const [activeSlideIndex, setActiveSlideIndex] = React.useState(0);
   const sliderRef = React.useRef(null);
@@ -47,7 +88,7 @@ const ImageAlbum = (props) => {
     }
   };
 
-  return (
+  return albumItems.length > 0 ? (
     <div className="image-album">
       <div
         tabIndex={0}
@@ -130,7 +171,7 @@ const ImageAlbum = (props) => {
         </Modal.Content>
       </Modal>
     </div>
-  );
+  ) : null;
 };
 
 export default ImageAlbum;
