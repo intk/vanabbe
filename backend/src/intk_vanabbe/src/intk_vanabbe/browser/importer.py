@@ -87,10 +87,16 @@ def debug(func):
 def import_images(container, urls, use_archive):
     recordnumber = container.recordnumber
 
+    existing_ids = container.contentIds()
+
+    errors = []
     for url in urls:
         url = url.strip()
 
         fname = get_filename(url)
+        if fname in existing_ids:
+            logger.info(f"Skipping {url}, already imported")
+            continue
 
         if not use_archive:
             if os.path.isfile(fname):
@@ -107,6 +113,7 @@ def import_images(container, urls, use_archive):
             fpath = os.path.join(DATA_REPO, str(recordnumber), fname)
             if not os.path.exists(fpath):
                 print(f"Image is not downloaded: {url}")
+                errors.append(url)
                 continue
             with open(fpath, "rb") as f:
                 data = f.read()
@@ -127,6 +134,8 @@ def import_images(container, urls, use_archive):
         )
 
         print("Created image", path(image))
+
+    return errors
 
 
 class ImportVubis(BrowserView):
