@@ -132,8 +132,6 @@ export default function ArtworkView(props) {
     );
   };
 
-  console.log(content);
-
   const authors = content.authors.map((auth) => auth.title).join(', ');
   // console.log(contextLinks.items);
   const contextLinkCards = contextLinks.items?.reduce((acc, info) => {
@@ -145,6 +143,7 @@ export default function ArtworkView(props) {
 
     return [...acc, ...local];
   }, []);
+  const linkAuthors = contextLinks?.authors || content.authors;
 
   return (
     <div className="artwork-view">
@@ -168,8 +167,15 @@ export default function ArtworkView(props) {
                         </h3>
                         {/* <h2>{content.objectTitle}</h2> */}
 
-                        {content.authors.map((auth, index) => (
-                          <h2 key={index}>{auth.title}</h2>
+                        {linkAuthors.map((auth, index) => (
+                          <h2 key={index}>
+                            <a
+                              href={auth.detailsHref}
+                              title={auth.detailsHrefTitle}
+                            >
+                              {auth.title}
+                            </a>
+                          </h2>
                         ))}
 
                         <div className="object-medium object-metadata">

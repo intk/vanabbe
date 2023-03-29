@@ -97,7 +97,7 @@ class AuthorContextLinks(object):
         return None
 
     def __call__(self, result):
-        req = self.request
+        # req = self.request
         items = []
 
         artworks = self.get_artworks()
@@ -330,9 +330,23 @@ class ArtworkContextLinks(object):
 
         return result
 
+    def get_authors(self):
+        res = []
+        for rel in self.context.authors:
+            author = rel.to_object
+            d = {
+                "title": author.authorName,
+                "detailsHref": author.authorURL or author.absolute_url(),
+                "detailsHrefTitle": author.authorURLTitle or ""
+            }
+            res.append(d)
+
+        return res
+
     def __call__(self, result):
 
         items = []
+        result['contextLinks']['authors'] = self.get_authors()
         result["contextLinks"]["items"] = items
 
         result = self.get_other_art(result)
