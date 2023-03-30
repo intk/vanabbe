@@ -88,7 +88,7 @@ const ImageAlbum = (props) => {
     }
   };
 
-  return albumItems.length > 0 ? (
+  return (
     <div className="image-album">
       <div
         tabIndex={0}
@@ -171,7 +171,7 @@ const ImageAlbum = (props) => {
         </Modal.Content>
       </Modal>
     </div>
-  ) : null;
+  );
 };
 
 export default ImageAlbum;
