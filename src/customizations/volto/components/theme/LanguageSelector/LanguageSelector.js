@@ -46,7 +46,10 @@ const LanguageSelector = (props) => {
           {map(settings.supportedLanguages, (lang) => {
             const translation = find(translations, { language: lang });
             return (
-              <Dropdown.Item key={`language-selector-${lang}`}>
+              <Dropdown.Item
+                key={`language-selector-${lang}`}
+                disabled={!translation}
+              >
                 <Link
                   aria-label={`${intl.formatMessage(
                     messages.switchLanguageTo,
