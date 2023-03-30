@@ -42,6 +42,22 @@ def find_files(search):
 class AdminFixes(BrowserView):
     """Vubis import on demand, for debugging"""
 
+    def reindex_decades(self):
+        site = portal.get()
+        catalog = site.portal_catalog
+        brains = catalog.searchResults(portal_type=['publication', 'artwork'])
+        print(f"Will reindex {len(brains)} records")
+
+        for count, brain in enumerate(brains):
+            brain.getObject().reindexObject(
+                idxs=['publication_type', 'decades', 'publication_decades',
+                      'bookDatePublished'], update_metadata=True)
+            if count % 1000 == 0:
+                transaction.commit()
+                logger.info(f"Processed {count}")
+
+        return "Done"
+
     def reindex_publications(self):
         site = portal.get()
         catalog = site.portal_catalog
@@ -50,7 +66,8 @@ class AdminFixes(BrowserView):
 
         for count, brain in enumerate(brains):
             brain.getObject().reindexObject(
-                idxs=['publication_type', 'decades'], update_metadata=True)
+                idxs=['publication_type', 'decades', 'publication_decades',
+                      'bookDatePublished'], update_metadata=True)
             if count % 1000 == 0:
                 transaction.commit()
                 logger.info(f"Processed {count}")

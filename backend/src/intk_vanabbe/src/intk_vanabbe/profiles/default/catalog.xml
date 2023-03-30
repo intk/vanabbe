@@ -13,6 +13,10 @@
     <indexed_attr value="is_featured"/>
   </index>
 
+  <index name="bookDatePublished" meta_type="FieldIndex">
+    <indexed_attr value="bookDatePublished"/>
+  </index>
+
   <index name="objectIsVisible" meta_type="FieldIndex">
     <indexed_attr value="objectIsVisible"/>
   </index>
@@ -27,6 +31,10 @@
 
   <index name="decades" meta_type="KeywordIndex">
     <indexed_attr value="decades"/>
+  </index>
+
+  <index name="publication_decades" meta_type="KeywordIndex">
+    <indexed_attr value="publication_decades"/>
   </index>
 
   <index name="technique" meta_type="KeywordIndex">
@@ -54,5 +62,6 @@
   <column value="recurrence" />
   <column value="recurence_description"/>
   <column value="publication_type"/>
+  <column value="bookDatePublished"/>
 
 </object>
