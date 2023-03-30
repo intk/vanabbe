@@ -181,6 +181,7 @@ class AdminFixes(BrowserView):
                 title = titles[0].text
                 info['nl']['objectTitle'] = title
                 info['en']['objectTitle'] = title
+                dirty = True
 
             for attr in fields:
                 value = element.xpath(f"//dc_record/{attr}/text()")
@@ -232,7 +233,8 @@ class AdminFixes(BrowserView):
                         setattr(obj, k, json.dumps(v))
 
                 logger.info("Fixed %s", obj.absolute_url(relative=1))
-                obj.reindexObject(idxs=['objectTitle'])
+                obj.reindexObject(
+                    idxs=['objectTitle', 'Title', 'sortable_title'])
 
         return "done"
 
