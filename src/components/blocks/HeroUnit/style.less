@@ -7,7 +7,7 @@ body.homepage-view .blocks-wrapper .hero-unit-block {
   margin-right: -@oneWide!important;
 
   @media only screen and (max-width: @largestMobileScreen) {
-    margin-right: -29px !important;
+    margin-right: -25px !important;
   }
 }
 
@@ -216,15 +216,8 @@ body.view-viewview {
   }
 
   .hero-unit-block {
-    .hero-logo-wrapper {
-      .logo {
-        position: relative;
-        top: -60px;
-      }
-    }
-
     .hero-unit-image-wrapper {
-      width: 80% !important;
+      // width: 80% !important;
       height: 380px;
       transition: top 1.5s ease, height 1.5s ease;
     }
@@ -245,35 +238,46 @@ body.view-viewview {
       transform: translate(-50%, -50%);
     }
   }
+}
 
-  .hero-unit-wrapper {
-    flex-direction: column;
-    gap: 1em;
+@media only screen and (max-width: 480px) {
+  .hero-unit-block {
+    .hero-unit-image-wrapper {
+      width: 227px !important;
+    }
+  }
+
+  .hero-logo-wrapper {
+    .logo {
+      position: relative;
+      top: -60px !important;
+    }
   }
 }
 
 @media only screen and (max-width: @largestMobileScreen) {
   .blocks-wrapper {
     .hero-unit-block ~ .block.listing {
-      margin-top: var(--space-xxs);
+      margin-top: var(--space-xs);
+    }
+  }
+
+  .hero-unit-wrapper {
+    flex-direction: column;
+    gap: 1em;
+  }
+
+  .hero-logo-wrapper {
+    .logo {
+      position: relative;
+      top: -60px !important;
     }
   }
 
   .hero-unit-block {
-    .hero-logo-wrapper {
-      .logo {
-        position: relative;
-        top: auto;
-      }
-
-      .hidden {
-        top: 0;
-      }
-    }
-
     .hero-unit-image-wrapper {
-      width: 100% !important;
-      height: 340px;
+      width: calc(100% - 220px);
+      height: 386px;
       transition: top 1.5s ease, height 1.5s ease;
     }
 
@@ -281,20 +285,41 @@ body.view-viewview {
       .hero-unit-title {
         display: none;
       }
-    }
-  }
 
-  body.view-viewview {
-    .hero-unit-block,
-    .hero-unit-block.on-top {
-      .hero-unit-wrapper {
-        .logo,
-        .logo svg {
-          height: 160px !important;
+      .hero-logo-wrapper {
+        .logo {
+          top: auto !important;
         }
       }
     }
+
+    &.on-top.active {
+      .hero-logo-wrapper {
+        .logo svg {
+          height: 44px !important;
+        }
+      }
+    }
+
+    .hero-logo-wrapper {
+      .logo {
+        position: relative;
+        top: auto;
+      }
+    }
   }
+
+  // body.view-viewview {
+  //   .hero-unit-block,
+  //   .hero-unit-block.on-top {
+  //     .hero-unit-wrapper {
+  //       .logo,
+  //       .logo svg {
+  //         height: 160px !important;
+  //       }
+  //     }
+  //   }
+  // }
 
   // .hero-unit-block.active {
   //   .hero-unit-image-wrapper {

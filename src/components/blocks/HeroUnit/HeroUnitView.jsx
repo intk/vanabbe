@@ -75,6 +75,7 @@ const HeroUnitView = (props) => {
   useEffect(() => {
     const handleScroll = () => {
       let currentPosition = window.pageYOffset;
+
       if (currentPosition > bottom) {
         setScrollDown(true);
       } else {
@@ -115,14 +116,12 @@ const HeroUnitView = (props) => {
 
     window.addEventListener('keydown', handleScroll, false);
     window.addEventListener('mousewheel', handleScroll, { passive: false });
-    window.addEventListener('touchmove', handleScroll, { passive: false });
 
     return () => {
       window.removeEventListener('keydown', handleScroll, false);
       window.removeEventListener('mousewheel', handleScroll, {
         passive: false,
       });
-      window.removeEventListener('touchmove', handleScroll, { passive: false });
     };
   }, [scrollCount, isActive]);
 
