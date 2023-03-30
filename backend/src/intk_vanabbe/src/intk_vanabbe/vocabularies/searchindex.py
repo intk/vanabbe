@@ -4,10 +4,6 @@ from zope.interface import implementer
 from zope.schema.interfaces import IVocabularyFactory
 
 
-# from plone.api import content
-# from zope.schema.interfaces import ISource
-
-
 @implementer(IVocabularyFactory)
 class KeywordsVocabulary(BKV):
     """KeywordsVocabulary"""
@@ -33,10 +29,16 @@ class MultilingualKeywordsVocabulary(BKV):
 
 
 DecadesVocabularyFactory = KeywordsVocabulary("decades")
+
+PublicationDecadesVocabularyFactory = KeywordsVocabulary("publication_decades")
+
 PublicationTypesVocabularyFactory = KeywordsVocabulary("publication_type")
+
 TechniqueVocabularyFactory = MultilingualKeywordsVocabulary("technique")
 
 
+# from plone.api import content
+# from zope.schema.interfaces import ISource
 # @implementer(ISource)
 # class AuthorSource:
 #     """ """

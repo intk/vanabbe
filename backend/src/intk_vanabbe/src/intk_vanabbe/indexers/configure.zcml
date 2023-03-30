@@ -27,7 +27,7 @@
 
   <adapter
       factory=".indexes.publication_decades"
-      name="decades"
+      name="publication_decades"
       />
 
   <adapter

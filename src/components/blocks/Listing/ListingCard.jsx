@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { FormattedTime } from 'react-intl';
 import { FormattedDate } from '@plone/volto/components';
 import { PreviewImage } from '@package/components';
+import cx from 'classnames';
 
 const dateOptions = {
   year: 'numeric',
@@ -18,19 +19,21 @@ const Card = ({
   showContentType,
   size = 'large',
   useFallbackImage,
+  cardType = '',
 }) => {
   const { image_field, Subject } = item;
   useFallbackImage = useFallbackImage || image_field === 'fallback_image';
   const tag = Subject && Subject.length > 0 ? Subject[0] : '';
 
   return (
-    <section className="listing-card  default-card">
+    <section className={cx('listing-card default-card', cardType)}>
       <Link
         className="card-link"
         to={flattenToAppURL(item.href || item['@id'])}
       >
         <div className="card-details">
           <div className="card-meta">
+            {item.meta ? <span>{item.meta}</span> : null}
             {showDate && !!item.effective && (
               <FormattedDate date={item.effective} format={dateOptions} />
             )}
@@ -187,8 +190,11 @@ const PublicationCard = ({ item, ...rest }) => (
       ...item,
       description: item.authorName,
       Subject: item.publication_type || [],
+      meta: item.bookDatePublished,
     }}
+    showDate={false}
     showTag={true}
+    cardType="publication-card"
   />
 );
 

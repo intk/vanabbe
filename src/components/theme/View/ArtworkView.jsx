@@ -1,10 +1,12 @@
 // http://localhost:8080/Plone/nl/archief/@@import_vubis?import=artwork&max=10&query=authorName=Douglas%20Gordon
+import { RenderBlocks } from '@plone/volto/components';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { Grid, Container } from 'semantic-ui-react';
 import { Card } from '@package/components'; // SocialLinks,
 import ImageAlbum from '../ImageAlbum/ImageAlbum';
 import config from '@plone/volto/registry';
+import { useSiteDataContent } from '@package/helpers';
 
 const getItem = (info, content) => {
   return info.type === 'other_artworks'
@@ -97,6 +99,22 @@ const ObjectLinks = ({ content }) => {
   }
 
   return res;
+};
+
+const ArtworkDetails = () => {
+  const siteDataContent = useSiteDataContent();
+  const { blocks = {}, blocks_layout } = siteDataContent;
+  const filtered = blocks_layout?.items?.filter(
+    (id) => blocks[id]?.globalId === 'artwork_details',
+  );
+  const properties = {
+    blocks,
+    blocks_layout: {
+      ...blocks_layout,
+      items: filtered,
+    },
+  };
+  return <RenderBlocks content={properties} />;
 };
 
 export default function ArtworkView(props) {
@@ -240,21 +258,7 @@ export default function ArtworkView(props) {
                         ) : null}
 
                         <div className="info">
-                          <p>
-                            <FormattedMessage
-                              id="van_abbe_2800"
-                              defaultMessage="The Van Abbemuseum Collection consists of over 2800 artworks. We publish texts and images on an ongoing basis, but this record is currently in the process of being documented."
-                            />
-                          </p>
-                          <p>
-                            <FormattedMessage
-                              id="need_info_specific"
-                              defaultMessage="If you need specific information on this work or artist, remember that the Van Abbemuseum Library is at your disposal, or feel free to write to the library."
-                            />
-                          </p>
-                          {/* <div className="computer large screen widescreen only"> */}
-                          {/*   <SocialLinks /> */}
-                          {/* </div> */}
+                          <ArtworkDetails />
                         </div>
                       </div>
                     </div>

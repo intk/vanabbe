@@ -1,5 +1,6 @@
 # from intk_vanabbe.importer import get_filename
 from .importer import import_images
+from collections import defaultdict
 from intk_vanabbe.config import DATA_REPO
 from intk_vanabbe.config import IMAGE_BASE_URL
 from plone.api import portal
@@ -41,6 +42,22 @@ def find_files(search):
 class AdminFixes(BrowserView):
     """Vubis import on demand, for debugging"""
 
+    def reindex_decades(self):
+        site = portal.get()
+        catalog = site.portal_catalog
+        brains = catalog.searchResults(portal_type=['publication', 'artwork'])
+        print(f"Will reindex {len(brains)} records")
+
+        for count, brain in enumerate(brains):
+            brain.getObject().reindexObject(
+                idxs=['publication_type', 'decades', 'publication_decades',
+                      'bookDatePublished'], update_metadata=True)
+            if count % 1000 == 0:
+                transaction.commit()
+                logger.info(f"Processed {count}")
+
+        return "Done"
+
     def reindex_publications(self):
         site = portal.get()
         catalog = site.portal_catalog
@@ -49,7 +66,8 @@ class AdminFixes(BrowserView):
 
         for count, brain in enumerate(brains):
             brain.getObject().reindexObject(
-                idxs=['publication_type', 'decades'], update_metadata=True)
+                idxs=['publication_type', 'decades', 'publication_decades',
+                      'bookDatePublished'], update_metadata=True)
             if count % 1000 == 0:
                 transaction.commit()
                 logger.info(f"Processed {count}")
@@ -237,6 +255,25 @@ class AdminFixes(BrowserView):
                     idxs=['objectTitle', 'Title', 'sortable_title'])
 
         return "done"
+
+    def clean_duplicates(self):
+        site = portal.get()
+        catalog = site.portal_catalog
+
+        duplicates = set()
+
+        index = catalog._catalog.indexes['recordnumber']
+        for recn, uids in index.items():
+            if len(uids) > 2:
+                for uid in uids:
+                    duplicates.add(index._unindex[uid])
+
+        results = defaultdict(list)
+        for recn in duplicates:
+            brains = catalog.searchResults(recordnumber=recn)
+            results[recn] = [b.getURL() for b in brains]
+
+        return results
 
     def __call__(self):
         alsoProvides(self.request, IDisableCSRFProtection)

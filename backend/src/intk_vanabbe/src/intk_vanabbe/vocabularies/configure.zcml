@@ -6,6 +6,11 @@
       />
 
   <utility
+      name="publication_decades_vocabulary"
+      component=".searchindex.PublicationDecadesVocabularyFactory"
+      />
+
+  <utility
       name="technique_vocabulary"
       component=".searchindex.TechniqueVocabularyFactory"
       />

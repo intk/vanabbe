@@ -11,6 +11,8 @@ export const SmallText = (props) => (
   </div>
 );
 
+export const NormalText = (props) => <GroupBlockView {...props} />;
+
 const StyledTextBlockView = (props) => {
   const Template = props.variation?.template || SmallText;
 
