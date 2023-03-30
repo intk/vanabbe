@@ -55,7 +55,7 @@
 @tabletH4: unit((20 / @emSize), rem);
 @tabletH5: unit((16 / @emSize), rem);
 
-@mobileH1: unit((40 / @emSize), rem);
+@mobileH1: unit((39 / @emSize), rem);
 @mobileH2: unit((32 / @emSize), rem);
 @mobileH3: unit((26 / @emSize), rem);
 @mobileH4: unit((20 / @emSize), rem);
