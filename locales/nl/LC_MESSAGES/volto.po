@@ -33,42 +33,42 @@ msgstr ""
 "X-Generator: Lokalize 22.12.2\n"
 
 #: components/theme/View/ArtworkView
-# defaultMessage: Verworven in {objectYearPurchase}
+# defaultMessage: Acquired in {objectYearPurchase}
 msgid "Acquired in"
 msgstr "Verworven in {objectYearPurchase}"
 
 #: components/blocks/ActionLinks/schema
-# defaultMessage: Actie
+# defaultMessage: Action
 msgid "Action"
 msgstr "Actie"
 
 #: components/blocks/ActionLinks/ActionLinksView
-# defaultMessage: Actie links
+# defaultMessage: Action links
 msgid "Action links"
 msgstr "Actie links"
 
 #: components/blocks/ActionLinks/schema
-# defaultMessage: Acties
+# defaultMessage: Actions
 msgid "Actions"
 msgstr "Acties"
 
 #: components/blocks/SiteData/schema
-# defaultMessage: Adres
+# defaultMessage: Address
 msgid "Address"
 msgstr "Adres"
 
 #: components/blocks/Search/SortOn
-# defaultMessage: Oplopend
+# defaultMessage: Ascending
 msgid "Ascending"
 msgstr "Oplopend"
 
 #: components/blocks/Image/ImageBlockEdit
-# defaultMessage: Blader door de site, plaats een afbeelding of voer een URL in
+# defaultMessage: Browse the site, drop an image, or type an URL
 msgid "Browse the site, drop an image, or type an URL"
 msgstr "Blader door de site, plaats een afbeelding of voer een URL in"
 
 #: components/blocks/Button/schema
-# defaultMessage: Knop
+# defaultMessage: Button
 msgid "Button"
 msgstr "Knop"
 
@@ -77,12 +77,12 @@ msgstr "Knop"
 #: components/blocks/Information/schema
 #: components/blocks/Listing/index
 #: components/blocks/SiteData/schema
-# defaultMessage: Knop call to action
+# defaultMessage: Button call to action
 msgid "Button call to action"
 msgstr "Knop call to action"
 
 #: components/blocks/Information/schema
-# defaultMessage: Knop link
+# defaultMessage: Button link
 msgid "Button link"
 msgstr "Knop link"
 
@@ -91,7 +91,7 @@ msgstr "Knop link"
 #: components/blocks/Information/schema
 #: components/blocks/Listing/index
 #: components/blocks/SiteData/schema
-# defaultMessage: Knop titel
+# defaultMessage: Button title
 msgid "Button title"
 msgstr "Knop titel"
 
@@ -106,7 +106,7 @@ msgid "Cards"
 msgstr "Cards"
 
 #: components/theme/Navigation/Navigation
-# defaultMessage: Sluiten
+# defaultMessage: Close
 msgid "Close"
 msgstr "Sluiten"
 
@@ -128,13 +128,13 @@ msgid "Contrast"
 msgstr "Contrast"
 
 #: components/blocks/Search/SortOn
-# defaultMessage: Aflopend
+# defaultMessage: Descending
 msgid "Descending"
 msgstr "Aflopend"
 
 #: components/theme/View/ArtworkView
 #: components/theme/View/PublicationView
-# defaultMessage: Beschrijving
+# defaultMessage: Description
 msgid "Description"
 msgstr "Beschrijving"
 
@@ -154,80 +154,76 @@ msgid "Filters"
 msgstr "Filters"
 
 #: config
-# defaultMessage: Ga naar de homepage van Van Abbemuseum
+# defaultMessage: Go to the homepage of Van Abbemuseum
 msgid "Go to the homepage of Van Abbemuseum"
 msgstr "Ga naar de homepagina van Van Abbemuseum"
 
 #: components/blocks/HeroUnit/schema
 #: components/blocks/Information/schema
-# defaultMessage: Kop
+# defaultMessage: Headline
 msgid "Headline"
 msgstr "Kop"
 
 #: components/blocks/HeroUnit/schema
-# defaultMessage: Kopniveau
+# defaultMessage: Headline level
 msgid "Headline level"
 msgstr "Kopniveau"
 
 #: components/blocks/HeroUnit/schema
-# defaultMessage: Afbeelding
+# defaultMessage: Image
 msgid "Image"
 msgstr "Afbeelding"
 
 #: components/blocks/Image/schema
-# defaultMessage: Bijschrift afbeelding
+# defaultMessage: Image caption
 msgid "Image caption"
 msgstr "Bijschrift afbeelding"
 
 #: components/blocks/Image/schema
-# defaultMessage: Afbeeldingsbron
+# defaultMessage: Image source
 msgid "Image source"
 msgstr "Afbeeldingsbron"
 
 #: components/blocks/ActionLinks/schema
-# defaultMessage: Interne pagina of pad
+# defaultMessage: Internal page or path
 msgid "Internal page or path"
 msgstr "Interne pagina of pad"
 
 #: components/theme/View/ArtworkView
-# defaultMessage: Inventaris nummer {objectID}
+# defaultMessage: Inventory number {objectID}
 msgid "Inventory number"
 msgstr "Inventaris nummer {objectID}"
 
 #: components/blocks/ActionLinks/schema
 #: components/blocks/Facts/schema
-# defaultMessage: Actie link
+# defaultMessage: Action link
 msgid "LinkTo"
 msgstr "LinkTo"
 
 #: config
-# defaultMessage: Meer laden
+# defaultMessage: Load more
 msgid "Load more "
 msgstr "Meer laden "
 
 #: components/theme/View/PublicationView
 # defaultMessage: Located in: {bookShelfmark}
 msgid "Located in"
-msgstr "Located in"
+msgstr "Located in: {bookShelfmark}"
 
 #: components/theme/Footer/Footer
-# defaultMessage: Inloggen
+# defaultMessage: Log in
 msgid "Log in"
 msgstr "Inloggen"
 
 #: components/theme/Footer/Footer
-# defaultMessage: Uitloggen
+# defaultMessage: Logout
 msgid "Logout"
 msgstr "Uitloggen"
 
 #: components/blocks/SearchOverview/SearchOverviewView
-# defaultMessage: Zorg ervoor dat alle woorden correct gespeld zijn. Probeer andere of meer algemene zoektermen.
-msgid ""
-"Make sure all words are spelled correctly. Try different or more general"
-" search terms."
-msgstr ""
-"Zorg ervoor dat alle woorden correct gespeld zijn. Probeer andere of meer algemene "
-" zoektermen."
+# defaultMessage: Make sure all words are spelled correctly. Try different or more general search terms.
+msgid "Make sure all words are spelled correctly. Try different or more general search terms."
+msgstr "Zorg ervoor dat alle woorden correct gespeld zijn. Probeer andere of meer algemene  zoektermen."
 
 #: components/theme/Navigation/Navigation
 # defaultMessage: Menu
@@ -235,109 +231,114 @@ msgid "Menu"
 msgstr "Menu"
 
 #: components/blocks/ActionLinks/ActionLinksView
-# defaultMessage: Geen acties gedefinieerd
+# defaultMessage: No actions defined
 msgid "No actions defined"
 msgstr "Geen acties gedefinieerd"
 
 #: components/blocks/ContentDivider/ContentDividerEdit
-# defaultMessage: Geen achtergrond toegepast na deze divider
+# defaultMessage: No background applied after this divider
 msgid "No background applied after this divider"
 msgstr "Geen achtergrond toegepast na deze divider"
 
 #: components/blocks/Search/SortOn
-# defaultMessage: Geen selectie
+# defaultMessage: No selection
 msgid "No selection"
 msgstr "Geen selectie"
 
 #: components/theme/View/ArtworkView
-# defaultMessage: Niet te zien
+# defaultMessage: Not on display
 msgid "Not on display"
 msgstr "Niet te zien"
 
+#: components/theme/View/ArtworkView
+# defaultMessage: Location {objectPosition}
+msgid "Object position"
+msgstr "Locatie {objectPosition}"
+
 #: components/blocks/SiteData/schema
 #: components/blocks/SiteData/SiteDataView
-# defaultMessage: Openingstijden
+# defaultMessage: Opening hours
 msgid "Opening hours"
 msgstr "Openingstijden"
 
 #: components/blocks/SiteData/schema
-# defaultMessage: Openingstijden worden weergegeven in de koptekst
+# defaultMessage: Opening hours are displayed in the header
 msgid "Opening hours are displayed in the header"
 msgstr "Openingstijden worden weergegeven in de koptekst"
 
 #: components/blocks/SiteData/schema
-# defaultMessage: Telefoon
+# defaultMessage: Phone
 msgid "Phone"
 msgstr "Telefoon"
 
 #: components/blocks/Search/TopFiltersLayout
 #: components/theme/SearchWidget/SearchWidget
-# defaultMessage: Zoeken
+# defaultMessage: Search
 msgid "Search"
 msgstr "Zoeken"
 
 #: components/theme/SearchWidget/SearchWidget
-# defaultMessage: Zoek artiest, kunstwerk etc...
+# defaultMessage: Search artist, artwork etc...
 msgid "Search artist, artwork etc... "
 msgstr "Zoek artiest, kunstwerk etc... "
 
 #: components/blocks/SiteData/schema
-# defaultMessage: Sectietitel
+# defaultMessage: Section title
 msgid "Section title"
 msgstr "Sectietitel"
 
 #: config
-# defaultMessage: Bekijk alle data
+# defaultMessage: See all dates
 msgid "See all dates"
 msgstr "Bekijk alle data"
 
 #: components/blocks/SiteTheme/schema
-# defaultMessage: Selecteer een thema voor deze pagina
+# defaultMessage: Select a theme for this page
 msgid "Select a theme for this page"
 msgstr "Selecteer een thema voor deze pagina"
 
 #: components/blocks/SiteTheme/SiteThemeEdit
-# defaultMessage: Selecteer paginathema
+# defaultMessage: Select page theme
 msgid "Select page theme"
 msgstr "Selecteer paginathema"
 
 #: components/blocks/SiteTheme/SiteThemeEdit
-# defaultMessage: Geselecteerd thema
+# defaultMessage: Selected theme
 msgid "Selected theme"
 msgstr "Geselecteerd thema"
 
 #: components/blocks/Listing/index
-# defaultMessage: Toon inhoudstype
+# defaultMessage: Show Content Type
 msgid "Show Content Type"
 msgstr "Toon inhoudstype"
 
 #: components/blocks/Listing/index
-# defaultMessage: Telling tonen
+# defaultMessage: Show Count
 msgid "Show Count"
 msgstr "Telling tonen"
 
 #: components/blocks/Listing/index
-# defaultMessage: Datum tonen
+# defaultMessage: Show Date
 msgid "Show Date"
 msgstr "Datum tonen"
 
 #: components/blocks/Listing/index
-# defaultMessage: Toon Niet Gevonden
+# defaultMessage: Show Not Found
 msgid "Show Not Found"
 msgstr "Toon Niet Gevonden"
 
 #: components/blocks/Listing/index
-# defaultMessage: Tag tonen
+# defaultMessage: Show Tag
 msgid "Show Tag"
 msgstr "Tag tonen"
 
 #: components/blocks/SiteTheme/schema
-# defaultMessage: Site Thema
+# defaultMessage: Site Theme
 msgid "Site Theme"
 msgstr "Site Thema"
 
 #: components/blocks/SiteData/schema
-# defaultMessage: Algemene site-instellingen
+# defaultMessage: Global site settings
 msgid "SiteData"
 msgstr "Algemene site-instellingen"
 
@@ -348,42 +349,38 @@ msgid "Social links"
 msgstr "Social links"
 
 #: components/blocks/Search/SortOn
-# defaultMessage: Sorteer
+# defaultMessage: Sort
 msgid "Sort"
 msgstr "Sorteer"
 
 #: components/blocks/Image/schema
-# defaultMessage: Bron website
+# defaultMessage: Source website
 msgid "Source website"
 msgstr "Bron website"
 
 #: components/blocks/ActionLinks/schema
-# defaultMessage: Het globale blok identificeert dit actieblok op unieke wijze en staat het gebruik ervan toe op de website
-msgid ""
-"The global block is uniquely identifies this actions block and allows its use"
-" in the website"
-msgstr ""
-"Het globale blok identificeert dit actieblok op unieke wijze en staat het gebruik ervan toe"
-" op de website"
+# defaultMessage: The global block is uniquely identifies this actions block and allows its use in the website
+msgid "The global block is uniquely identifies this actions block and allows its use in the website"
+msgstr "Het globale blok identificeert dit actieblok op unieke wijze en staat het gebruik ervan toe op de website"
 
 #: components/blocks/Image/schema
-# defaultMessage: Het bijschrift van de afbeelding wordt onder de afbeelding weergegeven
+# defaultMessage: The image caption will be shown under the image
 msgid "The image caption will be shown under the image"
 msgstr "Het bijschrift van de afbeelding wordt onder de afbeelding weergegeven"
 
 #: components/blocks/SiteTheme/schema
-# defaultMessage: Thema
+# defaultMessage: Theme
 msgid "Theme"
 msgstr "Thema"
 
 #: components/blocks/SiteData/schema
-# defaultMessage: Tickets knop. Weergegeven in de kop
+# defaultMessage: Tickets button. Displayed in the header
 msgid "Tickets button. Displayed in the header"
 msgstr "Tickets knop. Weergegeven in de kop"
 
 #: components/blocks/Quote/EditBlockWrapper
 #: components/blocks/StyledTextBlock/EditBlockWrapper
-# defaultMessage: Onbekend Blok {block}
+# defaultMessage: Unknown Block {block}
 msgid "Unknown Block"
 msgstr "Onbekend Blok {block}"
 
@@ -393,27 +390,27 @@ msgid "VUBIS"
 msgstr "VUBIS"
 
 #: components/blocks/ContentDivider/ContentDividerEdit
-# defaultMessage: Witte achtergrond toegepast vóór deze divider
+# defaultMessage: White background applied before this divider
 msgid "White background applied before this divider"
 msgstr "Witte achtergrond toegepast vóór deze divider"
 
 #: components/blocks/Image/schema
-# defaultMessage: Schrijf hier de bron/copyright van deze afbeelding
+# defaultMessage: Write here the source/copyright of this image
 msgid "Write here the source/copyright of this image"
 msgstr "Schrijf hier de bron/copyright van deze afbeelding"
 
 #: components/theme/View/AuthorView
-# defaultMessage: Kunstwerken ({count})
+# defaultMessage: Artworks ({count})
 msgid "artworks_title_count"
 msgstr "Kunstwerken ({count})"
 
 #: components/blocks/ActionLinks/schema
-# defaultMessage: Blok titel
+# defaultMessage: Block title
 msgid "blockTitle"
 msgstr "Blok titel"
 
 #: components/blocks/Information/schema
-# defaultMessage: Knop Links
+# defaultMessage: Button Links
 msgid "buttonLinks"
 msgstr "Knop Links"
 
@@ -424,40 +421,38 @@ msgstr "captcha"
 
 #: components/blocks/Quote/EditBlockWrapper
 #: components/blocks/StyledTextBlock/EditBlockWrapper
-# defaultMessage: verwijderen
+# defaultMessage: delete
 msgid "delete"
 msgstr "verwijderen"
 
 #: components/blocks/VoltoFormBlock/formSchema
-# defaultMessage: Beschrijving
+# defaultMessage: Description
 msgid "description"
 msgstr "Beschrijving"
 
 #: components/theme/View/ArtworkView
-# defaultMessage: Bevat deze pagina onnauwkeurige informatie of taal die volgens u verbeterd of gewijzigd moet worden?
+# defaultMessage: Does this page contain inaccurate information or language that you feel we should improve or change?
 msgid "does_this_contain_innacurate"
-msgstr ""
-"Bevat deze pagina onnauwkeurige informatie of taal die volgens u verbeterd "
-" of gewijzigd moet worden?"
+msgstr "Bevat deze pagina onnauwkeurige informatie of taal die volgens u verbeterd  of gewijzigd moet worden?"
 
 #: components/theme/View/ArtworkView
 #: components/theme/View/AuthorView
-# defaultMessage: Tentoonstellingen met {authorName}
+# defaultMessage: Exhibitions with {authorName}
 msgid "exhibitions_by_author_name"
 msgstr "Tentoonstellingen met {authorName}"
 
 #: components/blocks/VoltoFormBlock/formSchema
-# defaultMessage: Formulier
+# defaultMessage: Form
 msgid "form"
 msgstr "Formulier"
 
 #: components/blocks/VoltoFormBlock/View
-# defaultMessage: Formulier succesvol ingediend
+# defaultMessage: Form successfully submitted
 msgid "formSubmitted"
 msgstr "Formulier succesvol ingediend"
 
 #: components/blocks/VoltoFormBlock/formSchema
-# defaultMessage: Bijgevoegd bestand wordt via email verzonden, maar niet opgeslagen
+# defaultMessage: Attached file will be sent via email, but not stored
 msgid "form_attachment_send_email_info_text"
 msgstr "Bijgevoegd bestand wordt via email verzonden, maar niet opgeslagen"
 
@@ -467,17 +462,17 @@ msgid "form_default_from"
 msgstr "Default sender"
 
 #: components/blocks/VoltoFormBlock/formSchema
-# defaultMessage: Onderwerp mail
+# defaultMessage: Mail subject
 msgid "form_default_subject"
 msgstr "Onderwerp mail"
 
 #: components/blocks/VoltoFormBlock/FormView
-# defaultMessage: Indienen
+# defaultMessage: Submit
 msgid "form_default_submit_label"
 msgstr "Indienen"
 
 #: components/blocks/VoltoFormBlock/FormView
-# defaultMessage: Vul de verplichte velden in
+# defaultMessage: Fill in the required fields
 msgid "form_empty_values_validation"
 msgstr "Vul de verplichte velden in"
 
@@ -487,120 +482,114 @@ msgid "form_reset"
 msgstr "Clear"
 
 #: components/blocks/VoltoFormBlock/formSchema
-# defaultMessage: Sla gecompileerde gegevens op
+# defaultMessage: Store compiled data
 msgid "form_save_persistent_data"
 msgstr "Sla gecompileerde gegevens op"
 
 #: components/blocks/VoltoFormBlock/Field
-# defaultMessage: Selecteer een waarde
+# defaultMessage: Select a value
 msgid "form_select_a_value"
 msgstr "Selecteer een waarde"
 
 #: components/blocks/VoltoFormBlock/formSchema
-# defaultMessage: Stuur email naar ontvanger
+# defaultMessage: Send email to recipient
 msgid "form_send_email"
 msgstr "Stuur email naar ontvanger"
 
 #: components/blocks/VoltoFormBlock/formSchema
-# defaultMessage: Label verzendknop
+# defaultMessage: Submit button label
 msgid "form_submit_label"
 msgstr "Label verzendknop"
 
 #: components/blocks/VoltoFormBlock/FormView
-# defaultMessage: verstuurd!
-msgid "form_submit_succes"
-msgstr "Verstuurd!"
+# defaultMessage: Sent!
+msgid "form_submit_success"
+msgstr ""
 
 #: components/blocks/VoltoFormBlock/formSchema
-# defaultMessage: Ontvangers
+# defaultMessage: Recipients
 msgid "form_to"
 msgstr "Ontvangers"
 
 #: components/blocks/Facts/schema
-# defaultMessage: Icoon
+# defaultMessage: Icon
 msgid "icon"
 msgstr "Icoon"
 
 #: components/blocks/Facts/schema
-# defaultMessage: Afbeelding
+# defaultMessage: Image
 msgid "image"
 msgstr "Afbeelding"
 
 #: components/blocks/Information/schema
-# defaultMessage: Info blok
+# defaultMessage: Info block
 msgid "infoBlock"
 msgstr "Info blok"
 
 #: components/blocks/Facts/schema
-# defaultMessage: Bestemming voor de call to action knop
+# defaultMessage: Destination for the call to action button
 msgid "linkToDescription"
 msgstr "Bestemming voor de call to action knop"
 
 #: components/theme/View/ArtworkView
-# defaultMessage: Meer kunstwerken van {authorName}
+# defaultMessage: More artworks by {authorName}
 msgid "more_artworks_by"
 msgstr "Meer kunstwerken van {authorName}"
 
 #: components/theme/View/ArtworkView
-# defaultMessage: Meer kunstwerken uit deze periode
+# defaultMessage: More artworks from this period
 msgid "more_artworks_in_period"
 msgstr "Meer kunstwerken uit deze periode"
 
 #: components/theme/View/ArtworkView
-# defaultMessage: Als u specifieke informatie nodig heeft over dit werk of deze kunstenaar, denk er dan aan dat de bibliotheek van het Van Abbemuseum tot uw beschikking staat, of schrijf gerust naar de bibliotheek.
+# defaultMessage: If you need specific information on this work or artist, remember that the Van Abbemuseum Library is at your disposal, or feel free to write to the library.
 msgid "need_info_specific"
-msgstr ""
-"Als u specifieke informatie nodig heeft over dit werk of deze kunstenaar, denk er dan aan dat de"
-" Bibliotheek van het Van Abbemuseum tot uw beschikking staat, of schrijf gerust naar de"
-" bibliotheek."
+msgstr "Als u specifieke informatie nodig heeft over dit werk of deze kunstenaar, denk er dan aan dat de Bibliotheek van het Van Abbemuseum tot uw beschikking staat, of schrijf gerust naar de bibliotheek."
 
 #: components/blocks/SearchOverview/SearchOverviewView
-# defaultMessage: Geen resultaten voor <u>iets</u>
+# defaultMessage: No results for <u>something</u>
 msgid "no.results"
 msgstr "Geen resultaten voor <u>iets</u>"
 
 #: components/blocks/VoltoFormBlock/schemaExtender
-# defaultMessage: Tijdelijke aanduiding
+# defaultMessage: Placeholder
 msgid "placeholder"
 msgstr "Tijdelijke aanduiding"
 
 #: components/theme/View/ArtworkView
 #: components/theme/View/AuthorView
-# defaultMessage: Publicaties met of over {authorName}
+# defaultMessage: Publications with or about {authorName}
 msgid "publications_by_author_name"
 msgstr "Publicaties met of over {authorName}"
 
 #: components/theme/ScrollToTop/ScrollToTop
-# defaultMessage: Scroll naar boven
+# defaultMessage: Scroll to top
 msgid "scroll_to_top"
 msgstr "Scroll naar boven"
 
 #: components/blocks/SearchOverview/SearchOverviewView
-# defaultMessage: Resultaten tonen voor <u>iets</u>
+# defaultMessage: Showing results for <u>something</u>
 msgid "show.results"
 msgstr "Resultaten tonen voor <u>iets</u>"
 
 #: components/blocks/Facts/schema
-# defaultMessage: OnderTitel
+# defaultMessage: SubTitle
 msgid "subtitle"
 msgstr "OnderTitel"
 
 #: components/blocks/ActionLinks/schema
 #: components/blocks/Facts/schema
 #: components/blocks/VoltoFormBlock/formSchema
-# defaultMessage: Titel
+# defaultMessage: Title
 msgid "title"
 msgstr "Titel"
 
 #: components/theme/View/ArtworkView
-# defaultMessage: De collectie van het Van Abbemuseum bestaat uit ruim 2800 kunstwerken. We publiceren doorlopend teksten en afbeeldingen, maar dit record wordt momenteel gedocumenteerd.
+# defaultMessage: The Van Abbemuseum Collection consists of over 2800 artworks. We publish texts and images on an ongoing basis, but this record is currently in the process of being documented.
 msgid "van_abbe_2800"
-msgstr ""
-"De collectie van het Van Abbemuseum bestaat uit ruim 2800 kunstwerken. We publiceren "
-" doorlopend teksten en afbeeldingen, maar dit record wordt momenteel"
-" gedocumenteerd."
+msgstr "De collectie van het Van Abbemuseum bestaat uit ruim 2800 kunstwerken. We publiceren  doorlopend teksten en afbeeldingen, maar dit record wordt momenteel gedocumenteerd."
 
 #: components/theme/View/ArtworkView
-# defaultMessage: We horen graag van u
+# defaultMessage: We would like to hear from you
 msgid "would_like_to_hear"
 msgstr "We horen graag van u"

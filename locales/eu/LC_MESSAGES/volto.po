@@ -234,6 +234,11 @@ msgstr ""
 msgid "Not on display"
 msgstr ""
 
+#: components/theme/View/ArtworkView
+# defaultMessage: Location {objectPosition}
+msgid "Object position"
+msgstr ""
+
 #: components/blocks/SiteData/schema
 #: components/blocks/SiteData/SiteDataView
 # defaultMessage: Opening hours
