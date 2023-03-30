@@ -219,6 +219,16 @@ export default function ArtworkView(props) {
                           />
                         </div>
 
+                        {content.objectPosition ? (
+                          <div className="inventory-number">
+                            <FormattedMessage
+                              id="Object position"
+                              defaultMessage="Location {objectPosition}"
+                              values={content}
+                            />
+                          </div>
+                        ) : null}
+
                         <div className="inventory-number">
                           {content.objectCredit}
                         </div>
