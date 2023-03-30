@@ -1,5 +1,6 @@
 # from intk_vanabbe.importer import get_filename
 from .importer import import_images
+from collections import defaultdict
 from intk_vanabbe.config import DATA_REPO
 from intk_vanabbe.config import IMAGE_BASE_URL
 from plone.api import portal
@@ -237,6 +238,25 @@ class AdminFixes(BrowserView):
                     idxs=['objectTitle', 'Title', 'sortable_title'])
 
         return "done"
+
+    def clean_duplicates(self):
+        site = portal.get()
+        catalog = site.portal_catalog
+
+        duplicates = set()
+
+        index = catalog._catalog.indexes['recordnumber']
+        for recn, uids in index.items():
+            if len(uids) > 2:
+                for uid in uids:
+                    duplicates.add(index._unindex[uid])
+
+        results = defaultdict(list)
+        for recn in duplicates:
+            brains = catalog.searchResults(recordnumber=recn)
+            results[recn] = [b.getURL() for b in brains]
+
+        return results
 
     def __call__(self):
         alsoProvides(self.request, IDisableCSRFProtection)
