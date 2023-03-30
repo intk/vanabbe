@@ -66,7 +66,10 @@ const ObjectLinks = ({ content }) => {
       res.push(
         audio.map(({ title, filename }, ix) => (
           <div className="object-audio">
-            <a key={`${ix}-${filename}`} href={`#${filename}`}>
+            <a
+              key={`${ix}-${filename}`}
+              href={`https://mediabank.vanabbemuseum.nl/website/Media/${filename}`}
+            >
               {title}
             </a>
           </div>
@@ -81,7 +84,10 @@ const ObjectLinks = ({ content }) => {
       res.push(
         video.map(({ title, filename }, ix) => (
           <div className="object-video">
-            <a key={`${ix}-${filename}`} href={`#${filename}`}>
+            <a
+              key={`${ix}-${filename}`}
+              href={`https://mediabank.vanabbemuseum.nl/website/Media/${filename}`}
+            >
               {title}
             </a>
           </div>
