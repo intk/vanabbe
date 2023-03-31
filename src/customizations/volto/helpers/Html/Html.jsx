@@ -105,15 +105,15 @@ class Html extends Component {
           {head.title.toComponent()}
           {head.meta.toComponent()}
 
-          {!__DEVELOPMENT__ ? (
-            <script
-              id="Cookiebot"
-              src="https://consent.cookiebot.com/uc.js"
-              data-cbid="fd7a20ec-63f8-47ea-aeb9-3e873ac0d094"
-              data-blockingmode="auto"
-              type="text/javascript"
-            ></script>
-          ) : null}
+          <script
+            id="Cookiebot"
+            src="https://consent.cookiebot.com/uc.js"
+            data-cbid="fd7a20ec-63f8-47ea-aeb9-3e873ac0d094"
+            data-blockingmode="auto"
+            type="text/javascript"
+          ></script>
+          {/* {!__DEVELOPMENT__ ? ( */}
+          {/* ) : null} */}
 
           {head.link.toComponent()}
           {head.script.toComponent()}
@@ -210,14 +210,14 @@ class Html extends Component {
                 }),
               )
             : ''}
-          {!__DEVELOPMENT__ ? (
-            <script
-              id="CookieDeclaration"
-              src="https://consent.cookiebot.com/fd7a20ec-63f8-47ea-aeb9-3e873ac0d094/cd.js"
-              type="text/javascript"
-              async
-            ></script>
-          ) : null}
+          {/* <script */}
+          {/*   id="CookieDeclaration" */}
+          {/*   src="https://consent.cookiebot.com/fd7a20ec-63f8-47ea-aeb9-3e873ac0d094/cd.js" */}
+          {/*   type="text/javascript" */}
+          {/*   async */}
+          {/* ></script> */}
+          {!__DEVELOPMENT__ ? null : null}
+          <script>window.Cookiebot.show()</script>
         </body>
       </html>
     );
