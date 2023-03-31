@@ -1,6 +1,5 @@
 import loadable from '@loadable/component';
 import { defineMessages } from 'react-intl';
-import CookieBanner from 'volto-cookie-banner/CookieBannerContainer';
 import { MultilingualWidget } from 'volto-multilingual-widget';
 
 import { getContent, getNavigation } from '@plone/volto/actions';
@@ -21,6 +20,7 @@ import ExhibitionView from './components/theme/View/ExhibitionView';
 import installExpressMiddleware from './express-middleware';
 
 import { SiteTheme } from '@package/components';
+import { GTMTracker } from '@package/helpers/useTagManager';
 
 // import installStyleMenu from 'volto-slate/editor/plugins/StyleMenu';
 // import defaultFieldSchema from 'volto-form-block/fieldSchema';
@@ -238,15 +238,17 @@ export default function applyConfig(config) {
   config.widgets.widget.attachedimage = AttachedImageWidget;
   config.widgets.id.cookie_consent_configuration = MultilingualWidget();
 
+  config.settings.gtmId = 'GTM-N4JPF8T';
+
   config.settings.appExtras = [
     ...(config.settings.appExtras || []),
     {
       match: '',
-      component: CookieBanner,
+      component: SiteTheme,
     },
     {
       match: '',
-      component: SiteTheme,
+      component: GTMTracker,
     },
   ];
 
