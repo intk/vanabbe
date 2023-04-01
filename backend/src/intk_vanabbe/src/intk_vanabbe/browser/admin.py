@@ -283,7 +283,27 @@ class AdminFixes(BrowserView):
             brains = catalog.searchResults(recordnumber=recn)
             results[recn] = [b.getURL() for b in brains]
 
-        return results
+        return results or "no duplicates"
+
+    def fix_translations(self):
+        site = portal.get()
+        catalog = site.portal_catalog
+
+        cts = ['artwork', 'exhibition', 'publication']
+        brains = catalog.searchResults(portal_type=cts, Language='nl')
+        untranslated = []
+
+        for i, brain in enumerate(brains):
+            if not catalog.searchResults(
+                    Language='en', TranslationGroup=brain.TranslationGroup):
+                untranslated.append(brain)
+
+            if i % 1000 == 0:
+                print(f"Count: {i}")
+
+        print(f"Untranslated: {len(untranslated)}")
+
+        return [b.getURL() for b in untranslated]
 
     def __call__(self):
         alsoProvides(self.request, IDisableCSRFProtection)
