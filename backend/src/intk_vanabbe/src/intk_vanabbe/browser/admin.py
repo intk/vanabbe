@@ -320,6 +320,14 @@ class AdminFixes(BrowserView):
             intl_mgr = get_translation_manager(container)
             trans_container = intl_mgr.get_translation("en")
             ids = trans_container.contentIds()
+
+            for i, id in enumerate(ids):
+                obj = trans_container[id]
+                obj.reindexObject()
+                if i % 500 == 0:
+                    transaction.commit()
+                    print(f"Commit {i}")
+
             print(f"translations: {len(ids)}")
 
     def __call__(self):
