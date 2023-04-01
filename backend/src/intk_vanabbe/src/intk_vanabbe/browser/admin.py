@@ -45,13 +45,23 @@ class AdminFixes(BrowserView):
     def reindex_decades(self):
         site = portal.get()
         catalog = site.portal_catalog
-        brains = catalog.searchResults(portal_type=['publication', 'artwork'])
+        brains = catalog.searchResults(portal_type=['artwork'])
         print(f"Will reindex {len(brains)} records")
 
         for count, brain in enumerate(brains):
             brain.getObject().reindexObject(
-                idxs=['publication_type', 'decades', 'publication_decades',
-                      'bookDatePublished'], update_metadata=True)
+                idxs=['decades'], update_metadata=True)
+            if count % 1000 == 0:
+                transaction.commit()
+                logger.info(f"Processed {count}")
+
+        brains = catalog.searchResults(portal_type=['publication'])
+        print(f"Will reindex {len(brains)} records")
+
+        # 'publication_type', 'publication_decades',
+        for count, brain in enumerate(brains):
+            brain.getObject().reindexObject(
+                idxs=['bookDatePublished'], update_metadata=True)
             if count % 1000 == 0:
                 transaction.commit()
                 logger.info(f"Processed {count}")
