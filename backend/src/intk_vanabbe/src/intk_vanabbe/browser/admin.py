@@ -3,7 +3,9 @@ from .importer import import_images
 from collections import defaultdict
 from intk_vanabbe.config import DATA_REPO
 from intk_vanabbe.config import IMAGE_BASE_URL
+from intk_vanabbe.config import IMPORT_LOCATIONS
 from plone.api import portal
+from plone.app.multilingual.api import get_translation_manager
 from plone.protect.interfaces import IDisableCSRFProtection
 from Products.Five.browser import BrowserView
 from zope.interface import alsoProvides
@@ -305,8 +307,28 @@ class AdminFixes(BrowserView):
 
         return [b.getURL() for b in untranslated]
 
+    def find_unindexed(self):
+        # site = portal.get()
+        # catalog = site.portal_catalog
+
+        for ptype in IMPORT_LOCATIONS.keys():
+            container = get_base_folder(self.context, ptype)
+            logger.info(f"Indexing {container.absolute_url(relative=1)}")
+
+            ids = container.contentIds()
+            print(f"original: {len(ids)}")
+            intl_mgr = get_translation_manager(container)
+            trans_container = intl_mgr.get_translation("en")
+            ids = trans_container.contentIds()
+            print(f"translations: {len(ids)}")
+
     def __call__(self):
         alsoProvides(self.request, IDisableCSRFProtection)
         op = self.request.form.get('op')
 
         return getattr(self, op)()
+
+
+def get_base_folder(context, portal_type):
+    base = portal.get()
+    return base.restrictedTraverse(IMPORT_LOCATIONS[portal_type])
