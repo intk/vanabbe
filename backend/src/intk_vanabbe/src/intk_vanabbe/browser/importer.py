@@ -133,7 +133,7 @@ def import_images(container, urls, use_archive):
             container=container,
         )
 
-        logger.info("Created image", path(image))
+        logger.info("Created image %s", path(image))
 
     return errors
 
