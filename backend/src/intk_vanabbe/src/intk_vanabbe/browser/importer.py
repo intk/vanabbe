@@ -55,7 +55,7 @@ def extract_lang(rec, lang="nl"):
             if not v:
                 fallback_lang = list(rec[k].keys())[0]
                 v = rec[k][fallback_lang]
-                print("Falling back to value", fallback_lang, k)
+                logger.info("Falling back to value %s %s", fallback_lang, k)
                 # sometimes only the english version exists
 
         res[k] = v
@@ -100,7 +100,7 @@ def import_images(container, urls, use_archive):
 
         if not use_archive:
             if os.path.isfile(fname):
-                print("File already exists", fname)
+                logger.info("File already exists %s", fname)
 
             with requests.get(
                 url, stream=True, verify=False, headers=HEADERS
@@ -112,7 +112,7 @@ def import_images(container, urls, use_archive):
         else:
             fpath = os.path.join(DATA_REPO, str(recordnumber), fname)
             if not os.path.exists(fpath):
-                print(f"Image is not downloaded: {url}")
+                logger.info(f"Image is not downloaded: {url}")
                 errors.append(url)
                 continue
             with open(fpath, "rb") as f:
@@ -133,7 +133,7 @@ def import_images(container, urls, use_archive):
             container=container,
         )
 
-        print("Created image", path(image))
+        logger.info("Created image", path(image))
 
     return errors
 
@@ -152,7 +152,7 @@ class ImportVubis(BrowserView):
         if form.get("clean"):
             for ptype in IMPORT_LOCATIONS.keys():
                 container = get_base_folder(self.context, ptype)
-                print(f"Cleaning {container.absolute_url(relative=1)}")
+                logger.info(f"Cleaning {container.absolute_url(relative=1)}")
                 intl_mgr = get_translation_manager(container)
                 trans_container = intl_mgr.get_translation("en")
 
@@ -205,12 +205,15 @@ class ImportVubis(BrowserView):
         if records_index:
             imported_records = list(records_index._index.keys())
 
+        max_records = int(form.get("max", 100))
+        logger.info(f"Importing max records: {max_records}")
+
         scroller(
             import_artwork,
             import_publication,
             import_exhibition,
             imported_records,
-            max_records=int(form.get("max", 100)),
+            max_records=max_records,
             query=query,
         )
 
@@ -296,13 +299,13 @@ class ImportVubis(BrowserView):
 
             self.translate(author, fields)
 
-            print("Created author", author.getId())
+            logger.info(f"Created author {author.getId()}")
 
         return authors
 
     # @debug
     def import_artwork(self, rec, element, use_archive=True):
-        logger.info(f"Importing artwork ccObjectID: {rec['ccObjectID']}")
+        logger.info(f"Importing artwork: {rec['recordnumber']}")
         container = get_base_folder(self.context, "artwork")
 
         filenames = rec.get("objectImage", [])
@@ -340,13 +343,13 @@ class ImportVubis(BrowserView):
                 source=translated, target=trans_auth, relationship="authors"
             )
 
-        print("Imported artwork: ", path(obj))
+        logger.info(f"Imported artwork: {path(obj)}", )
 
         return True
 
     # @debug
     def import_publication(self, rec, element, use_archive=True):
-        logger.info(f"Importing publication ccObjectID: {rec['ccObjectID']}")
+        logger.info(f"Importing publication: {rec['recordnumber']}")
 
         rec = convert_lists_to_text(rec, ["bookIllustrations", "bookArtist"])
         bookArtist = rec.get("bookArtist")
@@ -355,6 +358,8 @@ class ImportVubis(BrowserView):
 
         container = get_base_folder(self.context, "publication")
         if "BookTitle" not in rec:
+            logging.info(
+                f"Skipping publication {rec['recordnumber']}, not enough data")
             return
         rec["title"] = rec["BookTitle"]
         obj = content.create(
@@ -372,13 +377,13 @@ class ImportVubis(BrowserView):
         import_images(obj, filenames, use_archive)
 
         self.translate(obj, rec)
-        print("Imported publication", path(obj))
+        logger.info(f"Imported publication {path(obj)}", )
 
         return True
 
     # @debug
     def import_exhibition(self, rec, element, use_archive=True):
-        logger.info(f"Importing exhibition recordnumber: {rec['recordnumber']}")  # noqa
+        logger.info(f"Importing exhibition: {rec['recordnumber']}")
         container = get_base_folder(self.context, "exhibition")
 
         rec = convert_lists_to_text(rec, ["eventImages", "eventArtist"])
@@ -404,7 +409,7 @@ class ImportVubis(BrowserView):
             **rec,
         )
         content.transition(obj=obj, transition="publish")
-        print("Imported exhibition", path(obj))
+        logger.info(f"Imported exhibition {path(obj)}")
 
         if en_title:
             rec["title"] = en_title

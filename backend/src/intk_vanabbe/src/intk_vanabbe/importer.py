@@ -292,7 +292,7 @@ def scroll(
                 count += 1
 
             if count % 100 == 0:
-                transaction.savepoint()
+                transaction.commit()
 
             if count == max_records:
                 break
@@ -321,7 +321,7 @@ def scroll_from_archive(
     cur = 0
     count = 0
 
-    while count < min(len(filenames), max_records):
+    while cur < min(len(filenames), max_records):
         fname = filenames[min(cur, len(filenames) - 1)]
 
         cur += 1
@@ -352,9 +352,6 @@ def scroll_from_archive(
 
         if count % 100 == 0:
             transaction.commit()
-
-        # if count % 500 == 0:
-        #     transaction.commit()
 
         if count == max_records:
             break
