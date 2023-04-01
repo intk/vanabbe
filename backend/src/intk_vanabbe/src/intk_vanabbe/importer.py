@@ -23,6 +23,7 @@ http://62.221.199.184:17718/action=get&command=search&query=bookArtist=Gordon,%2
 Import artwork
 """  # noqa
 
+from intk_vanabbe.config import DATA_REPO
 from intk_vanabbe.config import IMAGE_BASE_URL
 from intk_vanabbe.config import INT_FIELDS
 from intk_vanabbe.config import INTL_FIELDS
@@ -91,7 +92,7 @@ def to_dict(rec):
                 out[name] = int(out[name])
             except ValueError:
                 # TODO: convert these fields to int
-                print("Unable to convert to int:", name, out[name])
+                # print("Unable to convert to int:", name, out[name])
                 del out[name]
 
     return out
@@ -321,11 +322,7 @@ def scroll_from_archive(
     count = 0
 
     while count < min(len(filenames), max_records):
-        try:
-            fname = filenames[cur]
-        except Exception:
-            logger.exception("Finished?")
-            break
+        fname = filenames[min(cur, len(filenames) - 1)]
 
         cur += 1
 
@@ -338,7 +335,7 @@ def scroll_from_archive(
 
         recordnumber = int(element.xpath("./recordnumber/text()")[0])
         if recordnumber in imported_records:
-            print(f"Skipping {recordnumber}, already imported")
+            # print(f"Skipping {recordnumber}, already imported")
             continue
 
         imported = False
@@ -354,13 +351,15 @@ def scroll_from_archive(
             count += 1
 
         if count % 100 == 0:
-            transaction.savepoint()
-
-        if count % 500 == 0:
             transaction.commit()
+
+        # if count % 500 == 0:
+        #     transaction.commit()
 
         if count == max_records:
             break
+
+    print("Done importing")
 
 
 def extract_images(record):
@@ -514,5 +513,48 @@ def copy_vubis():
         log.write(json.dumps(errors))
 
 
+def generate_stats():
+    repo = DATA_REPO
+    filenames = [
+        os.path.join(repo, f)
+        for f in next(os.walk(repo), (None, None, []))[2]
+        if f.endswith(".xml")
+    ]
+
+    artworks = 0
+    exhibitions = 0
+    publications = 0
+
+    for fpath in filenames:
+        with open(fpath) as f:
+            doc = lxml.etree.fromstring(f.read().encode('utf-8'))
+
+        element = doc.xpath('//dc_record')[0]
+        if element.xpath("./AuthorBio"):
+            artworks += 1
+        elif element.xpath("./eventCoorporation"):
+            exhibitions += 1
+        else:
+            publications += 1
+
+    print("Stats:")
+    print(f"artworks: {artworks}")
+    print(f"exhibitions: {exhibitions}")
+    print(f"publications: {publications}")
+
+
 if __name__ == "__main__":
     copy_vubis()
+
+"""
+# artworks: 3188
+    - nl: 3188
+    - en: 3184
+# exhibitions: 1757
+    - en: 1728
+    - nl: 1728
+# publications: 98754
+    - nl: 98550
+    - en: 93755
+    # generate_stats()
+"""

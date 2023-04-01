@@ -300,7 +300,7 @@ class ImportVubis(BrowserView):
 
         return authors
 
-    @debug
+    # @debug
     def import_artwork(self, rec, element, use_archive=True):
         logger.info(f"Importing artwork ccObjectID: {rec['ccObjectID']}")
         container = get_base_folder(self.context, "artwork")
@@ -344,7 +344,7 @@ class ImportVubis(BrowserView):
 
         return True
 
-    @debug
+    # @debug
     def import_publication(self, rec, element, use_archive=True):
         logger.info(f"Importing publication ccObjectID: {rec['ccObjectID']}")
 
@@ -376,7 +376,7 @@ class ImportVubis(BrowserView):
 
         return True
 
-    @debug
+    # @debug
     def import_exhibition(self, rec, element, use_archive=True):
         logger.info(f"Importing exhibition recordnumber: {rec['recordnumber']}")  # noqa
         container = get_base_folder(self.context, "exhibition")
