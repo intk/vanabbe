@@ -348,7 +348,7 @@ class AdminFixes(BrowserView):
                     logger.info("No translations")
                     continue
                 trans = trans[0].getObject()
-                obj.Title = trans.Title
+                obj.title = trans.title
 
                 if obj.portal_type == 'publication':
                     obj.bookTitle = trans.bookTitle
@@ -356,6 +356,32 @@ class AdminFixes(BrowserView):
                 obj.reindexObject()
 
         return "ok"
+
+    # def fix_booktitle(self):
+    #     site = portal.get()
+    #     catalog = site.portal_catalog
+    #
+    #     # nls = catalog(portal_type="publication", Language="nl")
+    #     ens = catalog(portal_type=["publication"], Language="en")
+    #
+    #     for b in ens:
+    #         if not b.Title:
+    #             logger.info(f"Fixing {b.getURL()}")
+    #             obj = b.getObject()
+    #             trans = catalog(
+    #                 TranslationGroup=b.TranslationGroup, Language="nl")
+    #             if not trans:
+    #                 logger.info("No translations")
+    #                 continue
+    #             trans = trans[0].getObject()
+    #             obj.Title = trans.Title
+    #
+    #             if obj.portal_type == 'publication':
+    #                 obj.bookTitle = trans.bookTitle
+    #
+    #             obj.reindexObject()
+    #
+    #     return "ok"
 
     def __call__(self):
         alsoProvides(self.request, IDisableCSRFProtection)
