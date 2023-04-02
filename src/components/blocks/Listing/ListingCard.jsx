@@ -114,7 +114,7 @@ const EventCard = ({ item, showDate = true, showTag, showContentType }) => {
           <div className="card-meta">
             {showDate && (
               <>
-                {item.recurrence && item.recurence_description ? (
+                {item.recurence_description ? (
                   <>{item.recurence_description}</>
                 ) : (
                   <>

@@ -118,7 +118,8 @@ const NewsItemCard = ({ item, showDate, showTag, showContentType }) => {
   );
 };
 
-const EventCard = ({ item, showDate, showTag, showContentType }) => {
+const EventCard = (props) => {
+  const { item, showDate, showTag, showContentType } = props;
   const size = 'large';
   const { image_field, Subject } = item;
   const tag = Subject && Subject.length > 0 ? Subject[0] : '';
@@ -135,7 +136,7 @@ const EventCard = ({ item, showDate, showTag, showContentType }) => {
             <div className="card-meta">
               {showDate && (
                 <>
-                  {item.recurrence && item.recurence_description ? (
+                  {item.recurence_description ? (
                     <>{item.recurence_description}</>
                   ) : (
                     <>
