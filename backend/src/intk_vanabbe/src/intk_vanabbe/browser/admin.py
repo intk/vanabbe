@@ -347,7 +347,12 @@ class AdminFixes(BrowserView):
                 if not trans:
                     logger.info("No translations")
                     continue
-                obj.Title = trans[0].Title
+                trans = trans[0].getObject()
+                obj.Title = trans.Title
+
+                if obj.portal_type == 'publication':
+                    obj.bookTitle = trans.bookTitle
+
                 obj.reindexObject()
 
         return "ok"
