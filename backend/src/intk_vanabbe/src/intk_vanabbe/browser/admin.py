@@ -335,7 +335,8 @@ class AdminFixes(BrowserView):
         catalog = site.portal_catalog
 
         # nls = catalog(portal_type="publication", Language="nl")
-        ens = catalog(portal_type="publication", Language="en")
+        ens = catalog(portal_type=["publication",
+                      "artwork", "exhibition"], Language="en")
 
         for b in ens:
             if not b.Title:
