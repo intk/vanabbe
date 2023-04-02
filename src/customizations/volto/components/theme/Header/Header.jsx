@@ -23,7 +23,7 @@ const Header = (props) => {
   const { navigationItems } = props;
   const { pathname } = useLocation();
   const content = useSelector((state) => state.content.data);
-  const { title, description, objectTitle } = content || {};
+  const { title, description, objectTitle, BookTitle } = content || {};
   const previewImage = usePreviewImage(pathname);
   const previewImageUrl = previewImage?.scales?.huge?.download;
   const contentType = content?.['@type'];
@@ -85,7 +85,9 @@ const Header = (props) => {
           <Container className="sticky-heading">
             <div id="heading" className="offset-1-left offset-2-right">
               {title && (
-                <h1 className="content-title">{objectTitle || title}</h1>
+                <h1 className="content-title">
+                  {BookTitle || objectTitle || title}
+                </h1>
               )}
               <div id="description">
                 <p className="content-description">
