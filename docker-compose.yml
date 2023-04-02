@@ -49,6 +49,8 @@ services:
   worker:
     entrypoint: sh -c "tail -f /dev/null"
     extends: plone
+    environment:
+      ZODB_CACHE_SIZE: 200000
 
   lb:
     image: traefik:v2.9
