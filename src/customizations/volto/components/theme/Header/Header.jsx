@@ -33,6 +33,8 @@ const Header = (props) => {
   const [menuPopupOpen, setMenuPopupOpen] = React.useState(false);
   const [searchPopupOpen, setSearchPopupOpen] = React.useState(false);
 
+  const headerTitle = BookTitle || objectTitle || title;
+
   return (
     <>
       <div className="portal-top">
@@ -84,11 +86,7 @@ const Header = (props) => {
         <>
           <Container className="sticky-heading">
             <div id="heading" className="offset-1-left offset-2-right">
-              {title && (
-                <h1 className="content-title">
-                  {BookTitle || objectTitle || title}
-                </h1>
-              )}
+              {headerTitle && <h1 className="content-title">{headerTitle}</h1>}
               <div id="description">
                 <p className="content-description">
                   {description && <> {description}</>}
