@@ -330,6 +330,27 @@ class AdminFixes(BrowserView):
 
             print(f"translations: {len(ids)}")
 
+    def fix_untitled(self):
+        site = portal.get()
+        catalog = site.portal_catalog
+
+        # nls = catalog(portal_type="publication", Language="nl")
+        ens = catalog(portal_type="publication", Language="en")
+
+        for b in ens:
+            if not b.Title:
+                logger.info(f"Fixing {b.getURL()}")
+                obj = b.getObject()
+                trans = catalog(
+                    TranslationGroup=b.TranslationGroup, Language="nl")
+                if not trans:
+                    logger.info("No translations")
+                    continue
+                obj.Title = trans[0].Title
+                obj.reindexObject()
+
+        return "ok"
+
     def __call__(self):
         alsoProvides(self.request, IDisableCSRFProtection)
         op = self.request.form.get('op')
