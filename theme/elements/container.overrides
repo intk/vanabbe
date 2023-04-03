@@ -31,7 +31,8 @@
 @media only screen and (max-width: @largestMobileScreen) {
   #main {
     #page-document.ui.container,
-    .hero-container.ui.container {
+    .hero-container.ui.container,
+    .ui.container.sticky-heading {
       padding-right: 0 !important;
     }
   }
