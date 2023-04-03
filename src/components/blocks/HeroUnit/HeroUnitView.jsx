@@ -36,7 +36,6 @@ const HeroUnitView = (props) => {
 
   const logoRef = useRef();
 
-  const [playing, setPlaying] = useState(false);
   const [isActive, setIsActive] = useState(false);
   const [scrollDown, setScrollDown] = useState(null);
   const [bottom, setBottom] = useState(0);
@@ -48,13 +47,6 @@ const HeroUnitView = (props) => {
     const position = getPosition(logoRef);
     setLogoTopPosition(position);
   }, []);
-
-  useEffect(() => {
-    if (!isView) {
-      return;
-    }
-    setPlaying(true);
-  }, [isView]);
 
   useEffect(() => {
     if (isTopOfPage) {
@@ -163,7 +155,7 @@ const HeroUnitView = (props) => {
               video: videoUrl,
             })}
           >
-            {videoUrl && <VideoPlayer playing={playing} videoUrl={videoUrl} />}
+            {videoUrl && <VideoPlayer videoUrl={videoUrl} />}
 
             {attachedimage && (
               <Image
