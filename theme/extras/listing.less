@@ -51,7 +51,7 @@
   .card-title {
     margin-top: 0;
     margin-bottom: 15px;
-    font-size: 27px;
+    font-size: @largeMobileFontSize;
     overflow-wrap: break-word;
     .elipsisOverflow(3);
   }
@@ -321,10 +321,6 @@
 
 @media only screen and (max-width: @largestTabletScreen) {
   .listing-card.default-card {
-    .card-title {
-      font-size: @mobileH2 !important;
-    }
-
     .card-meta,
     .card-description {
       font-size: @mediumFontSize !important;
