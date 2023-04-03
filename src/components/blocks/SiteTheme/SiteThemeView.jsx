@@ -18,7 +18,11 @@ const SiteThemeView = (props) => {
       ? theme
       : 'default';
 
-    if (selected) document.body.setAttribute('data-theme', siteTheme);
+    if (selected) {
+      document.body.setAttribute('data-theme', siteTheme);
+    } else {
+      document.body.setAttribute('data-theme', 'default');
+    }
   }, [contrastMode, theme, mode, selected]);
 
   return null;
