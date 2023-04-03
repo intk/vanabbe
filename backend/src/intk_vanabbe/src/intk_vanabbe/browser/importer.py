@@ -315,8 +315,20 @@ class ImportVubis(BrowserView):
         rec["objectImage"] = "\n".join(filenames)
 
         # todo: dimensions from Dimensions
+        # TODO: update importer based on fixes
 
-        converted = convert_lists_to_text(rec)
+        converted = convert_lists_to_text(
+            rec, blacklist=['objectTitle',
+                            'ObjectAudio',
+                            'ObjectVideo'])
+
+        # titles = element.xpath("//dc_record/objectTitle")
+        # if len(titles) > 1:
+        #     titles.sort(key=lambda x: x.get("Rangorde") or "")
+        #     title = titles[0].text
+        #     info['nl']['objectTitle'] = title
+        #     info['en']['objectTitle'] = title
+
         converted["title"] = converted["objectTitle"].split("\n")[0]
 
         original = extract_lang(converted, "nl")
@@ -351,7 +363,8 @@ class ImportVubis(BrowserView):
     def import_publication(self, rec, element, use_archive=True):
         logger.info(f"Importing publication: {rec['recordnumber']}")
 
-        rec = convert_lists_to_text(rec, ["bookIllustrations", "bookArtist"])
+        rec = convert_lists_to_text(
+            rec, blacklist=["bookIllustrations", "bookArtist"])
         bookArtist = rec.get("bookArtist")
         if bookArtist and not isinstance(bookArtist, list):
             rec["bookArtist"] = [bookArtist]
@@ -386,7 +399,9 @@ class ImportVubis(BrowserView):
         logger.info(f"Importing exhibition: {rec['recordnumber']}")
         container = get_base_folder(self.context, "exhibition")
 
-        rec = convert_lists_to_text(rec, ["eventImages", "eventArtist"])
+        rec = convert_lists_to_text(
+            rec, blacklist=["eventImages", "eventArtist"])
+
         if rec.get("eventArtist") and not isinstance(rec["eventArtist"], list):
             rec["eventArtist"] = [rec["eventArtist"]]
 

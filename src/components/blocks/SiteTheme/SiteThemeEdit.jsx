@@ -26,7 +26,12 @@ const SiteThemeEdit = (props) => {
 
   return (
     <>
-      <SiteThemeView {...props} path={getBaseUrl(props.pathname)} mode="edit" />
+      <SiteThemeView
+        {...props}
+        path={getBaseUrl(props.pathname)}
+        mode="edit"
+        selected={selected}
+      />
       <Message icon info>
         <Message.Content>
           <Header as="h6">

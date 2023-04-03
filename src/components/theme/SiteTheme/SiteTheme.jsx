@@ -11,55 +11,52 @@ const getRandomTheme = (themes) => {
   return randomTheme;
 };
 
-const SiteTheme = (props) => {
-  const { content } = props;
-  const { siteThemes } = config.settings;
-  const pathname = useLocation().pathname;
-  const cmsView = isCmsUi(pathname);
-  const [contrastMode] = useAtom(contrastModeAtom);
-  const [pageTheme, setPageTheme] = React.useState();
-  const [initialPageTheme, setInitialPageTheme] = React.useState();
-  const [hasSelectedPageTheme, setHasSelectedPageTheme] = React.useState();
+const getContextPageTheme = (content) => {
   const siteThemeBlockId = content?.blocks
     ? Object.keys(content?.blocks).find(
         (id) => content?.blocks?.[id]?.['@type'] === 'siteTheme',
       )
     : null;
   const pageThemeBlock = content?.blocks?.[siteThemeBlockId]?.theme;
+  return pageThemeBlock;
+};
+
+const SiteTheme = (props) => {
+  /**
+   * - we have a default theme, called "default"
+   * - user navigates the website
+   * - when they encounter content that defines a color, the website changes
+   *   color
+   * - the color stays the same until they meet another content with a color
+   * - or they change the color manually by double-clicking
+   */
+  const { content } = props;
+  const { siteThemes } = config.settings;
+  const pathname = useLocation().pathname;
+  const cmsView = isCmsUi(pathname);
+  const [contrastMode] = useAtom(contrastModeAtom);
+
+  const contextPageTheme = getContextPageTheme(content) || 'default';
+  const [pageTheme, setPageTheme] = React.useState(contextPageTheme);
 
   React.useEffect(() => {
-    if (hasSelectedPageTheme || siteThemeBlockId) return null;
-    setInitialPageTheme(getRandomTheme(siteThemes));
-  }, [hasSelectedPageTheme, siteThemeBlockId, siteThemes]);
+    const theme = contrastMode
+      ? 'contrast-mode'
+      : cmsView
+      ? 'default'
+      : contextPageTheme === 'default'
+      ? pageTheme
+      : contextPageTheme;
 
-  React.useEffect(() => {
-    setHasSelectedPageTheme(false);
-  }, [pathname]);
+    // console.log('theme', { contrastMode, cmsView, contextPageTheme });
+    // console.log('useEffect', { pageTheme
 
-  React.useEffect(() => {
-    if (pageThemeBlock) {
-      setHasSelectedPageTheme(true);
-    } else {
-      setHasSelectedPageTheme(false);
+    if (theme !== contextPageTheme) {
+      setPageTheme(theme);
+      // console.log('set page theme', theme);
     }
-  }, [pageThemeBlock]);
-
-  React.useEffect(() => {
-    if (hasSelectedPageTheme) return null;
-
-    if (contrastMode) {
-      setPageTheme('contrast-mode');
-    } else if (cmsView) {
-      setPageTheme('default');
-    } else {
-      setPageTheme(initialPageTheme);
-    }
-  }, [cmsView, contrastMode, hasSelectedPageTheme, initialPageTheme]);
-
-  React.useEffect(() => {
-    if (hasSelectedPageTheme) return null;
-    document.body.setAttribute('data-theme', pageTheme);
-  }, [hasSelectedPageTheme, pageTheme]);
+    document.body.setAttribute('data-theme', theme);
+  }, [cmsView, pageTheme, contrastMode, contextPageTheme]);
 
   React.useEffect(() => {
     function handleClick(event) {
