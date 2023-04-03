@@ -48,12 +48,8 @@ const SiteTheme = (props) => {
       ? pageTheme
       : contextPageTheme;
 
-    // console.log('theme', { contrastMode, cmsView, contextPageTheme });
-    // console.log('useEffect', { pageTheme
-
     if (theme !== contextPageTheme) {
       setPageTheme(theme);
-      // console.log('set page theme', theme);
     }
     document.body.setAttribute('data-theme', theme);
   }, [cmsView, pageTheme, contrastMode, contextPageTheme]);
