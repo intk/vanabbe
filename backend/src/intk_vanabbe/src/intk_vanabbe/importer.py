@@ -27,6 +27,8 @@ from intk_vanabbe.config import DATA_REPO
 from intk_vanabbe.config import IMAGE_BASE_URL
 from intk_vanabbe.config import INT_FIELDS
 from intk_vanabbe.config import INTL_FIELDS
+from intk_vanabbe.utils import is_artwork
+from intk_vanabbe.utils import is_exhibition
 
 import argparse
 import hashlib
@@ -283,7 +285,8 @@ def scroll(
 
             if element.xpath("./AuthorBio"):
                 imported = import_artwork(infodict, element, use_archive)
-            elif element.xpath("./eventCoorporation"):
+            elif element.xpath("./eventCoorporation") or \
+                    element.xpath('./eventTitle'):
                 imported = import_exhibition(infodict, element, use_archive)
             else:
                 imported = import_publication(infodict, element, use_archive)
@@ -342,7 +345,8 @@ def scroll_from_archive(
 
         if element.xpath("./AuthorBio"):
             imported = import_artwork(infodict, element, use_archive)
-        elif element.xpath("./eventCoorporation"):
+        elif element.xpath("./eventCoorporation") or \
+                element.xpath('./eventTitle'):
             imported = import_exhibition(infodict, element, use_archive)
         else:
             imported = import_publication(infodict, element, use_archive)
@@ -529,8 +533,11 @@ def generate_stats():
         element = doc.xpath('//dc_record')[0]
         if element.xpath("./AuthorBio"):
             artworks += 1
-        elif element.xpath("./eventCoorporation"):
+            continue
+        elif element.xpath("./eventCoorporation") or \
+                element.xpath('./eventTitle'):
             exhibitions += 1
+            continue
         else:
             publications += 1
 
@@ -540,8 +547,33 @@ def generate_stats():
     print(f"publications: {publications}")
 
 
+def identify_pub_events():
+    repo = DATA_REPO
+    filenames = [
+        os.path.join(repo, f)
+        for f in next(os.walk(repo), (None, None, []))[2]
+        if f.endswith(".xml")
+    ]
+
+    wrong = []
+    for fpath in filenames:
+        with open(fpath) as f:
+            doc = lxml.etree.fromstring(f.read().encode('utf-8'))
+
+        element = doc.xpath('//dc_record')[0]
+        if is_artwork(element) or is_exhibition(element):
+            continue
+        else:
+            if element.xpath("./ObjectVideo"):
+                wrong.append(fpath)
+
+    for line in wrong:
+        print(line)
+
+
 if __name__ == "__main__":
-    copy_vubis()
+    identify_pub_events()
+    # copy_vubis()
 
 """
 # artworks: 3188

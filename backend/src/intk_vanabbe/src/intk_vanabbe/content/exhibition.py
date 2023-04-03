@@ -6,10 +6,21 @@ from zope import schema
 
 # fields extracted from archive dump
 
-# {'ccObjectID', 'eventTitle', 'eventDescription', 'ccIdentifier', 'eventTimeFrom',
-# 'eventArtist', 'eventTitle_EN', 'eventSub', 'ccIndexName', 'eventMedia',
-# 'eventCoorporation', 'eventImages', 'recordnumber'}
+# ccIdentifier
+# ccIndexName
+# ccObjectID
+# eventArtist
+# eventCoorporation
+# eventDescription
+# eventImages
+# eventMedia
+# eventSub
+# eventTimeFrom
+# eventTitle
+# eventTitle_EN
+# recordnumber
 
+# TODO: add this field: eventSub
 
 class IExhibition(model.Schema):
     """Schema for 'exhibition' content type."""
@@ -20,10 +31,12 @@ class IExhibition(model.Schema):
 
     # can be a list
     eventArtist = schema.List(
-        title="eventArtist", required=False, value_type=schema.TextLine(title="Artist")
+        title="eventArtist", required=False,
+        value_type=schema.TextLine(title="Artist")
     )
 
-    eventCoorporation = schema.TextLine(title="eventCoorporation", required=False)
+    eventCoorporation = schema.TextLine(
+        title="eventCoorporation", required=False)
     eventDescription = schema.Text(title="eventDescription", required=False)
 
     # should import as children

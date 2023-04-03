@@ -14,13 +14,37 @@ from zope import schema
 
 # fields extracted from the archive dump:
 
-# {'authorDeathDate', 'subjectandkeywords', 'objectCreationDateTo', 'authorName',
-# 'objectCreationDate', 'trefwoord', 'authorURL', 'objectPosition', 'ccObjectID',
-# 'objectMedium', 'objectTitle', 'objectFormatWidth', 'objectKeys', 'authorBirthDate',
-# 'objectCreationDateFrom', 'ObjectAudio', 'objectIsVisible', 'objectImage',
-# 'objectFormatDepth', 'objectID', 'ccIndexName', 'objectFormatLength', 'Dimensions',
-# 'objectCredit', 'recordnumber', 'authorID', 'ccIdentifier', 'AuthorBio',
-# 'objectYearPurchase', 'objectDescription', 'ObjectVideo'}
+# AuthorBio
+# Dimensions
+# ObjectAudio
+# ObjectVideo
+# authorBirthDate
+# authorDeathDate
+# authorID
+# authorName
+# authorURL
+# ccIdentifier
+# ccIndexName
+# ccObjectID
+# objectCreationDate
+# objectCreationDateFrom
+# objectCreationDateTo
+# objectCredit
+# objectDescription
+# objectFormatDepth
+# objectFormatLength
+# objectFormatWidth
+# objectID
+# objectImage
+# objectIsVisible
+# objectKeys
+# objectMedium
+# objectPosition
+# objectTitle
+# objectYearPurchase
+# recordnumber
+# subjectandkeywords
+# trefwoord
 
 
 class IArtwork(model.Schema):

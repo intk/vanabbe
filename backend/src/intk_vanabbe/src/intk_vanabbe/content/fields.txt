@@ -1,0 +1,40 @@
+Attribute: AuthorBio
+authorID
+
+Attribute: authorBirthDate
+authorID
+
+Attribute: authorDeathDate
+authorID
+
+Attribute: authorName
+authorID
+authorSortName
+
+Attribute: authorURL
+Language
+Title
+authorID
+
+Attribute: objectImage
+PrimaryDisplay
+Rank
+
+Attribute: objectMedium
+Language
+
+Attribute: objectTitle
+Rangorde
+
+Attribute: ObjectAudio
+Language
+Title
+
+Attribute: objectDescription
+Language
+Scope
+Title
+
+Attribute: ObjectVideo
+Language
+Title

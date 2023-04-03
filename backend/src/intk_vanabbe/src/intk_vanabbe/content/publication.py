@@ -7,18 +7,37 @@ from zope import schema
 
 # fields extracted from archive dump
 
-# {'eventTitle', 'bookLanguage', 'bookBBCode', 'bookCity', 'objectCreationDateTo',
-# 'authorName', 'objectCreationDate', 'eventArtist', 'bookDatePublished', 'authorURL',
-# 'ccObjectID', 'bookMedia', 'objectMedium', 'objectTitle', 'bookISBN',
-# 'bookIllustrations', 'BookTitle_ALT', 'bookDescription', 'BookSubTitle',
-# 'authorBirthDate', 'objectCreationDateFrom', 'bookauthorName', 'VubisID',
-# 'objectIsVisible', 'objectImage', 'bookVubisid', 'objectID', 'eventTimeFrom',
-# 'bookPublisher', 'ccIndexName', 'eventMedia', 'bookArtist', 'bookBbnummer',
-# 'Dimensions', 'recordnumber', 'objectCredit', 'bookCountry', 'BookTitle', 'authorID',
-# 'eventDescription', 'ccIdentifier', 'bookStream', 'bookBinding', 'bookShelfmark',
-# 'objectYearPurchase', 'bookAnnotation', 'bookBarcode', 'eventImages', 'eventSub',
-# 'objectDescription', 'ObjectVideo'}
+# BookSubTitle
+# BookTitle
+# BookTitle_ALT
+# VubisID
+# bookAnnotation
+# bookArtist
+# bookBBCode
+# bookBarcode
+# bookBbnummer
+# bookBinding
+# bookCity
+# bookCountry
+# bookDatePublished
+# bookDescription
+# bookISBN
+# bookIllustrations
+# bookLanguage
+# bookMedia
+# bookPublisher
+# bookShelfmark
+# bookStream
+# bookVubisid
+# bookauthorName
+# ccIdentifier
+# ccIndexName
+# ccObjectID
+# recordnumber
 
+
+# TODO: add these fields: VubisID, bookISBN
+# 20412 have isbn
 
 class IPublication(model.Schema):
     """Schema for 'publication' content type."""

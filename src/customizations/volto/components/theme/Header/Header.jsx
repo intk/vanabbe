@@ -16,6 +16,7 @@ import {
   ContrastToggle,
   OpeningHours,
   HeaderButton,
+  AccessibilityHelper,
 } from '@package/components';
 import { usePreviewImage } from '@package/helpers';
 
@@ -60,6 +61,10 @@ const Header = (props) => {
                     <div className="computer large screen widescreen only">
                       <ContrastToggle />
                       <LanguageSelector />
+                    </div>
+
+                    <div className="computer large screen widescreen only">
+                      <AccessibilityHelper />
                     </div>
                   </div>
                 </div>
