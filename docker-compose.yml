@@ -27,7 +27,7 @@ services:
   frontend-production:
     depends_on:
       - lb
-    image: tiberiuichim/vanabbe:1.82
+    image: tiberiuichim/vanabbe:1.83
     profiles: ["production"]
 
   plone:
