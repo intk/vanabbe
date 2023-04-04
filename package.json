@@ -37,6 +37,7 @@
     "http-proxy-middleware": "2.0.1"
   },
   "addons": [
+    "@codesyntax/volto-cookiebot",
     "volto-multilingual-widget",
     "@eeacms/volto-group-block",
     "@eeacms/volto-accordion-block",
