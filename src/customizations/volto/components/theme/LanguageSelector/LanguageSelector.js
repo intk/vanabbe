@@ -6,19 +6,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { defineMessages, useIntl } from 'react-intl';
 import { Dropdown } from 'semantic-ui-react';
-
 import { useSelector } from 'react-redux';
-import cx from 'classnames';
 import { find, map } from 'lodash';
-
+import cx from 'classnames';
 import { Helmet, langmap, flattenToAppURL } from '@plone/volto/helpers';
-import { Icon } from '@plone/volto/components';
-import globeSVG from '@plone/volto/icons/globe.svg';
+import { capitalize } from '@package/utils';
 
 import config from '@plone/volto/registry';
-
-import { defineMessages, useIntl } from 'react-intl';
 
 const messages = defineMessages({
   switchLanguageTo: {
@@ -39,11 +35,10 @@ const LanguageSelector = (props) => {
   return settings.isMultilingual ? (
     <div className="language-selector">
       <Dropdown
-        direction="left"
+        direction="right"
         trigger={
           <span>
-            <Icon name={globeSVG} size="20px" />
-            <span>{currentLang.toUpperCase()}</span>
+            <span>{capitalize(langmap[currentLang].nativeName)}</span>
           </span>
         }
       >
@@ -51,7 +46,10 @@ const LanguageSelector = (props) => {
           {map(settings.supportedLanguages, (lang) => {
             const translation = find(translations, { language: lang });
             return (
-              <Dropdown.Item key={`language-selector-${lang}`}>
+              <Dropdown.Item
+                key={`language-selector-${lang}`}
+                disabled={!translation}
+              >
                 <Link
                   aria-label={`${intl.formatMessage(
                     messages.switchLanguageTo,

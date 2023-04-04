@@ -1,104 +1,18 @@
-/********   Customn Overrides   ********/
+/*******************************
+         Custom Overrides
+*******************************/
 
+@import './animations.less';
 @import './document.less';
 @import './listing.less';
 @import './footer.less';
 @import './search.less';
-@import './toc.less';
-@import './scrolltotop.less';
-@import './animations.less';
 @import './blocks.less';
 @import './event.less';
-
-// @import './navigation.less';
-
-// hide the breadcrumbs on view pages
-// .ui.breadcrumbs {
-//   display: none;
-// }
-
-.view-viewview.has-image {
-  #main > .breadcrumbs {
-    display: none !important;
-  }
-}
-
-.ui.dimmer {
-  background: rgba(0, 0, 0, 0.8);
-}
-
-// clear floats for edit view
-
-body.cms-ui {
-  h3 {
-    max-width: 100%;
-    float: none;
-  }
-
-  p,
-  ol,
-  ul,
-  table {
-    margin-left: unset;
-  }
-
-  .herosection {
-    .ui.container {
-      display: none;
-    }
-  }
-}
-
-#toolbar {
-  .toolbar {
-    z-index: 101;
-  }
-
-  .toolbar-content {
-    z-index: 102;
-  }
-}
-
-body.not-found-page {
-  #main {
-    height: 100%;
-  }
-
-  #view {
-    display: flex;
-    height: 100%;
-    align-items: center;
-  }
-
-  .big-heading {
-    margin-top: 1em;
-  }
-
-  .footer,
-  .footer-bottom,
-  .portal-top,
-  .ui.secondary.segment.breadcrumbs {
-    display: none !important;
-  }
-
-  .view-wrapper {
-    padding: 4rem 0;
-
-    .grid {
-      align-items: center;
-    }
-
-    img {
-      display: block;
-      max-width: 100%;
-      margin: 0 auto;
-    }
-
-    .ui.button {
-      margin: 1.5rem 0;
-    }
-  }
-}
+@import './header.less';
+@import './themes.less';
+@import './menu.less';
+@import './artwork.less';
 
 // White space in blocks chooser CMS
 .blocks-chooser .ui.accordion .title ~ .content,
@@ -106,17 +20,72 @@ body.not-found-page {
   display: contents !important;
 }
 
-// headline-with-listing (used for agenda)
-.headline-with-listing {
-  h5 {
-    font-family: @fontName;
-    font-size: clamp(1.75rem, 3.75vw, 4.063rem);
-    line-height: clamp(2.1rem, 3.75vw, 4.063rem);
-    text-transform: uppercase;
+// fix block chooser, broken by volto-block-style stretch styling
+body:not(.view-editview):not(.document_wide_view):not(.is-anonymous) main {
+  overflow: unset !important;
+}
+
+// Fix font family in toolbar
+#toolbar .pastanaga-menu-list li a,
+#toolbar .pastanaga-menu-list li button {
+  font-family: @pageFont;
+}
+
+.ui.button.full-size-sidenav-btn {
+  border: none;
+}
+
+body.view-editview,
+body.view-addview,
+.section-controlpanel,
+.section-contents,
+.section-login,
+.section-passwordreset {
+  .logo-wrapper {
+    display: none;
   }
 }
 
-// fix block chooser, broken by volto-block-style stretch styling
-body:not(.view-editview):not(.document_wide_view):not(.is-anonymous) main {
-  overflow: unset;
+#main .view-wrapper.not-found {
+  padding-right: @twoWide !important;
+}
+
+#toolbar .toolbar-content {
+  z-index: 200;
+}
+
+.preview-image {
+  object-fit: cover;
+  object-position: center;
+  transition: transform 0.5s ease;
+}
+
+.view-contentsview {
+  .ui.mini.modal {
+    width: auto;
+  }
+
+  .ui.modal {
+    > .content {
+      width: 100%;
+      max-width: 800px;
+      max-height: 500px;
+      overflow-y: auto;
+    }
+  }
+}
+
+.content-wrapper {
+  position: relative;
+  z-index: 1;
+}
+
+// #page-document {
+//   padding-bottom: var(--space-xl);
+// }
+//
+
+// make the dimmer background transparent
+.ui.inverted.dimmer {
+  background-color: hsla(0, 0%, 100%, 0);
 }

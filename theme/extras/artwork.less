@@ -1,0 +1,163 @@
+.artwork-view {
+  .content-wrapper {
+    margin-top: 32px;
+    background-color: @white;
+  }
+
+  .artwork-container {
+    position: relative;
+    z-index: 2;
+    background-color: @white;
+  }
+
+  .artwork-top {
+    position: relative;
+    display: flex;
+    height: 100%;
+    flex-direction: row;
+    gap: 2em;
+  }
+
+  .object-creation {
+    margin-bottom: var(--space-xs);
+  }
+
+  .object-links {
+    margin: 1em 0;
+  }
+
+  .object-metadata,
+  .object-medium,
+  .object-location,
+  .acquired,
+  .inventory-number {
+    font-size: @largeFontSize;
+  }
+
+  .artwork-content {
+    padding: 4em 0;
+
+    .artwork-content-footer {
+      max-width: 60ch;
+      font-size: @smallFontSize;
+
+      a {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  .artwork-meta {
+    @media only screen and (min-width: @largestTabletScreen) {
+      padding: 4em 5.5em 0 3.5em;
+    }
+  }
+
+  .social-links {
+    p {
+      font-size: @smallFontSize;
+    }
+
+    .section-title {
+      display: none;
+    }
+
+    .ui.list {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 1em;
+
+      .item {
+        padding: 0 !important;
+      }
+    }
+  }
+}
+
+.object-author,
+.object-artist {
+  margin-bottom: 0.2em;
+  font-size: @largeFontSize;
+}
+
+// .object-publisher {
+//   margin-top: var(--space-sm);
+// }
+
+.publication-view {
+  .object-creation {
+    margin: 0;
+  }
+
+  .pub-info {
+    margin-top: var(--space-md);
+  }
+
+  .object-shelfmark {
+    margin-top: var(--space-md);
+  }
+
+  .object-id,
+  .object-shelfmark {
+    font-size: @smallFontSize;
+  }
+}
+
+.publication-view,
+.exhibition {
+  .social-links {
+    margin-top: 1.5em;
+
+    .ui.list {
+      justify-content: center;
+    }
+  }
+}
+
+@media only screen and (max-width: @largestTabletScreen) {
+  .artwork-view {
+    .artwork-top {
+      flex-direction: column;
+    }
+
+    .artwork-meta {
+      margin-right: @twoWide;
+      margin-left: @oneWide;
+    }
+
+    .image-album {
+      width: 100%;
+    }
+
+    .preview-image-wrapper .ui.image {
+      width: 100%;
+      height: 490px;
+    }
+  }
+}
+
+.info {
+  margin-top: var(--space-lg);
+
+  p {
+    margin-bottom: var(--space-sm);
+    font-size: @mediumFontSize;
+  }
+}
+
+// Exhibition
+
+.event-media-list {
+  padding: 0;
+
+  li {
+    font-size: @mediumFontSize;
+    line-height: normal;
+    list-style-type: none;
+  }
+}
+
+.context-title {
+  margin-top: 1.5em;
+}

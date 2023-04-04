@@ -3,7 +3,7 @@ import downloadSVG from '@plone/volto/icons/download.svg';
 import ActionLinksView from './ActionLinksView';
 import ActionLinksEdit from './ActionLinksEdit';
 
-const installFactsBlock = (config) => {
+const installActionLinksBlock = (config) => {
   config.blocks.blocksConfig.actionLinks = {
     id: 'actionLinks',
     title: 'Action Links',
@@ -23,4 +23,4 @@ const installFactsBlock = (config) => {
   return config;
 };
 
-export default installFactsBlock;
+export default installActionLinksBlock;

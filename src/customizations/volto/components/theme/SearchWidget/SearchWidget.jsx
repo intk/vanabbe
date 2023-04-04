@@ -1,28 +1,26 @@
 import React from 'react';
 import { defineMessages, useIntl } from 'react-intl';
-import { Button } from 'semantic-ui-react';
-import { Icon } from '@plone/volto/components';
-
+import { Button, Container } from 'semantic-ui-react';
+import { BodyClass } from '@plone/volto/helpers';
 import PopupMenu from '@package/components/theme/Navigation/PopupMenu';
 import SearchWidget from '@package/components/theme/SearchWidget/SearchWidget';
+import { Logo } from '@plone/volto/components';
 
 import { useLocation } from 'react-router-dom';
-
-import zoomSVG from '@plone/volto/icons/zoom.svg';
-import closeSVG from '@plone/volto/icons/clear.svg';
 
 const messages = defineMessages({
   search: {
     id: 'Search',
     defaultMessage: 'Search',
   },
-  searchSite: {
-    id: 'Search',
-    defaultMessage: 'Search',
+  close: {
+    id: 'Close',
+    defaultMessage: 'Close',
   },
 });
 
 const SearchWidgetWrapper = (props) => {
+  const { setSearchPopupOpen, menuPopupOpen } = props;
   const intl = useIntl();
   const [showPopup, setShowPopup] = React.useState();
   const location = useLocation();
@@ -30,6 +28,16 @@ const SearchWidgetWrapper = (props) => {
   React.useEffect(() => {
     setShowPopup(false);
   }, [location]);
+
+  React.useEffect(() => {
+    if (menuPopupOpen) {
+      setShowPopup(false);
+    }
+  }, [menuPopupOpen, setSearchPopupOpen]);
+
+  React.useEffect(() => {
+    setSearchPopupOpen(showPopup);
+  }, [setSearchPopupOpen, showPopup]);
 
   React.useEffect(() => {
     const handleEsc = (event) => {
@@ -44,36 +52,46 @@ const SearchWidgetWrapper = (props) => {
     };
   }, []);
 
+  function handleClick(e) {
+    setShowPopup((showPopup) => !showPopup);
+  }
+
   const { children } = props;
   return (
     <div id="global-search-widget">
+      {showPopup && <BodyClass className="open-search open-popup" />}
       <Button
+        basic
+        className="nav-button"
         aria-label={intl.formatMessage(messages.search)}
-        onClick={() => setShowPopup(true)}
+        onClick={handleClick}
       >
-        <Icon name={zoomSVG} size="24px" />
+        {showPopup ? (
+          <>{intl.formatMessage(messages.close)}</>
+        ) : (
+          <>{intl.formatMessage(messages.search)}</>
+        )}
       </Button>
-      <PopupMenu open={showPopup} onClose={() => setShowPopup(false)}>
-        <div className="hover-menu search-widget">
-          <div className="hover-menu-inner">{children}</div>
-          <div className="close-search">
-            <Icon
-              className="close-popup"
-              onClick={() => setShowPopup(false)}
-              name={closeSVG}
-              size="35px"
-            />
+      <PopupMenu open={showPopup}>
+        <Container>
+          <div className="search popup-inner popup-menu-inner">
+            <div className="popup-bottom">
+              {children}
+              <Logo height="100px" hasLink />
+            </div>
           </div>
-        </div>
+        </Container>
       </PopupMenu>
     </div>
   );
 };
 
-const GlobalSearchWidget = (props) => (
-  <SearchWidgetWrapper>
-    <SearchWidget {...props} />
-  </SearchWidgetWrapper>
-);
+const GlobalSearchWidget = (props) => {
+  return (
+    <SearchWidgetWrapper {...props}>
+      <SearchWidget {...props} />
+    </SearchWidgetWrapper>
+  );
+};
 
 export default GlobalSearchWidget;

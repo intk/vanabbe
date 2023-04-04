@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layers>
+  <layer interface="intk_vanabbe.interfaces.IINTK_VANABBELayer"
+         name="intk_vanabbe"
+  />
+</layers>

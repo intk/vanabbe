@@ -4,56 +4,60 @@ import { RenderBlocks } from '@plone/volto/components';
 import { Container } from 'semantic-ui-react';
 
 import { hasBlocksData, getBaseUrl } from '@plone/volto/helpers';
-
-// Customized to hide the title and description blocks, as they are included in
-// the header
-
-function filterBlocks(content, types) {
-  if (!(content.blocks && content.blocks_layout?.items)) return content;
-
-  return {
-    ...content,
-    blocks_layout: {
-      ...content.blocks_layout,
-      items: content.blocks_layout.items.filter(
-        (id) => types.indexOf(content.blocks[id]?.['@type']) === -1,
-      ),
-    },
-  };
-}
+import { useContentDivider } from '@package/helpers';
 
 const DefaultView = (props) => {
   const { content, location } = props;
   const path = getBaseUrl(location?.pathname || '');
-
-  const description = content?.description;
-  const hasLeadImage = content?.preview_image;
-  const filteredContent = hasLeadImage
-    ? filterBlocks(content, ['title', 'description'])
-    : content;
+  const hiddenBlocks = ['title', 'description']; //  hide title and description blocks, as they are included in the header
+  const divider = useContentDivider(content, hiddenBlocks);
+  const {
+    dividerBlock,
+    filterContent,
+    filterContentBlocksBefore,
+    filterContentBlocksAfter,
+  } = divider;
 
   return hasBlocksData(content) ? (
     <div id="page-document" className="ui container">
-      <div className="content-container">
+      <div className="offset-1-right">
         <div className="content-wrapper">
-          {description && (
-            <p className={'content-description'}>{description}</p>
-          )}
+          <div>
+            {dividerBlock ? (
+              <>
+                <div className="blocks-bg-wrapper">
+                  <RenderBlocks
+                    {...props}
+                    path={path}
+                    content={filterContentBlocksBefore}
+                  />
+                </div>
+                <RenderBlocks
+                  {...props}
+                  path={path}
+                  content={filterContentBlocksAfter}
+                />
+              </>
+            ) : (
+              <div className="blocks-wrapper">
+                <RenderBlocks {...props} path={path} content={filterContent} />
+              </div>
+            )}
+          </div>
         </div>
-        <RenderBlocks {...props} path={path} content={filteredContent} />
       </div>
     </div>
   ) : (
     <Container id="page-document">
       <div className="content-container">
         {/* default title+description blocks are inserted by the HeroSection */}
-        {content.remoteUrl && (
+        {content?.remoteUrl && (
           <span>
             The link address is:
             <a href={content.remoteUrl}>{content.remoteUrl}</a>
           </span>
         )}
-        {content.text && (
+        {content?.text && (
           <div
             dangerouslySetInnerHTML={{
               __html: content.text.data,
@@ -64,17 +68,5 @@ const DefaultView = (props) => {
     </Container>
   );
 };
-
-//    <h1 className="documentFirstHeading">{content.title}</h1>
-//    {content.description && (
-//      <p className="documentDescription">{content.description}</p>
-//    )}
-//    {content.preview_image && (
-//      <Image
-//        className="document-image"
-//        src={content.preview_image.scales.thumb.download}
-//        floated="right"
-//      />
-//    )}
 
 export default DefaultView;

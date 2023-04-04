@@ -3,12 +3,19 @@
 
 @import (multiple) '../../theme.config';
 
+.herosection-wrapper {
+  > .ui.grid {
+    margin-top: 0 !important;
+  }
+}
+
 .herosection {
   position: relative;
 }
 
-.header-bg.ui.container {
-  margin: 0;
+.header-bg {
+  position: relative;
+  z-index: 2;
 }
 
 .herosection-content-image {
@@ -19,45 +26,55 @@
   background-size: cover;
   border-top-left-radius: @defaultBorderRadius;
   border-top-right-radius: @defaultBorderRadius;
-  box-shadow: 0px 0px 43px 0px rgba(2, 2, 2, 0.1);
+
+  @media only screen and (max-width: @largestTabletScreen) {
+    min-height: 273px;
+  }
 }
 
-.herosection .content-wrapper {
-  position: absolute;
-  top: 50%;
-  right: 0;
-  left: 0;
-  padding: 0 1.8em;
-  margin: @heroSectionContentMargin;
-  color: @heroSectionContentColor;
-  transform: translateY(-50%);
-}
-
-.herosection .content-wrapper.caption {
-  top: auto;
-  bottom: 1.3em;
+.herosection {
+  .caption {
+    background-color: @white;
+  }
 }
 
 .herosection .content-image-caption {
+  padding: calc(@desktopPadding / 2) @desktopPadding;
+  padding-bottom: 0;
+  margin: 0;
+  color: var(--text-color);
   font-size: @heroSectionContentImageCaptionFontSize;
-  opacity: @heroSectionContentImageCaptionOpacity;
+
+  @media only screen and (max-width: @largestTabletScreen) {
+    padding-top: 0.8rem;
+    padding-left: 0.8rem;
+  }
+}
+
+.herosection-wrapper {
+  @media only screen and (max-width: @largestTabletScreen) {
+    .offset-1-left {
+      margin-left: 0;
+    }
+  }
 }
 
 .content-title {
-  margin: 0.8em 0 !important;
+  margin-bottom: var(--space-s) !important;
 }
 
-// .herosection-missing-image {
-//   min-height: 6em;
-// }
+#description {
+  p {
+    font-size: @extraFontSize;
 
-// .herosection-content-image-overlay {
-//   position: absolute;
-//   top: 0;
-//   left: 0;
-//   width: 100%;
-//   height: 100%;
-//   background: @heroSectionContentImageOverlayBackground;
-// }
+    @media only screen and (max-width: @largestTabletScreen) {
+      font-size: @largeFontSize;
+    }
+
+    @media only screen and (max-width: @largestMobileScreen) {
+      font-size: @bigFontSize;
+    }
+  }
+}
 
 .loadUIOverrides();

@@ -1,14 +1,29 @@
-import { LinkMore } from '@plone/volto/components';
+import { useSelector } from 'react-redux';
+import { UniversalLink } from '@plone/volto/components';
 
-const ListingBlockHeader = ({ data, children, sliderView }) => {
-  const { title, headline, linkHref } = data;
+const ListingBlockHeader = ({ data }) => {
+  const { title, headline, headlineTag, block, linkHref, linkTitle } = data;
   const head = title || headline;
+  const CustomTag = `${headlineTag || 'h2'}`;
+
+  const total = useSelector(
+    (state) => state.querystringsearch.subrequests?.[block]?.total,
+  );
 
   return head ? (
-    <div className="listing-block-header">
-      <h2>{head}</h2>
-      {!sliderView && linkHref ? <LinkMore data={data} /> : ''}
-      {children}
+    <div className="listing-header">
+      {headline && (
+        <CustomTag id={block}>
+          {headline}
+          {data.showCount && total ? ` (${total})` : ''}
+        </CustomTag>
+      )}
+
+      {linkHref && (
+        <UniversalLink href={linkHref?.[0]['@id']}>
+          {linkTitle || '...'}
+        </UniversalLink>
+      )}
     </div>
   ) : (
     ''

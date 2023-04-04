@@ -120,7 +120,7 @@ export class UnconnectedAttachedImageWidget extends Component {
   }
 
   render() {
-    const { value, preview_size = 'preview', onChange } = this.props;
+    const { id, value, preview_size = 'preview', onChange } = this.props;
 
     return (
       <FormFieldWrapper className="wide" {...this.props}>
@@ -136,7 +136,11 @@ export class UnconnectedAttachedImageWidget extends Component {
             <Button
               basic
               className="remove-image"
-              onClick={() => onChange(value, undefined)}
+              onClick={() => {
+                if (id === 'attachedimage') {
+                  onChange(id, '');
+                } else onChange(value, undefined);
+              }}
             >
               <Icon className="circled" name={clearSVG} size="20px" />
             </Button>

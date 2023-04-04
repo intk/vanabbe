@@ -79,18 +79,18 @@ export const Pagination = ({ index, count }) => {
 
 const SliderListing = (data) => {
   const { items, linkHref } = data;
-  const [slideIndex, setSlideIndex] = React.useState(0);
+  // const [slideIndex, setSlideIndex] = React.useState(0);
   const sliderRef = React.useRef();
 
   const carouselSettings = React.useMemo(
     () => ({
-      afterChange: (current) => setSlideIndex(current),
-      dots: false,
+      // afterChange: (current) => setSlideIndex(current),
+      dots: true,
       arrows: false, // we use custom navigation
       lazyLoad: 'progressive',
       autoplay: false,
-      infinite: true,
-      slidesToShow: 3,
+      infinite: false,
+      slidesToShow: 4,
       slidesToScroll: 1,
       // adaptiveHeight: true,
       responsive: [
@@ -109,7 +109,7 @@ const SliderListing = (data) => {
           },
         },
         {
-          breakpoint: 340,
+          breakpoint: 480,
           settings: {
             slidesToShow: 1,
             slidesToScroll: 1,
@@ -120,12 +120,12 @@ const SliderListing = (data) => {
     [],
   );
 
-  const { totalPages, currentPage } = getPages(
-    sliderRef,
-    slideIndex,
-    carouselSettings,
-    items,
-  );
+  // const { totalPages, currentPage } = getPages(
+  //   sliderRef,
+  //   slideIndex,
+  //   carouselSettings,
+  //   items,
+  // );
 
   // TODO: add resize event watcher to update the pagination numbers
 
@@ -135,21 +135,14 @@ const SliderListing = (data) => {
         {({ parentWidth }) =>
           !!parentWidth && (
             <div style={{ width: `${parentWidth}px`, margin: '0 auto' }}>
-              <ListingBlockHeader data={data} sliderView>
-                <SliderNavigation
-                  sliderRef={sliderRef}
-                  index={currentPage}
-                  count={totalPages}
-                  settings={carouselSettings}
-                />
-              </ListingBlockHeader>
+              <ListingBlockHeader data={data} />
               <Slider
                 ref={sliderRef}
                 {...carouselSettings}
                 className="slick-carousel slider-listing"
               >
                 {items.map((item, i) => (
-                  <UniversalCard item={item} key={i} />
+                  <UniversalCard item={item} key={i} {...data} />
                 ))}
               </Slider>
               <div className="slider-bottom">

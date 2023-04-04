@@ -1,0 +1,155 @@
+/* Font size */
+@menuFirstLevelFontSize: 16px;
+@menuSecondLevelFontSize: 22px;
+@menuTabletFirstLevelFontSize: 20px;
+@menuTabletSecondLevelFontSize: 24px;
+
+body.open-menu {
+  --text-color: @wood;
+  --background-color: @pearl;
+}
+
+.popup-menu {
+  position: fixed;
+  z-index: 9;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--background-color);
+}
+
+#popup {
+  .ui.container {
+    width: 100% !important;
+    height: 100%;
+
+    @media only screen and (max-width: @largestMobileScreen) {
+      margin: 0 !important;
+    }
+  }
+}
+
+body.has-toolbar:not(.has-sidebar):not(.has-sidebar-collapsed) {
+  #popup .mobile-popup-menu {
+    margin-top: 170px;
+  }
+}
+
+.popup-menu-inner {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+}
+
+.open-menu {
+  overflow: hidden;
+}
+
+.ui.list.main-menu {
+  display: flex;
+  margin-top: 190px;
+  color: var(--text-color);
+  gap: 3em;
+
+  .list {
+    padding: 0.75em 0em 0.25em 0em !important;
+  }
+
+  a {
+    color: var(--text-color);
+  }
+
+  .item.firstLevel {
+    max-width: 250px;
+    font-size: @menuFirstLevelFontSize;
+
+    > .content {
+      margin-bottom: 1em;
+    }
+  }
+
+  .item.secondLevel {
+    font-size: @menuSecondLevelFontSize;
+  }
+}
+
+/*-----------------------------------------------
+   Mobile menu
+------------------------------------------------*/
+
+.ui.secondary.pointing.mobile-popup-menu {
+  display: block;
+  padding: 1.5em 0;
+  border-bottom: none;
+  margin-top: @mobileSidebarHeight;
+
+  .item-wrapper,
+  .active.item,
+  a {
+    display: inline-block;
+    color: var(--text-color);
+    font-weight: unset !important;
+    white-space: normal;
+    word-break: break-word;
+  }
+
+  .item.firstLevel {
+    padding: 0.5em 0 !important;
+    border-bottom: none;
+    font-size: @menuTabletFirstLevelFontSize !important;
+  }
+
+  .ui.dropdown {
+    display: block !important;
+
+    .item {
+      &:hover {
+        background: none !important;
+      }
+    }
+
+    .menu {
+      > .item.secondLevel:first-child {
+        padding-top: 1em !important;
+      }
+
+      > .item.secondLevel:last-child {
+        padding-bottom: 2em !important;
+      }
+    }
+
+    .item.secondLevel {
+      padding: 0.2em 0 !important;
+      border-bottom: none;
+      font-size: @menuTabletSecondLevelFontSize !important;
+    }
+
+    .menu.transition {
+      position: relative;
+      margin: 0 !important;
+      box-shadow: none !important;
+    }
+  }
+
+  .item.firstLevel {
+    .item-wrapper {
+      display: flex;
+      width: 100%;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .menu {
+      border: none;
+      background-color: transparent;
+    }
+  }
+}
+
+#popup .mobile-popup-menu {
+  position: relative;
+  left: 0 !important;
+  width: 100% !important;
+  overflow-y: auto;
+}

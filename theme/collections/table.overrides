@@ -1,28 +1,86 @@
-/********   Table overrides   ********/
-.ui.table {
-  border-top: unset;
-  border-right: unset;
-  border-left: unset;
-}
+/*******************************
+         Table Overrides
+*******************************/
 
-.ui.table thead th {
-  background: unset;
-}
+body.viewview-view {
+  .ui.table.unstackable {
+    tr {
+      > td:last-child {
+        text-align: right;
+      }
+    }
+  }
 
-ui.striped.table > tr:nth-child(2n),
-.ui.striped.table tbody tr:nth-child(2n) {
-  background-color: unset;
-}
+  .ui.table {
+    border-color: var(--text-color) !important;
+    color: var(--text-color);
 
-ui.striped.table > tr:nth-child(odd),
-.ui.striped.table tbody tr:nth-child(odd) {
-  background-color: @lightergrey;
-}
+    thead {
+      th,
+      th:hover,
+      th.sorted,
+      th.sorted:hover {
+        color: var(--text-color);
+      }
+    }
 
-.ui.celled.table tr th {
-  border-left: none;
-}
+    td,
+    tr {
+      border-color: var(--text-color) !important;
+      font-weight: normal !important;
+    }
+  }
 
-.ui.celled.table tr td {
-  border-left: 1px solid @black;
+  .ui.table:not(.basic) {
+    tr {
+      border-bottom: 1px solid var(--text-color) !important;
+
+      > td:not(:last-child) {
+        border-right: 1px solid var(--text-color) !important;
+      }
+    }
+
+    td {
+      padding: 0.3em;
+
+      @media only screen and (max-width: @largestMobileScreen) {
+        padding: 0.6em 0.3em;
+      }
+    }
+  }
+
+  .ui.table.basic {
+    tr {
+      border-bottom: 1px solid var(--text-color) !important;
+
+      > td:first-child {
+        padding-left: 0;
+      }
+    }
+
+    td {
+      padding: 0.3em;
+      border: none !important;
+      border-top: none !important;
+      vertical-align: baseline;
+
+      @media only screen and (max-width: @largestMobileScreen) {
+        padding: 0.6em 0.3em;
+      }
+    }
+
+    p {
+      margin: 0 !important;
+    }
+  }
+
+  @media only screen and (max-width: @largestMobileScreen) {
+    .ui.table {
+      tr {
+        td:first-child {
+          max-width: 190px;
+        }
+      }
+    }
+  }
 }

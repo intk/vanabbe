@@ -19,13 +19,13 @@
       transform-style: preserve-3d;
 
       &:before {
-        content: '';
-        display: block;
         position: absolute;
-        background-color: @blueLight;
+        display: block;
         width: 4rem;
         height: 4rem;
+        background-color: @blue;
         border-radius: 10%;
+        content: '';
         transform: translateZ(-1px); // pushes to bg
 
         // z-index: -1;
@@ -34,22 +34,20 @@
       }
 
       .title {
+        padding-left: 1.4rem;
+        color: @yellow;
         font-family: @headerFont;
-        font-weight: 800;
         font-size: 2.4rem;
         line-height: 4rem;
-        color: @yellow;
-        padding-left: 1.4rem;
       }
 
       .subtitle {
-        width: 80%;
-        font-size: 1.1rem;
-        line-height: 1.1rem;
-        font-weight: 800;
         display: flex;
+        width: 80%;
         flex-direction: column;
         justify-content: center;
+        font-size: 1.1rem;
+        line-height: 1.1rem;
       }
     }
   }

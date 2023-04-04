@@ -1,187 +1,227 @@
-// @h3MarginTop: 4.375rem;
-@h3MarginTop: 3rem;
+/*******************************
+           Document
+*******************************/
+:root {
+  /* -- Spacing -- */
+  --space-xxs: 8px;
+  --space-xs: 16px;
+  --space-s: 24px;
+  --space-sm: 32px;
+  --space-md: 40px;
+  --space-lg: 56px;
+  --space-xl: 80px;
+  --space-xxl: 160px;
 
-.ui.segment.content-area {
-  padding: 0;
-  margin: 0;
+  // --desktop-h1: @desktopH1;
 }
 
-body:not(.homepage-view) {
-  .content-container {
-    min-height: 20em;
-    padding: 2em;
-    background-color: #fff;
+html {
+  font-size: @fontSize;
+}
+
+body {
+  position: relative;
+  height: auto;
+  background-color: var(--background-color, #fff);
+  color: @textColor;
+  color: var(--text-color, #444);
+  font-family: @pageFont;
+  font-size: @fontSize;
+  letter-spacing: @letterSpacing;
+  line-height: @bigLineHeight;
+}
+
+p {
+  margin-bottom: var(--space-md);
+  font-size: @desktopBodyFontSize;
+  line-height: @textLineHeight;
+}
+
+.content-wrapper {
+  p:last-child {
+    margin-bottom: var(--space-md);
   }
 }
 
-body.has-hero-image {
-  .content-container {
-    padding: 3em 2em 2em 2em;
-  }
+p:empty {
+  margin: 0 !important;
 }
 
-#page-folder #content-core {
-  padding: 0;
-  background-color: transparent;
-}
-
-#page-document {
-  margin: 0 0 2em 0;
-  box-shadow: 0px 0px 43px 0px rgba(2, 2, 2, 0.1);
-}
-
-.contenttype-lrf #page-document {
-  box-shadow: unset;
+p:has(+ ul),
+p:has(+ ol) {
+  margin-bottom: var(--space-xxs);
 }
 
 h1,
-.big-heading {
-  .bigHeading(@primaryColor);
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin-top: 0;
+  font-weight: unset !important;
 }
 
-.small-heading {
-  .smallHeading(@darkGreen);
+h1 {
+  margin-bottom: var(--space-sm);
+  font-size: @desktopH1;
+  // font-size: ~'min(calc(60vh / 8), var(--desktop-h1)) !important';
+  line-height: @smallLineHeight !important;
 }
 
-.ui.segment.content-area #view {
-  min-height: 30em;
+h2 {
+  margin-top: var(--space-md);
+  margin-bottom: var(--space-lg);
+  font-size: @desktopH2;
+  line-height: @mediumLineHeight;
+}
 
-  p.callout {
-    padding: @h3MarginTop 4rem 0 4rem;
-    border: unset;
-    border-radius: 0px;
-    box-shadow: unset;
-    font-family: @fontName;
-    font-size: clamp(1.125rem, 2.75vw, 1.75rem);
-    font-style: italic;
-    line-height: clamp(1.35rem, 2.75vw, 2.1rem);
+h3 {
+  margin-top: var(--space-md);
+  margin-bottom: var(--space-xxs);
+  font-size: @desktopH3;
+  line-height: @bigLineHeight;
+}
+
+h4 {
+  margin-top: var(--space-md);
+  margin-bottom: var(--space-xxs);
+  font-size: @desktopH4;
+  line-height: @bigLineHeight;
+}
+
+h5 {
+  margin-top: var(--space-md);
+  font-size: @desktopH5;
+  line-height: @bigLineHeight;
+}
+
+ul,
+ol {
+  padding-left: 20px;
+  margin-top: 0;
+  margin-bottom: var(--space-s);
+
+  li {
+    font-size: @desktopBodyFontSize;
+    letter-spacing: @letterSpacing;
+    line-height: @listDesktopLineHeight !important;
+
+    @media only screen and (max-width: @largestTabletScreen) {
+      line-height: @listTabletLineHeight;
+    }
   }
 }
 
-//remove page margins for mobile
+@media only screen and (max-width: @largestTabletScreen) {
+  h1 {
+    font-size: @tabletH1;
+  }
+
+  h2 {
+    font-size: @tabletH2;
+  }
+
+  h3 {
+    font-size: @tabletH3;
+  }
+
+  h4 {
+    font-size: @tabletH4;
+  }
+
+  h5 {
+    font-size: @tabletH5;
+  }
+
+  p,
+  ul li,
+  ol li,
+  .ui.list,
+  .ui.accordion .title:not(.ui) {
+    font-size: @tabletBodyFontSize;
+  }
+}
+
 @media only screen and (max-width: @largestMobileScreen) {
-  #page-document {
-    // un-float h3s to left
-    & > h3 {
-      max-width: 100%;
-      float: unset;
-    }
+  h1 {
+    font-size: @mobileH1;
+    letter-spacing: normal;
+  }
 
-    & > p,
-    & > ol,
-    & > ul,
-    & > div.block.video {
-      margin-left: unset;
+  h2 {
+    font-size: @mobileH2;
+  }
 
-      &.full {
-        margin-left: unset;
-      }
-    }
+  h3 {
+    font-size: @mobileH3;
+  }
 
-    & > .ui.divider.short {
-      margin-left: unset;
-    }
+  h4 {
+    font-size: @mobileH4;
+  }
 
-    & > table,
-    .table-of-contents {
-      width: 100%;
-      margin-left: unset;
-    }
-
-    .quoteBlock-wrapper {
-      margin-left: unset;
-    }
-
-    & > h3 + *:not(:first-child) {
-      padding-top: unset;
-      margin-top: unset;
-    }
-
-    & > h3 + .ui.divider {
-      margin-top: unset;
-      margin-bottom: unset;
-      // padding-top: unset;
-    }
-
-    blockquote.callout {
-      margin-left: unset !important;
-    }
+  h5 {
+    font-size: @mobileH5;
   }
 }
 
-/********   Other typography/styles   ********/
-// P2 Body Copy Desktop
-.p2 {
-  .fontSizeSecondary();
+#view .documentDescription {
+  display: none;
 }
 
-// discreet Desktop
-.discreetBlock {
-  font-size: clamp(0.75rem, 2.25vw, 0.875rem);
-  line-height: clamp(0.975rem, 2.25vw, 1.026rem);
+a {
+  color: var(--text-color);
+
+  &:hover {
+    color: var(--text-color);
+    text-decoration: underline;
+    text-decoration-skip-ink: none;
+    text-underline-offset: 2px;
+  }
+}
+
+.controlpanel .ui .grid h3 {
+  font-size: @desktopH5;
 }
 
 #main {
-  position: relative;
+  display: flex;
+  min-height: 100vh;
+  flex: 1 1;
+  flex-direction: column;
+  justify-content: flex-start;
 }
 
-// Description below h1 title
-p.content-description,
-.content-description {
-  margin-bottom: 0.6em;
-  font-family: @pageFont;
-  font-weight: @font-weight-6;
-}
-
-//image caption
 #page-document {
-  .image-source {
-    font-size: 80%;
-  }
+  position: relative;
+  min-height: 300px;
 
-  .image-caption {
-    font-size: 90%;
-  }
-}
-
-// no borders on h1
-.documentFirstHeading {
-  border: unset;
-
-  &::before {
-    border: unset;
+  &:before {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: var(--background-color);
+    content: ' ';
   }
 }
 
-.multiple-content-view {
-  .herosection {
-    .ui.container {
-      display: flex;
-
-      h1 {
-        width: 50%;
-      }
-
-      p {
-        width: 50%;
-        margin-top: 60px !important;
-      }
-    }
-  }
+.ui.container.tags {
+  // background-color: var(--background-color);
+  display: none !important;
 }
 
-.view-viewview main #view {
-  h1.documentFirstHeading {
+body.view-viewview {
+  .documentFirstHeading {
     display: none; // it is displayed as part of the HeroSection
   }
 }
 
-.view-addview .header-bg,
-.view-editview .header-bg {
-  display: none;
-}
-
-.styled-slate a,
-a.slate-editor-link {
-  text-decoration: underline;
+#search-tags .ui.label,
+.tags .ui.label {
+  .secondaryBtn(var(--text-color));
+  margin-top: 1em;
+  margin-right: 0.5em;
 }

@@ -10,3 +10,565 @@ msgstr ""
 "Content-Type: \n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
+
+#: components/theme/View/ArtworkView
+# defaultMessage: Acquired in {objectYearPurchase}
+msgid "Acquired in"
+msgstr ""
+
+#: components/blocks/ActionLinks/schema
+# defaultMessage: Action
+msgid "Action"
+msgstr ""
+
+#: components/blocks/ActionLinks/ActionLinksView
+# defaultMessage: Action links
+msgid "Action links"
+msgstr ""
+
+#: components/blocks/ActionLinks/schema
+# defaultMessage: Actions
+msgid "Actions"
+msgstr ""
+
+#: components/blocks/SiteData/schema
+# defaultMessage: Address
+msgid "Address"
+msgstr ""
+
+#: components/blocks/Search/SortOn
+# defaultMessage: Ascending
+msgid "Ascending"
+msgstr ""
+
+#: components/blocks/Image/ImageBlockEdit
+# defaultMessage: Browse the site, drop an image, or type an URL
+msgid "Browse the site, drop an image, or type an URL"
+msgstr ""
+
+#: components/blocks/Button/schema
+# defaultMessage: Button
+msgid "Button"
+msgstr ""
+
+#: components/blocks/Button/schema
+#: components/blocks/HeroUnit/schema
+#: components/blocks/Information/schema
+#: components/blocks/Listing/index
+#: components/blocks/SiteData/schema
+# defaultMessage: Button call to action
+msgid "Button call to action"
+msgstr ""
+
+#: components/blocks/Information/schema
+# defaultMessage: Button link
+msgid "Button link"
+msgstr ""
+
+#: components/blocks/Button/schema
+#: components/blocks/HeroUnit/schema
+#: components/blocks/Information/schema
+#: components/blocks/Listing/index
+#: components/blocks/SiteData/schema
+# defaultMessage: Button title
+msgid "Button title"
+msgstr ""
+
+#: components/blocks/Facts/schema
+# defaultMessage: Card
+msgid "Card"
+msgstr ""
+
+#: components/blocks/Facts/schema
+# defaultMessage: Cards
+msgid "Cards"
+msgstr ""
+
+#: components/theme/Navigation/Navigation
+# defaultMessage: Close
+msgid "Close"
+msgstr ""
+
+#: components/blocks/SiteData/schema
+#: components/blocks/SiteData/SiteDataView
+#: config
+# defaultMessage: Contact
+msgid "Contact"
+msgstr ""
+
+#: components/theme/View/ArtworkView
+# defaultMessage: Context
+msgid "Context"
+msgstr ""
+
+#: components/theme/ContrastToggle/ContrastToggle
+# defaultMessage: Contrast
+msgid "Contrast"
+msgstr ""
+
+#: components/blocks/Search/SortOn
+# defaultMessage: Descending
+msgid "Descending"
+msgstr ""
+
+#: components/theme/View/ArtworkView
+#: components/theme/View/PublicationView
+# defaultMessage: Description
+msgid "Description"
+msgstr ""
+
+#: components/blocks/SiteData/schema
+# defaultMessage: E-mail
+msgid "E-mail"
+msgstr ""
+
+#: components/blocks/VoltoFormBlock/FormView
+# defaultMessage: Error
+msgid "Error"
+msgstr ""
+
+#: components/blocks/Search/TopFiltersLayout
+# defaultMessage: Filters
+msgid "Filters"
+msgstr ""
+
+#: config
+# defaultMessage: Go to the homepage of Van Abbemuseum
+msgid "Go to the homepage of Van Abbemuseum"
+msgstr ""
+
+#: components/blocks/HeroUnit/schema
+#: components/blocks/Information/schema
+# defaultMessage: Headline
+msgid "Headline"
+msgstr ""
+
+#: components/blocks/HeroUnit/schema
+# defaultMessage: Headline level
+msgid "Headline level"
+msgstr ""
+
+#: components/blocks/HeroUnit/schema
+# defaultMessage: Image
+msgid "Image"
+msgstr ""
+
+#: components/blocks/Image/schema
+# defaultMessage: Image caption
+msgid "Image caption"
+msgstr ""
+
+#: components/blocks/Image/schema
+# defaultMessage: Image source
+msgid "Image source"
+msgstr ""
+
+#: components/blocks/ActionLinks/schema
+# defaultMessage: Internal page or path
+msgid "Internal page or path"
+msgstr ""
+
+#: components/theme/View/ArtworkView
+# defaultMessage: Inventory number {objectID}
+msgid "Inventory number"
+msgstr ""
+
+#: components/blocks/ActionLinks/schema
+#: components/blocks/Facts/schema
+# defaultMessage: Action link
+msgid "LinkTo"
+msgstr ""
+
+#: config
+# defaultMessage: Load more
+msgid "Load more "
+msgstr ""
+
+#: components/theme/View/PublicationView
+# defaultMessage: Located in: {bookShelfmark}
+msgid "Located in"
+msgstr ""
+
+#: components/theme/Footer/Footer
+# defaultMessage: Log in
+msgid "Log in"
+msgstr ""
+
+#: components/theme/Footer/Footer
+# defaultMessage: Logout
+msgid "Logout"
+msgstr ""
+
+#: components/blocks/SearchOverview/SearchOverviewView
+# defaultMessage: Make sure all words are spelled correctly. Try different or more general search terms.
+msgid "Make sure all words are spelled correctly. Try different or more general search terms."
+msgstr ""
+
+#: components/theme/Navigation/Navigation
+# defaultMessage: Menu
+msgid "Menu"
+msgstr ""
+
+#: components/blocks/ActionLinks/ActionLinksView
+# defaultMessage: No actions defined
+msgid "No actions defined"
+msgstr ""
+
+#: components/blocks/ContentDivider/ContentDividerEdit
+# defaultMessage: No background applied after this divider
+msgid "No background applied after this divider"
+msgstr ""
+
+#: components/blocks/Search/SortOn
+# defaultMessage: No selection
+msgid "No selection"
+msgstr ""
+
+#: components/theme/View/ArtworkView
+# defaultMessage: Not on display
+msgid "Not on display"
+msgstr ""
+
+#: components/theme/View/ArtworkView
+# defaultMessage: Location {objectPosition}
+msgid "Object position"
+msgstr ""
+
+#: components/blocks/SiteData/schema
+#: components/blocks/SiteData/SiteDataView
+# defaultMessage: Opening hours
+msgid "Opening hours"
+msgstr ""
+
+#: components/blocks/SiteData/schema
+# defaultMessage: Opening hours are displayed in the header
+msgid "Opening hours are displayed in the header"
+msgstr ""
+
+#: components/blocks/SiteData/schema
+# defaultMessage: Phone
+msgid "Phone"
+msgstr ""
+
+#: components/blocks/Search/TopFiltersLayout
+#: components/theme/SearchWidget/SearchWidget
+# defaultMessage: Search
+msgid "Search"
+msgstr ""
+
+#: components/theme/SearchWidget/SearchWidget
+# defaultMessage: Search artist, artwork etc...
+msgid "Search artist, artwork etc... "
+msgstr ""
+
+#: components/blocks/SiteData/schema
+# defaultMessage: Section title
+msgid "Section title"
+msgstr ""
+
+#: config
+# defaultMessage: See all dates
+msgid "See all dates"
+msgstr ""
+
+#: components/blocks/SiteTheme/schema
+# defaultMessage: Select a theme for this page
+msgid "Select a theme for this page"
+msgstr ""
+
+#: components/blocks/SiteTheme/SiteThemeEdit
+# defaultMessage: Select page theme
+msgid "Select page theme"
+msgstr ""
+
+#: components/blocks/SiteTheme/SiteThemeEdit
+# defaultMessage: Selected theme
+msgid "Selected theme"
+msgstr ""
+
+#: components/blocks/Listing/index
+# defaultMessage: Show Content Type
+msgid "Show Content Type"
+msgstr ""
+
+#: components/blocks/Listing/index
+# defaultMessage: Show Count
+msgid "Show Count"
+msgstr ""
+
+#: components/blocks/Listing/index
+# defaultMessage: Show Date
+msgid "Show Date"
+msgstr ""
+
+#: components/blocks/Listing/index
+# defaultMessage: Show Not Found
+msgid "Show Not Found"
+msgstr ""
+
+#: components/blocks/Listing/index
+# defaultMessage: Show Tag
+msgid "Show Tag"
+msgstr ""
+
+#: components/blocks/SiteTheme/schema
+# defaultMessage: Site Theme
+msgid "Site Theme"
+msgstr ""
+
+#: components/blocks/SiteData/schema
+# defaultMessage: Global site settings
+msgid "SiteData"
+msgstr ""
+
+#: components/blocks/SiteData/schema
+#: components/blocks/SiteData/SiteDataView
+# defaultMessage: Social links
+msgid "Social links"
+msgstr ""
+
+#: components/blocks/Search/SortOn
+# defaultMessage: Sort
+msgid "Sort"
+msgstr ""
+
+#: components/blocks/Image/schema
+# defaultMessage: Source website
+msgid "Source website"
+msgstr ""
+
+#: components/blocks/ActionLinks/schema
+# defaultMessage: The global block is uniquely identifies this actions block and allows its use in the website
+msgid "The global block is uniquely identifies this actions block and allows its use in the website"
+msgstr ""
+
+#: components/blocks/Image/schema
+# defaultMessage: The image caption will be shown under the image
+msgid "The image caption will be shown under the image"
+msgstr ""
+
+#: components/blocks/SiteTheme/schema
+# defaultMessage: Theme
+msgid "Theme"
+msgstr ""
+
+#: components/blocks/SiteData/schema
+# defaultMessage: Tickets button. Displayed in the header
+msgid "Tickets button. Displayed in the header"
+msgstr ""
+
+#: components/blocks/Quote/EditBlockWrapper
+#: components/blocks/StyledTextBlock/EditBlockWrapper
+# defaultMessage: Unknown Block {block}
+msgid "Unknown Block"
+msgstr ""
+
+#: components/theme/View/PublicationView
+# defaultMessage: VUBIS
+msgid "VUBIS"
+msgstr ""
+
+#: components/blocks/ContentDivider/ContentDividerEdit
+# defaultMessage: White background applied before this divider
+msgid "White background applied before this divider"
+msgstr ""
+
+#: components/blocks/Image/schema
+# defaultMessage: Write here the source/copyright of this image
+msgid "Write here the source/copyright of this image"
+msgstr ""
+
+#: components/theme/View/AuthorView
+# defaultMessage: Artworks ({count})
+msgid "artworks_title_count"
+msgstr ""
+
+#: components/blocks/ActionLinks/schema
+# defaultMessage: Block title
+msgid "blockTitle"
+msgstr ""
+
+#: components/blocks/Information/schema
+# defaultMessage: Button Links
+msgid "buttonLinks"
+msgstr ""
+
+#: components/blocks/VoltoFormBlock/formSchema
+# defaultMessage: Captcha provider
+msgid "captcha"
+msgstr ""
+
+#: components/blocks/Quote/EditBlockWrapper
+#: components/blocks/StyledTextBlock/EditBlockWrapper
+# defaultMessage: delete
+msgid "delete"
+msgstr ""
+
+#: components/blocks/VoltoFormBlock/formSchema
+# defaultMessage: Description
+msgid "description"
+msgstr ""
+
+#: components/theme/View/ArtworkView
+# defaultMessage: Does this page contain inaccurate information or language that you feel we should improve or change?
+msgid "does_this_contain_innacurate"
+msgstr ""
+
+#: components/theme/View/ArtworkView
+#: components/theme/View/AuthorView
+# defaultMessage: Exhibitions with {authorName}
+msgid "exhibitions_by_author_name"
+msgstr ""
+
+#: components/blocks/VoltoFormBlock/formSchema
+# defaultMessage: Form
+msgid "form"
+msgstr ""
+
+#: components/blocks/VoltoFormBlock/View
+# defaultMessage: Form successfully submitted
+msgid "formSubmitted"
+msgstr ""
+
+#: components/blocks/VoltoFormBlock/formSchema
+# defaultMessage: Attached file will be sent via email, but not stored
+msgid "form_attachment_send_email_info_text"
+msgstr ""
+
+#: components/blocks/VoltoFormBlock/formSchema
+# defaultMessage: Default sender
+msgid "form_default_from"
+msgstr ""
+
+#: components/blocks/VoltoFormBlock/formSchema
+# defaultMessage: Mail subject
+msgid "form_default_subject"
+msgstr ""
+
+#: components/blocks/VoltoFormBlock/FormView
+# defaultMessage: Submit
+msgid "form_default_submit_label"
+msgstr ""
+
+#: components/blocks/VoltoFormBlock/FormView
+# defaultMessage: Fill in the required fields
+msgid "form_empty_values_validation"
+msgstr ""
+
+#: components/blocks/VoltoFormBlock/FormView
+# defaultMessage: Clear
+msgid "form_reset"
+msgstr ""
+
+#: components/blocks/VoltoFormBlock/formSchema
+# defaultMessage: Store compiled data
+msgid "form_save_persistent_data"
+msgstr ""
+
+#: components/blocks/VoltoFormBlock/Field
+# defaultMessage: Select a value
+msgid "form_select_a_value"
+msgstr ""
+
+#: components/blocks/VoltoFormBlock/formSchema
+# defaultMessage: Send email to recipient
+msgid "form_send_email"
+msgstr ""
+
+#: components/blocks/VoltoFormBlock/formSchema
+# defaultMessage: Submit button label
+msgid "form_submit_label"
+msgstr ""
+
+#: components/blocks/VoltoFormBlock/FormView
+# defaultMessage: Sent!
+msgid "form_submit_success"
+msgstr ""
+
+#: components/blocks/VoltoFormBlock/formSchema
+# defaultMessage: Recipients
+msgid "form_to"
+msgstr ""
+
+#: components/blocks/Facts/schema
+# defaultMessage: Icon
+msgid "icon"
+msgstr ""
+
+#: components/blocks/Facts/schema
+# defaultMessage: Image
+msgid "image"
+msgstr ""
+
+#: components/blocks/Information/schema
+# defaultMessage: Info block
+msgid "infoBlock"
+msgstr ""
+
+#: components/blocks/Facts/schema
+# defaultMessage: Destination for the call to action button
+msgid "linkToDescription"
+msgstr ""
+
+#: components/theme/View/ArtworkView
+# defaultMessage: More artworks by {authorName}
+msgid "more_artworks_by"
+msgstr ""
+
+#: components/theme/View/ArtworkView
+# defaultMessage: More artworks from this period
+msgid "more_artworks_in_period"
+msgstr ""
+
+#: components/theme/View/ArtworkView
+# defaultMessage: If you need specific information on this work or artist, remember that the Van Abbemuseum Library is at your disposal, or feel free to write to the library.
+msgid "need_info_specific"
+msgstr ""
+
+#: components/blocks/SearchOverview/SearchOverviewView
+# defaultMessage: No results for <u>something</u>
+msgid "no.results"
+msgstr ""
+
+#: components/blocks/VoltoFormBlock/schemaExtender
+# defaultMessage: Placeholder
+msgid "placeholder"
+msgstr ""
+
+#: components/theme/View/ArtworkView
+#: components/theme/View/AuthorView
+# defaultMessage: Publications with or about {authorName}
+msgid "publications_by_author_name"
+msgstr ""
+
+#: components/theme/ScrollToTop/ScrollToTop
+# defaultMessage: Scroll to top
+msgid "scroll_to_top"
+msgstr ""
+
+#: components/blocks/SearchOverview/SearchOverviewView
+# defaultMessage: Showing results for <u>something</u>
+msgid "show.results"
+msgstr ""
+
+#: components/blocks/Facts/schema
+# defaultMessage: SubTitle
+msgid "subtitle"
+msgstr ""
+
+#: components/blocks/ActionLinks/schema
+#: components/blocks/Facts/schema
+#: components/blocks/VoltoFormBlock/formSchema
+# defaultMessage: Title
+msgid "title"
+msgstr ""
+
+#: components/theme/View/ArtworkView
+# defaultMessage: The Van Abbemuseum Collection consists of over 2800 artworks. We publish texts and images on an ongoing basis, but this record is currently in the process of being documented.
+msgid "van_abbe_2800"
+msgstr ""
+
+#: components/theme/View/ArtworkView
+# defaultMessage: We would like to hear from you
+msgid "would_like_to_hear"
+msgstr ""

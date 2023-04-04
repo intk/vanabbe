@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Icon } from 'semantic-ui-react';
+import { FormattedMessage } from 'react-intl';
 
 const ScrollToTop = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -29,7 +30,16 @@ const ScrollToTop = () => {
     <>
       {isVisible && (
         <div className="scroll-to-top">
-          <Button icon title="Scroll to top" onClick={scrollToTop}>
+          <Button
+            icon
+            title={
+              <FormattedMessage
+                id="scroll_to_top"
+                defaultMessage="Scroll to top"
+              />
+            }
+            onClick={scrollToTop}
+          >
             <Icon name="level up alternate" size="large" />
           </Button>
         </div>

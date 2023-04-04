@@ -3,15 +3,35 @@
 
 @import (multiple, reference, optional) '../../theme.config';
 
-#view .quoteBlock-wrapper {
-  min-height: 3em;
-  padding-left: 5.5rem;
-  margin: 3.5em 0;
-  background: url('./quotes.svg') no-repeat top left;
+.block.quoteBlock,
+.block.quoteBlock-wrapper {
+  margin-top: var(--space-xl);
+  margin-bottom: var(--space-xl);
+
+  @media only screen and (max-width: @largestTabletScreen) {
+    margin: var(--space-lg) 0;
+  }
+
+  .icon-wrapper {
+    text-align: center;
+  }
+
+  .icon-wrapper.top {
+    border-top: 1px solid var(--text-color);
+  }
+
+  .icon-wrapper.bottom {
+    border-bottom: 1px solid var(--text-color);
+  }
 
   p {
-    color: @darkGreen;
-    font-size: 1.3rem;
-    font-weight: @font-weight-6;
+    margin: 0;
+    font-size: @mobileH1 !important;
+    line-height: @smallLineHeight !important;
+
+    @media only screen and (max-width: @largestTabletScreen) {
+      font-size: @mobileH2 !important;
+      line-height: @smallLineHeight !important;
+    }
   }
 }

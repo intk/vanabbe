@@ -2,11 +2,12 @@ version: "3"
 
 services:
   plone:
+    build: ./backend
     ports:
       - "8080:8080"
     tty: true
     stdin_open: true
-    command: cat
+    # command: cat
     environment:
       CORS_ALLOW_ORIGIN: "http://localhost:3000"
       SECURITY_POLICY_IMPLEMENTATION: "C"
@@ -14,11 +15,15 @@ services:
       DEFAULT_ZPUBLISHER_ENCODING: "utf-8"
       DEBUG_MODE: "off"
       ZODB_CACHE_SIZE: "50000"
-    # entrypoint: sh -c "tail -f /dev/null"
+    entrypoint: sh -c "tail -f /dev/null"
+    user: root
+    volumes:
+      - ./backend/src/collective.volto.formsupport:/app/sources/collective.volto.formsupport
   frontend:
     build: .
     ports:
       - "3000:3000"
+    entrypoint: sh -c "tail -f /dev/null"
     environment:
       DEBUG: "superagent"
       DEBUG_HPM: "debug"

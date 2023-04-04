@@ -1,0 +1,27 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:plone="http://namespaces.plone.org/plone"
+    >
+
+    <plone:behavior
+        name="intk.featured"
+        title="Featured"
+        description="Allows items to be featured in listings"
+        provides=".featured.IFeatured"
+        />
+
+    <plone:behavior
+        name="intk.event"
+        title="INTK Event Enhancements"
+        description="Adds recurrence description field"
+        provides=".event.IRecurenceDescription"
+        />
+
+    <plone:behavior
+        name="intk.headerimage"
+        title="INTK Header Image Enhancements"
+        description="Adds header image extension fields"
+        provides=".headerimage.IHeaderImage"
+        />
+
+</configure>

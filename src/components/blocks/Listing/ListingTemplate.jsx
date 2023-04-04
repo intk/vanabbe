@@ -11,16 +11,17 @@ const ListingTemplate = (props) => {
   return (
     <>
       <ListingBlockHeader data={props} />
-      <Grid columns={2} className="listings">
+
+      <Grid columns={4} className="listings">
         {items.map((item, i) => (
           <Grid.Column
             mobile={12}
             tablet={6}
-            computer={4}
+            computer={3}
             className="listing-column"
             key={i}
           >
-            <Card item={item} />
+            <Card {...props} item={item} />
           </Grid.Column>
         ))}
       </Grid>

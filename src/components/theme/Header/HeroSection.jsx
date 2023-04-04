@@ -1,20 +1,20 @@
 import React from 'react';
-import { Container } from 'semantic-ui-react';
-import { Breadcrumbs } from '@plone/volto/components';
-import { useLocation } from 'react-router-dom';
 import { BodyClass } from '@plone/volto/helpers';
+// import { Breadcrumbs } from '@plone/volto/components';
+// import { useLocation } from 'react-router-dom';
 
 function HeroSection(props) {
   const { image_url, content } = props;
-  const { title, preview_caption } = content || {};
-  const location = useLocation();
+  const { preview_caption, hide_header_image } = content || {};
+  // const location = useLocation();
 
   return (
-    <Container>
-      {title && <h1 className="content-title">{title}</h1>}
+    <div className="herosection-wrapper">
+      {/* <Breadcrumbs pathname={location.pathname} /> */}
+
       <div className="herosection">
         <div className="herosection-content-wrapper">
-          {image_url ? (
+          {!hide_header_image && image_url ? (
             <>
               <BodyClass className="has-hero-image" />
               <div
@@ -23,19 +23,18 @@ function HeroSection(props) {
                   backgroundImage: `url(${image_url})`,
                 }}
               />
+              <div className="caption">
+                {preview_caption && (
+                  <p className="content-image-caption">{preview_caption}</p>
+                )}
+              </div>
             </>
           ) : (
             <div className="herosection-missing-image"></div>
           )}
         </div>
-        <div className="caption content-wrapper">
-          {preview_caption && (
-            <p className="content-image-caption">{preview_caption}</p>
-          )}
-        </div>
       </div>
-      <Breadcrumbs pathname={location.pathname} />
-    </Container>
+    </div>
   );
 }
 

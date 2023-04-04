@@ -1,10 +1,34 @@
+import { defineMessages } from 'react-intl';
 import { flattenToAppURL } from '@plone/volto/helpers';
 
 import clearSVG from '@plone/volto/icons/clear.svg';
 import navTreeSVG from '@plone/volto/icons/nav.svg';
 
+const messages = defineMessages({
+  imageSource: {
+    id: 'Image source',
+    defaultMessage: 'Image source',
+  },
+  imageSourceDescription: {
+    id: 'Write here the source/copyright of this image',
+    defaultMessage: 'Write here the source/copyright of this image',
+  },
+  sourceURL: {
+    id: 'Source website',
+    defaultMessage: 'Source website',
+  },
+  imageCaption: {
+    id: 'Image caption',
+    defaultMessage: 'Image caption',
+  },
+  imageCaptionDescription: {
+    id: 'The image caption will be shown under the image',
+    defaultMessage: 'The image caption will be shown under the image',
+  },
+});
+
 const ImageSchema = (props) => {
-  const { block, data = {}, onChangeBlock, openObjectBrowser } = props;
+  const { block, data = {}, onChangeBlock, openObjectBrowser, intl } = props;
 
   return {
     title: 'Image',
@@ -17,11 +41,11 @@ const ImageSchema = (props) => {
     ],
     properties: {
       source: {
-        title: 'Image source',
-        description: 'Write here the source/copyright of this image',
+        title: intl.formatMessage(messages.imageSource),
+        description: intl.formatMessage(messages.imageSourceDescription),
       },
       sourceHref: {
-        title: 'Source website',
+        title: intl.formatMessage(messages.sourceURL),
         icon: data.href ? clearSVG : navTreeSVG,
         iconAction: data.href
           ? () => {
@@ -38,8 +62,8 @@ const ImageSchema = (props) => {
       },
       imageCaption: {
         type: 'richtext',
-        title: 'Image caption',
-        description: 'The image caption will be shown under the image',
+        title: intl.formatMessage(messages.imageCaption),
+        description: intl.formatMessage(messages.imageCaptionDescription),
       },
     },
     required: [],

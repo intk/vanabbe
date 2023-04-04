@@ -1,0 +1,63 @@
+@type: 'extra';
+@element: 'custom';
+
+@import (multiple, reference, optional) '../../theme.config';
+
+.logo-carousel {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-start;
+  margin-top: var(--space-xs);
+  margin-bottom: var(--space-md);
+
+  .svg-wrapper {
+    height: 100%;
+
+    > div {
+      height: 100%;
+    }
+
+    svg {
+      display: block;
+      width: auto !important;
+      height: 100% !important;
+      fill: var(--text-color);
+    }
+  }
+
+  .ui.placeholder {
+    width: 100%;
+    min-width: 60px;
+    height: 100%;
+    min-height: 60px;
+  }
+
+  .logo-slide-img {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 1em;
+
+    a {
+      height: 100%;
+    }
+
+    img.bg-image {
+      // height: 90px;
+      max-height: 100%;
+      margin: auto auto;
+      object-fit: contain;
+    }
+  }
+
+  @media only screen and (max-width: @mobileLandscapeBreakpoint) {
+    flex-direction: column;
+    align-items: flex-start;
+
+    .logo-slide-img {
+      margin-left: 0;
+    }
+  }
+}

@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8"?>
+<registry xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+          i18n:domain="plone"
+>
+
+  <records interface="plone.app.querystring.interfaces.IQueryField"
+           prefix="plone.app.querystring.field.is_featured"
+           purge="false"
+  >
+    <value key="title" i18n:translate="" >Is featured</value>
+    <value key="description" i18n:translate="" />
+    <value key="enabled">True</value>
+    <value key="sortable">True</value>
+    <value key="operations">
+      <element>plone.app.querystring.operation.boolean.isTrue</element>
+      <element>plone.app.querystring.operation.boolean.isFalse</element>
+    </value>
+    <value key="group" i18n:translate="" >VanAbbe</value>
+    <!-- <value key="vocabulary">decades_vocabulary</value> -->
+  </records>
+
+  <records interface="plone.app.querystring.interfaces.IQueryField"
+           prefix="plone.app.querystring.field.bookDatePublished"
+           purge="false"
+  >
+    <value key="title" i18n:translate="">Book publish date</value>
+    <value key="description" i18n:translate="" />
+    <value key="enabled">True</value>
+    <value key="sortable">True</value>
+    <value key="operations">
+    </value>
+    <value key="group" i18n:translate="" >VanAbbe</value>
+  </records>
+
+  <records interface="plone.app.querystring.interfaces.IQueryField"
+           prefix="plone.app.querystring.field.objectIsVisible"
+           purge="false"
+  >
+    <value key="title" i18n:translate="" >On display</value>
+    <value key="description" i18n:translate="" />
+    <value key="enabled">True</value>
+    <value key="sortable">True</value>
+    <value key="operations">
+      <element>plone.app.querystring.operation.boolean.isTrue</element>
+      <element>plone.app.querystring.operation.boolean.isFalse</element>
+    </value>
+    <value key="group" i18n:translate="">VanAbbe</value>
+  </records>
+
+  <records interface="plone.app.querystring.interfaces.IQueryField"
+           prefix="plone.app.querystring.field.decades"
+           purge="false"
+  >
+    <value key="title"
+           i18n:translate=""
+    >Decades</value>
+    <value key="description"
+           i18n:translate=""
+    />
+    <value key="enabled">True</value>
+    <value key="sortable">True</value>
+    <value key="operations">
+      <element>plone.app.querystring.operation.selection.any</element>
+      <element>plone.app.querystring.operation.selection.all</element>
+    </value>
+    <value key="group"
+           i18n:translate=""
+    >VanAbbe</value>
+    <value key="vocabulary">decades_vocabulary</value>
+  </records>
+
+  <records interface="plone.app.querystring.interfaces.IQueryField"
+           prefix="plone.app.querystring.field.publication_decades"
+           purge="false"
+  >
+    <value key="title"
+           i18n:translate=""
+    >Publication Decades</value>
+    <value key="description"
+           i18n:translate=""
+    />
+    <value key="enabled">True</value>
+    <value key="sortable">True</value>
+    <value key="operations">
+      <element>plone.app.querystring.operation.selection.any</element>
+      <element>plone.app.querystring.operation.selection.all</element>
+    </value>
+    <value key="group"
+           i18n:translate=""
+    >VanAbbe</value>
+    <value key="vocabulary">publication_decades_vocabulary</value>
+  </records>
+
+  <records interface="plone.app.querystring.interfaces.IQueryField"
+           prefix="plone.app.querystring.field.publication_type"
+           purge="false"
+  >
+    <value key="title"
+           i18n:translate=""
+    >Publication Type</value>
+    <value key="description"
+           i18n:translate=""
+    />
+    <value key="enabled">True</value>
+    <value key="sortable">True</value>
+    <value key="operations">
+      <element>plone.app.querystring.operation.selection.any</element>
+      <element>plone.app.querystring.operation.selection.all</element>
+    </value>
+    <value key="group"
+           i18n:translate=""
+    >VanAbbe</value>
+    <value key="vocabulary">publication_types_vocabulary</value>
+  </records>
+
+  <records interface="plone.app.querystring.interfaces.IQueryField"
+           prefix="plone.app.querystring.field.authorID"
+           purge="false"
+  >
+    <value key="title"
+           i18n:translate=""
+    >Author ID</value>
+    <value key="description"
+           i18n:translate=""
+    />
+    <value key="enabled">True</value>
+    <value key="sortable">True</value>
+    <value key="operations">
+      <element>plone.app.querystring.operation.string.is</element>
+      <!-- <element>plone.app.querystring.operation.selection.any</element> -->
+    </value>
+    <value key="group"
+           i18n:translate=""
+    >VanAbbe</value>
+  </records>
+
+  <records interface="plone.app.querystring.interfaces.IQueryField"
+           prefix="plone.app.querystring.field.authorSortName"
+           purge="false"
+  >
+    <value key="title"
+           i18n:translate=""
+    >Author SortName</value>
+    <value key="description"
+           i18n:translate=""
+    />
+    <value key="enabled">True</value>
+    <value key="sortable">True</value>
+    <value key="operations">
+      <element>plone.app.querystring.operation.string.is</element>
+      <!-- <element>plone.app.querystring.operation.selection.any</element> -->
+    </value>
+    <value key="group"
+           i18n:translate=""
+    >VanAbbe</value>
+  </records>
+
+  <records interface="plone.app.querystring.interfaces.IQueryField"
+           prefix="plone.app.querystring.field.technique"
+           purge="false"
+  >
+    <value key="title"
+           i18n:translate=""
+    >Technique</value>
+    <value key="description"
+           i18n:translate=""
+    />
+    <value key="enabled">True</value>
+    <value key="sortable">True</value>
+    <value key="operations">
+      <element>plone.app.querystring.operation.selection.any</element>
+      <element>plone.app.querystring.operation.selection.all</element>
+    </value>
+    <value key="group"
+           i18n:translate=""
+    >VanAbbe</value>
+    <value key="vocabulary">technique_vocabulary</value>
+  </records>
+
+  <records interface="plone.base.interfaces.controlpanel.IMailSchema"
+           prefix="plone"
+           purge="false"
+  >
+    <value key="email_from_name">VanAbbe</value>
+  </records>
+
+  <records interface="plone.base.interfaces.controlpanel.ISiteSchema"
+           prefix="plone"
+           purge="false"
+  >
+    <value key="site_title">VanAbbe</value>
+  </records>
+
+  <record field="available_languages"
+          interface="plone.i18n.interfaces.ILanguageSchema"
+          name="plone.available_languages"
+  >
+    <field type="plone.registry.field.List">
+      <default>
+        <element>nl</element>
+      </default>
+      <description xmlns:ns0="http://xml.zope.org/namespaces/i18n"
+                   ns0:domain="plone"
+                   ns0:translate="description_available_languages"
+      >The languages in which the site should be translatable.</description>
+      <missing_value />
+      <title xmlns:ns0="http://xml.zope.org/namespaces/i18n"
+             ns0:domain="plone"
+             ns0:translate="heading_available_languages"
+      >Available languages</title>
+      <value_type type="plone.registry.field.Choice">
+        <vocabulary>plone.app.vocabularies.AvailableContentLanguages</vocabulary>
+      </value_type>
+    </field>
+    <value>
+      <element>en</element>
+      <element>nl</element>
+    </value>
+  </record>
+
+  <record field="default_language"
+          interface="plone.i18n.interfaces.ILanguageSchema"
+          name="plone.default_language"
+  >
+    <field type="plone.registry.field.Choice">
+      <default>nl</default>
+      <description xmlns:ns0="http://xml.zope.org/namespaces/i18n"
+                   ns0:domain="plone"
+                   ns0:translate="description_site_language"
+      >The language used for the content and the UI of this site.</description>
+      <title xmlns:ns0="http://xml.zope.org/namespaces/i18n"
+             ns0:domain="plone"
+             ns0:translate="heading_site_language"
+      >Site language</title>
+      <vocabulary>plone.app.vocabularies.AvailableContentLanguages</vocabulary>
+    </field>
+    <value>nl</value>
+  </record>
+
+</registry>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<object name="portal_catalog">
+
+  <index name="authorID" meta_type="FieldIndex">
+    <indexed_attr value="authorID"/>
+  </index>
+
+  <index name="recordnumber" meta_type="FieldIndex">
+    <indexed_attr value="recordnumber"/>
+  </index>
+
+  <index name="is_featured" meta_type="FieldIndex">
+    <indexed_attr value="is_featured"/>
+  </index>
+
+  <index name="bookDatePublished" meta_type="FieldIndex">
+    <indexed_attr value="bookDatePublished"/>
+  </index>
+
+  <index name="objectIsVisible" meta_type="FieldIndex">
+    <indexed_attr value="objectIsVisible"/>
+  </index>
+
+  <index name="bookArtist" meta_type="KeywordIndex">
+    <indexed_attr value="bookArtist"/>
+  </index>
+
+  <index name="eventArtist" meta_type="KeywordIndex">
+    <indexed_attr value="eventArtist"/>
+  </index>
+
+  <index name="decades" meta_type="KeywordIndex">
+    <indexed_attr value="decades"/>
+  </index>
+
+  <index name="publication_decades" meta_type="KeywordIndex">
+    <indexed_attr value="publication_decades"/>
+  </index>
+
+  <index name="technique" meta_type="KeywordIndex">
+    <indexed_attr value="technique"/>
+  </index>
+
+  <index name="publication_type" meta_type="KeywordIndex">
+    <indexed_attr value="publication_type"/>
+  </index>
+
+  <index name="technique_en" meta_type="KeywordIndex">
+    <indexed_attr value="technique_en"/>
+  </index>
+
+  <index name="technique_nl" meta_type="KeywordIndex">
+    <indexed_attr value="technique_nl"/>
+  </index>
+
+  <column value="authorName"/>
+  <column value="authorSortName"/>
+  <column value="objectCreationDate"/>
+  <column value="objectTitle"/>
+  <column value="eventTimeFrom"/>
+  <column value="whole_day"/>
+  <column value="recurrence" />
+  <column value="recurence_description"/>
+  <column value="publication_type"/>
+  <column value="bookDatePublished"/>
+
+</object>

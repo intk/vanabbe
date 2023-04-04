@@ -1,0 +1,53 @@
+<configure xmlns="http://namespaces.zope.org/zope">
+
+  <adapter
+      factory=".indexes.publication_image_indexer"
+      name="image_field"
+      />
+
+  <adapter
+      factory=".indexes.exhibition_image_indexer"
+      name="image_field"
+      />
+
+  <adapter
+      factory=".indexes.author_name"
+      name="authorName"
+      />
+
+  <adapter
+      factory=".indexes.exhibition_description"
+      name="Description"
+      />
+
+  <adapter
+      factory=".indexes.artwork_decades"
+      name="decades"
+      />
+
+  <adapter
+      factory=".indexes.publication_decades"
+      name="publication_decades"
+      />
+
+  <adapter
+      factory=".indexes.publication_type"
+      name="publication_type"
+      />
+
+  <adapter
+      factory=".indexes.artwork_technique"
+      name="technique"
+      />
+
+  <adapter
+      factory=".indexes.artwork_technique_en"
+      name="technique_en"
+      />
+
+  <adapter
+      factory=".indexes.artwork_technique_nl"
+      name="technique_nl"
+      />
+
+</configure>

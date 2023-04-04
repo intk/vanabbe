@@ -1,0 +1,23 @@
+<configure xmlns="http://namespaces.zope.org/zope">
+
+  <utility
+      name="decades_vocabulary"
+      component=".searchindex.DecadesVocabularyFactory"
+      />
+
+  <utility
+      name="publication_decades_vocabulary"
+      component=".searchindex.PublicationDecadesVocabularyFactory"
+      />
+
+  <utility
+      name="technique_vocabulary"
+      component=".searchindex.TechniqueVocabularyFactory"
+      />
+
+  <utility
+      name="publication_types_vocabulary"
+      component=".searchindex.PublicationTypesVocabularyFactory"
+      />
+
+</configure>

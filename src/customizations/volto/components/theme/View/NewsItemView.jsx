@@ -5,6 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Portal } from 'react-portal';
 import { Container, Image } from 'semantic-ui-react';
 import {
   hasBlocksData,
@@ -12,6 +13,8 @@ import {
   flattenHTMLToAppURL,
 } from '@plone/volto/helpers';
 import RenderBlocks from '@plone/volto/components/theme/View/RenderBlocks';
+import { FormattedDate } from '@package/components';
+import { useContentDivider } from '@package/helpers';
 
 /**
  * NewsItemView view component class.
@@ -19,47 +22,98 @@ import RenderBlocks from '@plone/volto/components/theme/View/RenderBlocks';
  * @params {object} content Content object.
  * @returns {string} Markup of the component.
  */
+const NewsItemView = (props) => {
+  const { content } = props;
+  const [isClient, setIsClient] = React.useState();
+  const hiddenBlocks = ['title', 'description'];
 
-const NewsItemView = ({ content }) =>
-  hasBlocksData(content) ? (
-    <div id="page-document" className="ui container viewwrapper newsitem-view">
-      <div className="content-container">
-        <RenderBlocks content={content} />
+  const {
+    dividerBlock,
+    filterContent,
+    filterContentBlocksBefore,
+    filterContentBlocksAfter,
+  } = useContentDivider(content, hiddenBlocks);
+
+  React.useEffect(() => setIsClient(true), []);
+
+  return (
+    <>
+      <div
+        id="page-document"
+        className="ui container viewwrapper newsitem-view"
+      >
+        <Portal node={isClient && document.getElementById('description')}>
+          <p>
+            {!!content.effective && (
+              <FormattedDate isoDate={content.effective} format="long" />
+            )}
+          </p>
+        </Portal>
+
+        <div className="content-container">
+          <div className="offset-1-right">
+            <div className="content-wrapper">
+              {hasBlocksData(content) ? (
+                <div>
+                  {dividerBlock ? (
+                    <>
+                      <div className="blocks-bg-wrapper">
+                        <RenderBlocks
+                          {...props}
+                          content={filterContentBlocksBefore}
+                        />
+                      </div>
+                      <RenderBlocks
+                        {...props}
+                        content={filterContentBlocksAfter}
+                      />
+                    </>
+                  ) : (
+                    <div className="blocks-bg-wrapper">
+                      <RenderBlocks {...props} content={filterContent} />
+                    </div>
+                  )}
+                </div>
+              ) : (
+                <Container className="view-wrapper">
+                  {content.title && (
+                    <h1 className="documentFirstHeading">
+                      {content.title}
+                      {content.subtitle && ` - ${content.subtitle}`}
+                    </h1>
+                  )}
+                  {content.description && (
+                    <p className="documentDescription">{content.description}</p>
+                  )}
+                  {content.image && (
+                    <Image
+                      className="documentImage"
+                      alt={content.title}
+                      title={content.title}
+                      src={
+                        content.image['content-type'] === 'image/svg+xml'
+                          ? flattenToAppURL(content.image.download)
+                          : flattenToAppURL(content.image.scales.mini.download)
+                      }
+                      floated="right"
+                    />
+                  )}
+                  {content.text && (
+                    <div
+                      dangerouslySetInnerHTML={{
+                        __html: flattenHTMLToAppURL(content.text.data),
+                      }}
+                    />
+                  )}
+                </Container>
+              )}
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-  ) : (
-    <Container className="view-wrapper">
-      {content.title && (
-        <h1 className="documentFirstHeading">
-          {content.title}
-          {content.subtitle && ` - ${content.subtitle}`}
-        </h1>
-      )}
-      {content.description && (
-        <p className="documentDescription">{content.description}</p>
-      )}
-      {content.image && (
-        <Image
-          className="documentImage"
-          alt={content.title}
-          title={content.title}
-          src={
-            content.image['content-type'] === 'image/svg+xml'
-              ? flattenToAppURL(content.image.download)
-              : flattenToAppURL(content.image.scales.mini.download)
-          }
-          floated="right"
-        />
-      )}
-      {content.text && (
-        <div
-          dangerouslySetInnerHTML={{
-            __html: flattenHTMLToAppURL(content.text.data),
-          }}
-        />
-      )}
-    </Container>
+    </>
   );
+};
 
 /**
  * Property types.

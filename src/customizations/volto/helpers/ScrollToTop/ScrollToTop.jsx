@@ -1,6 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
 import { withRouter } from 'react-router-dom';
+import { flattenToAppURL } from '@plone/volto/helpers';
 
 /**
  *
@@ -17,9 +20,7 @@ class ScrollToTop extends React.Component {
   static propTypes = {
     location: PropTypes.shape({
       pathname: PropTypes.string,
-      hash: PropTypes.string,
-      search: PropTypes.string,
-    }).isRequired,
+    }),
     children: PropTypes.node.isRequired,
   };
 
@@ -29,7 +30,7 @@ class ScrollToTop extends React.Component {
    * @memberof ScrollToTop
    */
   componentDidUpdate(prevProps) {
-    if (this.props.location.pathname !== prevProps.location.pathname) {
+    if (this.props.location?.pathname === this.props.contentId) {
       window.scrollTo(0, 0);
     }
   }
@@ -43,4 +44,9 @@ class ScrollToTop extends React.Component {
   }
 }
 
-export default withRouter(ScrollToTop);
+export default compose(
+  withRouter,
+  connect((state, props) => ({
+    contentId: flattenToAppURL(state.content?.data?.['@id']),
+  })),
+)(ScrollToTop);

@@ -1,0 +1,43 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:plone="http://namespaces.plone.org/plone"
+    i18n_domain="intk_vanabbe"
+    >
+
+  <!-- Publish static files -->
+  <plone:static
+      directory="static"
+      name="intk_vanabbe"
+      type="plone"
+      />
+
+  <browser:page
+      name="import_vubis"
+      for="*"
+      class=".importer.ImportVubis"
+      permission="cmf.ManagePortal"
+      />
+
+  <browser:page
+      name="admin_fixes"
+      for="*"
+      class=".admin.AdminFixes"
+      permission="cmf.ManagePortal"
+      />
+
+  <browser:page
+      name="gopdb"
+      for="*"
+      class=".GoPDB"
+      permission="zope.Public"
+      />
+
+  <browser:page
+      name="fallback-image"
+      for="*"
+      class=".images.FallbackImageScale"
+      permission="zope2.View"
+      />
+
+</configure>

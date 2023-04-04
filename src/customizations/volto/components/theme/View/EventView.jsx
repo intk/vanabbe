@@ -3,38 +3,93 @@
  * @module components/theme/View/EventView
  */
 
-import RenderBlocks from '@plone/volto/components/theme/View/RenderBlocks';
+import { injectLazyLibs } from '@plone/volto/helpers/Loadable/Loadable';
 import React from 'react';
 import PropTypes from 'prop-types';
-import { defineMessages, injectIntl } from 'react-intl';
-import { flattenHTMLToAppURL } from '@plone/volto/helpers';
-import { Container, Image, Segment, Grid, Icon } from 'semantic-ui-react';
-import { hasBlocksData } from '@plone/volto/helpers';
-import { expandToBackendURL } from '@plone/volto/helpers';
+import { Portal } from 'react-portal';
+import { FormattedMessage } from 'react-intl';
+import {
+  hasBlocksData,
+  flattenHTMLToAppURL,
+  expandToBackendURL,
+  getBaseUrl,
+} from '@plone/volto/helpers';
+import { Image, List, Accordion } from 'semantic-ui-react';
+import RenderBlocks from '@plone/volto/components/theme/View/RenderBlocks';
+import { Icon } from '@plone/volto/components';
+import downSVG from '@plone/volto/icons/down-key.svg';
+import upSVG from '@plone/volto/icons/up-key.svg';
+import { useContentDivider } from '@package/helpers';
 
 import {
   When,
-  Recurrence,
+  datesForDisplay,
 } from '@plone/volto/components/theme/View/EventDatesInfo';
 
-const messages = defineMessages({
-  what: {
-    id: 'event_what',
-    defaultMessage: 'What',
-  },
-  allDates: {
-    id: 'event_alldates',
-    defaultMessage: 'All dates',
-  },
-  attendees: {
-    id: 'event_attendees',
-    defaultMessage: 'Attendees',
-  },
-  visitWebsite: {
-    id: 'visit_external_website',
-    defaultMessage: 'Visit external website',
-  },
-});
+export const Recurrence_ = ({
+  recurrence,
+  start,
+  moment: momentlib,
+  rrule,
+}) => {
+  const moment = momentlib.default;
+  const { RRule, rrulestr } = rrule;
+  if (recurrence.indexOf('DTSTART') < 0) {
+    var dtstart = RRule.optionsToString({
+      dtstart: new Date(start),
+    });
+    recurrence = dtstart + '\n' + recurrence;
+  }
+  const rule = rrulestr(recurrence, { unfold: true, forceset: true });
+  const all = rule.all();
+  const first = all.slice(0, 3);
+  const rest = all.slice(3, all.length);
+  const [showMore, setShowMore] = React.useState();
+
+  return (
+    <>
+      <List
+        items={first
+          .map((date) => datesForDisplay(date, undefined, moment))
+          .map((date) => date.startDate)}
+      />
+      {rest ? (
+        <Accordion>
+          <Accordion.Title
+            active={showMore}
+            index={0}
+            onClick={() => setShowMore(!showMore)}
+          >
+            <FormattedMessage
+              id="See all dates"
+              defaultMessage="See all dates"
+            />
+
+            {showMore ? (
+              <Icon name={upSVG} size="26px" />
+            ) : (
+              <Icon name={downSVG} size="26px" />
+            )}
+          </Accordion.Title>
+          <Accordion.Content active={showMore}>
+            <List
+              items={rest
+                .map((date) => datesForDisplay(date, undefined, moment))
+                .map((date) => date.startDate)}
+            />
+          </Accordion.Content>
+        </Accordion>
+      ) : null}
+    </>
+  );
+};
+
+export const Recurrence = injectLazyLibs(['moment', 'rrule'])(Recurrence_);
+
+Recurrence.propTypes = {
+  recurrence: PropTypes.string.isRequired,
+  start: PropTypes.string.isRequired,
+};
 
 const EventTextfieldView = ({ content }) => (
   <React.Fragment>
@@ -59,6 +114,89 @@ const EventTextfieldView = ({ content }) => (
   </React.Fragment>
 );
 
+const EventContact = (props) => {
+  const {
+    contact_name,
+    contact_email,
+    contact_phone,
+    attendees,
+    event_url,
+  } = props.content;
+
+  return (
+    <div className="bottom event-details">
+      {(contact_name || contact_email || contact_phone) && (
+        <h3>
+          <FormattedMessage id="Contact" defaultMessage="Contact" />:
+        </h3>
+      )}
+
+      <div className="event-listing">
+        {contact_name && (
+          <div className="event-data">
+            <p>{contact_name}</p>
+          </div>
+        )}
+
+        {contact_email && (
+          <div className="event-data">
+            <p>
+              <a href={`mailto:${contact_email}`}>{contact_email}</a>
+            </p>
+          </div>
+        )}
+
+        {contact_phone && (
+          <div className="event-data">
+            <p>{contact_phone}</p>
+          </div>
+        )}
+
+        {attendees.length > 0 && (
+          <div title="Attendees" className="event-data">
+            <List className="attendees">
+              {attendees.map((attendee, i) => (
+                <List.Item key={i}>
+                  {attendee}
+                  {i < attendees.length - 1 ? ', ' : ''}
+                </List.Item>
+              ))}
+            </List>
+          </div>
+        )}
+
+        {event_url && (
+          <div title="Website" className="event-data">
+            <p>
+              <a href={event_url} target="_blank" rel="noopener noreferrer">
+                <FormattedMessage
+                  id="visit_external_website"
+                  defaultMessage="Visit external website"
+                />
+              </a>
+            </p>
+          </div>
+        )}
+        {/* <div className="event-data event-calendar">
+          <p>
+            <a
+              className="ics-download"
+              target="_blank"
+              rel="noreferrer"
+              href={`${expandToBackendURL(props.content['@id'])}/ics_view`}
+            >
+              <FormattedMessage
+                id="Add event to calendar"
+                defaultMessage="Add event to calendar"
+              />
+            </a>
+          </p>
+        </div> */}
+      </div>
+    </div>
+  );
+};
+
 /**
  * EventView view component class.
  * @function EventView
@@ -66,149 +204,120 @@ const EventTextfieldView = ({ content }) => (
  * @returns {string} Markup of the component.
  */
 const EventView = (props) => {
-  const { intl, content } = props;
+  const { content } = props;
+  const {
+    start,
+    end,
+    whole_day,
+    open_end,
+    location,
+    recurrence,
+    recurence_description,
+  } = content;
+
+  const [isClient, setIsClient] = React.useState();
+
+  const hiddenBlocks = ['title', 'description'];
+  const path = getBaseUrl(location?.pathname || '');
+
+  const {
+    dividerBlock,
+    filterContent,
+    filterContentBlocksBefore,
+    filterContentBlocksAfter,
+  } = useContentDivider(content, hiddenBlocks);
+
+  React.useEffect(() => setIsClient(true), []);
 
   return (
-    <Container id="page-document" className="view-wrapper event-view">
-      <Grid>
-        <Grid.Column computer={8} tablet={12}>
-          <div className="events-container">
-            <div className="events-content">
-              {hasBlocksData(content) ? (
-                <RenderBlocks {...props} />
-              ) : (
-                <EventTextfieldView {...props} />
-              )}
+    <div id="page-document" className="ui container viewwrapper event-view">
+      <Portal node={isClient && document.getElementById('description')}>
+        <div>
+          <>
+            {recurrence && recurence_description ? (
+              <p>{recurence_description}</p>
+            ) : (
+              <>
+                {start && (
+                  <When
+                    start={start}
+                    end={end}
+                    whole_day={whole_day}
+                    open_end={open_end}
+                  />
+                )}
+              </>
+            )}
+          </>
+
+          {location && (
+            <div className="event-data">
+              <p>{location}</p>
             </div>
-          </div>
-        </Grid.Column>
-        <Grid.Column computer={4} tablet={12}>
-          <div className="event-details">
-            <Segment className="details">
-              <div className="event-single-listing pattern-green">
-                <h3>Event Info</h3>
-
-                <ul className="event-listing">
-                  <li title="Date">
-                    <Icon name="clock outline" size="large" />
-                    <When
-                      start={content.start}
-                      end={content.end}
-                      whole_day={content.whole_day}
-                      open_end={content.open_end}
-                    />
-                  </li>
-                  {content.location && (
-                    <li title="Location">
-                      <Icon name="map marker alternate" size="large" />
-                      <p>{content.location}</p>
-                    </li>
-                  )}
-
-                  {content.subjects.length > 0 && (
-                    <li title="Subject">
-                      <Icon name="images outline" size="large" />
-                      <p>
-                        {content.subjects.map((subject, i) => (
-                          <React.Fragment key={i}>
-                            {subject}
-                            {i < content.subjects.length - 1 ? ', ' : ''}
-                          </React.Fragment>
-                        ))}
-                      </p>
-                    </li>
-                  )}
-
-                  <li>
-                    <Icon name="calendar alternate" size="large" />
-                    <p>
-                      <a
-                        className="ics-download"
-                        target="_blank"
-                        rel="noreferrer"
-                        href={`${expandToBackendURL(content['@id'])}/ics_view`}
-                      >
-                        Add event to calendar
-                      </a>
-                    </p>
-                  </li>
-
-                  {content.recurrence && (
-                    <li title="All dates" className="dates">
-                      <Icon name="sync" size="large" />
-                      <Recurrence
-                        recurrence={content.recurrence}
-                        start={content.start}
+          )}
+        </div>
+      </Portal>
+      <div className="content-container">
+        <div className="offset-1-right">
+          <div className="content-wrapper">
+            {hasBlocksData(content) ? (
+              <div>
+                {dividerBlock ? (
+                  <>
+                    <div className="blocks-bg-wrapper">
+                      <div className="event-details">
+                        <div className="top event-listing">
+                          {recurrence && (
+                            <div title="All dates" className="event-data dates">
+                              <Recurrence
+                                recurrence={recurrence}
+                                start={start}
+                              />
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                      <RenderBlocks
+                        {...props}
+                        path={path}
+                        content={filterContentBlocksBefore}
                       />
-                    </li>
-                  )}
-                </ul>
+
+                      <EventContact {...props} content={content} />
+                    </div>
+                    <RenderBlocks
+                      {...props}
+                      path={path}
+                      content={filterContentBlocksAfter}
+                    />
+                  </>
+                ) : (
+                  <div className="blocks-bg-wrapper">
+                    <div className="event-details">
+                      <div className="top event-listing">
+                        {recurrence && (
+                          <div title="All dates" className="event-data dates">
+                            <Recurrence recurrence={recurrence} start={start} />
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                    <RenderBlocks
+                      {...props}
+                      path={path}
+                      content={filterContent}
+                    />
+                    <EventContact {...props} content={content} />
+                  </div>
+                )}
               </div>
-
-              <div className="event-single-listing pattern-orange">
-                <h3>Organizer</h3>
-                <ul className="event-listing">
-                  {content.contact_name && (
-                    <li title="Contact">
-                      <Icon name="user circle" size="large" />
-
-                      <p>{content.contact_name}</p>
-                    </li>
-                  )}
-
-                  {content.contact_email && (
-                    <li title="E-mail">
-                      <Icon name="mail outline" size="large" />
-                      <p>
-                        <a href={`mailto:${content.contact_email}`}>
-                          {content.contact_email}
-                        </a>
-                      </p>
-                    </li>
-                  )}
-
-                  {content.contact_phone && (
-                    <li title="Phone">
-                      <Icon name="phone" size="large" />
-                      <p>{content.contact_phone}</p>
-                    </li>
-                  )}
-
-                  {content.event_url && (
-                    <li title="Website">
-                      <Icon name="globe" size="large" />
-                      <p>
-                        <a
-                          href={content.event_url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          {intl.formatMessage(messages.visitWebsite)}
-                        </a>
-                      </p>
-                    </li>
-                  )}
-
-                  {content.attendees.length > 0 && (
-                    <li title="Attendees">
-                      <Icon name="users" size="large" />
-                      <p>
-                        {content.attendees.map((attendee, i) => (
-                          <React.Fragment key={i}>
-                            {attendee}
-                            {i < content.attendees.length - 1 ? ', ' : ''}
-                          </React.Fragment>
-                        ))}
-                      </p>
-                    </li>
-                  )}
-                </ul>
-              </div>
-            </Segment>
+            ) : (
+              <EventTextfieldView {...props} />
+            )}
           </div>
-        </Grid.Column>
-      </Grid>
-    </Container>
+        </div>
+      </div>
+    </div>
   );
 };
 
@@ -239,4 +348,4 @@ EventView.propTypes = {
   }).isRequired,
 };
 
-export default injectIntl(EventView);
+export default injectLazyLibs(['moment', 'rrule'])(EventView);

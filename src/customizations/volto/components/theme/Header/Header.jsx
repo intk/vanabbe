@@ -1,75 +1,82 @@
 // Customized to use the HeroSection
 
 import React from 'react';
-import { InView } from 'react-intersection-observer';
 import { useSelector } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 import {
   LanguageSelector,
   Logo,
   Navigation,
   SearchWidget,
 } from '@plone/volto/components';
-import { Button } from 'semantic-ui-react';
+import { Container } from 'semantic-ui-react';
 import { BodyClass, isCmsUi } from '@plone/volto/helpers';
-import { HeroSection } from '@package/components'; // , StickyHeader
-import cx from 'classnames';
-import usePreviewImage from './usePreviewImage';
-import { useLocation } from 'react-router-dom';
+import {
+  HeroSection,
+  ContrastToggle,
+  OpeningHours,
+  HeaderButton,
+  AccessibilityHelper,
+} from '@package/components';
+import { usePreviewImage } from '@package/helpers';
 
 const Header = (props) => {
   const { navigationItems } = props;
   const { pathname } = useLocation();
-
   const content = useSelector((state) => state.content.data);
-
+  const { title, description, objectTitle, BookTitle } = content || {};
   const previewImage = usePreviewImage(pathname);
-
   const previewImageUrl = previewImage?.scales?.huge?.download;
-  // const contentImageCaption = content?.image_caption;
-
   const contentType = content?.['@type'];
   const isHomePage = contentType === 'Plone Site' || contentType === 'LRF';
   const cmsView = isCmsUi(pathname);
   const homePageView = isHomePage && !cmsView;
-  const [inView, setInView] = React.useState();
+  const [menuPopupOpen, setMenuPopupOpen] = React.useState(false);
+  const [searchPopupOpen, setSearchPopupOpen] = React.useState(false);
+
+  const headerTitle = BookTitle || objectTitle || title;
 
   return (
-    <div className="portal-top">
-      {homePageView && <BodyClass className="homepage-view" />}
-      {!cmsView && <BodyClass className="has-image" />}
-      <div
-        className={cx(
-          'header-wrapper',
-          homePageView ? 'homepage' : 'contentpage',
-          inView ? 'header-in-view' : 'header-out-of-view fadeInDown',
-        )}
-        role="banner"
-      >
-        <div className="header">
-          <div
-            className={`logo-nav-wrapper ${
-              homePageView ? 'home-nav' : 'page-nav'
-            }`}
-          >
-            <div className="logo">
-              <Logo />
+    <>
+      <div className="portal-top">
+        <Container>
+          {homePageView && <BodyClass className="homepage-view" />}
+          {!cmsView && <BodyClass className="has-image" />}
+
+          <div className="logo-wrapper">
+            <div className="fixed-logo">
+              <Logo height="98px" hasLink />
             </div>
+          </div>
 
-            <div className="right-section">
-              <div className="computer large screen widescreen only">
-                <Navigation pathname={pathname} navigation={navigationItems} />
-              </div>
+          <div className="header-wrapper">
+            <div className="header">
+              <div className="header-section">
+                <div className="left-section">
+                  <div className="header-tools">
+                    <HeaderButton />
+                    <div className="computer large screen widescreen only">
+                      <OpeningHours />
+                    </div>
+                    <div className="computer large screen widescreen only">
+                      <ContrastToggle />
+                      <LanguageSelector />
+                    </div>
 
-              <div className="header-tools">
-                <div className="search-wrapper">
-                  <SearchWidget pathname={pathname} />
+                    <div className="computer large screen widescreen only">
+                      <AccessibilityHelper />
+                    </div>
+                  </div>
                 </div>
-                <div className="header-donate">
-                  <Button primary>Donate</Button>
-                </div>
-                <LanguageSelector />
-                <div className="mobile tablet only">
+                <div className="right-section">
+                  <SearchWidget
+                    pathname={pathname}
+                    setSearchPopupOpen={setSearchPopupOpen}
+                    menuPopupOpen={menuPopupOpen}
+                  />
                   <Navigation
+                    setMenuPopupOpen={setMenuPopupOpen}
+                    searchPopupOpen={searchPopupOpen}
                     pathname={pathname}
                     navigation={navigationItems}
                   />
@@ -77,25 +84,33 @@ const Header = (props) => {
               </div>
             </div>
           </div>
-        </div>
+        </Container>
       </div>
-      <div id="header-spacer"></div>
-      <InView
-        as="div"
-        className="header-visibility-sensor"
-        onChange={(inView, entry) => setInView(inView)}
-      >
-        {' '}
-      </InView>
 
       {!(cmsView || isHomePage) && (
-        <div className="header-bg">
-          <div className="header-container">
-            <HeroSection image_url={previewImageUrl} content={content} />
-          </div>
-        </div>
+        <>
+          <Container className="sticky-heading">
+            <div id="heading" className="offset-1-left offset-2-right">
+              {headerTitle && <h1 className="content-title">{headerTitle}</h1>}
+              <div id="description">
+                <p className="content-description">
+                  {description && <> {description}</>}
+                </p>
+              </div>
+            </div>
+          </Container>
+          <Container className="hero-container">
+            <div className="offset-1-right">
+              <div className="header-bg">
+                <div className="header-container">
+                  <HeroSection image_url={previewImageUrl} content={content} />
+                </div>
+              </div>
+            </div>
+          </Container>
+        </>
       )}
-    </div>
+    </>
   );
 };
 

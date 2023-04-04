@@ -1,47 +1,51 @@
-/********   Button Overrides   ********/
+/*******************************
+         Button Overrides
+*******************************/
 
-.ui.button {
+.ui.button,
+.link-more a {
   .isBtn();
-}
-
-.ui.button.primary {
-  border-color: @primaryColor;
-}
-
-.ui.basic.button {
-  font-weight: 800;
 
   &:hover {
-    background: transparent !important;
+    background-color: transparent;
+    color: inherit;
+  }
+
+  @media only screen and (max-width: @largestTabletScreen) {
+    font-size: @mediumFontSize;
   }
 }
 
-.link-more {
-  a {
-    margin: 0;
-    .isBtn();
+.link-more a,
+.ui.primary.button:not(.basic):not(.icon):not(.circular) {
+  .primaryBtn(var(--text-color));
+}
+
+.ui.secondary.button:not(.icon):not(.circular) {
+  .secondaryBtn(var(--text-color));
+}
+
+.ui.button.tertiary {
+  .tertiaryBtn(var(--text-color), var(--background-color));
+}
+
+.ui.button.nav-button {
+  padding-bottom: 3px;
+  border-bottom: 2px solid transparent;
+  background-color: transparent;
+
+  &:hover,
+  &:active {
+    border-color: var(--text-color);
+    color: var(--text-color) !important;
   }
 }
 
-.ui.secondary.buttons .button,
-.ui.secondary.button {
-  background-color: @darkGreen;
-
-  &:hover {
-    background-color: @darkGreen;
-  }
+.ui.button:active:not(.primary):not(.secondary):not(.tertiary),
+.ui.button:focus:not(.primary):not(.secondary):not(.tertiary),
+.ui.basic.buttons .button:hover,
+.ui.basic.button:hover,
+.ui.basic.button:active,
+.ui.basic.button:focus {
+  background-color: transparent !important;
 }
-
-// p.buttonSec {
-//   a {
-//     .isBtn();
-//   }
-// }
-
-// .ui.button.btn-block.primary {
-//   .isBtn();
-// }
-
-// .ui.button.btn-block.secondary {
-//   .isBtnSec();
-// }

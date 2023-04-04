@@ -31,10 +31,10 @@ export const ImageCarouselSchema = ({ data, schema, intl }) => {
       itemsPerRow: {
         type: 'number',
         title: 'Items per row',
-        defaultValue: 4,
+        defaultValue: 1,
       },
       height: {
-        defaultValue: '25vh',
+        default: '510px',
         title: (
           <a
             rel="noreferrer"
@@ -49,18 +49,22 @@ export const ImageCarouselSchema = ({ data, schema, intl }) => {
   };
 };
 
-export const LogoCardsSchema = (args) => {
+export const ImageCarouselCardSchema = (args) => {
   return {
-    title: 'Logo Cards',
+    title: 'Image Card',
     fieldsets: [
       {
         id: 'default',
         title: 'Default',
-        fields: ['attachedimage', 'linkHref'],
+        fields: ['text', 'attachedimage', 'linkHref'],
       },
     ],
 
     properties: {
+      text: {
+        widget: 'slate_richtext',
+        title: 'Text',
+      },
       attachedimage: {
         widget: 'attachedimage',
         title: 'Image',
@@ -75,33 +79,30 @@ export const LogoCardsSchema = (args) => {
   };
 };
 
-export const TestimonialCardsSchema = (args) => {
+export const LogoCardsSchema = (args) => {
   return {
-    title: 'Testimonial Card',
+    title: 'Logo Cards',
     fieldsets: [
       {
         id: 'default',
         title: 'Default',
-        fields: ['name', 'post', 'text', 'attachedimage'],
+        fields: ['title', 'attachedimage', 'linkHref'],
       },
     ],
 
     properties: {
-      name: {
+      title: {
         type: 'string',
-        title: 'Name',
-      },
-      post: {
-        type: 'string',
-        title: 'Post',
-      },
-      text: {
-        widget: 'slate_richtext',
-        title: 'Text',
+        title: 'Title',
+        description: 'Text to show on hover',
       },
       attachedimage: {
         widget: 'attachedimage',
-        title: 'Avatar',
+        title: 'Image',
+      },
+      linkHref: {
+        widget: 'url',
+        title: 'Link',
       },
     },
 

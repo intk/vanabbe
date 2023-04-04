@@ -239,7 +239,7 @@ class Search extends Component {
                     firstItem={null}
                     lastItem={null}
                     prevItem={{
-                      content: <Icon name={paginationLeftSVG} size="35px" />,
+                      content: <Icon name={paginationLeftSVG} size="25px" />,
                       icon: true,
                       'aria-disabled': !this.props.search.batching.prev,
                       className: !this.props.search.batching.prev
@@ -247,7 +247,7 @@ class Search extends Component {
                         : null,
                     }}
                     nextItem={{
-                      content: <Icon name={paginationRightSVG} size="35px" />,
+                      content: <Icon name={paginationRightSVG} size="25px" />,
                       icon: true,
                       'aria-disabled': !this.props.search.batching.next,
                       className: !this.props.search.batching.next

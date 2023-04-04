@@ -1,145 +1,223 @@
 import React from 'react';
 import { flattenToAppURL } from '@plone/volto/helpers';
 import { Link } from 'react-router-dom';
-// import { When } from '@plone/volto/components/theme/View/EventDatesInfo';
-import { FormattedTime, FormattedDateParts } from 'react-intl';
-import { FormattedDate } from '@package/components';
-import { Icon } from 'semantic-ui-react';
-//
-// import DefaultImageSVG from '@plone/volto/components/manage/Blocks/Listing/default-image.svg';
+import { FormattedTime } from 'react-intl';
+import { FormattedDate } from '@plone/volto/components';
+import { PreviewImage } from '@package/components';
+import cx from 'classnames';
 
-// see extras/listing.less for less
-function PreviewImage(props) {
-  const { item, size = 'preview', alt, isFallback = false, ...rest } = props;
-
-  // const src = item.image_field
-  //   ? flattenToAppURL(`${item['@id']}/@@images/${item.image_field}/${size}`)
-  //   : DefaultImageSVG;
-
-  const url = flattenToAppURL(
-    `${item['@id']}/@@${isFallback ? 'fallback-image' : 'images'}/${
-      item.image_field || 'preview_image'
-    }/${size}`,
-  );
-
-  return <img src={url} alt={alt ?? item.title} {...rest} />;
-}
-
-const Card = ({ item }) => {
-  const { image_field } = item;
-  const size = 'large';
-  // {!!item.effective && <FormattedDate isoDate={item.effective} />}
-  return (
-    <section className="slider-card listing-card default-card">
-      <div className="image-container">
-        <span className="link-img-wrapper">
-          <PreviewImage item={item} size={size} isFallback={!image_field} />
-        </span>
-      </div>
-      <div className="card-details">
-        <Link
-          className="card-link"
-          to={flattenToAppURL(item['@id'])}
-          title={item.title}
-        >
-          <h3 className="title">{item.title}</h3>
-        </Link>
-      </div>
-    </section>
-  );
+const dateOptions = {
+  year: 'numeric',
+  month: 'short',
+  day: 'numeric',
 };
 
-const NewsItemCard = ({ item }) => {
-  const { image_field } = item;
-  const size = 'large';
-  return (
-    <section className="slider-card listing-card newsitem-card">
-      {!!image_field && (
-        <div className="image-container">
-          <span className="link-img-wrapper">
-            <PreviewImage item={item} size={size} isFallback={!image_field} />
-          </span>
-        </div>
-      )}
-      <div className="card-details">
-        {!!item.effective && (
-          <FormattedDate isoDate={item.effective} format="long" />
-        )}
-        <Link
-          className="card-link"
-          to={flattenToAppURL(item['@id'])}
-          title={item.title}
-        >
-          <h3 className="title">{item.title}</h3>
-        </Link>
-        {/* <p className="description">{item.description}</p> */}
-      </div>
-    </section>
-  );
-};
+const Card = ({
+  item,
+  showDate,
+  showTag,
+  showContentType,
+  size = 'large',
+  useFallbackImage,
+  cardType = '',
+}) => {
+  const { image_field, Subject } = item;
+  useFallbackImage = useFallbackImage || image_field === 'fallback_image';
+  const tag = Subject && Subject.length > 0 ? Subject[0] : '';
 
-const EventCard = ({ item }) => {
-  const { image_field } = item;
-  const size = 'large';
-  return item.start ? (
-    <section className="slider-card listing-card event-card">
-      <div className="image-container">
-        <span className="link-img-wrapper">
-          <PreviewImage item={item} size={size} isFallback={!image_field} />
-        </span>
-      </div>
-      <div className="date-box">
-        <FormattedDateParts
-          value={new Date(item.start)}
-          // year="numeric"
-          month="short"
-          day="2-digit"
-        >
-          {(parts) =>
-            !!parts?.length && (
-              <>
-                {parts[2].value}
-                <span>{parts[0].value}</span>
-              </>
-            )
-          }
-        </FormattedDateParts>
-      </div>
-      <div className="card-details">
-        <div className="date"></div>
-        <h3 className="title">
-          <Link to={flattenToAppURL(item['@id'])} title={item.title}>
-            {item.title}
-          </Link>
-        </h3>
-        <div className="event-details">
-          <span>
-            <Icon name="clock outline" size="large" />{' '}
-            <FormattedTime value={new Date(item.start)} />
-          </span>
-          {item.location && (
-            <span>
-              <Icon name="map marker alternate" size="large" />
-              {item.location}
-            </span>
+  return (
+    <section className={cx('listing-card default-card', cardType)}>
+      <Link
+        className="card-link"
+        to={flattenToAppURL(item.href || item['@id'])}
+      >
+        <div className="card-details">
+          <div className="card-meta">
+            {item.meta ? <span>{item.meta}</span> : null}
+            {showDate && !!item.effective && (
+              <FormattedDate date={item.effective} format={dateOptions} />
+            )}
+            {showContentType && <span>{item['@type']}</span>}
+            {showTag && <span>{tag}</span>}
+          </div>
+          <h3 className="card-title">{item.title}</h3>
+          {(image_field || useFallbackImage) && (
+            <div className="image-wrapper">
+              <PreviewImage
+                item={item}
+                size={size}
+                isFallback={useFallbackImage ?? !image_field}
+              />
+            </div>
+          )}
+          {!!item.description && (
+            <div className="card-bottom">
+              <p className="card-description">{item.description}</p>
+            </div>
           )}
         </div>
-      </div>
+      </Link>
+    </section>
+  );
+};
+
+const NewsItemCard = ({ item, showDate, showTag, showContentType }) => {
+  const size = 'large';
+  const { image_field, Subject } = item;
+  const tag = Subject && Subject.length > 0 ? Subject[0] : '';
+
+  return (
+    <section className="listing-card newsitem-card default-card">
+      <Link
+        className="card-link"
+        to={flattenToAppURL(item['@id'])}
+        title={item.title}
+      >
+        <div className="card-details">
+          <div className="card-meta">
+            {showDate && !!item.effective && (
+              <FormattedDate date={item.effective} format={dateOptions} />
+            )}
+            {showContentType && <span>{item['@type']}</span>}
+            {showTag && <span>{tag}</span>}
+          </div>
+          <h3 className="card-title">{item.title}</h3>
+          {!!image_field && (
+            <div className="image-wrapper">
+              <PreviewImage item={item} size={size} isFallback={!image_field} />
+            </div>
+          )}
+          {!!item.description && (
+            <div className="card-bottom">
+              <p className="card-description">{item.description}</p>
+            </div>
+          )}
+        </div>
+      </Link>
+    </section>
+  );
+};
+
+const EventCard = ({ item, showDate = true, showTag, showContentType }) => {
+  const size = 'large';
+  const { image_field, Subject } = item;
+  const tag = Subject && Subject.length > 0 ? Subject[0] : '';
+
+  return item.start ? (
+    <section className="listing-card event-card default-card">
+      <Link
+        className="card-link"
+        to={flattenToAppURL(item['@id'])}
+        title={item.title}
+      >
+        <div className="card-details">
+          <div className="card-meta">
+            {showDate && (
+              <>
+                {item.recurence_description ? (
+                  <>{item.recurence_description}</>
+                ) : (
+                  <>
+                    {!!item.effective && (
+                      <FormattedDate date={item.start} format={dateOptions} />
+                    )}
+                    {!item.whole_day && !!item.start && (
+                      <span>
+                        <FormattedTime value={new Date(item.start)} />
+                      </span>
+                    )}
+                  </>
+                )}
+              </>
+            )}
+            {showContentType && <span>{item['@type']}</span>}
+            {showTag && <span>{tag}</span>}
+          </div>
+
+          <h3 className="card-title">{item.title}</h3>
+          {!!image_field && (
+            <div className="image-wrapper">
+              <PreviewImage item={item} size={size} isFallback={!image_field} />
+            </div>
+          )}
+          {!!item.description && (
+            <div className="card-bottom">
+              <p className="card-description">{item.description}</p>
+            </div>
+          )}
+        </div>
+      </Link>
     </section>
   ) : (
     <Card item={item} />
   );
 };
 
+const ArtworkCard = ({ item }) => {
+  const { image_field } = item;
+  const size = 'preview';
+
+  return (
+    <section className="listing-card artwork-card">
+      <Link
+        className="card-link"
+        to={flattenToAppURL(item['@id'])}
+        title={item.title}
+      >
+        <div className="card-details">
+          <div className="image-wrapper">
+            <PreviewImage item={item} size={size} isFallback={!image_field} />
+          </div>
+          <div className="card-title-wrapper">
+            <h5 className="artwork-title">{item.objectTitle}</h5>
+            <div className="artwork-creation">
+              {(item.objectCreationDate || '')
+                .replace(/\(|\)/g, '')
+                .slice(0, 10)}
+            </div>
+          </div>
+          <div className="author-name">{item.authorName}</div>
+        </div>
+      </Link>
+    </section>
+  );
+};
+
+const PublicationCard = ({ item, ...rest }) => (
+  <Card
+    {...rest}
+    item={{
+      ...item,
+      description: item.authorName,
+      Subject: item.publication_type || [],
+      meta: item.bookDatePublished,
+    }}
+    showDate={false}
+    showTag={true}
+    cardType="publication-card"
+  />
+);
+
+const ExhibitionCard = ({ item, ...rest }) => (
+  <Card
+    {...rest}
+    showTag={true}
+    item={{ ...item, Subject: [item.eventTimeFrom] }}
+  />
+);
+
 const cardTypes = {
   default: Card,
   'News Item': NewsItemCard,
   Event: EventCard,
+  artwork: ArtworkCard,
+  publication: PublicationCard,
+  exhibition: ExhibitionCard,
 };
 
-const UniversalCard = ({ item }) => {
+const UniversalCard = ({ item, ...rest }) => {
   const CardImpl = cardTypes[item['@type']] || cardTypes['default'];
-  return <CardImpl item={item} />;
+  return <CardImpl item={item} {...rest} />;
 };
 
 export default UniversalCard;

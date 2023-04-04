@@ -1,0 +1,57 @@
+/*******************************
+         Grid Overrides
+*******************************/
+
+/*-------------------
+       Columns
+--------------------*/
+
+/* Standard 12 column */
+// .ui.grid > .column:not(.row),
+// .ui.grid > .row > .column {
+//   position: relative;
+//   display: inline-block;
+
+//   // width: @oneWide;
+//   // padding-right: (@gutterWidth / 2);
+//   // padding-left: (@gutterWidth / 2);
+//   vertical-align: top;
+// }
+
+// .ui.grid > * {
+//   padding-right: (@gutterWidth / 2);
+//   padding-left: (@gutterWidth / 2);
+// }
+
+// @media only screen and (max-width: @tabletBreakpoint) {
+//   .ui.grid > .column:not(.row),
+//   .ui.grid > .row > .column {
+//     padding-right: (@mobileGutterWidth / 2);
+//     padding-left: (@mobileGutterWidth / 2);
+//   }
+
+//   .ui.grid > * {
+//     padding-right: (@mobileGutterWidth / 2);
+//     padding-left: (@mobileGutterWidth / 2);
+//   }
+// }
+
+.offset-1-left {
+  margin-left: @oneWide;
+}
+
+.offset-1-right {
+  margin-right: @oneWide;
+}
+
+.offset-2-left {
+  margin-left: @twoWide;
+}
+
+.offset-2-right {
+  margin-right: @twoWide;
+}
+
+.offset-3-right {
+  margin-right: @threeWide;
+}

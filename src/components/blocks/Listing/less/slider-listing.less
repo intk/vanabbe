@@ -20,50 +20,46 @@
   .pagination-wrapper {
     display: none;
   }
+}
 
-  h2.headline {
-    display: none;
+.block.listing {
+  .headline {
+    display: none; // we use custom heading, see ListingBlockHeader
+  }
+
+  .link-more {
+    // margin: 1em 0;
+    text-align: right;
   }
 }
 
 .slider-listing {
   .slick-list {
-    margin: 0 -1rem !important;
+    margin: 0 -10px !important;
   }
 
   .slick-slide {
-    padding: 1rem !important;
+    padding: 10px !important;
+  }
+
+  .slick-dots {
+    li {
+      width: 16px;
+      height: 16px;
+    }
+
+    li button:before {
+      color: var(--text-color);
+      font-size: @mediumFontSize;
+    }
+
+    li.slick-active button:before {
+      color: var(--text-color);
+      opacity: 1;
+    }
   }
 }
 
 .slider-carousel-container {
   margin: 3em 0;
-}
-
-.slider-nav {
-  display: flex;
-  justify-content: flex-end;
-  padding: 0.6em 0px;
-  transition: opacity 0.2s ease-in-out;
-
-  i.circular.icon {
-    .circularIcon(@secondaryColor);
-  }
-
-  button {
-    padding: 0 !important;
-    background-color: transparent;
-    cursor: pointer;
-    outline: none;
-
-    .isBtn();
-
-    &.hidden {
-      visibility: hidden;
-    }
-
-    & {
-      border-color: transparent;
-    }
-  }
 }
