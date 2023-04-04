@@ -37,6 +37,7 @@
     "http-proxy-middleware": "2.0.1"
   },
   "addons": [
+    "@codesyntax/volto-cookiebot",
     "volto-multilingual-widget",
     "@eeacms/volto-group-block",
     "@eeacms/volto-accordion-block",
@@ -146,6 +147,7 @@
     "node": "^14 || ^16"
   },
   "dependencies": {
+    "@codesyntax/volto-cookiebot": "0.4.0",
     "@eeacms/volto-accordion-block": "6.0.0",
     "@eeacms/volto-block-divider": "3.0.2",
     "@eeacms/volto-block-image-cards": "0.6.3",
@@ -154,7 +156,7 @@
     "@fortawesome/fontawesome-svg-core": "6.1.1",
     "@fortawesome/free-solid-svg-icons": "6.1.1",
     "@fortawesome/react-fontawesome": "0.1.18",
-    "@plone/volto": "16.17.1",
+    "@plone/volto": "16.18.0",
     "@react-hook/size": "2.1.2",
     "date-fns": "2.28.0",
     "jotai": "^1.6.0",

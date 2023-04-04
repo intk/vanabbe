@@ -239,6 +239,8 @@ export default function applyConfig(config) {
   config.widgets.id.cookie_consent_configuration = MultilingualWidget();
 
   config.settings.gtmId = 'GTM-N4JPF8T';
+  config.settings.cookiebotDomainGroupId =
+    'fd7a20ec-63f8-47ea-aeb9-3e873ac0d094';
 
   config.settings.appExtras = [
     ...(config.settings.appExtras || []),
