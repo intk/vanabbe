@@ -6,5 +6,12 @@
     "branch": "discreet_carousel_volto16",
     "develop": true,
     "path": "src"
+  },
+  "volto-cookiebot": {
+    "url": "git@github.com:tiberiuichim/volto-cookiebot.git",
+    "https": "https://github.com/tiberiuichim/volto-cookiebot.git",
+    "package": "@codesyntax/volto-cookiebot",
+    "develop": true,
+    "path": "src"
   }
 }
