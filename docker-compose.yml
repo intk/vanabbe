@@ -19,12 +19,16 @@ services:
   frontend:
     image: tiberiuichim/vanabbe:1.84
     profiles: ["production"]
+    env_file: 
+      - ./.env
     # depends_on:
     # - plone
     #environment:
     #RAZZLE_INTERNAL_API_PATH: "http://plone:8080/Plone"
 
   frontend-production:
+    env_file: 
+      - ./.env
     depends_on:
       - lb
     image: tiberiuichim/vanabbe:1.84
