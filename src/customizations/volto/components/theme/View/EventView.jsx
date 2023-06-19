@@ -42,7 +42,7 @@ export const Recurrence_ = ({
   }
   const rule = rrulestr(recurrence, { unfold: true, forceset: true });
   const today = new Date();
-  today.setHour(0);
+  today.setHours(0);
   today.setMinutes(0);
   const all = rule.all().filter((f) => f > today);
   // console.log('all', all);
