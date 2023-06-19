@@ -11,7 +11,7 @@ import { FormattedMessage } from 'react-intl';
 import {
   hasBlocksData,
   flattenHTMLToAppURL,
-  expandToBackendURL,
+  // expandToBackendURL,
   getBaseUrl,
 } from '@plone/volto/helpers';
 import { Image, List, Accordion } from 'semantic-ui-react';
@@ -41,7 +41,11 @@ export const Recurrence_ = ({
     recurrence = dtstart + '\n' + recurrence;
   }
   const rule = rrulestr(recurrence, { unfold: true, forceset: true });
-  const all = rule.all();
+  const today = new Date();
+  today.setHour(0);
+  today.setMinutes(0);
+  const all = rule.all().filter((f) => f > today);
+  // console.log('all', all);
   const first = all.slice(0, 3);
   const rest = all.slice(3, all.length);
   const [showMore, setShowMore] = React.useState();
