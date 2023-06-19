@@ -37,7 +37,17 @@ p {
   line-height: @textLineHeight;
 }
 
+table p:last-child {
+  // fix paragraphs in tables
+  margin-bottom: unset;
+}
+
 .content-wrapper {
+  table p:last-child {
+    // fix paragraphs in tables
+    margin-bottom: unset;
+  }
+
   p:last-child {
     margin-bottom: var(--space-md);
   }
