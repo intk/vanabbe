@@ -17,9 +17,9 @@ services:
       ofelia.job-exec.weekly-backup.command: "/app/bin/repozo -B -f /app/var/filestorage/Data.fs -r /app/var/backup"
 
   frontend:
-    image: tiberiuichim/vanabbe:1.84
+    image: tiberiuichim/vanabbe:1.85
     profiles: ["production"]
-    env_file: 
+    env_file:
       - ./.env
     # depends_on:
     # - plone
@@ -27,11 +27,11 @@ services:
     #RAZZLE_INTERNAL_API_PATH: "http://plone:8080/Plone"
 
   frontend-production:
-    env_file: 
+    env_file:
       - ./.env
     depends_on:
       - lb
-    image: tiberiuichim/vanabbe:1.84
+    image: tiberiuichim/vanabbe:1.85
     profiles: ["production"]
 
   plone:
