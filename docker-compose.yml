@@ -37,7 +37,7 @@ services:
   plone:
     depends_on:
       - lb
-    image: tiberiuichim/vanabbe-backend:6.0.0-6
+    image: tiberiuichim/vanabbe-backend:6.0.0-7
     # depends_on:
     # - zeo
     environment:
