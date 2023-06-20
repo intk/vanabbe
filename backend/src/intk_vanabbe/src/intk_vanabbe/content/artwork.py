@@ -146,7 +146,9 @@ class IArtwork(model.Schema):
     )
 
     searchable("objectTitle", "objectDescription",
-               "objectDescription_extra_title", "objectCredit")
+               "objectDescription_extra_title", "objectCredit", "authors",
+               "objectMedium", "objectCredit", "ccObjectID", "ccIdentifier",
+               "objectPosition")
 
 
 def get_decades(obj):
