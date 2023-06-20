@@ -5,3 +5,4 @@ collective.volto.formsupport
 collective.volto.cookieconsent
 lxml
 requests
+kitconcept.seo

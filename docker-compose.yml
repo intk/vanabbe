@@ -42,6 +42,7 @@ services:
     # - zeo
     environment:
       ZEO_ADDRESS: zeo:8100
+      # ADDONS: "kitconcept.seo"
       # ADDONS: "collective.volto.cookieconsent collective.volto.formsupport"
       #/app/src/collective.previewimage -e
       DEVELOP: "/app/src/intk_vanabbe"
