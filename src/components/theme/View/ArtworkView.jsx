@@ -8,6 +8,12 @@ import ImageAlbum from '../ImageAlbum/ImageAlbum';
 import config from '@plone/volto/registry';
 import { useSiteDataContent } from '@package/helpers';
 
+const textToList = (text) =>
+  text
+    .split('\n')
+    .map((p) => p.trim())
+    .filter((p) => !!p);
+
 const getItem = (info, content) => {
   return info.type === 'other_artworks'
     ? {
@@ -60,45 +66,55 @@ const getItem = (info, content) => {
 };
 
 const ObjectLinks = ({ content }) => {
-  const res = [];
+  let audio = [];
+  let video = [];
 
   if (content.ObjectAudio) {
-    const audio = JSON.parse(content.ObjectAudio);
     try {
-      res.push(
-        audio.map(({ title, filename }, ix) => (
-          <div className="object-audio">
-            <a
-              key={`${ix}-${filename}`}
-              href={`https://mediabank.vanabbemuseum.nl/website/Media/${filename}`}
-            >
-              {title}
-            </a>
-          </div>
-        )),
-      );
-    } catch {}
+      audio = JSON.parse(content.ObjectAudio);
+    } catch {
+      audio = textToList(content.ObjectAudio).map((v) => ({
+        title: v,
+        filename: v,
+      }));
+    }
   }
 
   if (content.ObjectVideo) {
     try {
-      const video = JSON.parse(content.ObjectVideo);
-      res.push(
-        video.map(({ title, filename }, ix) => (
-          <div className="object-video">
-            <a
-              key={`${ix}-${filename}`}
-              href={`https://mediabank.vanabbemuseum.nl/website/Media/${filename}`}
-            >
-              {title}
-            </a>
-          </div>
-        )),
-      );
-    } catch {}
+      video = JSON.parse(content.ObjectVideo);
+    } catch {
+      video = textToList(content.ObjectVideo).map((v) => ({
+        title: v,
+        filename: v,
+      }));
+    }
   }
 
-  return res;
+  return (
+    <>
+      {audio.map(({ title, filename }, ix) => (
+        <div className="object-audio" key={`audio-${ix}`}>
+          <a
+            key={`${ix}-${filename}`}
+            href={`https://mediabank.vanabbemuseum.nl/website/Media/${filename}`}
+          >
+            {title}
+          </a>
+        </div>
+      ))}
+      {video.map(({ title, filename }, ix) => (
+        <div className="object-video" key={`video-${ix}`}>
+          <a
+            key={`${ix}-${filename}`}
+            href={`https://mediabank.vanabbemuseum.nl/website/Media/${filename}`}
+          >
+            {title}
+          </a>
+        </div>
+      ))}
+    </>
+  );
 };
 
 const ArtworkDetails = () => {
