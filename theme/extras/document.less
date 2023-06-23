@@ -113,12 +113,13 @@ ol {
   margin-bottom: var(--space-s);
 
   li {
+    margin-bottom: 1em;
     font-size: @desktopBodyFontSize;
     letter-spacing: @letterSpacing;
-    line-height: @listDesktopLineHeight !important;
+    // line-height: @listDesktopLineHeight !important;
 
     @media only screen and (max-width: @largestTabletScreen) {
-      line-height: @listTabletLineHeight;
+      // line-height: @listTabletLineHeight;
     }
   }
 }
