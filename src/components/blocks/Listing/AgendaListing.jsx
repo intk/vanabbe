@@ -15,33 +15,35 @@ const Item = ({ item, showDate }) => {
           </div>
 
           <div className="agenda-right">
-            {showDate && (
-              <>
-                {item['@type'] === 'Event' ? (
-                  <>
-                    {item.recurrence && item.recurence_description ? (
-                      <>{item.recurence_description}</>
-                    ) : (
-                      <When
-                        start={item.start}
-                        end={item.end}
-                        whole_day={true}
-                        open_end={item.open_end}
-                      />
-                    )}
-                  </>
-                ) : (
-                  <>
-                    {item.EffectiveDate !== 'None' ? (
-                      <FormattedDate
-                        isoDate={item.EffectiveDate}
-                        format="long"
-                      />
-                    ) : null}
-                  </>
-                )}
-              </>
-            )}
+            <div>
+              {showDate && (
+                <>
+                  {item['@type'] === 'Event' ? (
+                    <>
+                      {item.recurrence && item.recurence_description ? (
+                        <>{item.recurence_description}</>
+                      ) : (
+                        <When
+                          start={item.start}
+                          end={item.end}
+                          whole_day={true}
+                          open_end={item.open_end}
+                        />
+                      )}
+                    </>
+                  ) : (
+                    <>
+                      {item.EffectiveDate !== 'None' ? (
+                        <FormattedDate
+                          isoDate={item.EffectiveDate}
+                          format="long"
+                        />
+                      ) : null}
+                    </>
+                  )}
+                </>
+              )}
+            </div>
 
             <div>
               {!!item.Subject && (
