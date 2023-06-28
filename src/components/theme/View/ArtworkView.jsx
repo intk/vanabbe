@@ -279,26 +279,30 @@ export default function ArtworkView(props) {
                       </div>
                     </div>
                     <div className="artwork-content offset-1-left offset-2-right">
-                      <h4>
-                        <FormattedMessage
-                          id="Description"
-                          defaultMessage="Description"
-                        />
-                      </h4>
-                      {columns.map((col, index) => (
-                        <p
-                          key={index}
-                          dangerouslySetInnerHTML={{ __html: col }}
-                        />
-                      ))}
-                      {content.objectDescription_extra ? (
+                      {columns.length || content.objectDescription_extra ? (
                         <>
-                          <h4>{content.objectDescription_extra_title}</h4>
-                          <p
-                            dangerouslySetInnerHTML={{
-                              __html: content.objectDescription_extra,
-                            }}
-                          />
+                          <h4>
+                            <FormattedMessage
+                              id="Description"
+                              defaultMessage="Description"
+                            />
+                          </h4>
+                          {columns.map((col, index) => (
+                            <p
+                              key={index}
+                              dangerouslySetInnerHTML={{ __html: col }}
+                            />
+                          ))}
+                          {content.objectDescription_extra ? (
+                            <>
+                              <h4>{content.objectDescription_extra_title}</h4>
+                              <p
+                                dangerouslySetInnerHTML={{
+                                  __html: content.objectDescription_extra,
+                                }}
+                              />
+                            </>
+                          ) : null}
                         </>
                       ) : null}
 

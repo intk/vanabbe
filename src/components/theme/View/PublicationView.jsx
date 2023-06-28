@@ -87,14 +87,18 @@ export default function PublicationView(props) {
                       </div>
                     </div>
                     <div className="artwork-content offset-1-left offset-2-right">
-                      <h4>
-                        <FormattedMessage
-                          id="Description"
-                          defaultMessage="Description"
-                        />
-                      </h4>
+                      {content.bookDescription ? (
+                        <>
+                          <h4>
+                            <FormattedMessage
+                              id="Description"
+                              defaultMessage="Description"
+                            />
+                          </h4>
 
-                      <p>{content.bookDescription}</p>
+                          <p>{content.bookDescription}</p>
+                        </>
+                      ) : null}
                     </div>
                   </div>
                 </div>
