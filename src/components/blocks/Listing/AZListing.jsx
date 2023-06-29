@@ -1,14 +1,8 @@
 import { UniversalLink } from '@plone/volto/components';
 import { ListingBlockHeader } from '@package/components';
+import { HashLink } from 'react-router-hash-link';
 
 import './less/az-listing.less';
-
-const scrollToElement = (id) => {
-  const element = document.getElementById(id);
-  if (element) {
-    element.scrollIntoView({ behavior: 'smooth' });
-  }
-};
 
 const AgendaListingTemplate = (data) => {
   const { items = [], titleField } = data;
@@ -32,13 +26,9 @@ const AgendaListingTemplate = (data) => {
         {Object.keys(groups)
           .sort()
           .map((letter) => (
-            <a
-              key={letter}
-              href={`#g-${letter}`}
-              onClick={() => scrollToElement(`#g-${letter}`)}
-            >
+            <HashLink smooth key={letter} elementId={`g-${letter}`}>
               {letter}
-            </a>
+            </HashLink>
           ))}
       </div>
 
