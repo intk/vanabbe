@@ -535,11 +535,6 @@ msgstr ""
 msgid "more_artworks_in_period"
 msgstr ""
 
-#: components/theme/View/ArtworkView
-# defaultMessage: If you need specific information on this work or artist, remember that the Van Abbemuseum Library is at your disposal, or feel free to write to the library.
-msgid "need_info_specific"
-msgstr ""
-
 #: components/blocks/SearchOverview/SearchOverviewView
 # defaultMessage: No results for <u>something</u>
 msgid "no.results"
@@ -576,11 +571,6 @@ msgstr ""
 #: components/blocks/VoltoFormBlock/formSchema
 # defaultMessage: Title
 msgid "title"
-msgstr ""
-
-#: components/theme/View/ArtworkView
-# defaultMessage: The Van Abbemuseum Collection consists of over 2800 artworks. We publish texts and images on an ongoing basis, but this record is currently in the process of being documented.
-msgid "van_abbe_2800"
 msgstr ""
 
 #: components/theme/View/ArtworkView
