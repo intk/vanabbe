@@ -139,13 +139,17 @@ body.view-viewview {
 /* Accordion block */
 
 .accordion-block {
-  .ui.styled.accordion,
-  .ui.styled.accordion .accordion {
+  .ui.accordion,
+  .ui.accordion .accordion {
     background: transparent;
   }
 
-  .ui.styled.accordion {
+  .ui.accordion {
     border-top: 1px solid var(--text-color) !important;
+  }
+
+  .ui.accordion:last-child {
+    border-bottom: 1px solid var(--text-color) !important;
   }
 
   .ui.styled.accordion .title,
