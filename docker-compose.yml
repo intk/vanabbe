@@ -17,27 +17,32 @@ services:
       ofelia.job-exec.weekly-backup.command: "/app/bin/repozo -B -f /app/var/filestorage/Data.fs -r /app/var/backup"
 
   frontend:
-    image: tiberiuichim/vanabbe:1.83
+    image: tiberiuichim/vanabbe:1.90
     profiles: ["production"]
+    env_file:
+      - ./.env
     # depends_on:
     # - plone
     #environment:
     #RAZZLE_INTERNAL_API_PATH: "http://plone:8080/Plone"
 
   frontend-production:
+    env_file:
+      - ./.env
     depends_on:
       - lb
-    image: tiberiuichim/vanabbe:1.83
+    image: tiberiuichim/vanabbe:1.90
     profiles: ["production"]
 
   plone:
     depends_on:
       - lb
-    image: tiberiuichim/vanabbe-backend:6.0.0-6
+    image: tiberiuichim/vanabbe-backend:6.0.0-7
     # depends_on:
     # - zeo
     environment:
       ZEO_ADDRESS: zeo:8100
+      # ADDONS: "kitconcept.seo"
       # ADDONS: "collective.volto.cookieconsent collective.volto.formsupport"
       #/app/src/collective.previewimage -e
       DEVELOP: "/app/src/intk_vanabbe"

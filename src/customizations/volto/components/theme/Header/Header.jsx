@@ -63,7 +63,7 @@ const Header = (props) => {
                       <LanguageSelector />
                     </div>
 
-                    <div className="computer large screen widescreen only">
+                    <div className="">
                       <AccessibilityHelper />
                     </div>
                   </div>

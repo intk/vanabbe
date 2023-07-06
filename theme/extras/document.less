@@ -37,7 +37,17 @@ p {
   line-height: @textLineHeight;
 }
 
+table p:last-child {
+  // fix paragraphs in tables
+  margin-bottom: unset;
+}
+
 .content-wrapper {
+  table p:last-child {
+    // fix paragraphs in tables
+    margin-bottom: unset;
+  }
+
   p:last-child {
     margin-bottom: var(--space-md);
   }
@@ -103,12 +113,14 @@ ol {
   margin-bottom: var(--space-s);
 
   li {
+    margin-bottom: 1em;
     font-size: @desktopBodyFontSize;
     letter-spacing: @letterSpacing;
-    line-height: @listDesktopLineHeight !important;
+    line-height: 1.5em;
+    // line-height: @listDesktopLineHeight !important;
 
     @media only screen and (max-width: @largestTabletScreen) {
-      line-height: @listTabletLineHeight;
+      // line-height: @listTabletLineHeight;
     }
   }
 }

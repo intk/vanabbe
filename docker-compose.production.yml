@@ -1,0 +1,44 @@
+version: "3"
+
+services:
+  zeo:
+    restart: always
+
+  plone:
+    restart: always
+    deploy:
+      replicas: 3
+#   ports:
+#     - "8080:8080"
+    environment:
+      CORS_ALLOW_ORIGIN: "http://localhost:3000,http://new.vanabbemuseum.nl,https://new.vanabbemuseum.nl"
+
+  worker:
+    restart: always
+#   ports:
+#     - "8090:8080"
+
+  frontend:
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      DEBUG: "superagent"
+      DEBUG_HPM: "debug"
+      API_PATH: "https://new.vanabbemuseum.nl"
+
+  frontend-production:
+    restart: always
+    environment:
+      API_PATH: "https://vanabbemuseum.nl"
+
+  ofelia:
+    restart: always
+
+  lb:
+    restart: always
+    ports:
+      # The Web UI (enabled by --api.insecure=true)
+      - "8080:8080"
+      # the lb entrypoint
+      - "8090:8090"

@@ -1,7 +1,14 @@
 import { UniversalLink } from '@plone/volto/components';
 import { ListingBlockHeader } from '@package/components';
+import { HashLink } from 'react-router-hash-link';
 
 import './less/az-listing.less';
+
+const scrollWithOffset = (el) => {
+  const yCoordinate = el.getBoundingClientRect().top + window.pageYOffset;
+  const yOffset = -80;
+  window.scrollTo({ top: yCoordinate + yOffset, behavior: 'smooth' });
+};
 
 const AgendaListingTemplate = (data) => {
   const { items = [], titleField } = data;
@@ -25,9 +32,14 @@ const AgendaListingTemplate = (data) => {
         {Object.keys(groups)
           .sort()
           .map((letter) => (
-            <a key={letter} href={`#g-${letter}`}>
+            <HashLink
+              smooth
+              key={letter}
+              elementId={`g-${letter}`}
+              scroll={scrollWithOffset}
+            >
               {letter}
-            </a>
+            </HashLink>
           ))}
       </div>
 
