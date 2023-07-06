@@ -1,0 +1,2325 @@
+/*BASIC STYLES FOR FORM 2.0*/
+@import url(https://fonts.googleapis.com/css?family=Open + Sans);
+
+BODY {
+  background-color: #f3f3f3;
+  font-family: 'Open Sans', Arial, sans-serif;
+  font-size: 13px;
+}
+
+DIV,
+SPAN,
+INPUT,
+TD,
+LI,
+UL,
+FONT {
+  font-family: 'Open Sans', Arial, sans-serif;
+}
+
+a {
+  color: #000000;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+.divMain {
+  max-width: 640px;
+  margin-right: auto;
+  margin-left: auto;
+  background-color: #ffffff;
+}
+
+.divMainInner {
+  width: 100%;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.divHeader {
+  position: relative;
+}
+
+.divCaption {
+  position: relative;
+  padding: 7px;
+  border-bottom: 1px solid #999999;
+  background-color: #0072c6;
+  color: #ffffff;
+  font-size: 22px;
+  letter-spacing: -1px;
+  text-align: center;
+}
+
+.divCaptionInner {
+  position: relative;
+  margin-right: 28px;
+  margin-left: 28px;
+  font-size: 20px;
+  letter-spacing: -1px;
+}
+
+.Validation .divCaptionInner,
+.MessageBox .divCaptionInner {
+  margin-right: 0px;
+  margin-bottom: 10px;
+  margin-left: 0px;
+}
+
+.divClose {
+  position: absolute;
+  z-index: 1;
+  top: 10px;
+  right: 10px;
+}
+
+.divIntro,
+.divIntroInner {
+  padding: 15px;
+  padding-right: 10px;
+  padding-left: 10px;
+  border-bottom: 1px solid #d6d6d6;
+  margin-bottom: 10px;
+  font-size: 13px;
+}
+
+.divIntroInner {
+  padding-top: 5px;
+  margin-right: 20px;
+  margin-left: 20px;
+}
+
+.Validation .divIntroInner,
+.MessageBox .divIntroInner {
+  padding-left: 0px;
+  margin-right: 0px;
+  margin-bottom: 0px;
+  margin-left: 0px;
+}
+
+#divLoginIntro {
+  margin-right: 20px;
+  margin-left: 20px;
+}
+
+#divThanksIntro {
+  border-bottom: 0px;
+  margin-right: 20px;
+  margin-bottom: 0px;
+  margin-left: 20px;
+}
+
+#divSubscribeLanguage {
+  position: relative;
+  width: 100%;
+  height: 30px;
+  margin-top: 10px;
+}
+
+#divLangSwitchInner {
+  position: absolute;
+  right: 17px;
+  width: 222px;
+}
+
+#divSubscribeSteps {
+  position: relative;
+  padding-right: 10px;
+  padding-bottom: 10px;
+  padding-left: 10px;
+  border-bottom: 1px solid #d4d4d4;
+  margin-top: 25px;
+  margin-right: 25px;
+  margin-left: 25px;
+}
+
+.divTabMain25,
+.divTabMain25e,
+.divTabMain50,
+.divTabMain50e,
+.divTabMain100 {
+  position: relative;
+  height: 50px;
+  cursor: pointer;
+  float: left;
+}
+
+.divTabMain25 {
+  width: 20%;
+}
+
+.divTabMain25e {
+  width: 30%;
+}
+
+.divTabMain50 {
+  width: 33%;
+}
+
+.divTabMain50e {
+  width: 34%;
+}
+
+.divTabMain100 {
+  width: 50%;
+}
+
+#divTabCodes .divTabText {
+  left: 50%;
+  width: 80px;
+  margin-left: -40px;
+  text-align: center;
+}
+
+#divTabCodes .divTabBullet {
+  left: 50%;
+  margin-left: -15px;
+}
+
+#divTabCodes .divTabBulletSelectedContainer {
+  left: 50%;
+  margin-left: -15px;
+}
+
+#divTabCodes .divTabBulletSmall {
+  left: 50%;
+  margin-left: -8px;
+}
+
+#divTabAccounts .divTabText {
+  left: 50%;
+  width: 80px;
+  margin-left: -40px;
+  text-align: center;
+}
+
+#divTabAccounts .divTabBullet {
+  left: 50%;
+  margin-left: -15px;
+}
+
+#divTabAccounts .divTabBulletSelectedContainer {
+  left: 50%;
+  margin-left: -15px;
+}
+
+#divTabAccounts .divTabBulletSmall {
+  left: 50%;
+  margin-left: -8px;
+}
+
+#divTabExtra DIV {
+  position: absolute;
+  right: 0;
+  left: auto;
+}
+
+#divTabExtra .divTabBulletSmall {
+  right: 7px;
+}
+
+/*basic styles for TEXT*/
+.divTabText {
+  position: absolute;
+  bottom: 0px;
+  color: #333333;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.divTabNumber {
+  display: none;
+}
+
+/*basic styles for big BULLET*/
+.divTabBullet {
+  position: absolute;
+  z-index: 1000;
+  right: auto;
+  left: 0px;
+  width: 30px;
+  height: 30px;
+  background-color: #d4d4d4;
+  behavior: url(PIE.htc);
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  border-radius: 15px;
+  cursor: pointer;
+}
+
+.divTabBulletSelected {
+  position: absolute;
+  z-index: 1000;
+  right: auto;
+  left: 0px;
+  width: 30px;
+  height: 30px;
+  background-color: #0072c6;
+  behavior: url(PIE.htc);
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  border-radius: 15px;
+  cursor: pointer;
+}
+
+.divTabBulletSelectedContainer {
+  position: absolute;
+  z-index: 1000;
+  right: auto;
+  left: 0px;
+  display: none;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+}
+
+.divHovered .divTabBulletSelectedContainer,
+.divSelected .divTabBulletSelectedContainer {
+  display: block;
+}
+
+/*basic styles for small BULLET*/
+.divTabBulletSmall {
+  position: absolute;
+  z-index: 1001;
+  top: 7px;
+  left: 7px;
+  display: none;
+  width: 16px;
+  height: 16px;
+  background-color: #d4d4d4;
+  behavior: url(PIE.htc);
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  -o-border-radius: 8px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.divTabBulletSmallContainer {
+  display: none;
+}
+
+.divHovered .divTabBulletSmall,
+.divHovered .divTabBulletSmallContainer {
+  display: block;
+}
+
+/*basic styles for STROKES*/
+
+#divTabStrokes {
+  position: absolute;
+  top: 11px;
+  left: 11px;
+  width: 95%;
+  width: -webkit-calc(100% - 26px);
+  width: -moz-calc(100% - 26px);
+  width: -o-calc(100% - 26px);
+  width: calc(100% - 26px);
+  height: 8px;
+}
+
+#divTabStroke {
+  position: absolute;
+  width: 100%;
+  height: 8px;
+  border-top: 1px solid #aeaeae;
+  background-color: #d4d4d4;
+}
+
+#divTabStrokeSelected {
+  position: absolute;
+  top: 0px;
+  height: 8px;
+  border: 0px;
+  background-color: #0072c6;
+}
+
+/*END STYLES FOR NAVI TOP*/
+
+.divPage {
+  position: relative;
+  min-height: 325px;
+  padding-right: 25px;
+  padding-left: 25px;
+}
+
+.pageStep {
+  position: relative;
+}
+
+#divCodes,
+#divAccounts {
+  overflow: auto;
+  clear: both;
+}
+
+.divLabel {
+  display: none;
+  margin-bottom: 4px;
+  font-weight: bold;
+}
+
+.divLabelButtons,
+.divLabelDate,
+.divLabelPost,
+.divLabelLangSwitch {
+  display: block;
+  margin-bottom: 4px;
+  font-weight: bold;
+}
+
+.divLabelLangSwitch {
+  width: 60px;
+  margin-top: 8px;
+  margin-right: 10px;
+  margin-bottom: 0px;
+  float: left;
+  font-size: 11px;
+  line-height: 11px;
+  text-align: right;
+}
+
+.FieldsTitleRequired {
+  color: #0072c6;
+}
+
+.Required {
+  color: #0072c6;
+}
+
+#divNameFields_BF,
+#divGenderButtons_BF,
+#divNameFields_EF,
+#divGenderButtons_EF,
+#divZipCity_EF,
+#divStreetNumber_EF,
+#divZipCity_BF,
+#divStreetNumber_BF {
+  position: relative;
+  width: 100%;
+  margin-bottom: 8px;
+  clear: both;
+}
+
+#divGenderMale_BF,
+#divGenderFemale_BF,
+#divGenderMale_EF,
+#divGenderFemale_EF {
+  float: left;
+}
+
+#divFieldFirstName_BF,
+#divFieldFirstName_EF {
+  padding: 0px;
+  margin: 0px;
+  float: left;
+}
+
+/*For compatibility with IE7, force the width to 100%*/
+#BF_First_name,
+#EF_First_name,
+#BF_Name_prefix,
+#EF_Name_prefix,
+#EF_Name,
+#BF_Name,
+#EF_Emailaddress,
+#BF_Emailaddress {
+  width: 100% !important;
+}
+
+#divFieldFirstName_BF SPAN,
+#divFieldFirstName_EF SPAN {
+  width: 100% !important;
+}
+
+#divFieldNamePrefix_BF,
+#divFieldNamePrefix_EF {
+  width: 18% !important;
+  width: -webkit-calc(20% - 10px) !important;
+  width: -moz-calc(20% - 10px) !important;
+  width: -o-calc(20% - 10px) !important;
+  width: calc(20% - 10px) !important;
+  padding-right: 5px;
+  padding-left: 5px;
+  float: left;
+}
+
+#divFieldNamePrefixNF_BF,
+#divFieldNamePrefixNF_EF {
+  width: 18% !important;
+  width: -webkit-calc(20% - 5px) !important;
+  width: -moz-calc(20% - 5px) !important;
+  width: -o-calc(20% - 5px) !important;
+  width: calc(20% - 5px) !important;
+  padding-right: 5px;
+  float: left;
+}
+
+#divFieldNamePrefixNN_BF,
+#divFieldNamePrefixNN_EF {
+  width: 18% !important;
+  width: -webkit-calc(20% - 5px) !important;
+  width: -moz-calc(20% - 5px) !important;
+  width: -o-calc(20% - 5px) !important;
+  width: calc(20% - 5px) !important;
+  padding-left: 5px;
+  float: left;
+}
+
+#divFieldNamePrefixNP_BF,
+#divFieldNamePrefixNP_EF {
+  width: 20% !important;
+  float: left;
+}
+
+#divFieldLastName_BF,
+#divFieldLastName_EF {
+  width: 40%;
+  float: right;
+}
+
+#divFieldZipcode_EF,
+#divFieldZipcode_BF {
+  width: 13% !important;
+  width: -webkit-calc(14% - 5px) !important;
+  width: -moz-calc(14% - 5px) !important;
+  width: -o-calc(14% - 5px) !important;
+  width: calc(14% - 5px) !important;
+  margin-right: 5px;
+  float: left;
+}
+
+#divFieldCity_EF,
+#divFieldCity_BF {
+  width: 86% !important;
+  float: right;
+}
+
+#divFieldStreet_EF,
+#divFieldStreet_BF {
+  width: 86% !important;
+  width: -webkit-calc(87% - 5px) !important;
+  width: -moz-calc(87% - 5px) !important;
+  width: -o-calc(87% - 5px) !important;
+  width: calc(87% - 5px) !important;
+  margin-right: 5px;
+  float: left;
+}
+
+#divFieldNumber_EF,
+#divFieldNumber_BF {
+  width: 13% !important;
+  float: right;
+}
+
+.divPostNL #divFieldStreet_EF,
+.divPostNL #divFieldStreet_BF,
+.divPostNL #divFieldNumber_EF,
+.divPostNL #divFieldNumber_BF,
+.divPostNL #divFieldZipcode_EF,
+.divPostNL #divFieldZipcode_BF,
+.divPostNL #divFieldCity_EF,
+.divPostNL #divFieldCity_BF {
+}
+
+.divPostNL #divFieldNumber_EF,
+.divPostNL #divFieldNumber_BF {
+  position: absolute;
+  left: 82px;
+}
+
+.divPostNL #divFieldStreet_EF,
+.divPostNL #divFieldStreet_BF {
+  position: relative;
+  z-index: 200;
+  top: 44px;
+  width: 100% !important;
+  margin-top: 2px;
+  margin-bottom: 4px;
+}
+
+.divPostNL #divFieldZipcode_EF,
+.divPostNL #divFieldZipcode_BF {
+  position: relative;
+  top: -53px;
+}
+
+.divPostNL #divFieldCity_EF,
+.divPostNL #divFieldCity_BF {
+  position: relative;
+  width: 100% !important;
+}
+
+.divFieldNonWrapped {
+  margin-bottom: 8px;
+}
+
+.divFieldButtons {
+  margin-bottom: 0px;
+}
+
+.divFieldRequired INPUT,
+.divFieldRequired TEXTAREA {
+  color: #0072c6 !important;
+}
+
+.RadInput INPUT {
+  height: auto !important;
+  padding: 10px !important;
+  border: 1px solid #d4d4d4 !important;
+  font-size: 13px !important;
+}
+
+.RadInput .riDisabled {
+  color: #e9e9e9 !important;
+}
+
+.FieldCombolist_Input {
+  position: absolute;
+  top: 0px;
+  margin-left: 5px !important;
+  color: #333333 !important;
+  font-size: 13px !important;
+}
+
+.FieldCombolist .rcbEmptyMessage {
+  color: #a5a5a5 !important;
+}
+
+.divFieldRequired .rcbEmptyMessage {
+  color: #0072c6 !important;
+}
+
+.FieldCombolist {
+  position: relative;
+  height: 34px !important;
+}
+
+.RadComboBoxDropDown {
+  font-size: 13px !important;
+}
+
+.RadInput TEXTAREA {
+  padding: 10px !important;
+  padding-bottom: 4px !important;
+  border: 1px solid #d4d4d4 !important;
+  font-size: 13px !important;
+}
+
+.FieldsCombolist INPUT,
+.RadComboBoxDropDown LI {
+  font-family: 'Open Sans', Arial, sans-serif !important;
+  font-size: 13px !important;
+}
+
+.cmdCode,
+.cmdGender,
+.cmdCodeAll,
+.cmdAccount,
+.cmdAccountAll,
+.cmdTextHTML,
+.cmdBool,
+.cmdCodeAllSelected,
+.cmdAccountAllSelected,
+.cmdCombo,
+.cmdComboSelected,
+.cmdPostfilter,
+.cmdPostfilterSelected,
+.cmdLanguage,
+.cmdLanguageSelected,
+.cmdLangSwitch,
+.cmdLangSwitchSelected,
+.cmdPrivacy,
+.cmdPrivacySelected {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  padding: 0px !important;
+  padding: 0px !important;
+  margin: 8px;
+  background-color: #4da7dd !important;
+  background-position: center 15px !important;
+  background-repeat: no-repeat !important;
+  color: #ffffff !important;
+  cursor: pointer !important;
+  float: left;
+  font-size: 11px !important;
+  font-weight: normal !important;
+  line-height: 11px;
+}
+
+.cmdGender,
+.cmdTextHTML,
+.cmdBool,
+.cmdCombo,
+.cmdPostfilter,
+.cmdLanguage,
+.cmdPrivacy {
+  width: 70px;
+  height: 70px;
+  margin: 0px;
+  margin-right: 8px;
+  background-position: center 13px;
+}
+
+.cmdLangSwitch,
+.cmdLangSwitchSelected {
+  width: 30px;
+  height: 30px;
+  margin: 0px;
+  margin-right: 8px;
+  background-image: none;
+}
+
+.cmdCombo,
+.cmdBool,
+.cmdLanguage,
+.cmdTextHTML {
+  margin-right: 8px !important;
+  margin-bottom: 8px;
+}
+
+.cmdCodeAll,
+.cmdAccountAll {
+  background-color: #d4d4d4 !important;
+  color: #666666 !important;
+}
+
+.cmdCode .rbText,
+.cmdGender .rbText,
+.cmdCodeAll .rbText,
+.cmdAccount .rbText,
+.cmdAccountAll .rbText,
+.cmdGenderSelected .rbText,
+.cmdCodeSelected .rbText,
+.cmdCodeAllSelected .rbText,
+.cmdAccountSelected .rbText,
+.cmdAccountAllSelected .rbText,
+.cmdTextHTML .rbText,
+.cmdTextHTMLSelected .rbText,
+.cmdBool .rbText,
+.cmdBoolSelected .rbText,
+.cmdCombo .rbText,
+.cmdComboSelected .rbText,
+.cmdPostfilter .rbText,
+.cmdPostfilterSelected .rbText,
+.cmdLanguage .rbText,
+.cmdLanguageSelected .rbText,
+.cmdLangSwitch .rbText,
+.cmdLangSwitchSelected .rbText,
+.cmdPrivacy .rbText,
+.cmdPrivacySelected .rbText {
+  position: absolute;
+  bottom: 4px;
+  left: 12px;
+  padding-right: 12px;
+  color: #ffffff !important;
+  font-size: 11px;
+  font-weight: normal !important;
+  line-height: 11px;
+  text-align: left;
+}
+
+.cmdLangSwitch .rbText,
+.cmdLangSwitchSelected .rbText {
+  position: absolute;
+  top: 50%;
+  left: 0px;
+  width: 30px !important;
+  padding-right: 12px;
+  margin-top: -7px;
+  font-size: 14px;
+  font-weight: bold !important;
+  line-height: 11px;
+  text-align: center;
+}
+
+.cmdGender .rbText,
+.cmdGenderSelected .rbText,
+.cmdTextHTML .rbText,
+.cmdTextHTMLSelected .rbText,
+.cmdBool .rbText,
+.cmdBoolSelected .rbText,
+.cmdCombo .rbText,
+.cmdComboSelected .rbText,
+.cmdPostfilter .rbText,
+.cmdPostfilterSelected .rbText,
+.cmdLanguage .rbText,
+.cmdLanguageSelected .rbText,
+.cmdPrivacy .rbText,
+.cmdPrivacySelected .rbText {
+  left: 7px;
+  font-weight: normal !important;
+}
+
+.cmdCodeSelected,
+.cmdGenderSelected,
+.cmdAccountSelected,
+.cmdTextHTMLSelected,
+.cmdBoolSelected,
+.cmdComboSelected,
+.cmdPostfilterSelected,
+.cmdLanguageSelected,
+.cmdLangSwitchSelected,
+.cmdPrivacySelected {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  padding: 0px !important;
+  margin: 8px;
+  background-color: #0072c6 !important;
+  background-position: center 15px;
+  background-repeat: no-repeat !important;
+  color: #ffffff !important;
+  cursor: pointer !important;
+  float: left;
+  font-size: 11px !important;
+  font-weight: bold;
+  line-height: 11px;
+}
+
+.cmdGenderSelected,
+.cmdTextHTMLSelected,
+.cmdBoolSelected,
+.cmdComboSelected,
+.cmdPostfilterSelected,
+.cmdLanguageSelected,
+.cmdPrivacySelected {
+  width: 70px;
+  height: 70px;
+  margin: 0px;
+  margin-right: 8px;
+  background-position: center 13px;
+}
+
+.cmdLangSwitchSelected {
+  width: 30px;
+  height: 30px;
+  margin: 0px;
+  margin-right: 8px;
+  background-position: center 13px;
+}
+
+.divReasonText {
+  width: 80px;
+  margin: 8px;
+  float: left;
+}
+
+.txtReason {
+  width: 100px !important;
+  height: 100px !important;
+  margin: 0px !important;
+}
+
+.divButtonsMain {
+  overflow: hidden;
+  height: auto;
+  padding: 13px;
+  background-color: #dfdfe0;
+}
+
+.divButtonCancel,
+.divButton,
+.divButtonUnsubscribe {
+  margin-right: 5px;
+  float: left;
+}
+
+.divButtonNext {
+  float: right;
+}
+
+.divCredits {
+  padding-top: 5px;
+  color: #999999;
+  font-size: 10px;
+  text-align: right;
+}
+
+.divCredits a {
+  color: #999999 !important;
+  text-decoration: none !important;
+}
+
+.divFooter {
+  background-color: #f3f3f3;
+}
+
+#divSubscribeFooter {
+  position: relative;
+}
+
+.divLogin {
+  padding-right: 10px;
+  padding-bottom: 10px;
+  text-align: right;
+}
+
+.divLogin a {
+  color: #333333;
+}
+
+#divSubscribeCredits {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+}
+
+.divClear {
+  clear: both;
+  font-size: 0px;
+}
+
+.ButtonCancel .rbPrimaryIcon,
+.ButtonCancelSelected .rbPrimaryIcon,
+.ButtonBack .rbPrimaryIcon,
+.ButtonBackSelected .rbPrimaryIcon {
+  background-position: 0px 1px !important;
+}
+
+.ButtonNext .rbSecondaryIcon,
+.ButtonNextSelected .rbPrimaryIcon,
+.ButtonNextImp .rbSecondaryIcon,
+.ButtonNextImpSelected .rbPrimaryIcon {
+  position: absolute !important;
+  height: 100% !important;
+  margin-right: 4px !important;
+  background-position: 0px 1px !important;
+}
+
+.ButtonNext,
+.ButtonNextSelected,
+.ButtonCancel,
+.ButtonCancelSelected,
+.ButtonBack,
+.ButtonBackSelected {
+  min-width: initial !important;
+  padding: 4px !important;
+  padding-right: 30px !important;
+  padding-left: 10px !important;
+  border: 0px !important;
+  background-color: #4da7dd !important;
+  color: #ffffff !important;
+  font-size: 12px !important;
+}
+
+.ButtonNextSubmit {
+  height: auto !important;
+  padding: 4px !important;
+  padding-right: 30px !important;
+  padding-left: 10px !important;
+}
+
+.ButtonCancel {
+  padding: 4px !important;
+  padding-right: 10px !important;
+  padding-left: 30px !important;
+  background-image: none !important;
+}
+
+.ButtonCancel .rbIcon {
+  position: absolute !important;
+  left: 10px;
+  height: 100% !important;
+  margin-right: 4px !important;
+  background-position: 0px 1px !important;
+}
+
+.ButtonBack {
+  background-color: #d4d4d4 !important;
+  color: #333333 !important;
+}
+
+.ButtonNext,
+.ButtonNextSelected {
+  background-color: #0072c6 !important;
+}
+
+.ButtonNextSubmit INPUT {
+  height: auto !important;
+  padding-left: 0px !important;
+  color: #ffffff !important;
+  font-family: 'Open Sans', Arial, sans-serif !important;
+  font-family: Verdana !important;
+  font-size: 12px !important;
+  line-height: 16px !important;
+}
+
+.divValHeader {
+  color: #ffffff;
+  font-size: 18px;
+}
+
+.Validation,
+.MessageBox {
+  min-height: 40px;
+  padding: 10px;
+  padding-left: 60px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  background-position: 15px 15px;
+  background-repeat: no-repeat;
+  color: #ffffff !important;
+}
+
+.Validation {
+  background-color: #c40142;
+  background-image: url(images/validation.png);
+}
+
+.MessageBox {
+  background-color: #0072c6;
+  background-image: url(images/message.png);
+}
+
+.Validation .divIntroInner,
+.MessageBox .divIntroInner {
+  padding-bottom: 0px;
+  border-bottom: 0px;
+}
+
+.Validation IMG,
+.Message IMG {
+}
+
+#divLoginMain .Validation,
+#divLoginMain .MessageBox {
+  margin-top: 0px;
+  margin-right: 20px;
+  margin-bottom: 20px;
+  margin-left: 20px;
+}
+
+#divThanksMain .Validation,
+#divThanksMain .MessageBox {
+  margin-top: 0px;
+  margin-right: 30px;
+  margin-bottom: 12px;
+  margin-left: 30px;
+}
+
+.divStateFields {
+  display: none;
+}
+
+.divPanel {
+  margin: 20px;
+  margin-top: 20px;
+}
+
+#divThanksReason {
+  margin-top: 20px;
+}
+
+#divThanksReason .divIntro {
+  margin-left: 20px;
+}
+
+#divThanksReason .divPage {
+  min-height: inherit !important;
+  padding: 20px;
+  padding-top: 0px;
+  padding-bottom: 12px;
+}
+
+#divThanksUnsubscribe {
+  margin-top: 20px;
+}
+
+#divThanksUnsubscribe .divIntro {
+  margin-left: 20px;
+}
+
+#divThanksUnsubscribe .divPage {
+  min-height: inherit !important;
+  padding: 20px;
+  padding-top: 0px;
+  padding-bottom: 12px;
+}
+
+#divThanksBack {
+  position: absolute;
+  top: 9px;
+  left: 15px;
+}
+
+#divLoginEmailMain,
+#divLoginCodeMain {
+  margin-right: 20px;
+  margin-left: 20px;
+}
+
+#divLoginCodeMain {
+  margin-top: 8px;
+}
+
+#divLoginButtons {
+  margin-top: 20px;
+}
+
+.PostFiltered {
+  margin-top: 8px;
+}
+
+/*DATE styles when not HTML5 supported*/
+.divDateDay {
+  width: 45px;
+  margin-right: 5px;
+  float: left;
+}
+
+.divDateMonth {
+  width: 45px;
+  margin-right: 5px;
+  float: left;
+}
+
+.divDateYear {
+  width: 55px;
+  float: left;
+}
+
+/* MAF */
+#divMafFields {
+  margin: 20px;
+  color: #000000;
+  font-family: 'Open Sans', Arial, sans-serif;
+  font-size: 13px;
+}
+
+#divMafIntro {
+  margin-right: 20px;
+  margin-left: 20px;
+}
+
+.divFieldMaf {
+  font-weight: bold;
+}
+
+.divLabelMaf {
+  display: block;
+  width: 100px;
+  float: left;
+  font-weight: normal;
+}
+
+#divMafAddressesMain {
+  margin-top: 10px;
+}
+
+#divSubscribeStatements a {
+  color: #999999;
+}
+
+.RadMultiPage {
+  box-sizing: border-box;
+}
+
+.RadMultiPage .rmpView {
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.RadMultiPage .rmpView > iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.RadMultiPage .rmpHidden {
+  display: none !important;
+}
+
+BODY,
+TD {
+  color: #333366;
+  font-family: Verdana, Helvetica, sans-serif;
+  font-size: 11px;
+}
+
+.Kop {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.Message {
+  color: red;
+  font-weight: bold;
+}
+
+.Introductie {
+  font-weight: bold;
+}
+
+A:link {
+  color: RED;
+  font-family: Verdana, Helvetica, sans-serif;
+  text-decoration: none;
+}
+
+A:visited {
+  color: RED;
+  font-family: Verdana, Helvetica, sans-serif;
+  text-decoration: none;
+}
+
+A:hover {
+  color: RED;
+  font-family: Verdana, Helvetica, sans-serif;
+  text-decoration: underline;
+}
+
+.FieldsRequired {
+  color: red;
+}
+
+#frmSubscribeForm {
+  width: 400px;
+}
+
+#frmSubscribeClose {
+  text-align: center;
+}
+
+#frmSubscribeCredits {
+  font-size: 10px;
+  text-align: center;
+}
+
+BODY,
+TD {
+  padding: 0px !important;
+  margin: 0px !important;
+  background-color: #f5f5f5 !important;
+  color: #1a1a1a !important;
+  font-family: 'toekomstbook', Georgia, Verdana, Helvetica, sans-serif !important;
+  font-size: 12px !important;
+  letter-spacing: normal !important;
+}
+
+FONT,
+SPAN,
+DIV,
+TD,
+P,
+INPUT,
+TEXTAREA,
+.RadInput,
+.riTextBox,
+.riEmpty,
+.txtEmptyMessage,
+.RadInput INPUT,
+A {
+  font-family: 'toekomstbook', Georgia, Verdana, Helvetica, sans-serif !important;
+  font-size: 12px !important;
+  letter-spacing: normal !important;
+}
+
+B,
+STRONG {
+  font-family: 'toekomstmedium', Georgia, Verdana, Helvetica, sans-serif !important;
+  font-size: 12px !important;
+}
+
+A {
+  color: RED !important;
+  text-decoration: none !important;
+}
+
+A:hover {
+  color: RED !important;
+  text-decoration: underline !important;
+}
+
+/*V2.0*/
+.divCaption {
+  background-color: #000000 !important;
+}
+
+.divCaption SPAN {
+  font-size: 20px !important;
+}
+
+.divIntro SPAN {
+  letter-spacing: normal !important;
+}
+
+.divTabBulletSelected {
+  background-color: #000000 !important;
+}
+
+#divTabStrokeSelected {
+  background-color: #000000 !important;
+}
+
+.txtEmptyMessage {
+  color: gray !important;
+}
+
+#SubscribeBody .FieldsTitleRequired {
+  color: #000000 !important;
+}
+
+#SubscribeBody .Required {
+  color: #000000 !important;
+}
+
+.divFieldRequired INPUT {
+  color: #000000 !important;
+}
+
+.divFieldRequired INPUT.txtEmptyMessage {
+  color: gray !important;
+}
+
+.cmdCode,
+.cmdGender,
+.cmdAccount,
+.cmdTextHTML,
+.cmdBool,
+.cmdPostfilter,
+.cmdLangSwitch,
+.cmdCombo {
+  width: 100px !important;
+  height: 100px !important;
+  background-color: #d6d6d6 !important;
+  background-position: center 13px !important;
+  color: #777777 !important;
+}
+
+.cmdCodeSelected,
+.cmdGenderSelected,
+.cmdAccountSelected,
+.cmdTextHTMLSelected,
+.cmdBoolSelected,
+.cmdPostfilterSelected,
+.cmdLangSwitchSelected,
+.cmdComboSelected {
+  width: 100px !important;
+  height: 100px !important;
+  background-color: #000000 !important;
+  background-position: center 13px !important;
+  color: #ffffff !important;
+}
+
+.cmdGender {
+  width: 60px !important;
+  height: 60px !important;
+  background-position: center 7px !important;
+}
+
+.cmdGenderSelected {
+  width: 60px !important;
+  height: 60px !important;
+  background-position: center 7px !important;
+}
+
+.cmdAccount,
+.cmdAccountSelected {
+  background-position: 0px 0px !important;
+}
+
+.cmdAccount .rbText,
+.cmdAccountSelected .rbText {
+  bottom: 0px !important;
+  left: 0px !important;
+  width: 100px !important;
+  height: 19px !important;
+  padding: 0px !important;
+  padding-top: 6px !important;
+  margin: 0px !important;
+  background-color: #ffffff !important;
+  color: #000000 !important;
+  font-size: 11px !important;
+  text-align: center !important;
+}
+
+.cmdCodeAll,
+.cmdAccountAll {
+  background-color: #c0c0c0 !important;
+  color: #717171 !important;
+}
+
+.ButtonNext,
+.ButtonNextSelected,
+.ButtonCancel,
+.ButtonCancelSelected {
+  background-color: #000000 !important;
+}
+
+#frmSubscribeForm {
+  position: relative !important;
+  max-width: 640px !important;
+  margin-right: auto !important;
+  margin-left: auto !important;
+  background-color: #ffffff !important;
+}
+
+#frmSubscribeCaption {
+  position: relative !important;
+  position: relative !important;
+  padding: 7px !important;
+  padding-right: 30px !important;
+  padding-left: 30px !important;
+  border-bottom: 1px solid #999999 !important;
+  border-bottom: 1px solid #999999 !important;
+  margin-bottom: 70px !important;
+  background-color: #000000 !important;
+  color: #ffffff !important;
+  font-size: 22px !important;
+  letter-spacing: -1px !important;
+  text-align: center !important;
+}
+
+#litContent_intro {
+  position: absolute !important;
+  top: 50px !important;
+  left: 15px !important;
+  padding-right: 15px !important;
+  color: #000000 !important;
+  font-size: 13px !important;
+  letter-spacing: 0px !important;
+  text-align: left !important;
+}
+
+#pnlMainFields {
+  padding-right: 15px !important;
+  padding-left: 15px !important;
+  font-size: 13px !important;
+}
+
+#lblCredits {
+  display: none !important;
+}
+
+#cmdSend {
+  padding: 10px !important;
+  padding-top: 5px !important;
+  padding-bottom: 5px !important;
+  border: 0px !important;
+  background-color: #000000 !important;
+  color: #ffffff !important;
+  cursor: pointer !important;
+  font-size: 13px !important;
+}
+
+#frmSubscribeButtons {
+  padding: 13px !important;
+  background-color: #dfdfe0 !important;
+}
+
+#pnlMainFields INPUT,
+#pnlMainFields TEXTAREA {
+  height: auto !important;
+  padding-top: 10px !important;
+  padding-right: 10px !important;
+  padding-bottom: 4px !important;
+  padding-bottom: 10px !important;
+  padding-left: 10px !important;
+  border: 1px solid #d4d4d4 !important;
+  font-size: 13px !important;
+}
+
+#pnlMainFields SPAN {
+  font-size: 13px !important;
+}
+
+#lblSender {
+  padding-right: 10px !important;
+}
+
+.divCaptionx {
+  display: none !important;
+}
+
+.divPagex {
+  min-height: 310px !important;
+  padding-right: 0px !important;
+  padding-left: 0px !important;
+  margin-right: 0px !important;
+  margin-left: 0px !important;
+}
+
+.divPage {
+  min-height: 270px !important;
+}
+
+.divIntrox {
+  padding: 0px !important;
+  padding-bottom: 10px !important;
+  margin-left: 0px !important;
+}
+
+.divIntro {
+  padding: 0px !important;
+  padding-top: 10px !important;
+  padding-bottom: 10px !important;
+}
+
+/*
+.Kop {
+    font-size: 20px !important;
+    font-weight: bold !important;
+}
+.message {
+   color:red !important;
+   font-weight: bold !important;
+}
+.introductie
+{
+   font-weight:bold !important;
+}
+
+.FieldsRequired {color:red !important;}
+
+#frmSubscribeForm
+{
+}
+#frmSubscribeClose
+{
+text-align:center !important;
+}
+#frmSubscribeCredits
+{
+TEXT-ALIGN:center !important;
+FONT-SIZE: 10px !important;
+}
+.FieldsName
+{
+vertical-align: top !important;
+}
+#frmSubscribeCaption
+{
+margin-top: -23px !important;
+}
+*/
+.cmdCode .rbText,
+.cmdGender .rbText,
+.cmdCodeAll .rbText,
+.cmdAccount .rbText,
+.cmdAccountAll .rbText,
+.cmdTextHTML .rbText,
+.cmdBool .rbText,
+.cmdCombo .rbText,
+.cmdPostfilter .rbText,
+.cmdLanguage .rbText,
+.cmdLangSwitch .rbText,
+.cmdPrivacy .rbText {
+  color: #595959 !important;
+}
+
+.RadButton {
+  display: inline-block;
+  cursor: pointer;
+  font: inherit;
+  line-height: 1.42857143;
+  outline: 0;
+  vertical-align: top;
+}
+
+.RadButton::-moz-focus-inner {
+  padding: 0;
+  border: 0;
+  outline: 0;
+}
+
+.rbButton {
+  position: relative;
+  min-width: 64px;
+  padding: 4px 10px;
+  border-width: 1px;
+  border-style: solid;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.rbIconOnly {
+  min-width: 0;
+  padding: 4px;
+}
+
+.RadButton.rbRounded {
+  border-radius: 4px;
+}
+
+.RadButton .rbIcon {
+  position: relative;
+  width: 16px;
+  height: 16px;
+  background-repeat: no-repeat;
+  vertical-align: -2px;
+}
+
+.RadButton .rbIcon::before {
+  display: inline-block;
+  font: 16px/1 'WebComponentsIcons';
+}
+
+.RadButton .rbPrimaryIcon {
+  margin: 0 5px 0 0;
+}
+
+.RadButton .rbSecondaryIcon {
+  margin: 0 0 0 5px;
+}
+
+.RadButton.rbPrimary,
+.RadButton.rbSecondary {
+  position: relative;
+}
+
+.RadButton.rbPrimary .rbIcon,
+.RadButton.rbSecondary .rbIcon {
+  position: absolute;
+}
+
+.RadButton.rbButton.rbPrimary {
+  padding-left: 1.5em;
+}
+
+.RadButton.rbButton.rbPrimary .rbText {
+  margin-left: 10px;
+}
+
+.RadButton.rbButton.rbSecondary {
+  padding-right: 1.5em;
+}
+
+.RadButton.rbButton.rbSecondary .rbText {
+  margin-right: 10px;
+}
+
+.RadButton.rbPrimary .rbPrimaryIcon {
+  left: 10px;
+}
+
+.RadButton.rbSecondary .rbSecondaryIcon {
+  right: 10px;
+}
+
+.RadButton .rbCustomIcon {
+  background-repeat: no-repeat;
+}
+
+.RadButton .rbText {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.RadButton.rbCheckBox .rbIcon,
+.RadButton.rbToggleButton .rbIcon,
+.RadButton.rbRadioButton .rbIcon {
+  margin: 0 5px 0 0;
+}
+
+.RadButton .rbToggleRadio,
+.RadButton .rbToggleRadio:before,
+.RadButton .rbToggleRadioChecked,
+.RadButton .rbToggleRadioChecked:before {
+  border-radius: 45px;
+}
+
+.RadButton.rbButton span.rbIcon:before {
+  box-shadow: none;
+}
+
+.RadButton + .RadLabel {
+  margin-left: -3px;
+  vertical-align: bottom;
+}
+
+.RadButton .rbSplitPart {
+  position: absolute;
+  top: -1px;
+  display: inline-block;
+  overflow: hidden;
+  padding: 4px;
+  border-width: 1px;
+  border-style: solid;
+  cursor: pointer;
+}
+
+.RadButton .rbSplitPartRight {
+  right: -1px;
+  border-radius: 0 0.21428571em 0.21428571em 0;
+}
+
+.RadButton .rbSplitPartLeft {
+  left: -1px;
+  border-radius: 0.21428571em 0 0 0.21428571em;
+}
+
+.RadButton .rbSplitPartLeft + .rbText {
+  padding: 0 0 0 1.78571429em;
+}
+
+.RadButton .rbSplitPartRight + .rbText {
+  padding: 0 1.78571429em 0 0;
+}
+
+.RadButton .rbSplitIcon {
+  width: auto;
+  height: auto;
+  vertical-align: top;
+}
+
+.RadButton span.rbSplitIcon:before {
+  display: inline-block;
+  line-height: 0.9;
+  vertical-align: middle;
+}
+
+.RadButton.rbButton.rbImageButton {
+  min-width: 0;
+  border: 0 none;
+  background-color: transparent;
+  background-image: none;
+  background-repeat: no-repeat;
+  border-radius: 0;
+}
+
+.RadButton.rbDisabled {
+  cursor: default;
+  opacity: 0.5;
+}
+
+.RadButton.rbRtl .rbIcon {
+  margin: 0 -5px 0 5px;
+}
+
+.RadButton.rbRtl .rbPrimaryIcon {
+  margin: 0 0 0 5px;
+}
+
+.RadButton.rbRtl .rbSecondaryIcon {
+  margin: 0 5px 0 0;
+}
+
+.RadButton.rbRtl .rbSplitPart {
+  border-right-width: 1px;
+  border-right-style: solid;
+  border-right-color: transparent;
+  border-left: 0 none;
+  margin: -0.07142857em 0.35714286em -0.14285714em -0.71428571em;
+  border-radius: 0.21428571em 0 0 0.21428571em;
+}
+
+.RadButton.rbRtl .rbSplitPart .rbIcon {
+  margin: 0.07142857em -0.14285714em 0 0.35714286em;
+}
+
+.RadButton.rbRtl.rbCheckBox .rbIcon,
+.RadButton.rbRtl.rbToggleButton .rbIcon,
+.RadButton.rbRtl.rbRadioButton .rbIcon {
+  margin-right: 0;
+  margin-left: 5px;
+}
+
+.RadButton .rbHiddenImages {
+  position: absolute;
+  top: -9999px;
+  visibility: hidden;
+}
+
+.RadButton .rbHideElement {
+  display: none;
+  overflow: hidden !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
+.rbCheckBox,
+.rbRadioButton,
+.rbToggleButton {
+  padding: 5px 0;
+  border-width: 0;
+  background: 0;
+  color: inherit;
+}
+
+.rbRtl.rbCheckBox,
+.rbRtl.rbRadioButton,
+.rbRtl.rbToggleButton {
+  padding: 5px 0;
+}
+
+.rbAdd:before {
+  content: '\e11e';
+}
+
+.rbRemove:before {
+  content: '\e10c';
+}
+
+.rbOk:before {
+  content: '\e118';
+}
+
+.rbCancel:before {
+  content: '\e11b';
+}
+
+.rbUpload:before {
+  content: '\e133';
+}
+
+.rbDownload:before {
+  content: '\e132';
+}
+
+.rbPrevious:before {
+  content: '\e100';
+}
+
+.rbNext:before {
+  content: '\e101';
+}
+
+.rbOpen:before {
+  content: '\e901';
+}
+
+.rbAttach:before {
+  content: '\e10e';
+}
+
+.rbSave:before {
+  content: '\e109';
+}
+
+.rbConfig:before {
+  content: '\e13c';
+}
+
+.rbPrint:before {
+  content: '\e10a';
+}
+
+.rbRefresh:before {
+  content: '\e103';
+}
+
+.rbSearch:before {
+  content: '\e13e';
+}
+
+.rbHelp:before {
+  content: '\e402';
+}
+
+.rbCart:before {
+  content: '\e143';
+}
+
+.rbEdit:before {
+  content: '\e10b';
+}
+
+.rbRSS:before {
+  content: '\e827';
+}
+
+.rbMail:before {
+  content: '\e809';
+}
+
+.rbFB:before {
+  content: '\e80b';
+}
+
+.rbTwitter:before {
+  content: '\e81f';
+}
+
+.rbLinkedIn:before {
+  content: '\e811';
+}
+
+.rbPinterest:before {
+  content: '\e815';
+}
+
+.rbYouTube:before {
+  content: '\e82b';
+}
+
+.rbVimeo:before {
+  content: '\e829';
+}
+
+.rbBehance:before {
+  content: '\e823';
+}
+
+.rbDribble:before {
+  content: '\e825';
+}
+
+.rbGooglePlus:before {
+  content: '\e80f';
+}
+
+.rbVerticalList {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.rbVerticalList + .rbVerticalList {
+  margin: 0 7px;
+}
+
+.rbVerticalList .rbCheckBox,
+.rbVerticalList .rbRadioButton,
+.rbVerticalList .rbToggleButton {
+  display: block;
+  padding: 0 0 4px;
+}
+
+.rbHorizontalList .RadButton,
+.rbColumnList {
+  padding: 0 7px 0 0;
+}
+
+ul.rbVerticalList,
+ol.rbVerticalList {
+  padding: 0 0 0 15px;
+  margin: 0;
+}
+
+ul.rbVerticalList button.RadButton.rbCheckBox,
+ul.rbVerticalList button.RadButton.rbRadioButton,
+ul.rbVerticalList button.RadButton.rbToggleButton,
+ol.rbVerticalList button.RadButton.rbCheckBox,
+ol.rbVerticalList button.RadButton.rbRadioButton,
+ol.rbVerticalList button.RadButton.rbToggleButton {
+  display: inline-block;
+  vertical-align: baseline;
+}
+
+.RadCheckBoxList_Rtl.rbColumnList,
+.RadRadioButtonList_Rtl.rbColumnList,
+.rbHorizontalList button.RadButton.rbRtl {
+  padding: 0 0 0 7px;
+}
+
+.RadCheckBoxList_Rtl.rbVerticalList,
+.RadRadioButtonList_Rtl.rbVerticalList,
+.RadCheckBoxList_Rtl .rbVerticalList,
+.RadRadioButtonList_Rtl .rbVerticalList {
+  float: right;
+}
+
+ul.RadCheckBoxList_Rtl.rbVerticalList,
+ol.RadCheckBoxList_Rtl.rbVerticalList,
+ul.RadRadioButtonList_Rtl.rbVerticalList,
+ol.RadRadioButtonList_Rtl.rbVerticalList {
+  padding: 0 15px 0 0;
+  white-space: nowrap;
+}
+
+.RadInputMgr {
+  font: inherit;
+}
+
+.RadInput,
+.RadInputMgr {
+  width: 12em;
+  box-sizing: border-box;
+  line-height: 1.42857143;
+  vertical-align: middle;
+}
+
+.t-ie .RadInput,
+.t-ie .RadInputMgr {
+  height: 30px;
+  height: calc(1.42857143em + 10px);
+}
+
+.t-ie .RadInput.RadInputMultiline,
+.t-ie textarea.RadInput_Multiline {
+  height: auto;
+}
+
+.RadInput {
+  position: relative;
+  display: inline-block;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.RadInput .riTextBox {
+  width: 100%;
+  height: inherit;
+  background: none transparent;
+  color: inherit;
+  font: inherit;
+  outline: 0;
+}
+
+.RadInput textarea {
+  overflow: auto;
+  margin: 0;
+  resize: none;
+  vertical-align: bottom;
+  white-space: pre-wrap;
+}
+
+.RadInput.riResizable .riTextBox {
+  min-width: 5.41667em;
+  min-height: 3.33333em;
+}
+
+.RadInput .riResizeIcon {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  margin-left: -7px;
+  vertical-align: bottom;
+}
+
+.RadInput.riResizable .riTextBox {
+  padding-right: 2px;
+}
+
+.RadInput .rfdRoundedContent {
+  width: 100% !important;
+}
+
+.RadInput .rfdRoundedWrapper {
+  table-layout: fixed;
+}
+
+.RadInput .riTextBox,
+.RadInputMgr {
+  padding: 4px 10px;
+  border-width: 1px;
+  border-style: solid;
+  vertical-align: middle;
+}
+
+.RadInputDisabled a,
+.RadInputDisabled .riTextBox {
+  opacity: 0.5;
+}
+
+.RadInputDisabled,
+.RadInputDisabled * {
+  cursor: default;
+}
+
+.RadInput .riEmpty,
+.RadInput_Empty {
+  font-style: italic;
+}
+
+.RadPicker .riTextBox {
+  padding-right: 2.286em;
+}
+
+.RadDateTimePicker .riTextBox {
+  padding-right: 4.572em;
+}
+
+textarea.RadInputMgr {
+  overflow: auto;
+}
+
+.RadInput a {
+  display: block;
+  width: 1.42857143em;
+  height: 100%;
+  padding: 0 4px;
+  border-left-width: 1px;
+  border-left-style: solid;
+  background-clip: padding-box;
+  background-repeat: no-repeat;
+  text-align: center;
+  vertical-align: bottom;
+}
+
+.RadInput a,
+.RadInput a:hover {
+  text-decoration: none;
+}
+
+.RadInput a span {
+  display: none;
+}
+
+.RadInput a .t-ripple-container,
+.RadInput a .t-ripple {
+  display: inline-block;
+}
+
+.RadInput a:before {
+  font: 16px/1 'WebComponentsIcons';
+  vertical-align: middle;
+}
+
+.RadInput a:after {
+  display: inline-block;
+  width: 0;
+  height: 100%;
+  content: '';
+  vertical-align: middle;
+}
+
+.RadInput .riLabel,
+.RadInput .riTextBox,
+.RadInput .riContentWrapper {
+  box-sizing: border-box;
+}
+
+.RadInput .riLabel {
+  overflow: hidden;
+  padding: 5px 10px 5px 0;
+  float: left;
+  text-overflow: ellipsis;
+}
+
+.RadInput .riSelect {
+  position: absolute;
+  top: 1px;
+  right: 1px;
+  bottom: 1px;
+}
+
+.RadInput .riButton {
+  vertical-align: top;
+}
+
+.RadInput .riButton:before {
+  content: '\e018';
+}
+
+.RadInput .riUp,
+.RadInput .riDown {
+  height: 50%;
+}
+
+.RadInput .riUp {
+  vertical-align: top;
+}
+
+.RadInput .riUp:before {
+  content: '\e004';
+  vertical-align: top;
+}
+
+.RadInput .riDown:before {
+  content: '\e006';
+  vertical-align: top;
+}
+
+.RadInput .riContentWrapper {
+  display: block;
+  overflow: hidden;
+  height: inherit;
+  vertical-align: middle;
+}
+
+.RadInputError:after {
+  position: absolute;
+  top: 0;
+  right: 5px;
+  margin-top: 0.5em;
+  content: '\e403';
+  font: 16px/1 'WebComponentsIcons';
+}
+
+.RadPicker .RadInputError:after,
+.RadInputError.riContButton:after,
+.RadInputError.riContSpinButtons:after {
+  right: 34px;
+}
+
+.RadDateTimePicker .RadInputError:after,
+.RadInputError.riContButton.riContSpinButtons:after {
+  right: 63px;
+}
+
+.riContButton a {
+  display: inline-block;
+}
+
+.riContButton .riDown {
+  margin-left: -29px;
+  margin-left: calc(-9px - 1.42857em);
+}
+
+.riContButton.RadInput .riTextBox,
+.riContButton .RadInputMgr {
+  padding-right: calc(1.42857em + 14px);
+}
+
+.riPassIndicator {
+  overflow: hidden;
+  padding-right: 7.5em;
+}
+
+.riPassIndicator .riContentWrapper {
+  display: inline-block;
+}
+
+.riPassIndicator.riContButton .riContentWrapper {
+  position: relative;
+  padding-right: 2em;
+}
+
+.riStrengthBar {
+  display: inline-block;
+  width: 7.143em;
+  height: 1.429em;
+  margin-left: 0.357em;
+  background: linear-gradient(to left, #6c3, #f4cc33 50%, #f33) repeat-y;
+  background-size: 1500px auto;
+  color: #000;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.riStrengthBarL0 {
+  background: 0;
+}
+
+.riStrengthBarL1 {
+  background-color: #ff3933;
+  background-position: 0 0;
+  color: #620000;
+}
+
+.riStrengthBarL2 {
+  background-color: #ff7833;
+  background-position: -300px 0;
+  color: #922b00;
+}
+
+.riStrengthBarL3 {
+  background-color: #ffbe33;
+  background-position: -600px 0;
+  color: #9e5900;
+}
+
+.riStrengthBarL4 {
+  background-color: #dc3;
+  background-position: -900px 0;
+  color: #696400;
+}
+
+.riStrengthBarL5 {
+  background-color: #6bcc33;
+  background-position: 100% 0;
+  color: #236800;
+}
+
+.RadForm.rfdTextbox input.rfdDecorated.RadInputMgr {
+  width: auto;
+}
+
+.RadInputRTL {
+  text-align: right;
+}
+
+.RadInputRTL.riResizable .riTextBox {
+  padding-right: 5px;
+  padding-left: 2px;
+}
+
+.RadInputRTL.riContButton .riResizeIcon {
+  margin-right: -27px;
+  margin-left: 0;
+}
+
+.RadInputRTL .riResizeIcon {
+  margin-right: -7px;
+  margin-left: 0;
+}
+
+.RadInputRTL .riLabel {
+  padding: 5px 0 5px 10px;
+  float: right;
+}
+
+/* custom style  */
+
+body {
+  background-color: #cce7d2 !important;
+}
+
+.divCaption,
+.divButtonsMain,
+.divFooter {
+  background-color: transparent !important;
+}
+
+.divMain {
+  margin-top: 5em;
+  background-color: #cce7d2 !important;
+}
+
+.divCaption {
+  padding: 1.5em 0 !important;
+  border-color: #70008f !important;
+}
+
+.divCaption span {
+  color: #70008f !important;
+  font-size: 30px !important;
+  font-weight: bold;
+}
+
+.divIntroInner {
+  border-color: #70008f !important;
+  color: #70008f !important;
+}
+
+.divIntro {
+  border: none;
+  margin: 1.5em 0 !important;
+}
+
+.divIntro span {
+  color: #70008f !important;
+  font-size: 16px !important;
+}
+
+.RadButton.rbRounded {
+  background-color: #70008f !important;
+  border-radius: 0 !important;
+}
+
+.RadInput .riTextBox {
+  border: none !important;
+  color: #70008f !important;
+  font-size: 16px !important;
+}
+
+.divLogin a {
+  color: #70008f !important;
+  font-size: 15px !important;
+  font-weight: bold;
+}
+
+.divFieldRequired input.txtEmptyMessage {
+  color: #70008f !important;
+}
+
+.RadInput_Default .riTextBox,
+.RadInput_Default .riSelect,
+.RadInput_Default .rcSelect,
+.RadInputMgr_Default {
+  color: #70008f !important;
+}
+
+.RadInput_Default {
+  border: 1px solid #70008f !important;
+}
+
+.divPage {
+  padding: 0 !important;
+}
