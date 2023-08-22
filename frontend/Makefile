@@ -1,5 +1,3 @@
-# Yeoman Volto App development
-
 ### Defensive settings for make:
 #     https://tech.davis-hansson.com/p/make/
 SHELL:=bash
@@ -9,45 +7,45 @@ SHELL:=bash
 .DELETE_ON_ERROR:
 MAKEFLAGS+=--warn-undefined-variables
 MAKEFLAGS+=--no-builtin-rules
+IMAGE_NAME=intk/volto-vanabbemuseum-theme-frontend
+IMAGE_TAG=latest
 
-# Update the versions depending on your project requirements | Last Updated 2022-04-21
-DOCKER_IMAGE=plone/plone-backend:6.0.0a4
-KGS=plone.restapi==8.22.0 plone.volto==4.0.0a4 plone.rest==2.0.0a5 plone.app.iterate==4.0.2 plone.app.vocabularies==4.3.0
 NODEBIN = ./node_modules/.bin
 
-# Project settings
-
-DIR=$(shell basename $$(pwd))
-
-# Recipe snippets for reuse
-
-# We like colors
-# From: https://coderwall.com/p/izxssa/colored-makefile-for-golang-projects
-RED=`tput setaf 1`
-GREEN=`tput setaf 2`
-RESET=`tput sgr0`
-YELLOW=`tput setaf 3`
-
-
-# Top-level targets
-.PHONY: all
-all: project
-
-.PHONY: start-test-backend
-start-test-backend: ## Start Test Plone Backend
-	@echo "$(GREEN)==> Start Test Plone Backend$(RESET)"
-	docker run -i --rm -e ZSERVER_HOST=0.0.0.0 -e ZSERVER_PORT=55001 -p 55001:55001 -e ADDONS='$(KGS) plone.app.robotframework==2.0.0a3 plone.app.testing==7.0.0a2 plone.app.contenttypes' -e APPLY_PROFILES=plone.app.contenttypes:plone-content,plone.restapi:default,plone.volto:default-homepage -e CONFIGURE_PACKAGES=plone.app.contenttypes,plone.restapi,plone.volto,plone.volto.cors $(DOCKER_IMAGE) ./bin/robot-server plone.app.robotframework.testing.PLONE_ROBOT_TESTING
-	## KGS in case you need a Plone 5.2 series (comment/remove above line):
-	# docker run -i --rm -e ZSERVER_HOST=0.0.0.0 -e ZSERVER_PORT=55001 -p 55001:55001 -e ADDONS='$(KGS) plone.app.robotframework==2.0.0a3 plone.app.contenttypes' -e APPLY_PROFILES=plone.app.contenttypes:plone-content,plone.restapi:default,plone.volto:default-homepage -e CONFIGURE_PACKAGES=plone.app.contenttypes,plone.restapi,plone.volto,plone.volto.cors $(DOCKER_IMAGE) ./bin/robot-server plone.app.robotframework.testing.PLONE_ROBOT_TESTING
-
-.PHONY: start-backend-docker
-start-backend-docker:		## Starts a Docker-based backend
-	@echo "$(GREEN)==> Start Docker-based Plone Backend$(RESET)"
-	docker run -it --rm --name=backend -p 8080:8080 -e SITE=Plone -e ADDONS='$(KGS)' $(DOCKER_IMAGE)
-
+# Add the following 'help' target to your Makefile
+# And add help text after each target name starting with '\#\#'
 .PHONY: help
-help:		## Show this help.
-	@echo -e "$$(grep -hE '^\S+:.*##' $(MAKEFILE_LIST) | sed -e 's/:.*##\s*/:/' -e 's/^\(.\+\):\(.*\)/\\x1b[36m\1\\x1b[m:\2/' | column -c2 -t -s :)"
+help: ## This help message
+	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
+
+.PHONY: clean
+clean: ## Clean installation
+	@echo "Clean installation"
+	rm -Rf node_modules
+
+.PHONY: build
+build: install ## Build the frontend
+	@echo "Build Frontend"
+	yarn build
+
+.PHONY: start
+start: ## Start Frontend
+	yarn start
+
+.PHONY: format-prettier
+format-prettier: ## Format Code with Prettier
+	yarn run prettier:fix
+
+.PHONY: format-stylelint
+format-stylelint: ## Format Code with Stylelint
+	yarn run stylelint:fix
+
+.PHONY: format-lint
+format-lint: ## Format Code with Lint
+	yarn run lint:fix
+
+.PHONY: format
+format: format-prettier format-stylelint format-lint ## Format the codebase according to our standards
 
 .PHONY: install
 install: ## Install the frontend
@@ -71,3 +69,34 @@ omelette: ## Creates the omelette folder that contains a link to the installed v
 .PHONY: patches
 patches:
 	/bin/bash patches/patchit.sh > /dev/null 2>&1 ||true
+
+.PHONY: i18n
+i18n: ## Sync i18n
+	yarn i18n
+
+.PHONY: i18n-ci
+i18n-ci: ## Check if i18n is not synced
+	yarn i18n && git diff -G'^[^\"POT]' --exit-code
+
+
+.PHONY: test
+test: ## Run tests
+	CI=true yarn test
+
+.PHONY: storybook
+storybook: ## Generate Storybook
+	yarn storybook
+
+.PHONY: build-image
+build-image:  ## Build Docker Image
+	@DOCKER_BUILDKIT=1 docker build . -t $(IMAGE_NAME):$(IMAGE_TAG) -f Dockerfile
+
+# Acceptance tests
+
+.PHONY: test-acceptance
+test-acceptance: ## Start Core Cypress Acceptance Tests
+	NODE_ENV=production CYPRESS_API=plone $(NODEBIN)/cypress open
+
+.PHONY: test-acceptance-headless
+test-acceptance-headless: ## Start Core Cypress Acceptance Tests in headless mode
+	NODE_ENV=production CYPRESS_API=plone $(NODEBIN)/cypress run
