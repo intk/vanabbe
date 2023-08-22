@@ -1,0 +1,3 @@
+---
+hostname: 'volto-vanabbemuseum-theme'
+fqdn: '{{ hostname }}.localhost'
