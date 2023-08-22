@@ -1,8 +1,9 @@
-import React from 'react';
+// import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { flattenToAppURL } from '@plone/volto/helpers';
-import { getContent } from '@plone/volto/actions';
+// import { getContent } from '@plone/volto/actions';
 
+// eslint-disable-next-line no-unused-vars
 const parent = (path) => {
   if (!path) return;
 
@@ -14,10 +15,12 @@ const parent = (path) => {
 };
 
 const usePreviewImage = (pathname) => {
+  // eslint-disable-next-line no-unused-vars
   const dispatch = useDispatch();
   const contentData = useSelector((state) => state.content.data);
   const contentId = flattenToAppURL(contentData?.['@id'] || '');
   const subrequestId = `${contentId}-preview_image_request}`;
+  // eslint-disable-next-line no-unused-vars
   const subrequest = useSelector(
     (state) => state.content.subrequests?.[subrequestId],
   );

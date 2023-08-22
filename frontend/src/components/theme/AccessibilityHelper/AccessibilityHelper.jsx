@@ -18,7 +18,7 @@ function addRs() {
   oHead.appendChild(oScript);
 
   oScript.onload = function () {
-    console.log('Script has now loaded, initializing ReadSpeaker!');
+    // console.log('Script has now loaded, initializing ReadSpeaker!');
     window.ReadSpeaker.init();
   };
 }

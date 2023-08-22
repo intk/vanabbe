@@ -43,6 +43,7 @@ const ImageAlbum = (props) => {
   );
   const isRequested = !!selectorItems;
 
+  // eslint-disable-next-line no-unused-vars
   const [albumItems, setAlbumItems] = React.useState(selectorItems || items);
   const dispatch = useDispatch();
 
