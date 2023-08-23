@@ -151,7 +151,6 @@ remove-backend:
 .PHONY: remove-all
 remove-all:
 	${DOCKER_CONTEXT} service rm plone_plone
-	${DOCKER_CONTEXT} service rm plone_frontend-production
 	${DOCKER_CONTEXT} service rm plone_frontend
 	${DOCKER_CONTEXT} service rm plone_lb
 	${DOCKER_CONTEXT} service rm plone_ofelia
