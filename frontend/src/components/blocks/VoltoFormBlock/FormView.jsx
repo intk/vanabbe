@@ -44,8 +44,8 @@ const messages = defineMessages({
 
 const Translations = {
   submitLabel: {
-    en: 'Submit',
-    nl: 'Verzenden',
+    en: 'Send',
+    nl: 'Verstuur',
     de: 'Schicken',
   },
   stateNormal: {
