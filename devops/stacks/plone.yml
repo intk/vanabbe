@@ -25,14 +25,14 @@ services:
     image: intkbv/vanabbemuseum-frontend:Bugfixes
 
   plone:
-    # image: intkbv/vanabbemuseum-backend:Bugfixes
-    image: tiberiuichim/vanabbe-backend:6.0.0-7
+    image: intkbv/vanabbemuseum-backend:Bugfixes
+    # image: tiberiuichim/vanabbe-backend:6.0.0-7
     depends_on:
       - lb
     # depends_on:
     #   - zeo
-    # ports:
-    #   - "8080:8080"
+    ports:
+      - "8080:8080"
     environment:
       ZEO_ADDRESS: zeo:8100
       # ADDONS: "kaitconcept.seo"
