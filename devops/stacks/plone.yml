@@ -5,30 +5,25 @@ version: "3"
 # https://github.com/mcuadros/ofelia
 
 services:
-  frontend:
-    image: intkbv/vanabbemuseum-frontend:Bugfixes
-    # profiles: ["production"]
-    env_file:
-      - ./.env
-    ports:
-      - "3000:3000"
-    # depends_on:
-    #   - plone
-    environment:
-      RAZZLE_INTERNAL_API_PATH: "http://plone:8080/Plone"
-
-  frontend-production:
-    env_file:
-      - ./.env
-    depends_on:
-      - lb
-    image: intkbv/vanabbemuseum-frontend:Bugfixes
+  zeo:
+    image: plone/plone-zeo:latest
+    # ports:
+    #   - "8100:8100"
+    labels:
+      ofelia.enabled: "true"
+      ofelia.job-exec.weekly-backup.schedule: "0 0 2 * * 0"
+      ofelia.job-exec.weekly-backup.command: "/app/bin/repozo -B -f /app/var/filestorage/Data.fs -r /app/var/backup"
+    volumes:
+      - /var/local/vanabbe/data:/data
 
   plone:
     image: intkbv/vanabbemuseum-backend:Bugfixes
     # image: tiberiuichim/vanabbe-backend:6.0.0-7
     depends_on:
       - lb
+      - zeo
+    deploy:
+      replicas: 2
     # depends_on:
     #   - zeo
     ports:
@@ -50,22 +45,35 @@ services:
     healthcheck:
       disable: true
 
+  frontend:
+    image: intkbv/vanabbemuseum-frontend:Bugfixes
+    # profiles: ["production"]
+    env_file:
+      - ./.env
+    depends_on:
+      - plone
+    deploy:
+      replicas: 2
+    ports:
+      - "3000:3000"
+    # depends_on:
+    #   - plone
+    environment:
+      RAZZLE_INTERNAL_API_PATH: "http://plone:8080/Plone"
+      API_PATH: "https://vanabbemuseum.nl"
+
+  # frontend-production:
+  #   env_file:
+  #     - ./.env
+  #   depends_on:
+  #     - lb
+  #   image: intkbv/vanabbemuseum-frontend:Bugfixes
+
   # worker:
   #   entrypoint: sh -c "tail -f /dev/null"
   #   extends: plonedocker
   #   environment:
   #     ZODB_CACHE_SIZE: 200000
-
-  zeo:
-    image: plone/plone-zeo:latest
-    # ports:
-    #   - "8100:8100"
-    labels:
-      ofelia.enabled: "true"
-      ofelia.job-exec.weekly-backup.schedule: "0 0 2 * * 0"
-      ofelia.job-exec.weekly-backup.command: "/app/bin/repozo -B -f /app/var/filestorage/Data.fs -r /app/var/backup"
-    volumes:
-      - /var/local/vanabbe/data:/data
 
   lb:
     image: traefik:v2.9
