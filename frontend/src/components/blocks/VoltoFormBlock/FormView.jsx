@@ -15,6 +15,7 @@ import HCaptchaWidget from 'volto-form-block/components/Widget/HCaptchaWidget';
 import { serializeNodes } from '@plone/volto-slate/editor/render';
 import { Icon } from 'semantic-ui-react';
 import config from '@plone/volto/registry';
+import { useSelector } from 'react-redux';
 // import './FormView.css';
 
 // eslint-disable-next-line no-unused-vars
