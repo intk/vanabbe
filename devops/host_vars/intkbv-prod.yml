@@ -1,6 +1,6 @@
 ---
 ssh_port: 22
-hostname: "new"
+hostname: "www"
 fqdn: "{{ hostname }}.vanabbemuseum.nl"
 swap_file_size_mb: "512"
 additional_ports:
