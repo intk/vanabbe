@@ -24,6 +24,13 @@ const messages = defineMessages({
     defaultMessage: 'Select a value',
   },
 });
+const Translations = {
+  select: {
+    en: 'Select a value...',
+    nl: 'Selecteer een waarde...',
+    de: 'Wähle einen Wert...',
+  },
+};
 
 /**
  * Field class.
@@ -96,7 +103,7 @@ const Field = ({
           choices={[...(input_values?.map((v) => [v, v]) ?? [])]}
           value={value}
           onChange={onChange}
-          placeholder={intl.formatMessage(messages.select_a_value)}
+          placeholder={Translations['select'][currentLang]}
           aria-label={intl.formatMessage(messages.select_a_value)}
           classNamePrefix="react-select"
           isDisabled={disabled}

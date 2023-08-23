@@ -16,6 +16,17 @@ const messages = defineMessages({
   },
 });
 
+const Translations = {
+  success: {
+    en: 'Form successfully submitted',
+    nl: 'Formulier succesvol ingediend',
+  },
+  error: {
+    en: 'Error while sending',
+    nl: 'Fout tijdens het verzenden',
+  },
+};
+
 const initialState = {
   loading: false,
   error: null,
@@ -205,12 +216,13 @@ const View = ({ data, id, path }) => {
   });
 
   const formid = `form-${id}`;
-
+  const currentLang = useSelector((state) => state.intl.locale);
   useEffect(() => {
     if (submitResults?.loaded) {
       setFormState({
         type: FORM_STATES.success,
-        result: intl.formatMessage(messages.formSubmitted),
+        // result: intl.formatMessage(messages.formSubmitted),
+        result: Translations['success'][currentLang],
       });
       captcha.reset();
       const formItem = document.getElementById(formid);
@@ -228,7 +240,10 @@ const View = ({ data, id, path }) => {
         JSON.parse(submitResults.error.response?.text ?? '{}')?.message
       }`;
 
-      setFormState({ type: FORM_STATES.error, error: errorDescription });
+      setFormState({
+        type: FORM_STATES.error,
+        error: Translations['error'][currentLang],
+      });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [submitResults]);

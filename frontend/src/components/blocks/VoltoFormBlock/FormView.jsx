@@ -17,6 +17,7 @@ import { Icon } from 'semantic-ui-react';
 import config from '@plone/volto/registry';
 // import './FormView.css';
 
+// eslint-disable-next-line no-unused-vars
 const messages = defineMessages({
   default_submit_label: {
     id: 'form_default_submit_label',
@@ -39,6 +40,44 @@ const messages = defineMessages({
     defaultMessage: 'Clear',
   },
 });
+
+const Translations = {
+  submitLabel: {
+    en: 'Submit',
+    nl: 'Verzenden',
+    de: 'Schicken',
+  },
+  stateNormal: {
+    en: 'Normal',
+    nl: 'Normaal',
+    de: 'Normal',
+  },
+  stateLoading: {
+    en: 'Loading',
+    nl: 'Bezig met laden',
+    de: 'Wird geladen',
+  },
+  stateError: {
+    en: 'Error',
+    nl: 'Fout',
+    de: 'Falsch',
+  },
+  stateSuccess: {
+    en: 'Sent!',
+    nl: 'Verzonden!',
+    de: 'Gesendet!',
+  },
+  reset: {
+    en: 'Clear',
+    nl: 'Resetten',
+    de: 'Zurücksetzen',
+  },
+  empty_values: {
+    en: 'Fill in the required fields',
+    nl: 'Vul de vereiste velden in',
+    de: 'Füllen Sie die erforderlichen Felder aus',
+  },
+};
 
 const FormView = ({
   formState,
@@ -68,6 +107,7 @@ const FormView = ({
   const isValidField = (field) => {
     return formErrors?.indexOf(field) < 0;
   };
+  const currentLang = useSelector((state) => state.intl.locale);
 
   var FieldSchema = config.blocks.blocksConfig.form.fieldSchema;
   var fieldSchemaProperties = FieldSchema()?.properties;
@@ -89,21 +129,25 @@ const FormView = ({
           {formState.error ? (
             <Message error role="alert">
               <Message.Header as="h4">
-                {intl.formatMessage(messages.error)}
+                {/* {intl.formatMessage(messages.error)} */}
+                {Translations['stateError'][currentLang]}
               </Message.Header>
               <p>{formState.error}</p>
               <Button secondary type="clear" onClick={resetFormState}>
-                {intl.formatMessage(messages.reset)}
+                {/* {intl.formatMessage(messages.reset)} */}
+                {Translations['reset'][currentLang]}
               </Button>
             </Message>
           ) : formState.result ? (
             <Message positive role="alert">
               <Message.Header as="h4">
-                {intl.formatMessage(messages.success)}
+                {/* {intl.formatMessage(messages.success)} */}
+                {Translations['stateSuccess'][currentLang]}
               </Message.Header>
               <p>{formState.result}</p>
               <Button secondary type="clear" onClick={resetFormState}>
-                {intl.formatMessage(messages.reset)}
+                {/* {intl.formatMessage(messages.reset)} */}
+                {Translations['reset'][currentLang]}
               </Button>
             </Message>
           ) : (
@@ -191,9 +235,11 @@ const FormView = ({
                         <Icon name="exclamation circle" />
                         <Message.Content>
                           <Message.Header as="h4">
-                            {intl.formatMessage(messages.error)}
+                            {/* {intl.formatMessage(messages.error)} */}
+                            {Translations['stateError'][currentLang]}
                           </Message.Header>
-                          <p>{intl.formatMessage(messages.empty_values)}</p>
+                          {/* <p>{intl.formatMessage(messages.empty_values)}</p> */}
+                          <p>{Translations['empty_values'][currentLang]}</p>
                         </Message.Content>
                       </Message>
                     </Grid.Column>
@@ -214,8 +260,10 @@ const FormView = ({
                         (captcha && !validToken?.current) || formState.loading
                       }
                     >
+                      {/* {data.submit_label ||
+                        intl.formatMessage(messages.default_submit_label)} */}
                       {data.submit_label ||
-                        intl.formatMessage(messages.default_submit_label)}
+                        Translations['submitLabel'][currentLang]}
 
                       {formState.loading && (
                         <Progress
