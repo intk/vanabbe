@@ -3,6 +3,7 @@
     "url": "git@github.com:eea/volto-block-image-cards.git",
     "https": "https://github.com/eea/volto-block-image-cards.git",
     "package": "@eeacms/volto-block-image-cards",
+    "branch": "discreet_carousel_volto16",
     "develop": true,
     "path": "src"
   },
