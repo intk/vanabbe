@@ -70,7 +70,7 @@ const InformationBlockSchema = ({ intl }) => ({
       title: intl.formatMessage(messages.headline),
     },
     headlinelink: {
-      title: intl.formatMessage(messages.callAction),
+      title: intl.formatMessage(messages.headlineLink),
       widget: 'object_browser',
       mode: 'link',
       selectedItemAttrs: ['Title', 'Description'],
