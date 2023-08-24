@@ -6,7 +6,7 @@ const messages = defineMessages({
     defaultMessage: 'Headline',
   },
   headlineLink: {
-    id: 'HeadlineLink',
+    id: 'headlineLink',
     default: 'Headline Link',
   },
   buttonLinks: {
