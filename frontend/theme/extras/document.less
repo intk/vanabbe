@@ -184,12 +184,15 @@ ol {
 
 a {
   color: var(--text-color);
-  text-decoration: underline;
   &:hover {
+    text-decoration: underline;
     color: var(--text-color);
     text-decoration-skip-ink: none;
     text-underline-offset: 2px;
   }
+}
+#page-document p>a{
+  text-decoration: underline;
 }
 
 .controlpanel .ui .grid h3 {
