@@ -154,6 +154,11 @@ msgstr ""
 msgid "Headline level"
 msgstr ""
 
+#: components/blocks/Information/schema
+# defaultMessage: undefined
+msgid "HeadlineLink"
+msgstr ""
+
 #: components/blocks/HeroUnit/schema
 # defaultMessage: Image
 msgid "Image"
@@ -402,6 +407,11 @@ msgstr ""
 #: components/blocks/VoltoFormBlock/formSchema
 # defaultMessage: Captcha provider
 msgid "captcha"
+msgstr ""
+
+#: develop/volto-cookiebot/src/Utils/messages
+# defaultMessage: Cookie declaration will be rendered here
+msgid "cookieDeclarationWillRender"
 msgstr ""
 
 #: components/blocks/Quote/EditBlockWrapper

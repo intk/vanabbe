@@ -169,6 +169,11 @@ msgstr "Kop"
 msgid "Headline level"
 msgstr "Kopniveau"
 
+#: components/blocks/Information/schema
+# defaultMessage: undefined
+msgid "HeadlineLink"
+msgstr ""
+
 #: components/blocks/HeroUnit/schema
 # defaultMessage: Image
 msgid "Image"
@@ -418,6 +423,11 @@ msgstr "Knop Links"
 # defaultMessage: Captcha provider
 msgid "captcha"
 msgstr "captcha"
+
+#: develop/volto-cookiebot/src/Utils/messages
+# defaultMessage: Cookie declaration will be rendered here
+msgid "cookieDeclarationWillRender"
+msgstr ""
 
 #: components/blocks/Quote/EditBlockWrapper
 #: components/blocks/StyledTextBlock/EditBlockWrapper
