@@ -143,6 +143,12 @@ body.view-viewview {
   .ui.accordion .accordion {
     background: transparent;
   }
+  .accordion.ui > h3 > span{
+    font-size: 1.4rem !important;
+    @media (min-width: @largestMobileScreen) {
+        font-size: 1.5rem !important;
+      }
+  }
 
   .ui.accordion {
     border-top: 1px solid var(--text-color) !important;
@@ -162,10 +168,15 @@ body.view-viewview {
   .ui.styled.accordion .title:hover {
     color: var(--text-color);
   }
+  .ui.styled.accordion .title{
+    padding-left: 0%;
+  }
 
   .ui.styled.accordion .content,
   .ui.styled.accordion .accordion .content {
     padding: 1.5em @oneWide var(--space-md) @oneWide;
+    padding-left: 0%;
+
 
     h2 {
       margin-bottom: var(--space-lg) !important;
@@ -173,6 +184,10 @@ body.view-viewview {
 
     h3 {
       margin-bottom: var(--space-xxs) !important;
+      font-size: 20px;
+      @media (min-width: @largestMobileScreen){
+        font-size: 22px;
+      }
     }
   }
 }
