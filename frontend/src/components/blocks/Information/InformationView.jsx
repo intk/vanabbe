@@ -17,7 +17,7 @@ const InformationView = ({ data, mode = 'view' }) => {
     <div className="block info-block">
       <div className="info-block-wrapper">
         <div className="info-block-header">
-          <a href={headerlink ? headerlink : ''}>
+          <a href={data.headerlink !== undefined || '' ? data.headerlink : ''}>
             <HeadlineTag className="info-block-title">{headline}</HeadlineTag>
             <div>
               <Icon name={aheadSVG} size="55px" />
