@@ -89,3 +89,8 @@ body.view-addview,
 .ui.inverted.dimmer {
   background-color: hsla(0, 0%, 100%, 0);
 }
+
+//make the dimmer background darker
+.ui.dimmer{
+  background-color: #06090bd8
+}
