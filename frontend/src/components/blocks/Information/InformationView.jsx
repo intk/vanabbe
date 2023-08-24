@@ -17,10 +17,12 @@ const InformationView = ({ data, mode = 'view' }) => {
     <div className="block info-block">
       <div className="info-block-wrapper">
         <div className="info-block-header">
-          <HeadlineTag className="info-block-title">{headline}</HeadlineTag>
-          <div>
-            <Icon name={aheadSVG} size="55px" />
-          </div>
+          <a href={headerlink ? headerlink : ''}>
+            <HeadlineTag className="info-block-title">{headline}</HeadlineTag>
+            <div>
+              <Icon name={aheadSVG} size="55px" />
+            </div>
+          </a>
         </div>
         <div> {!!text && serializeNodes(text)}</div>
         <div className="info-block-buttons">

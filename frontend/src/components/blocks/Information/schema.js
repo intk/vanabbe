@@ -5,6 +5,10 @@ const messages = defineMessages({
     id: 'Headline',
     defaultMessage: 'Headline',
   },
+  headlineLink: {
+    id: 'HeadlineLink',
+    default: 'Headline Link',
+  },
   buttonLinks: {
     id: 'buttonLinks',
     defaultMessage: 'Button Links',
@@ -57,13 +61,20 @@ const InformationBlockSchema = ({ intl }) => ({
     {
       id: 'default',
       title: 'Default',
-      fields: ['headline', 'text', 'buttons'],
+      fields: ['headline', 'headlinelink', 'text', 'buttons'],
     },
   ],
 
   properties: {
     headline: {
       title: intl.formatMessage(messages.headline),
+    },
+    headlinelink: {
+      title: intl.formatMessage(messages.callAction),
+      widget: 'object_browser',
+      mode: 'link',
+      selectedItemAttrs: ['Title', 'Description'],
+      allowExternals: true,
     },
     text: {
       title: 'Text',
