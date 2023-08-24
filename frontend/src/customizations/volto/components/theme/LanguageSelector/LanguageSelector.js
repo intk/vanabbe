@@ -26,6 +26,7 @@ const messages = defineMessages({
 const LanguageSelector = (props) => {
   const intl = useIntl();
   const currentLang = useSelector((state) => state.intl.locale);
+  const otherLang = currentLang === 'nl' ? 'en' : 'nl';
   const translations = useSelector(
     (state) => state.content.data?.['@components']?.translations?.items,
   );
@@ -38,7 +39,7 @@ const LanguageSelector = (props) => {
         direction="right"
         trigger={
           <span>
-            <span>{capitalize(langmap[currentLang].nativeName)}</span>
+            <span>{capitalize(langmap[otherLang].nativeName)}</span>
           </span>
         }
       >
