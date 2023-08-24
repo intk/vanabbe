@@ -1,0 +1,151 @@
+version: "3"
+
+# See https://github.com/plone/plone-backend/tree/6.0.x
+# https://pkg.go.dev/github.com/robfig/cron?utm_source=godoc
+# https://github.com/mcuadros/ofelia
+
+services:
+  zeo:
+    image: plone/plone-zeo:latest
+    # ports:
+    #   - "8100:8100"
+    labels:
+      ofelia.enabled: "true"
+      ofelia.job-exec.weekly-backup.schedule: "0 0 2 * * 0"
+      ofelia.job-exec.weekly-backup.command: "/app/bin/repozo -B -f /app/var/filestorage/Data.fs -r /app/var/backup"
+    volumes:
+      - /var/local/vanabbe/data:/data
+
+  plone:
+    image: intkbv/vanabbemuseum-backend:Bugfixes
+    # image: tiberiuichim/vanabbe-backend:6.0.0-7
+    depends_on:
+      - lb
+      - zeo
+    deploy:
+      replicas: 2
+    # depends_on:
+    #   - zeo
+    ports:
+      - "8080:8080"
+    environment:
+      ZEO_ADDRESS: zeo:8100
+      # ADDONS: "kaitconcept.seo"
+      # ADDONS: "collective.volto.cookieconsent collective.volto.formsupport"
+      #/app/src/collective.previewimage -e
+      DEVELOP: "/app/src/intk_vanabbe"
+    volumes:
+      - vanabbe-cache:/data
+      - /var/local/vanabbe/backend/src:/app/src
+      - /var/local/vanabbe/data-import:/data-import
+    labels:
+      ofelia.enabled: "true"
+      ofelia.job-exec.monthly-pack.schedule: "0 0 0 1 * *"
+      ofelia.job-exec.monthly-pack.command: "/app/bin/zeopack -h zeo -p 8100 -d 3"
+    healthcheck:
+      disable: true
+
+  frontend:
+    image: intkbv/vanabbemuseum-frontend:Bugfixes
+    # profiles: ["production"]
+    env_file:
+      - ./.env
+    depends_on:
+      - plone
+    deploy:
+      replicas: 2
+    ports:
+      - "3000:3000"
+    # depends_on:
+    #   - plone
+    environment:
+      RAZZLE_INTERNAL_API_PATH: "http://plone:8080/Plone"
+      API_PATH: "https://vanabbemuseum.nl"
+
+  # frontend-production:
+  #   env_file:
+  #     - ./.env
+  #   depends_on:
+  #     - lb
+  #   image: intkbv/vanabbemuseum-frontend:Bugfixes
+
+  # worker:
+  #   entrypoint: sh -c "tail -f /dev/null"
+  #   extends: plonedocker
+  #   environment:
+  #     ZODB_CACHE_SIZE: 200000
+
+  lb:
+    image: traefik:v2.9
+    command: --api.insecure=true --providers.docker --entrypoints.lb.address=:8090
+    # ports:
+    #   # The Web UI (enabled by --api.insecure=true)
+    #   - "8080:8080"
+    #   # the lb entrypoint
+    #   - "8090:8090"
+    volumes:
+      # So that Traefik can listen to the Docker events
+      - /var/run/docker.sock:/var/run/docker.sock
+      # - ./traefik.yml:/etc/traefik/traefik.yml
+
+  # See https://github.com/mcuadros/ofelia
+  ofelia:
+    image: mcuadros/ofelia:latest
+    # restart: always
+    command: daemon --docker
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    # profiles: ["production"]
+
+# nginx:
+#   build: ./webserver/nginx
+#   image: tiberiuichim/nginx
+#   env_file:
+#     - ./webserver.env
+#   volumes:
+#     - ./webserver/data/nginx_conf:/etc/nginx/sites
+#     - ./webserver/data/letsencrypt_certs:/etc/letsencrypt
+#     - ./webserver/data/certbot_acme_challenge:/var/www/certbot
+#     - ./webserver/data/vhosts:/etc/nginx/vhosts
+#     - ./webserver/data/html:/var/www/html
+#   ports:
+#     - "80:80"
+#     - "443:443"
+#   restart: unless-stopped
+#   profiles: ["production"]
+
+# certbot:
+#   depends_on:
+#     - nginx
+#   build: ./webserver/certbot
+#   image: tiberiuichim/certbot
+#   env_file:
+#     - ./webserver.env
+#   volumes:
+#     - ./webserver/data/letsencrypt_certs:/etc/letsencrypt
+#     - ./webserver/data/certbot_acme_challenge:/var/www/certbot
+#   profiles: ["production"]
+
+# cron:
+#   depends_on:
+#     - certbot
+#   build: ./webserver/cron
+#   image: tiberiuichim/cron
+#   environment:
+#     COMPOSE_PROJECT_NAME: "${COMPOSE_PROJECT_NAME}"
+#   volumes:
+#     - /var/run/docker.sock:/var/run/docker.sock
+#     - ./:/workdir:ro
+#   # needs direct access to current docker-compose project so that it can run `docker-compose` commands
+#   restart: unless-stopped
+#   profiles: ["production"]
+
+volumes:
+  vanabbe-cache:
+    external: true
+# networks:
+#   nw-webserver:
+#     external: true
+#     driver: overlay
+#   backend:
+#     driver: overlay

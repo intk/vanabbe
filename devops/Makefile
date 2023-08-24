@@ -119,7 +119,7 @@ logs-frontend: ## Display frontend logs
 .PHONY: logs-backend
 logs-backend: ## Display backend logs
 	@echo "$(GREEN)==> Logs for backend in $(DEPLOY_ENV) $(RESET)"
-	${DOCKER_CONTEXT} service logs plone_plone
+	${DOCKER_CONTEXT} service logs plone_backend
 
 .PHONY: logs-ofelia
 logs-ofelia: ## Display ofelia logs
@@ -150,8 +150,8 @@ remove-backend:
 
 .PHONY: remove-all
 remove-all:
-	${DOCKER_CONTEXT} service rm plone_plone
+	${DOCKER_CONTEXT} service rm plone_backend
 	${DOCKER_CONTEXT} service rm plone_frontend
-	${DOCKER_CONTEXT} service rm plone_lb
+	${DOCKER_CONTEXT} service rm plone_traefik
 	${DOCKER_CONTEXT} service rm plone_ofelia
 	${DOCKER_CONTEXT} service rm plone_zeo
