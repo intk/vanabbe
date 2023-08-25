@@ -9,19 +9,27 @@ import aheadSVG from '@plone/volto/icons/ahead.svg';
 import './style.less';
 
 const InformationView = ({ data, mode = 'view' }) => {
-  const { headline, headlineTag, buttons, text } = data;
+  const { headline, headlinelink, headlineTag, buttons, text } = data;
   const isEditMode = mode === 'edit';
   const HeadlineTag = headlineTag || 'h2';
 
   return (
     <div className="block info-block">
       <div className="info-block-wrapper">
-        <div className="info-block-header">
-          <HeadlineTag className="info-block-title">{headline}</HeadlineTag>
-          <div>
-            <Icon name={aheadSVG} size="55px" />
+        <a
+          href={
+            headlinelink && headlinelink[0] && headlinelink[0]['@id']
+              ? headlinelink[0]['@id']
+              : ''
+          }
+        >
+          <div className="info-block-header">
+            <HeadlineTag className="info-block-title">{headline}</HeadlineTag>
+            <div>
+              <Icon name={aheadSVG} size="55px" />
+            </div>
           </div>
-        </div>
+        </a>
         <div> {!!text && serializeNodes(text)}</div>
         <div className="info-block-buttons">
           {(buttons || []).map((btn, i) => {

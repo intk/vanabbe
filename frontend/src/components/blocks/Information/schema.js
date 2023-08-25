@@ -72,9 +72,6 @@ const InformationBlockSchema = ({ intl }) => ({
     headlinelink: {
       title: intl.formatMessage(messages.headlineLink),
       widget: 'object_browser',
-      mode: 'link',
-      selectedItemAttrs: ['Title', 'Description'],
-      allowExternals: true,
     },
     text: {
       title: 'Text',
