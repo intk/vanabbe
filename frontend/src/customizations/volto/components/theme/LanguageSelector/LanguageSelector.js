@@ -32,48 +32,31 @@ const LanguageSelector = (props) => {
   );
 
   const { settings } = config;
+  const translation = find(translations, { language: otherLang });
 
   return settings.isMultilingual ? (
     <div className="language-selector">
-      <Dropdown
-        direction="right"
-        trigger={
-          <span>
-            <span>{capitalize(langmap[otherLang].nativeName)}</span>
-          </span>
-        }
-      >
-        <Dropdown.Menu>
-          {map(settings.supportedLanguages, (lang) => {
-            const translation = find(translations, { language: lang });
-            return (
-              <Dropdown.Item
-                key={`language-selector-${lang}`}
-                disabled={!translation}
-              >
-                <Link
-                  aria-label={`${intl.formatMessage(
-                    messages.switchLanguageTo,
-                  )} ${langmap[lang].nativeName.toLowerCase()}`}
-                  className={cx({ selected: lang === currentLang })}
-                  to={
-                    translation
-                      ? flattenToAppURL(translation['@id'])
-                      : `/${lang}`
-                  }
-                  title={langmap[lang].nativeName}
-                  onClick={() => {
-                    props.onClickAction();
-                  }}
-                  key={`language-selector-${lang}`}
-                >
-                  {langmap[lang].nativeName} ({lang})
-                </Link>
-              </Dropdown.Item>
-            );
-          })}
-        </Dropdown.Menu>
-      </Dropdown>
+      <div>
+        <span>
+          <Link
+            aria-label={`${intl.formatMessage(
+              messages.switchLanguageTo,
+            )} ${langmap[otherLang].nativeName.toLowerCase()}`}
+            className={cx({ selected: otherLang === currentLang })}
+            to={
+              translation
+                ? flattenToAppURL(translation['@id'])
+                : `/${otherLang}`
+            }
+            onClick={() => {
+              props.onClickAction();
+            }}
+            key={`language-selector-${otherLang}`}
+          >
+            {capitalize(langmap[otherLang].nativeName)}
+          </Link>
+        </span>
+      </div>
     </div>
   ) : (
     <Helmet>
