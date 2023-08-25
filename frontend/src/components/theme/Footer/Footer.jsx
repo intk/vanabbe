@@ -37,7 +37,7 @@ const Login = () => {
 };
 
 export const Address = ({ contactTitle, address, phone, email }) => (
-  <div className='address-section'>
+  <div className="address-section">
     <div className="section-title">{contactTitle}</div>
     <List className="footer-contact">
       <List.Item>
