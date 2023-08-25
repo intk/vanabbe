@@ -21,7 +21,7 @@ const ActionLinksView = (props) => {
   const isView = props.mode === 'edit';
 
   return (
-    <div className="action-links-preview">
+    <div className={`action-links-preview ${data?.blockTitle || ''}`}>
       {isView && (
         <h4 className="action-links-title">
           {intl.formatMessage(messages.actionLinks)}:

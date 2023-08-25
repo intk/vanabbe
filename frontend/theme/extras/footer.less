@@ -111,7 +111,7 @@
   }
 }
 @media only screen and (max-width: @mobileLandscapeBreakpoint){
-  .footer-wrapper {
+  .footer-wrapper > *:not(.address-section, .bekijk, .plan.your.visit) {
     .ui.list {
       display: flex;
       flex-wrap: wrap;
@@ -120,7 +120,7 @@
       }
     }
   }
-  .footer-wrapper > * {
+  .footer-wrapper>*:not(.address-section, .bekijk, .plan.your.visit) {
     width: 100% !important;
   }
 }
