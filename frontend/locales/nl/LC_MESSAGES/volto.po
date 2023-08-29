@@ -253,7 +253,7 @@ msgstr "Geen selectie"
 #: components/theme/View/ArtworkView
 # defaultMessage: Not on display
 msgid "Not on display"
-msgstr "Niet te zien"
+msgstr "Momenteel niet op zaal"
 
 #: components/theme/View/ArtworkView
 # defaultMessage: Location {objectPosition}

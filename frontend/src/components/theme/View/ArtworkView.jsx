@@ -229,7 +229,7 @@ export default function ArtworkView(props) {
                           {content.dimensions}
                         </div>
 
-                        {!content.objectIsVisible && (
+                        {!content.objectPosition && (
                           <div className="object-location">
                             <FormattedMessage
                               id="Not on display"

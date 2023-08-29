@@ -232,7 +232,7 @@ msgstr ""
 #: components/theme/View/ArtworkView
 # defaultMessage: Not on display
 msgid "Not on display"
-msgstr ""
+msgstr "Currently not on display"
 
 #: components/theme/View/ArtworkView
 # defaultMessage: Location {objectPosition}
