@@ -17,6 +17,7 @@ class FallbackImageScale(ImageScaling):
             if getattr(child, "image", None):  # TODO: handle permissions
                 obj = child
                 self.fieldname = "image"
+                break
             if getattr(child, "preview_image", None):  # TODO: handle permissions
                 obj = child
 
