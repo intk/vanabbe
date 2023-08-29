@@ -169,11 +169,6 @@ msgstr "Kop"
 msgid "Headline level"
 msgstr "Kopniveau"
 
-#: components/blocks/Information/schema
-# defaultMessage: undefined
-msgid "HeadlineLink"
-msgstr ""
-
 #: components/blocks/HeroUnit/schema
 # defaultMessage: Image
 msgid "Image"
@@ -520,6 +515,11 @@ msgstr ""
 # defaultMessage: Recipients
 msgid "form_to"
 msgstr "Ontvangers"
+
+#: components/blocks/Information/schema
+# defaultMessage: undefined
+msgid "headlineLink"
+msgstr ""
 
 #: components/blocks/Facts/schema
 # defaultMessage: Icon
