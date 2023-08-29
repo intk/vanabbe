@@ -192,6 +192,8 @@ class AdminFixes(BrowserView):
 
             element = lxml.etree.fromstring(xml)
 
+            rawdata = element
+
             fields = [
                 "objectPosition",
                 "objectFormatWidth",
