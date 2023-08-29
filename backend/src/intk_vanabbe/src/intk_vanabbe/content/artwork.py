@@ -119,6 +119,8 @@ class IArtwork(model.Schema):
         },
     )
 
+    rawdata = schema.Text(title="Rawdata", required=False)
+
     lang_directives.languageindependent(
         # "objectDescription",
         # "objectMedium",
