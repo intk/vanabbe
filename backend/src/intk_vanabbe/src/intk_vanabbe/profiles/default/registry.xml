@@ -51,7 +51,7 @@
            prefix="plone.app.querystring.field.objectOnDisplay"
            purge="false"
   >
-    <value key="title" i18n:translate="" >On display test 3</value>
+    <value key="title" i18n:translate="" >On view</value>
     <value key="description" i18n:translate="" />
     <value key="enabled">True</value>
     <value key="sortable">True</value>
