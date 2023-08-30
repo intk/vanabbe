@@ -192,8 +192,9 @@ class AdminFixes(BrowserView):
 
             element = lxml.etree.fromstring(xml)
 
-            info['nl']['rawdata'] = lxml.etree.tostring(element.xpath("//dc_record"), pretty_print=True, encoding='unicode')
-            info['en']['rawdata'] = lxml.etree.tostring(element.xpath("//dc_record"), pretty_print=True, encoding='unicode')
+            rawdata = element.xpath("//dc_record")[0]
+            info['nl']['rawdata'] = lxml.etree.tostring(rawdata, pretty_print=True, encoding='unicode')
+            info['en']['rawdata'] = lxml.etree.tostring(rawdata, pretty_print=True, encoding='unicode')
 
             fields = [
                 "objectPosition",
