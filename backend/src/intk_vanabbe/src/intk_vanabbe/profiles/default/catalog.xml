@@ -17,10 +17,14 @@
     <indexed_attr value="bookDatePublished"/>
   </index>
 
-  <index name="objectIsVisible" meta_type="FieldIndex">
+  <!-- <index name="objectIsVisible" meta_type="FieldIndex">
     <indexed_attr value="objectIsVisible"/>
-  </index>
+  </index> -->
 
+  <index name="objectOnDisplay" meta_type="FieldIndex">
+    <indexed_attr value="objectOnDisplay"/>
+  </index>
+  
   <index name="bookArtist" meta_type="KeywordIndex">
     <indexed_attr value="bookArtist"/>
   </index>
