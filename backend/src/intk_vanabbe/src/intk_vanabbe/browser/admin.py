@@ -192,9 +192,6 @@ class AdminFixes(BrowserView):
 
             element = lxml.etree.fromstring(xml)
 
-            rawdata = element.xpath("//dc_record")[0]
-            info['nl']['rawdata'] = lxml.etree.tostring(rawdata)
-            info['en']['rawdata'] = lxml.etree.tostring(rawdata)
 
             fields = [
                 "objectPosition",
@@ -208,6 +205,11 @@ class AdminFixes(BrowserView):
             info = {'nl': {}, 'en': {}}
             intl = {'nl': {}, 'en': {}}
             dirty = False
+
+            rawdata = element.xpath("//dc_record")[0]
+            info['nl']['rawdata'] = lxml.etree.tostring(rawdata)
+            info['en']['rawdata'] = lxml.etree.tostring(rawdata)
+
 
             titles = element.xpath("//dc_record/objectTitle")
             if len(titles) > 1:
