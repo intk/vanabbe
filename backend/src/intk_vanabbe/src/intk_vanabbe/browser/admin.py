@@ -93,20 +93,20 @@ class AdminFixes(BrowserView):
         for brain in catalog.searchResults(portal_type="artwork"):
             brain.getObject().objectIsVisible = False
 
-        to_import = find_files("<objectIsVisible>1</objectIsVisible>")
+        # to_import = find_files("<objectIsVisible>1</objectIsVisible>")
 
-        recordnumbers = []
-        for fpath in to_import:
-            fname = fpath.rsplit('/', 1)[-1].split('.')[0]
-            recordnumbers.append(fname)
+        # recordnumbers = []
+        # for fpath in to_import:
+        #     fname = fpath.rsplit('/', 1)[-1].split('.')[0]
+        #     recordnumbers.append(fname)
 
-        for nr in recordnumbers:
-            brains = catalog.searchResults(recordnumber=int(nr))
-            for brain in brains:
-                obj = brain.getObject()
-                obj.objectIsVisible = True
-                obj.reindexObject(idxs=['objectIsVisible'])
-                logger.info("Fixed %s", obj.absolute_url(relative=1))
+        # for nr in recordnumbers:
+        #     brains = catalog.searchResults(recordnumber=int(nr))
+        #     for brain in brains:
+        #         obj = brain.getObject()
+        #         obj.objectIsVisible = True
+        #         obj.reindexObject(idxs=['objectIsVisible'])
+        #         logger.info("Fixed %s", obj.absolute_url(relative=1))
 
         return "ok"
 
@@ -192,6 +192,9 @@ class AdminFixes(BrowserView):
 
             element = lxml.etree.fromstring(xml)
 
+            rawdata = element.xpath("//dc_record")[0]
+            info['nl']['rawdata'] = lxml.etree.tostring(rawdata)
+            info['en']['rawdata'] = lxml.etree.tostring(rawdata)
 
             fields = [
                 "objectPosition",
@@ -205,11 +208,6 @@ class AdminFixes(BrowserView):
             info = {'nl': {}, 'en': {}}
             intl = {'nl': {}, 'en': {}}
             dirty = False
-
-            rawdata = element.xpath("//dc_record")[0]
-            info['nl']['rawdata'] = lxml.etree.tostring(rawdata)
-            info['en']['rawdata'] = lxml.etree.tostring(rawdata)
-
 
             titles = element.xpath("//dc_record/objectTitle")
             if len(titles) > 1:
