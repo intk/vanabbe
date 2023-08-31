@@ -114,10 +114,11 @@ class AdminFixes(BrowserView):
         site = portal.get()
         catalog = site.portal_catalog
 
-        for brain in catalog.searchResults(portal_type="artwork"):
+        for brain in catalog.searchResults(portal_type="artwork"):            
             if brain.getObject().objectPosition != None:
-                print (brain.getObject().objectPosition)
-                brain.getObject().objectOnDisplay = True
+                obj = brain.getObject()
+                obj.objectOnDisplay = True
+                obj.reindexObject(idxs=['objectOnDisplay'])
 
         return "ok"
 
