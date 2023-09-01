@@ -121,6 +121,19 @@ class AdminFixes(BrowserView):
                 obj.reindexObject(idxs=['objectOnDisplay'])
 
         return "ok"
+    
+    def import_hasimage(self):
+        site = portal.get()
+        catalog = site.portal_catalog
+
+        for brain in catalog.searchResults(portal_type='artwork'):
+            obj = brain.getObject()
+            has_image_child = any(child_brain.portal_type == 'Image' for child_brain in catalog(path={'query': '/'.join(obj.getPhysicalPath()), 'depth': 1}))
+            if has_image_child:
+                obj.hasImage = True
+                obj.reindexObject(idxs=['hasImage'])
+        
+        return "ok"
 
     def import_dimensions(self):
         to_import = find_files("</Dimensions>")

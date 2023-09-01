@@ -24,6 +24,10 @@
   <index name="objectOnDisplay" meta_type="FieldIndex">
     <indexed_attr value="objectOnDisplay"/>
   </index>
+
+  <index name="hasImage" meta_type="FieldIndex">
+    <indexed_attr value="hasImage"/>
+  </index>
   
   <index name="bookArtist" meta_type="KeywordIndex">
     <indexed_attr value="bookArtist"/>

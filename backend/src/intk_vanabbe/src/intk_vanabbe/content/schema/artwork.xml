@@ -114,6 +114,11 @@
       <required>False</required>
       <title>objectOnDisplay</title>
     </field>
+    <field name="hasImage" type="zope.schema.Bool" lingua:independent="true" indexer:searchable="true">
+      <description/>
+      <required>False</required>
+      <title>hasImage</title>
+    </field>
     <field name="rawdata" type="zope.schema.TextLine" lingua:independent="true" indexer:searchable="true">
       <description/>
       <required>False</required>

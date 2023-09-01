@@ -32,7 +32,7 @@
     <value key="group" i18n:translate="" >VanAbbe</value>
   </records>
 
-  <!-- <records interface="plone.app.querystring.interfaces.IQueryField"
+  <records interface="plone.app.querystring.interfaces.IQueryField"
            prefix="plone.app.querystring.field.objectIsVisible"
            purge="false"
   >
@@ -45,7 +45,7 @@
       <element>plone.app.querystring.operation.boolean.isFalse</element>
     </value>
     <value key="group" i18n:translate="">VanAbbe</value>
-  </records> -->
+  </records>
 
   <records interface="plone.app.querystring.interfaces.IQueryField"
            prefix="plone.app.querystring.field.objectOnDisplay"
@@ -60,6 +60,34 @@
       <element>plone.app.querystring.operation.boolean.isFalse</element>
     </value>
     <value key="group" i18n:translate="">VanAbbe</value>
+  </records>
+
+  <records interface="plone.app.querystring.interfaces.IQueryField"
+           prefix="plone.app.querystring.field.hasImage"
+           purge="false"
+  >
+    <value key="title" i18n:translate="" >Image only</value>
+    <value key="description" i18n:translate="" />
+    <value key="enabled">True</value>
+    <value key="sortable">True</value>
+    <value key="operations">
+      <element>plone.app.querystring.operation.boolean.isTrue</element>
+      <element>plone.app.querystring.operation.boolean.isFalse</element>
+    </value>
+    <value key="group" i18n:translate="">VanAbbe</value>
+  </records>
+
+
+  <records xmlns:ns0="http://xml.zope.org/namespaces/i18n" interface="plone.app.querystring.interfaces.IQueryField" prefix="plone.app.querystring.field.objectPosition" purge="false">
+    <value key="title" ns0:translate="">Object Position</value>
+    <value key="description" ns0:translate="" />
+    <value key="enabled">True</value>
+    <value key="sortable">True</value>
+    <value key="operations">
+      <element>plone.app.querystring.operation.boolean.isTrue</element>
+      <element>plone.app.querystring.operation.boolean.isFalse</element>
+    </value>
+    <value key="group" ns0:translate="">VanAbbe</value>
   </records>
 
   <records interface="plone.app.querystring.interfaces.IQueryField"

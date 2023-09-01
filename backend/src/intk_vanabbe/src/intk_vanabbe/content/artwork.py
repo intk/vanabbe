@@ -80,6 +80,8 @@ class IArtwork(model.Schema):
     objectPosition = schema.TextLine(title="objectPosition", required=False)
     objectOnDisplay = schema.Bool(
         title="objectOnDisplay", required=False, default=False)
+    hasImage = schema.Bool(
+        title="hasImage", required=False, default=False)
     objectFormatWidth = schema.TextLine(
         title="objectFormatWidth", required=False)
     objectFormatDepth = schema.TextLine(
