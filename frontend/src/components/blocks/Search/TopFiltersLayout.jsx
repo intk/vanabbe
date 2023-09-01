@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { flushSync } from 'react-dom';
 import { defineMessages, useIntl } from 'react-intl';
@@ -67,6 +67,16 @@ const TopSideFacets = (props) => {
   const { showSearchButton } = data;
   const isLive = !showSearchButton;
   const intl = useIntl();
+
+  React.useEffect(() => {
+    if (!facets.objectOnDisplay) {
+      setFacets((prevFacets) => ({ ...prevFacets, objectOnDisplay: true }));
+    }
+
+    if (!facets.hasImage) {
+      setFacets((prevFacets) => ({ ...prevFacets, hasImage: true }));
+    }
+  }, []);
 
   const defaultOpened = isDirty(
     searchData.query || [],
