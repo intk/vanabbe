@@ -21984,6 +21984,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-icons@npm:4.10.1":
+  version: 4.10.1
+  resolution: "react-icons@npm:4.10.1"
+  peerDependencies:
+    react: "*"
+  checksum: b6c8d4fe482b112e1041515d93ef7670a0af128855c926052a076b64d0b991cdd4391394b26467100f8da3859db1ebd8f9c6b7614fa5969fde83de45c71031a3
+  languageName: node
+  linkType: hard
+
 "react-image-gallery@npm:1.2.7":
   version: 1.2.7
   resolution: "react-image-gallery@npm:1.2.7"
@@ -26965,6 +26974,7 @@ __metadata:
     razzle: 4.2.17
     react-color: 2.19.3
     react-gtm-module: 2.0.11
+    react-icons: 4.10.1
     react-lazy-load-image-component: 1.5.4
     react-masonry-css: 1.0.16
     react-player: 2.11.0
