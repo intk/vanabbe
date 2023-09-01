@@ -109,5 +109,15 @@
       <required>False</required>
       <title>recordnumber</title>
     </field>
+    <field name="objectOnDisplay" type="zope.schema.Bool" lingua:independent="true" indexer:searchable="true">
+      <description/>
+      <required>False</required>
+      <title>objectOnDisplay</title>
+    </field>
+    <field name="rawdata" type="zope.schema.TextLine" lingua:independent="true" indexer:searchable="true">
+      <description/>
+      <required>False</required>
+      <title>rawdata</title>
+    </field>
   </schema>
 </model>
