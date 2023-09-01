@@ -7,6 +7,7 @@ import { Card } from '@package/components'; // SocialLinks,
 import ImageAlbum from '../ImageAlbum/ImageAlbum';
 import config from '@plone/volto/registry';
 import { useSiteDataContent } from '@package/helpers';
+import { LuFileVideo, LuFileAudio } from 'react-icons/lu';
 
 const textToList = (text) =>
   text
@@ -95,6 +96,7 @@ const ObjectLinks = ({ content }) => {
     <>
       {audio.map(({ title, filename }, ix) => (
         <div className="object-audio" key={`audio-${ix}`}>
+          <LuFileAudio style={{ marginRight: '3px' }} />
           <a
             key={`${ix}-${filename}`}
             href={`https://mediabank.vanabbemuseum.nl/website/Media/${filename}`}
@@ -105,6 +107,7 @@ const ObjectLinks = ({ content }) => {
       ))}
       {video.map(({ title, filename }, ix) => (
         <div className="object-video" key={`video-${ix}`}>
+          <LuFileVideo style={{ marginRight: '3px' }} />
           <a
             key={`${ix}-${filename}`}
             href={`https://mediabank.vanabbemuseum.nl/website/Media/${filename}`}
