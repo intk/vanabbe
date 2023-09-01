@@ -147,7 +147,7 @@ const TopSideFacets = (props) => {
                     <Icon name={downSVG} size="30px" />
                   )}
                 </Button>
-                <div className='facetOnView'>
+                <div className="facetOnView">
                   <Facets
                     data={facetOnView}
                     querystring={querystring}
