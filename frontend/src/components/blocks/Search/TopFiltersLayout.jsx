@@ -95,13 +95,17 @@ const TopSideFacets = (props) => {
 
   let facetOnView = {
     facets: hiddenData.facets.filter(
-      (facet) => facet.field.value === 'objectOnDisplay',
+      (facet) =>
+        facet.field.value === 'objectOnDisplay' ||
+        facet.field.value === 'hasImage',
     ),
   };
 
   let facetRest = {
     facets: hiddenData.facets.filter(
-      (facet) => facet.field.value !== 'objectOnDisplay',
+      (facet) =>
+        facet.field.value !== 'objectOnDisplay' &&
+        facet.field.value !== 'hasImage',
     ),
   };
 
