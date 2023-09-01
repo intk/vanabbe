@@ -119,6 +119,11 @@ class AdminFixes(BrowserView):
                 obj = brain.getObject()
                 obj.objectOnDisplay = True
                 obj.reindexObject(idxs=['objectOnDisplay'])
+            else:
+                obj = brain.getObject()
+                obj.objectOnDisplay = False
+                obj.reindexObject(idxs=['objectOnDisplay'])
+
 
         return "ok"
     
@@ -131,6 +136,9 @@ class AdminFixes(BrowserView):
             has_image_child = any(child_brain.portal_type == 'Image' for child_brain in catalog(path={'query': '/'.join(obj.getPhysicalPath()), 'depth': 1}))
             if has_image_child:
                 obj.hasImage = True
+                obj.reindexObject(idxs=['hasImage'])
+            else:
+                obj.hasImage = False
                 obj.reindexObject(idxs=['hasImage'])
         
         return "ok"
