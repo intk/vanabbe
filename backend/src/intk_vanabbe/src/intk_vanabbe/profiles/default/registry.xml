@@ -77,6 +77,18 @@
     <value key="group" i18n:translate="">VanAbbe</value>
   </records>
 
+  <records interface="plone.app.querystring.interfaces.IQueryField"
+          prefix="plone.app.querystring.field.authorSortName">
+    <value key="title">Author's last name</value>
+    <value key="description">The short name of an item (used in the url)</value>
+    <value key="enabled">True</value>
+    <value key="sortable">True</value>
+    <value key="operations">
+        <element>plone.app.querystring.operation.string.is</element>
+    </value>
+    <value key="group" i18n:translate="">VanAbbe</value>
+  </records>
+
 
   <records xmlns:ns0="http://xml.zope.org/namespaces/i18n" interface="plone.app.querystring.interfaces.IQueryField" prefix="plone.app.querystring.field.objectPosition" purge="false">
     <value key="title" ns0:translate="">Object Position</value>
@@ -163,27 +175,6 @@
     <value key="title"
            i18n:translate=""
     >Author ID</value>
-    <value key="description"
-           i18n:translate=""
-    />
-    <value key="enabled">True</value>
-    <value key="sortable">True</value>
-    <value key="operations">
-      <element>plone.app.querystring.operation.string.is</element>
-      <!-- <element>plone.app.querystring.operation.selection.any</element> -->
-    </value>
-    <value key="group"
-           i18n:translate=""
-    >VanAbbe</value>
-  </records>
-
-  <records interface="plone.app.querystring.interfaces.IQueryField"
-           prefix="plone.app.querystring.field.authorSortName"
-           purge="false"
-  >
-    <value key="title"
-           i18n:translate=""
-    >Author SortName</value>
     <value key="description"
            i18n:translate=""
     />
