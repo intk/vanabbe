@@ -93,6 +93,18 @@ const TopSideFacets = (props) => {
   };
   const hiddenData = useDeepCompareMemoize(_hiddenData);
 
+  let facetOnView = {
+    facets: hiddenData.facets.filter(
+      (facet) => facet.field.value === 'objectOnDisplay',
+    ),
+  };
+
+  let facetRest = {
+    facets: hiddenData.facets.filter(
+      (facet) => facet.field.value !== 'objectOnDisplay',
+    ),
+  };
+
   return (
     <Grid className="searchBlock-facets" stackable>
       {data.headline && (
@@ -121,19 +133,35 @@ const TopSideFacets = (props) => {
 
           <div className="search-filters-sort">
             {data.facets?.length > 0 && data?.facets[0]?.field && (
-              <Button
-                className={cx('secondary filters-btn', {
-                  open: showFilters,
-                })}
-                onClick={() => setShowFilters(!showFilters)}
-              >
-                <FormattedMessage id="Filters" defaultMessage="Filters" />
-                {showFilters ? (
-                  <Icon name={upSVG} size="30px" />
-                ) : (
-                  <Icon name={downSVG} size="30px" />
-                )}
-              </Button>
+              <div className="search-button-wrapper">
+                <Button
+                  className={cx('secondary filters-btn', {
+                    open: showFilters,
+                  })}
+                  onClick={() => setShowFilters(!showFilters)}
+                >
+                  <FormattedMessage id="Filters" defaultMessage="Filters" />
+                  {showFilters ? (
+                    <Icon name={upSVG} size="30px" />
+                  ) : (
+                    <Icon name={downSVG} size="30px" />
+                  )}
+                </Button>
+                <div className='facetOnView'>
+                  <Facets
+                    data={facetOnView}
+                    querystring={querystring}
+                    facets={facets}
+                    setFacets={(f) => {
+                      flushSync(() => {
+                        setFacets(f);
+                        onTriggerSearch(searchedText || '', f);
+                      });
+                    }}
+                    facetWrapper={FacetWrapper}
+                  />
+                </div>
+              </div>
             )}
 
             {data.showSortOn && (
@@ -184,7 +212,7 @@ const TopSideFacets = (props) => {
               {/* /> */}
 
               <Facets
-                data={hiddenData}
+                data={facetRest}
                 querystring={querystring}
                 facets={facets}
                 setFacets={(f) => {
