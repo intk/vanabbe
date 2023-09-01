@@ -78,7 +78,7 @@ class IArtwork(model.Schema):
     recordnumber = schema.TextLine(title="recordnumber", required=False)
 
     objectPosition = schema.TextLine(title="objectPosition", required=False)
-    objectOnDisplay= schema.Bool(
+    objectOnDisplay = schema.Bool(
         title="objectOnDisplay", required=False, default=False)
     objectFormatWidth = schema.TextLine(
         title="objectFormatWidth", required=False)
