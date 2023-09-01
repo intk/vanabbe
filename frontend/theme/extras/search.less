@@ -367,13 +367,18 @@
 
 #main .search-button-wrapper{
   display: flex;
+  // flex-wrap: wrap;
   .facetOnView{
     display: flex;
+    flex-wrap: wrap;
     padding-left: 50px;
     margin-top: auto !important;
     margin-bottom: auto !important;
     .column{
       padding-right: 30px;
+    }
+    @media screen and (max-width: 500px) {
+      padding-left: 20px;
     }
 
     .ui.toggle.checkbox input:checked~label:before,
