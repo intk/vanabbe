@@ -438,7 +438,7 @@ msgstr "Beschrijving"
 #: components/theme/View/ArtworkView
 # defaultMessage: Does this page contain inaccurate information or language that you feel we should improve or change?
 msgid "does_this_contain_innacurate"
-msgstr "Bevat deze pagina onnauwkeurige informatie of taal die volgens u verbeterd  of gewijzigd moet worden?"
+msgstr "Bevat deze pagina onnauwkeurige informatie of taal die verbeterd of gewijzigd moet worden?"
 
 #: components/theme/View/ArtworkView
 #: components/theme/View/AuthorView
@@ -592,4 +592,4 @@ msgstr "Titel"
 #: components/theme/View/ArtworkView
 # defaultMessage: We would like to hear from you
 msgid "would_like_to_hear"
-msgstr "We horen graag van u"
+msgstr "We horen graag van je"
