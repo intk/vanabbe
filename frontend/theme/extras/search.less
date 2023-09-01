@@ -365,13 +365,38 @@
 }
 
 
-.search-button-wrapper{
+#main .search-button-wrapper{
   display: flex;
   .facetOnView{
     display: flex;
-    padding-left: 30px;
+    padding-left: 50px;
+    margin-top: auto !important;
+    margin-bottom: auto !important;
     .column{
       padding-right: 30px;
+    }
+
+    .ui.toggle.checkbox input:checked~label:before,
+    .ui.checkbox input:checked:focus~label:before,
+    .ui.toggle.checkbox input:focus:checked~label:before,
+    .ui.toggle.checkbox input:focus:checked~label:before {
+      color: var(--text-color) !important;
+    }
+
+    .checkbox-facet{
+      display: flex;
+      align-content: center;
+    }
+    .checkbox-facet > * {
+      padding-right: 5px;
+      margin: 0px;
+      font-family: "Neue Haas Grotesk Medium",
+        Arial,
+        "Helvetica Neue",
+        Helvetica,
+        sans-serif;
+      font-size: 18px;
+      color: var(--text-color);
     }
   }
 }
