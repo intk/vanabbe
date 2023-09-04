@@ -73,12 +73,22 @@ const TopSideFacets = (props) => {
   const location = useLocation();
 
   React.useEffect(() => {
-    // Check if the specific query is already present in the URL
-    if (!location.hash.includes('#query')) {
-      // If not, append it
+    const allowedPaths = [
+      '/nl/collectie-onderzoek/collectie/kunstwerken',
+      '/en/collection-research/collection/permanent-collection',
+    ];
+
+    // Check if the current URL is one of the allowed paths and the specific query isn't present
+    if (
+      allowedPaths.includes(location.pathname) &&
+      !location.hash.includes('#query')
+    ) {
+      // Construct the new URL
       const newURL = `${location.pathname}${location.search}#query=%5B%7B"i"%3A"portal_type"%2C"o"%3A"paqo.selection.any"%2C"v"%3A%5B"artwork"%5D%7D%2C%7B"i"%3A"objectOnDisplay"%2C"o"%3A"paqo.boolean.isTrue"%2C"v"%3A""%7D%2C%7B"i"%3A"hasImage"%2C"o"%3A"paqo.boolean.isTrue"%2C"v"%3A""%7D%5D&sort_order=ascending`;
 
-      history.replace(newURL); // Use replace to avoid adding to the history stack
+      history.replace(newURL); // Update the URL
+
+      // Refresh the page to apply changes
       window.location.reload();
     }
   }, []);
