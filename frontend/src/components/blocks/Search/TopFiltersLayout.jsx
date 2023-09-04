@@ -68,15 +68,15 @@ const TopSideFacets = (props) => {
   const isLive = !showSearchButton;
   const intl = useIntl();
 
-  React.useEffect(() => {
-    if (!facets.objectOnDisplay) {
-      setFacets((prevFacets) => ({ ...prevFacets, objectOnDisplay: true }));
-    }
+  // React.useEffect(() => {
+  //   if (!facets.objectOnDisplay) {
+  //     setFacets((prevFacets) => ({ ...prevFacets, objectOnDisplay: true }));
+  //   }
 
-    if (!facets.hasImage) {
-      setFacets((prevFacets) => ({ ...prevFacets, hasImage: true }));
-    }
-  }, []);
+  //   if (!facets.hasImage) {
+  //     setFacets((prevFacets) => ({ ...prevFacets, hasImage: true }));
+  //   }
+  // }, []);
 
   const defaultOpened = isDirty(
     searchData.query || [],
