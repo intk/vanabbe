@@ -9,6 +9,7 @@ from plone.app.multilingual.api import get_translation_manager
 from plone.protect.interfaces import IDisableCSRFProtection
 from Products.Five.browser import BrowserView
 from zope.interface import alsoProvides
+from plone.folder.interfaces import IExplicitOrdering
 
 import json
 import logging
@@ -114,16 +115,14 @@ class AdminFixes(BrowserView):
         site = portal.get()
         catalog = site.portal_catalog
 
-        for brain in catalog.searchResults(portal_type="artwork"):            
-            if brain.getObject().objectPosition != None:
-                obj = brain.getObject()
+        for brain in catalog.searchResults(portal_type="artwork"):   
+            obj = brain.getObject()         
+            if obj.objectPosition != None:
                 obj.objectOnDisplay = True
                 obj.reindexObject(idxs=['objectOnDisplay'])
             else:
-                obj = brain.getObject()
                 obj.objectOnDisplay = False
                 obj.reindexObject(idxs=['objectOnDisplay'])
-
 
         return "ok"
     
