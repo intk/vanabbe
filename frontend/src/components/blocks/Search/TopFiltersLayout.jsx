@@ -103,7 +103,7 @@ const TopSideFacets = (props) => {
   const hiddenData = useDeepCompareMemoize(_hiddenData);
 
   let facetOnView = {
-    facets: hiddenData.facets.filter(
+    facets: hiddenData.facets?.filter(
       (facet) =>
         facet.field.value === 'objectOnDisplay' ||
         facet.field.value === 'hasImage',
@@ -111,7 +111,7 @@ const TopSideFacets = (props) => {
   };
 
   let facetRest = {
-    facets: hiddenData.facets.filter(
+    facets: hiddenData.facets?.filter(
       (facet) =>
         facet.field.value !== 'objectOnDisplay' &&
         facet.field.value !== 'hasImage',
