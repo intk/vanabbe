@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useLayoutEffect } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { flushSync } from 'react-dom';
 import { defineMessages, useIntl } from 'react-intl';
@@ -9,6 +9,7 @@ import upSVG from '@plone/volto/icons/up-key.svg';
 import cx from 'classnames';
 import { isEqual } from 'lodash';
 import { useDeepCompareMemoize } from 'use-deep-compare-effect';
+import { useHistory, useLocation } from 'react-router-dom';
 
 import {
   SearchInput,
@@ -68,27 +69,25 @@ const TopSideFacets = (props) => {
   const isLive = !showSearchButton;
   const intl = useIntl();
 
-  // React.useEffect(() => {
-  //   if (!facets.objectOnDisplay) {
-  //     setFacets((prevFacets) => ({ ...prevFacets, objectOnDisplay: true }));
-  //   }
+  const history = useHistory();
+  const location = useLocation();
 
-  //   if (!facets.hasImage) {
-  //     setFacets((prevFacets) => ({ ...prevFacets, hasImage: true }));
-  //   }
-  // }, []);
+  React.useEffect(() => {
+    // Check if the specific query is already present in the URL
+    if (!location.hash.includes('#query')) {
+      // If not, append it
+      const newURL = `${location.pathname}${location.search}#query=%5B%7B"i"%3A"portal_type"%2C"o"%3A"paqo.selection.any"%2C"v"%3A%5B"artwork"%5D%7D%2C%7B"i"%3A"objectOnDisplay"%2C"o"%3A"paqo.boolean.isTrue"%2C"v"%3A""%7D%2C%7B"i"%3A"hasImage"%2C"o"%3A"paqo.boolean.isTrue"%2C"v"%3A""%7D%5D&sort_order=ascending`;
+
+      history.replace(newURL); // Use replace to avoid adding to the history stack
+      window.location.reload();
+    }
+  }, []);
 
   const defaultOpened = isDirty(
     searchData.query || [],
     data.query?.query || [],
   );
   const [showFilters, setShowFilters] = React.useState(defaultOpened);
-
-  React.useState(() => {
-    if (isEditMode) {
-      setShowFilters(true);
-    }
-  }, [isEditMode]);
 
   const _hiddenData = {
     ...data,
