@@ -59,7 +59,7 @@ class AdminFixes(BrowserView):
         response.raise_for_status()  # Raise an exception for HTTP errors
         return response.text
 
-    def create_xml_records(self, output_dir="/data-import-new"):
+    def create_xml_records(self, output_dir="/var/local/vanabbe/data-import-new"):
         """
         Fetches XML data from the API, splits it into separate XML files for each <dc_record> section.
         
