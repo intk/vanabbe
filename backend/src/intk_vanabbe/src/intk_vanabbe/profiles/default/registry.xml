@@ -84,7 +84,8 @@
     <value key="enabled">True</value>
     <value key="sortable">True</value>
     <value key="operations">
-        <element>plone.app.querystring.operation.string.is</element>
+      <element>plone.app.querystring.operation.string.is</element>
+      <element>plone.app.querystring.operation.string.isNot</element>
     </value>
     <value key="group" i18n:translate="">VanAbbe</value>
   </records>
