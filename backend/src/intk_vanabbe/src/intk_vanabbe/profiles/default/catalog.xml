@@ -61,9 +61,12 @@
     <indexed_attr value="technique_nl"/>
   </index>
   
+  <index name="authorSortName" meta_type="FieldIndex">
+    <indexed_attr value="authorSortName"/>
+  </index>
 
   <column value="authorName"/>
-  <column value="authorSortName"/>
+  <!-- <column value="authorSortName"/> -->
   <column value="objectCreationDate"/>
   <column value="objectTitle"/>
   <column value="eventTimeFrom"/>
