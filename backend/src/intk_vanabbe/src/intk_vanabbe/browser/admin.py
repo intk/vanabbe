@@ -16,6 +16,8 @@ import logging
 import lxml.etree
 import os
 import transaction
+import requests
+import xml.etree.ElementTree as ET
 
 
 logger = logging.getLogger('vubis')
@@ -44,6 +46,61 @@ def find_files(search):
 
 class AdminFixes(BrowserView):
     """Vubis import on demand, for debugging"""
+
+    def fetch_xml_data(self):
+        """
+        Fetches XML data from the predefined API endpoint.
+        
+        Returns:
+        - str: The fetched XML data.
+        """
+        api_url = "http://62.221.199.184:17718/action=get&command=search&query=ccIndexName=VanAbbeCollectie&fields=*&range=1-10000"
+        response = requests.get(api_url)
+        response.raise_for_status()  # Raise an exception for HTTP errors
+        return response.text
+
+    def create_xml_records(self, output_dir="/data-import-new"):
+        """
+        Fetches XML data from the API, splits it into separate XML files for each <dc_record> section.
+        
+        Parameters:
+        - output_dir (str): The directory where to save the XML files.
+
+        Returns:
+        - list: Names of the generated XML files.
+        """
+        xml_string = self.fetch_xml_data()
+
+        # Ensure the output directory exists, if not create it
+        if not os.path.exists(output_dir):
+            os.makedirs(output_dir)
+
+        # Parse the XML
+        root = ET.fromstring(xml_string)
+        
+        # Extract <record> elements
+        records = root.findall('.//record')
+        
+        generated_files = []
+        
+        for record in records:
+            # Extract <dc_record> element
+            dc_record = record.find('.//dc_record')
+            
+            # Extract <recordnumber> value
+            recordnumber = record.find('.//dc_record//recordnumber').text
+            
+            # Convert <dc_record> element to XML string
+            dc_record_xml = ET.tostring(dc_record, encoding='unicode')
+            
+            # Save XML to a file
+            file_name = os.path.join(output_dir, f"{recordnumber}.xml")
+            with open(file_name, 'w', encoding='utf-8') as f:
+                f.write(dc_record_xml)
+            
+            generated_files.append(file_name)
+        
+        return generated_files
 
     def reindex_decades(self):
         site = portal.get()
@@ -216,15 +273,13 @@ class AdminFixes(BrowserView):
 
         for fpath in to_import:
             recordnumber = fpath.rsplit('/', 1)[-1].split('.')[0]
-
-            brains = catalog.searchResults(recordnumber=int(recordnumber))
+            
+            brains = catalog.searchResults(recordnumber=recordnumber)
 
             with open(fpath) as f:
                 xml = f.read()
 
             element = lxml.etree.fromstring(xml)
-
-
 
             fields = [
                 "objectPosition",
