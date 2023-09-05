@@ -212,9 +212,9 @@ class ImportVubis(BrowserView):
             import_artwork,
             import_publication,
             import_exhibition,
-            imported_records,
-            max_records=max_records,
-            query=query,
+            # imported_records,
+            max_records,
+            query,
         )
 
         return "done"
