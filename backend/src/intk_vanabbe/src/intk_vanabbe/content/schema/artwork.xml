@@ -109,6 +109,11 @@
       <required>False</required>
       <title>recordnumber</title>
     </field>
+    <field name="objectClassifier" type="zope.schema.TextLine" lingua:independent="true" indexer:searchable="true">
+      <description/>
+      <required>False</required>
+      <title>objectClassifier</title>
+    </field>
     <field name="objectOnDisplay" type="zope.schema.Bool" lingua:independent="true" indexer:searchable="true">
       <description/>
       <required>False</required>
