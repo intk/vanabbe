@@ -104,6 +104,20 @@
     <value key="group" i18n:translate="">VanAbbe</value>
   </records>
 
+  <records interface="plone.app.querystring.interfaces.IQueryField"
+            prefix="plone.app.querystring.field.authorSortName">
+    <value key="title" i18n:translate="">Sortable Last Name</value>
+    <value key="description" i18n:translate="">The item's last name</value>
+    <value key="enabled">False</value>
+    <value key="sortable">True</value>
+    <value key="operations">
+        <element>plone.app.querystring.operation.string.contains</element>
+        <element>plone.app.querystring.operation.string.is</element>
+        <element>plone.app.querystring.operation.string.isNot</element>
+    </value>
+    <value key="group" i18n:translate="">Text</value>
+  </records>
+
 
   <records xmlns:ns0="http://xml.zope.org/namespaces/i18n" interface="plone.app.querystring.interfaces.IQueryField" prefix="plone.app.querystring.field.objectPosition" purge="false">
     <value key="title" ns0:translate="">Object Position</value>
