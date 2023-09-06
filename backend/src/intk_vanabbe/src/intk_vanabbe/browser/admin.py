@@ -4,12 +4,17 @@ from collections import defaultdict
 from intk_vanabbe.config import DATA_REPO
 from intk_vanabbe.config import IMAGE_BASE_URL
 from intk_vanabbe.config import IMPORT_LOCATIONS
-from plone.api import portal
-from plone.app.multilingual.api import get_translation_manager
 from plone.protect.interfaces import IDisableCSRFProtection
 from Products.Five.browser import BrowserView
 from zope.interface import alsoProvides
 from plone.folder.interfaces import IExplicitOrdering
+from plone.api import content
+from plone.api import portal
+from plone.api import relation
+from plone.app.multilingual.api import get_translation_manager
+from plone.app.multilingual.api import translate
+from plone import api
+
 
 import json
 import logging
@@ -480,6 +485,175 @@ class AdminFixes(BrowserView):
     #             obj.reindexObject()
     #
     #     return "ok"
+
+    def get_base_folder(context, portal_type):
+        base = portal.get()
+        return base.restrictedTraverse(IMPORT_LOCATIONS[portal_type])
+
+
+    def import_record(self):
+        api_url = "http://62.221.199.184:17718/action=get&command=search&query=ccIndexName=VanAbbeCollectie&fields=*&range=1-100"
+        response = requests.get(api_url)
+        response.raise_for_status()
+        api_answer = response.text
+        container = get_base_folder(self.context, "artwork")
+        
+        root = ET.fromstring(api_answer)
+        
+        # Extract <record> elements
+        records = root.findall('.//record')
+
+        for record in records:
+            # Extract <dc_record> element
+            dc_record = record.find('.//dc_record')
+            
+            # Extract <recordnumber> value
+            recordnumber = record.find('.//dc_record//recordnumber').text
+            
+            # Convert <dc_record> element to XML string
+            dc_record_xml = ET.tostring(dc_record, encoding='unicode')
+
+            print(dc_record_xml)
+            
+            portal = api.portal.get()
+
+             
+            element = lxml.etree.fromstring(dc_record_xml)
+
+            fields = [
+                "objectPosition",
+                "objectFormatWidth",
+                "objectFormatDepth",
+                "objectFormatLength",
+                "objectKeys",
+            ]
+            media_fields = ["ObjectAudio", "ObjectVideo"]
+
+            info = {'nl': {}, 'en': {}}
+            intl = {'nl': {}, 'en': {}}
+            
+            rawdata = element.xpath("//dc_record")[0]
+            info['nl']['rawdata'] = lxml.etree.tostring(rawdata)
+            info['en']['rawdata'] = lxml.etree.tostring(rawdata)
+
+            ccObjectID = element.xpath("//dc_record/ccObjectID")[0].text
+            info['nl']['ccObjectID'] = ccObjectID
+            info['en']['ccObjectID'] = ccObjectID
+
+            ccIdentifier = element.xpath("//dc_record/ccIdentifier")[0].text
+            info['nl']['ccIdentifier'] = ccIdentifier
+            info['en']['ccIdentifier'] = ccIdentifier
+
+            ccIndexName = element.xpath("//dc_record/ccIndexName")[0].text
+            info['nl']['ccIndexName'] = ccIndexName
+            info['en']['ccIndexName'] = ccIndexName
+
+            # dimensions = element.xpath("//dc_record/dimensions")[0].text
+            # info['nl']['dimensions'] = dimensions
+            # info['en']['dimensions'] = dimensions
+
+            objectCreationDate = element.xpath("//dc_record/objectCreationDate")[0].text
+            info['nl']['objectCreationDate'] = objectCreationDate
+            info['en']['objectCreationDate'] = objectCreationDate
+
+            objectID = element.xpath("//dc_record/objectID")[0].text
+            info['nl']['objectID'] = objectID
+            info['en']['objectID'] = objectID
+
+            objectMedium = element.xpath("//dc_record/objectMedium")[0].text
+            info['nl']['objectMedium'] = objectMedium
+            info['en']['objectMedium'] = objectMedium
+
+
+            objectCredit = element.xpath("//dc_record/objectCredit")[0].text
+            info['nl']['objectCredit'] = objectCredit
+            info['en']['objectCredit'] = objectCredit
+
+            objectYearPurchase = element.xpath("//dc_record/objectYearPurchase")[0].text
+            info['nl']['objectYearPurchase'] = objectYearPurchase
+            info['en']['objectYearPurchase'] = objectYearPurchase
+
+            recordnumber = element.xpath("//dc_record/recordnumber")[0].text
+            info['nl']['recordnumber'] = recordnumber
+            info['en']['recordnumber'] = recordnumber
+
+            titles = element.xpath("//dc_record/objectTitle")
+            title = titles[0].text
+            if len(titles) > 1:
+                titles.sort(key=lambda x: x.get("Rangorde") or "")
+                title = titles[0].text
+            info['nl']['objectTitle'] = title
+            info['en']['objectTitle'] = title
+
+            for attr in fields:
+                value = element.xpath(f"//dc_record/{attr}")
+                print(f"//dc_record/{attr}")
+                if value:
+                    print(value[0])
+                    info['en'][attr] = str(value[0])
+                    info['nl'][attr] = str(value[0])
+
+                    # If the current attribute is 'objectPosition' and the value is not empty
+                    if attr == "objectPosition" and str(value[0]).strip():
+                        info['en']['objectOnDisplay'] = True
+                        info['nl']['objectOnDisplay'] = True
+
+            for field in media_fields:
+                for lang in intl.keys():
+                    els = element.xpath(
+                        f"//dc_record/{field}[@Language='{lang.upper()}']")
+                    if not els:
+                        continue
+                    intl[lang][field] = [
+                        {"title": (el.get("Title") or "").strip(),
+                            "filename": (el.text or "").strip()}
+                        for el in els
+                    ]
+
+            for lang in intl.keys():
+                fields = element.xpath(
+                    f"//dc_record/objectDescription[@Language='{lang.upper()}']")
+                if len(fields) > 1:
+                    for el in fields:
+                        title = el.get('Title')
+                        scope = el.get('Scope')
+                        if title or scope:
+                            info[lang]['objectDescription_extra'] = str(
+                                el.text)
+                            info[lang]['objectDescription_extra_title'] = title
+                            info[lang]['objectDescription_extra_scope'] = scope
+                        else:
+                            info[lang]['objectDescription'] = str(el.text)
+
+                    
+            try:
+                obj = api.content.create(
+                    type="artwork",
+                    title=title,
+                    container=container,
+                )
+            except TypeError as e:
+                print(f"Error with data")
+                raise e
+
+            lang = obj.language
+            for k, v in info[lang].items():
+                if v:
+                    setattr(obj, k, v)
+
+            for k, v in intl[lang].items():
+                if v:
+                    setattr(obj, k, json.dumps(v))
+
+            logger.info("Fixed %s", obj.absolute_url(relative=1))
+            obj.reindexObject(
+                idxs=['objectTitle', 'Title', 'sortable_title'])
+
+            return "done"
+
+        
+        return records
+
 
     def __call__(self):
         alsoProvides(self.request, IDisableCSRFProtection)
