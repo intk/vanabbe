@@ -514,10 +514,9 @@ class AdminFixes(BrowserView):
             dc_record_xml = ET.tostring(dc_record, encoding='unicode')
 
             print(dc_record_xml)
-            
+
             portal = api.portal.get()
 
-             
             element = lxml.etree.fromstring(dc_record_xml)
 
             fields = [
@@ -527,6 +526,7 @@ class AdminFixes(BrowserView):
                 "objectFormatLength",
                 "objectKeys",
             ]
+
             media_fields = ["ObjectAudio", "ObjectVideo"]
 
             info = {'nl': {}, 'en': {}}
@@ -548,9 +548,10 @@ class AdminFixes(BrowserView):
             info['nl']['ccIndexName'] = ccIndexName
             info['en']['ccIndexName'] = ccIndexName
 
-            # dimensions = element.xpath("//dc_record/dimensions")[0].text
-            # info['nl']['dimensions'] = dimensions
-            # info['en']['dimensions'] = dimensions
+
+            dimensions = element.xpath("//dc_record/Dimensions")[0].text
+            info['nl']['dimensions'] = dimensions
+            info['en']['dimensions'] = dimensions
 
             objectCreationDate = element.xpath("//dc_record/objectCreationDate")[0].text
             info['nl']['objectCreationDate'] = objectCreationDate
