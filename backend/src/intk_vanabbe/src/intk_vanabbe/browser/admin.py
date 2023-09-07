@@ -492,11 +492,13 @@ class AdminFixes(BrowserView):
 
 
     def import_record(self):
-        api_url = "http://62.221.199.184:17718/action=get&command=search&query=ccIndexName=VanAbbeCollectie&fields=*&range=1-100"
+        api_url = "http://62.221.199.184:17718/action=get&command=search&query=ccIndexName=VanAbbeCollectie&fields=*&range=0-100"
         response = requests.get(api_url)
         response.raise_for_status()
         api_answer = response.text
         container = get_base_folder(self.context, "artwork")
+        site = api.portal.get()
+        catalog = site.portal_catalog
         
         root = ET.fromstring(api_answer)
         
@@ -507,76 +509,92 @@ class AdminFixes(BrowserView):
             # Extract <dc_record> element
             dc_record = record.find('.//dc_record')
             
-            # Extract <recordnumber> value
-            recordnumber = record.find('.//dc_record//recordnumber').text
-            
             # Convert <dc_record> element to XML string
             dc_record_xml = ET.tostring(dc_record, encoding='unicode')
 
-            print(dc_record_xml)
-
-            portal = api.portal.get()
-
+            # print(dc_record_xml)
             element = lxml.etree.fromstring(dc_record_xml)
-
-            fields = [
-                "objectPosition",
-                "objectFormatWidth",
-                "objectFormatDepth",
-                "objectFormatLength",
-                "objectKeys",
-            ]
-
-            media_fields = ["ObjectAudio", "ObjectVideo"]
 
             info = {'nl': {}, 'en': {}}
             intl = {'nl': {}, 'en': {}}
             
-            rawdata = element.xpath("//dc_record")[0]
-            info['nl']['rawdata'] = lxml.etree.tostring(rawdata)
-            info['en']['rawdata'] = lxml.etree.tostring(rawdata)
 
             ccObjectID = element.xpath("//dc_record/ccObjectID")[0].text
             info['nl']['ccObjectID'] = ccObjectID
             info['en']['ccObjectID'] = ccObjectID
 
-            ccIdentifier = element.xpath("//dc_record/ccIdentifier")[0].text
-            info['nl']['ccIdentifier'] = ccIdentifier
-            info['en']['ccIdentifier'] = ccIdentifier
+            database_object = catalog.searchResults(ccObjectID=ccObjectID)
+            # for object in database_object:
+            #     print(object['id'])
 
-            ccIndexName = element.xpath("//dc_record/ccIndexName")[0].text
-            info['nl']['ccIndexName'] = ccIndexName
-            info['en']['ccIndexName'] = ccIndexName
+            fields_to_extract = {
+                "ccIdentifier": "ccIdentifier",
+                "ccIndexName": "ccIndexName",
+                "objectCreationDate": "objectCreationDate",
+                "objectCreationFrom": "objectCreationDateFrom", 
+                "objectCreationDateTo": "objectCreationDateTo",
+                "objectID": "objectID",
+                "objectMedium": "objectMedium",
+                "objectYearPurchase": "objectYearPurchase",
+                "recordnumber": "recordnumber",
+                "Dimensions": "dimensions",
+                "objectCredit": "objectCredit"
+            }
 
+            for xml_field, info_field in fields_to_extract.items():
+                elements = element.xpath(f"//dc_record/{xml_field}")
+                info['nl'][info_field] = elements[0].text if elements else None
+                info['en'][info_field] = elements[0].text if elements else None
 
-            dimensions = element.xpath("//dc_record/Dimensions")[0].text
-            info['nl']['dimensions'] = dimensions
-            info['en']['dimensions'] = dimensions
+            rawdata = element.xpath("//dc_record")[0]
+            info['nl']['rawdata'] = lxml.etree.tostring(rawdata)
+            info['en']['rawdata'] = lxml.etree.tostring(rawdata)
 
-            objectCreationDate = element.xpath("//dc_record/objectCreationDate")[0].text
-            info['nl']['objectCreationDate'] = objectCreationDate
-            info['en']['objectCreationDate'] = objectCreationDate
+            # ccIdentifier = element.xpath("//dc_record/ccIdentifier")[0].text
+            # info['nl']['ccIdentifier'] = ccIdentifier
+            # info['en']['ccIdentifier'] = ccIdentifier
 
-            objectID = element.xpath("//dc_record/objectID")[0].text
-            info['nl']['objectID'] = objectID
-            info['en']['objectID'] = objectID
+            # ccIndexName = element.xpath("//dc_record/ccIndexName")[0].text
+            # info['nl']['ccIndexName'] = ccIndexName
+            # info['en']['ccIndexName'] = ccIndexName
 
-            objectMedium = element.xpath("//dc_record/objectMedium")[0].text
-            info['nl']['objectMedium'] = objectMedium
-            info['en']['objectMedium'] = objectMedium
+            # dimensions_elements = element.xpath("//dc_record/Dimensions")
+            # if dimensions_elements:
+            #     dimensions = dimensions_elements[0].text
+            #     info['nl']['dimensions'] = dimensions
+            #     info['en']['dimensions'] = dimensions
+            # else:
+            #     info['nl']['dimensions'] = None
+            #     info['en']['dimensions'] = None
 
+            # objectCreationDate = element.xpath("//dc_record/objectCreationDate")[0].text
+            # info['nl']['objectCreationDate'] = objectCreationDate
+            # info['en']['objectCreationDate'] = objectCreationDate
 
-            objectCredit = element.xpath("//dc_record/objectCredit")[0].text
-            info['nl']['objectCredit'] = objectCredit
-            info['en']['objectCredit'] = objectCredit
+            # objectID = element.xpath("//dc_record/objectID")[0].text
+            # info['nl']['objectID'] = objectID
+            # info['en']['objectID'] = objectID
 
-            objectYearPurchase = element.xpath("//dc_record/objectYearPurchase")[0].text
-            info['nl']['objectYearPurchase'] = objectYearPurchase
-            info['en']['objectYearPurchase'] = objectYearPurchase
+            # objectMedium = element.xpath("//dc_record/objectMedium")[0].text
+            # info['nl']['objectMedium'] = objectMedium
+            # info['en']['objectMedium'] = objectMedium
 
-            recordnumber = element.xpath("//dc_record/recordnumber")[0].text
-            info['nl']['recordnumber'] = recordnumber
-            info['en']['recordnumber'] = recordnumber
+            # objectCredit_elements = element.xpath("//dc_record/objectCredit")
+            # if objectCredit_elements:
+            #     objectCredit = objectCredit_elements[0].text
+            #     info['nl']['objectCredit'] = objectCredit
+            #     info['en']['objectCredit'] = objectCredit
+            # else:
+            #     info['nl']['objectCredit'] = None
+            #     info['en']['objectCredit'] = None
+
+            # objectYearPurchase = element.xpath("//dc_record/objectYearPurchase")[0].text
+            # info['nl']['objectYearPurchase'] = objectYearPurchase
+            # info['en']['objectYearPurchase'] = objectYearPurchase
+
+            # recordnumber = element.xpath("//dc_record/recordnumber")[0].text
+            # info['nl']['recordnumber'] = recordnumber
+            # info['en']['recordnumber'] = recordnumber
 
             titles = element.xpath("//dc_record/objectTitle")
             title = titles[0].text
@@ -586,20 +604,27 @@ class AdminFixes(BrowserView):
             info['nl']['objectTitle'] = title
             info['en']['objectTitle'] = title
 
-            for attr in fields:
+            attrs = [
+                "objectPosition",
+                "objectFormatWidth",
+                "objectFormatDepth",
+                "objectFormatLength",
+                "objectKeys",
+            ]
+
+            for attr in attrs:
                 value = element.xpath(f"//dc_record/{attr}")
-                print(f"//dc_record/{attr}")
                 if value:
                     print(value[0])
-                    info['en'][attr] = str(value[0])
-                    info['nl'][attr] = str(value[0])
+                    info['en'][attr] = str(value[0].text)
+                    info['nl'][attr] = str(value[0].text)
 
                     # If the current attribute is 'objectPosition' and the value is not empty
                     if attr == "objectPosition" and str(value[0]).strip():
                         info['en']['objectOnDisplay'] = True
                         info['nl']['objectOnDisplay'] = True
 
-            for field in media_fields:
+            for field in ["ObjectAudio", "ObjectVideo"]:
                 for lang in intl.keys():
                     els = element.xpath(
                         f"//dc_record/{field}[@Language='{lang.upper()}']")
@@ -611,22 +636,48 @@ class AdminFixes(BrowserView):
                         for el in els
                     ]
 
-            for lang in intl.keys():
-                fields = element.xpath(
-                    f"//dc_record/objectDescription[@Language='{lang.upper()}']")
-                if len(fields) > 1:
-                    for el in fields:
-                        title = el.get('Title')
-                        scope = el.get('Scope')
-                        if title or scope:
-                            info[lang]['objectDescription_extra'] = str(
-                                el.text)
-                            info[lang]['objectDescription_extra_title'] = title
-                            info[lang]['objectDescription_extra_scope'] = scope
-                        else:
-                            info[lang]['objectDescription'] = str(el.text)
+            # for lang in intl.keys():
+            #     fields = element.xpath(
+            #         f"//dc_record/objectDescription[@Language='{lang.upper()}']")
+            #     print(f"the number of fields{len(fields)}")
+            #     if len(fields) > 1:
+            #         for el in fields:
+            #             title = el.get('Title')
+            #             scope = el.get('Scope')
+            #             print(f"fields {el}")
+            #             if title or scope:
+            #                 info[lang]['objectDescription_extra'] = str(
+            #                     el.text)
+            #                 info[lang]['objectDescription_extra_title'] = title
+            #                 info[lang]['objectDescription_extra_scope'] = scope
+            #             else:
+            #                 info[lang]['objectDescription'] = str(el.text)
 
-                    
+            objectDescription = element.xpath("//dc_record/objectDescription")
+            if len(objectDescription)>1:
+                for e in objectDescription:
+                    descTitle=e.get('Title')
+                    descScope=e.get('Scope')
+                    if descTitle or descScope:
+                        info['nl']['objectDescription_extra'] = str(e.text)
+                        info['nl']['objectDescription_extra_title'] = descTitle
+                        info['nl']['objectDescription_extra_scope'] = descScope
+                        info['en']['objectDescription_extra'] = str(e.text)
+                        info['en']['objectDescription_extra_title'] = descTitle
+                        info['en']['objectDescription_extra_scope'] = descScope
+                    else:
+                        info['nl']['objectDescription'] = e.text
+                        info['en']['objectDescription'] = e.text
+
+            elif objectDescription:
+                info['nl']['objectDescription'] = objectDescription[0].text
+                info['en']['objectDescription'] = objectDescription[0].text
+            else:
+                info['nl']['objectDescription'] = None
+                info['en']['objectDescription'] = None
+
+
+
             try:
                 obj = api.content.create(
                     type="artwork",
@@ -650,10 +701,7 @@ class AdminFixes(BrowserView):
             obj.reindexObject(
                 idxs=['objectTitle', 'Title', 'sortable_title'])
 
-            return "done"
-
-        
-        return records
+        return 'all done'
 
 
     def __call__(self):
