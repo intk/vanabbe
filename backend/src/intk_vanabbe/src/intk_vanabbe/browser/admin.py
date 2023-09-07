@@ -523,10 +523,6 @@ class AdminFixes(BrowserView):
             info['nl']['ccObjectID'] = ccObjectID
             info['en']['ccObjectID'] = ccObjectID
 
-            database_object = catalog.searchResults(ccObjectID=ccObjectID)
-            # for object in database_object:
-            #     print(object['id'])
-
             fields_to_extract = {
                 "ccIdentifier": "ccIdentifier",
                 "ccIndexName": "ccIndexName",
@@ -550,52 +546,6 @@ class AdminFixes(BrowserView):
             info['nl']['rawdata'] = lxml.etree.tostring(rawdata)
             info['en']['rawdata'] = lxml.etree.tostring(rawdata)
 
-            # ccIdentifier = element.xpath("//dc_record/ccIdentifier")[0].text
-            # info['nl']['ccIdentifier'] = ccIdentifier
-            # info['en']['ccIdentifier'] = ccIdentifier
-
-            # ccIndexName = element.xpath("//dc_record/ccIndexName")[0].text
-            # info['nl']['ccIndexName'] = ccIndexName
-            # info['en']['ccIndexName'] = ccIndexName
-
-            # dimensions_elements = element.xpath("//dc_record/Dimensions")
-            # if dimensions_elements:
-            #     dimensions = dimensions_elements[0].text
-            #     info['nl']['dimensions'] = dimensions
-            #     info['en']['dimensions'] = dimensions
-            # else:
-            #     info['nl']['dimensions'] = None
-            #     info['en']['dimensions'] = None
-
-            # objectCreationDate = element.xpath("//dc_record/objectCreationDate")[0].text
-            # info['nl']['objectCreationDate'] = objectCreationDate
-            # info['en']['objectCreationDate'] = objectCreationDate
-
-            # objectID = element.xpath("//dc_record/objectID")[0].text
-            # info['nl']['objectID'] = objectID
-            # info['en']['objectID'] = objectID
-
-            # objectMedium = element.xpath("//dc_record/objectMedium")[0].text
-            # info['nl']['objectMedium'] = objectMedium
-            # info['en']['objectMedium'] = objectMedium
-
-            # objectCredit_elements = element.xpath("//dc_record/objectCredit")
-            # if objectCredit_elements:
-            #     objectCredit = objectCredit_elements[0].text
-            #     info['nl']['objectCredit'] = objectCredit
-            #     info['en']['objectCredit'] = objectCredit
-            # else:
-            #     info['nl']['objectCredit'] = None
-            #     info['en']['objectCredit'] = None
-
-            # objectYearPurchase = element.xpath("//dc_record/objectYearPurchase")[0].text
-            # info['nl']['objectYearPurchase'] = objectYearPurchase
-            # info['en']['objectYearPurchase'] = objectYearPurchase
-
-            # recordnumber = element.xpath("//dc_record/recordnumber")[0].text
-            # info['nl']['recordnumber'] = recordnumber
-            # info['en']['recordnumber'] = recordnumber
-
             titles = element.xpath("//dc_record/objectTitle")
             title = titles[0].text
             if len(titles) > 1:
@@ -615,7 +565,6 @@ class AdminFixes(BrowserView):
             for attr in attrs:
                 value = element.xpath(f"//dc_record/{attr}")
                 if value:
-                    print(value[0])
                     info['en'][attr] = str(value[0].text)
                     info['nl'][attr] = str(value[0].text)
 
@@ -635,23 +584,6 @@ class AdminFixes(BrowserView):
                             "filename": (el.text or "").strip()}
                         for el in els
                     ]
-
-            # for lang in intl.keys():
-            #     fields = element.xpath(
-            #         f"//dc_record/objectDescription[@Language='{lang.upper()}']")
-            #     print(f"the number of fields{len(fields)}")
-            #     if len(fields) > 1:
-            #         for el in fields:
-            #             title = el.get('Title')
-            #             scope = el.get('Scope')
-            #             print(f"fields {el}")
-            #             if title or scope:
-            #                 info[lang]['objectDescription_extra'] = str(
-            #                     el.text)
-            #                 info[lang]['objectDescription_extra_title'] = title
-            #                 info[lang]['objectDescription_extra_scope'] = scope
-            #             else:
-            #                 info[lang]['objectDescription'] = str(el.text)
 
             objectDescription = element.xpath("//dc_record/objectDescription")
             if len(objectDescription)>1:
@@ -677,29 +609,52 @@ class AdminFixes(BrowserView):
                 info['en']['objectDescription'] = None
 
 
+            # Check if object with ccObjectID already exists in the container
+            brains = catalog.searchResults(ccObjectID=ccObjectID)
+            print(brains)
+            if brains:
+                # Object exists, so we fetch it and update it
+                obj = brains[0].getObject()
+                print(f"Updated Object ID: {obj.getId()}, Path: {obj.absolute_url()}, Workflow State: {api.content.get_state(obj)}")
+                # Update the object's fields with new data
+                lang = obj.language
+                for k, v in info[lang].items():
+                    if v:
+                        setattr(obj, k, v)
 
-            try:
-                obj = api.content.create(
-                    type="artwork",
-                    title=title,
-                    container=container,
-                )
-            except TypeError as e:
-                print(f"Error with data")
-                raise e
+                for k, v in intl[lang].items():
+                    if v:
+                        setattr(obj, k, json.dumps(v))
+                
+                # Reindex the updated object
+                obj.reindexObject(idxs=['objectTitle', 'Title', 'sortable_title'])
+                
+            else:
+                # Object doesn't exist, so we create a new one
+                if not title:
+                    title = "Untitled Object"  # default value for untitled objects
+                try:
+                    obj = api.content.create(
+                        type="artwork",
+                        title=title,
+                        container=container,
+                    )
+                except TypeError as e:
+                    print(f"Error with data")
+                    raise e
 
-            lang = obj.language
-            for k, v in info[lang].items():
-                if v:
-                    setattr(obj, k, v)
+                lang = obj.language
+                for k, v in info[lang].items():
+                    if v:
+                        setattr(obj, k, v)
 
-            for k, v in intl[lang].items():
-                if v:
-                    setattr(obj, k, json.dumps(v))
+                for k, v in intl[lang].items():
+                    if v:
+                        setattr(obj, k, json.dumps(v))
 
-            logger.info("Fixed %s", obj.absolute_url(relative=1))
-            obj.reindexObject(
-                idxs=['objectTitle', 'Title', 'sortable_title'])
+                logger.info("Created %s", obj.absolute_url(relative=1))
+                obj.reindexObject(
+                    idxs=['objectTitle', 'Title', 'sortable_title', 'ccObjectID'])
 
         return 'all done'
 

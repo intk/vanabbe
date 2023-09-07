@@ -9,6 +9,11 @@
     <indexed_attr value="recordnumber"/>
   </index>
 
+  <index name="ccObjectID" meta_type="FieldIndex">
+    <indexed_attr value="ccObjectID"/>
+  </index>
+
+
   <index name="is_featured" meta_type="FieldIndex">
     <indexed_attr value="is_featured"/>
   </index>
