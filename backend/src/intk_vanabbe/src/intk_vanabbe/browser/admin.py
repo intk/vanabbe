@@ -626,6 +626,10 @@ class AdminFixes(BrowserView):
                     if v:
                         setattr(obj, k, json.dumps(v))
                 
+                #publish the object
+                if api.content.get_state(obj)== "private":
+                    content.transition(obj=obj, transition="publish")
+
                 # Reindex the updated object
                 obj.reindexObject(idxs=['objectTitle', 'Title', 'sortable_title'])
                 
@@ -653,6 +657,12 @@ class AdminFixes(BrowserView):
                         setattr(obj, k, json.dumps(v))
 
                 logger.info("Created %s", obj.absolute_url(relative=1))
+
+                #publish the object
+                if api.content.get_state(obj)== "private":
+                    content.transition(obj=obj, transition="publish")
+                
+                #reindex of the object
                 obj.reindexObject(
                     idxs=['objectTitle', 'Title', 'sortable_title', 'ccObjectID'])
 
