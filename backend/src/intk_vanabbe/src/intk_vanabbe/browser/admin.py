@@ -700,10 +700,10 @@ class AdminFixes(BrowserView):
                     container= obj_en,
                     images=images
                 )
-            return("all right")
+            print('ow yea')
 
 
-        return 'all done'
+        return('all done')
 
 
     def __call__(self):
@@ -752,6 +752,9 @@ def create_and_setup_object(title, container, info, intl):
     return obj
 
 def import_images(container, images):
+    for obj in api.content.find(context=container, portal_type='Image'):
+        api.content.delete(obj=obj.getObject())
+
     for image in images:
         primaryDisplay=image.get('PrimaryDisplay')
         with requests.get(
