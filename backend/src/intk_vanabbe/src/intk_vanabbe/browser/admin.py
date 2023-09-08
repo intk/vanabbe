@@ -700,7 +700,7 @@ class AdminFixes(BrowserView):
                     container= obj_en,
                     images=images
                 )
-            print('ow yea')
+            return("only one image!")
 
 
         return('all done')
