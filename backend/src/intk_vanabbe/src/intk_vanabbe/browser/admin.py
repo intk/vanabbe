@@ -696,6 +696,10 @@ class AdminFixes(BrowserView):
                     container= obj, 
                     images=images
                     )
+                import_images(
+                    container= obj_en,
+                    images=images
+                )
             return("all right")
 
 
