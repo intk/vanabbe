@@ -8,7 +8,8 @@ IMPORT_LOCATIONS = {
     "author": "nl/collectie-onderzoek/kunstenaars",
 }
 
-IMAGE_BASE_URL = "https://vanabbemuseum.nl/fileadmin/files/collectie/%s"
+# IMAGE_BASE_URL = "https://vanabbemuseum.nl/fileadmin/files/collectie/%s"
+IMAGE_BASE_URL = "https://mediabank.vanabbemuseum.nl/website/Artworks_HR"
 
 INT_FIELDS = [
     "bookDatePublished",
