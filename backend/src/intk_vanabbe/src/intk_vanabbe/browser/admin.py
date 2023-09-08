@@ -14,6 +14,7 @@ from plone.api import relation
 from plone.app.multilingual.api import get_translation_manager
 from plone.app.multilingual.api import translate
 from plone import api
+from plone.app.multilingual.interfaces import ITranslationManager
 
 
 import json
@@ -675,6 +676,14 @@ class AdminFixes(BrowserView):
                 obj_en = create_and_setup_object(title, container_en, info, intl) #English version
 
                 logger.info("Created %s", obj.absolute_url(relative=1))
+            
+            brains = catalog.searchResults(ccObjectID=ccObjectID, portal_type="artwork")
+            if len(brains)>1:
+                obj = brains[0].getObject()
+                obj_en = brains[1].getObject()
+                manager = ITranslationManager(obj)
+                if not manager.has_translation('en'):
+                    manager.register_translation('en', obj_en)
 
         return 'all done'
 
