@@ -15,6 +15,9 @@ from plone.app.multilingual.api import get_translation_manager
 from plone.app.multilingual.api import translate
 from plone import api
 from plone.app.multilingual.interfaces import ITranslationManager
+from .request import HEADERS
+from plone.namedfile.file import NamedBlobImage
+from plone.folder.interfaces import IExplicitOrdering
 
 
 import json
@@ -677,6 +680,7 @@ class AdminFixes(BrowserView):
 
                 logger.info("Created %s", obj.absolute_url(relative=1))
             
+            # Linking two objects as translations of each other
             brains = catalog.searchResults(ccObjectID=ccObjectID, portal_type="artwork")
             if len(brains)>1:
                 obj = brains[0].getObject()
@@ -684,6 +688,17 @@ class AdminFixes(BrowserView):
                 manager = ITranslationManager(obj)
                 if not manager.has_translation('en'):
                     manager.register_translation('en', obj_en)
+
+            #adding images
+            images=element.xpath(f"//dc_record/objectImage")
+            if images:
+                import_images(
+                    container= obj, 
+                    images=images
+                    )
+
+            return 'ok for now'
+
 
         return 'all done'
 
@@ -732,3 +747,33 @@ def create_and_setup_object(title, container, info, intl):
         idxs=['objectTitle', 'Title', 'sortable_title', 'ccObjectID'])
 
     return obj
+
+def import_images(container, images):
+    for image in images:
+        primaryDisplay=image.get('PrimaryDisplay')
+        with requests.get(
+            url=f"{IMAGE_BASE_URL}/{image.text}", stream=True, verify=False, headers=HEADERS
+        ) as req:  # noqa
+            data = req.raw.read()
+            if "DOCTYP" in str(data[:10]):  # avoids missing images
+                continue
+        
+        imagefield = NamedBlobImage(
+            # TODO: are all images jpegs?
+            data=data,
+            contentType="image/jpeg",
+            filename=image.text,
+        )
+        image = content.create(
+            type="Image",
+            id=image.text,
+            title=image.text,
+            image=imagefield,
+            container=container,
+        )
+      
+        if primaryDisplay == '1':
+            ordering = IExplicitOrdering(container)
+            ordering.moveObjectsToTop([image])
+    
+    return "alright"
