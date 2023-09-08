@@ -696,8 +696,7 @@ class AdminFixes(BrowserView):
                     container= obj, 
                     images=images
                     )
-
-            return 'ok for now'
+            return("all right")
 
 
         return 'all done'
