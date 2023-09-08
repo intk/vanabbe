@@ -700,7 +700,7 @@ class AdminFixes(BrowserView):
                     container= obj_en,
                     images=images
                 )
-            return("only one image!")
+            # return("only one image!")
 
 
         return('all done')
@@ -780,6 +780,6 @@ def import_images(container, images):
       
         if primaryDisplay == '1':
             ordering = IExplicitOrdering(container)
-            ordering.moveObjectsToTop([image])
+            ordering.moveObjectsToTop([image.getId()])
     
     return "alright"
