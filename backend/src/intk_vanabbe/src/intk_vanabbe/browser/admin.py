@@ -489,6 +489,23 @@ class AdminFixes(BrowserView):
     def get_base_folder(context, portal_type):
         base = portal.get()
         return base.restrictedTraverse(IMPORT_LOCATIONS[portal_type])
+    
+    def translate(self, obj, fields):
+        language = "en"
+        trans = translate(obj, language)
+
+        for k, v in fields.items():
+            setattr(trans, k, v)
+
+        for id, child in obj.contentItems():
+            # TODO: use translator instead of copy
+            content.copy(child, trans)
+
+        content.transition(obj=trans, transition="publish")
+        trans._p_changed = True
+        trans.reindexObject()
+
+        return trans
 
 
     def import_record(self):
@@ -497,6 +514,7 @@ class AdminFixes(BrowserView):
         response.raise_for_status()
         api_answer = response.text
         container = get_base_folder(self.context, "artwork")
+        container_en = get_base_folder(self.context, 'artwork_en')
         site = api.portal.get()
         catalog = site.portal_catalog
         
@@ -585,86 +603,69 @@ class AdminFixes(BrowserView):
                         for el in els
                     ]
 
-            objectDescription = element.xpath("//dc_record/objectDescription")
-            if len(objectDescription)>1:
-                for e in objectDescription:
-                    descTitle=e.get('Title')
-                    descScope=e.get('Scope')
-                    if descTitle or descScope:
-                        info['nl']['objectDescription_extra'] = str(e.text)
-                        info['nl']['objectDescription_extra_title'] = descTitle
-                        info['nl']['objectDescription_extra_scope'] = descScope
-                        info['en']['objectDescription_extra'] = str(e.text)
-                        info['en']['objectDescription_extra_title'] = descTitle
-                        info['en']['objectDescription_extra_scope'] = descScope
-                    else:
-                        info['nl']['objectDescription'] = e.text
-                        info['en']['objectDescription'] = e.text
+            for lang in intl.keys():
+                objectDescription = element.xpath(f"//dc_record/objectDescription[@Language='{lang.upper()}']")
+                if len(objectDescription)>1:
+                    for e in objectDescription:
+                        descTitle=e.get('Title')
+                        descScope=e.get('Scope')
+                        if descTitle or descScope:
+                            info[lang]['objectDescription_extra'] = str(e.text)
+                            info[lang]['objectDescription_extra_title'] = descTitle
+                            info[lang]['objectDescription_extra_scope'] = descScope
+                            print("Now in the desc Title and desc Scope")
+                        else:
+                            info[lang]['objectDescription'] = e.text
+                elif objectDescription:
+                    info[lang]['objectDescription'] = objectDescription[0].text
+                else:
+                    info[lang]['objectDescription'] = None
 
-            elif objectDescription:
-                info['nl']['objectDescription'] = objectDescription[0].text
-                info['en']['objectDescription'] = objectDescription[0].text
-            else:
-                info['nl']['objectDescription'] = None
-                info['en']['objectDescription'] = None
-
+            # Check if only one language version of the object with ccObjectID exists 
+            brains = catalog.searchResults(ccObjectID=ccObjectID)
+            if len(brains)==1:
+                lang = brains[0].getObject().language
+                missing_lang = 'en' if lang == 'nl' else 'nl'
+                if missing_lang == 'nl':
+                    obj = create_and_setup_object(title, container, info, intl) #Dutch version 
+                else:
+                    obj_en = create_and_setup_object(title, container_en, info, intl) #English version
 
             # Check if object with ccObjectID already exists in the container
             brains = catalog.searchResults(ccObjectID=ccObjectID)
-            print(brains)
             if brains:
-                # Object exists, so we fetch it and update it
-                obj = brains[0].getObject()
-                print(f"Updated Object ID: {obj.getId()}, Path: {obj.absolute_url()}, Workflow State: {api.content.get_state(obj)}")
-                # Update the object's fields with new data
-                lang = obj.language
-                for k, v in info[lang].items():
-                    if v:
-                        setattr(obj, k, v)
+                for brain in brains:
+                    # Object exists, so we fetch it and update it
+                    obj = brain.getObject()
 
-                for k, v in intl[lang].items():
-                    if v:
-                        setattr(obj, k, json.dumps(v))
-                
-                #publish the object
-                if api.content.get_state(obj)== "private":
-                    content.transition(obj=obj, transition="publish")
+                    # Update the object's fields with new data
+                    lang = obj.language
+                    for k, v in info[lang].items():
+                        if v:
+                            setattr(obj, k, v)
 
-                # Reindex the updated object
-                obj.reindexObject(idxs=['objectTitle', 'Title', 'sortable_title'])
+                    for k, v in intl[lang].items():
+                        if v:
+                            setattr(obj, k, json.dumps(v))
+
+                    print(f"Updated Object ID: {obj.getId()}, Path: {obj.absolute_url()}, Workflow State: {api.content.get_state(obj)}")
+                    
+                    #publish the object
+                    if api.content.get_state(obj)== "private":
+                        content.transition(obj=obj, transition="publish")
+
+                    # Reindex the updated object
+                    obj.reindexObject(idxs=['objectTitle', 'Title', 'sortable_title'])
                 
             else:
                 # Object doesn't exist, so we create a new one
                 if not title:
                     title = "Untitled Object"  # default value for untitled objects
-                try:
-                    obj = api.content.create(
-                        type="artwork",
-                        title=title,
-                        container=container,
-                    )
-                except TypeError as e:
-                    print(f"Error with data")
-                    raise e
 
-                lang = obj.language
-                for k, v in info[lang].items():
-                    if v:
-                        setattr(obj, k, v)
-
-                for k, v in intl[lang].items():
-                    if v:
-                        setattr(obj, k, json.dumps(v))
+                obj = create_and_setup_object(title, container, info, intl) #Dutch version
+                obj_en = create_and_setup_object(title, container_en, info, intl) #English version
 
                 logger.info("Created %s", obj.absolute_url(relative=1))
-
-                #publish the object
-                if api.content.get_state(obj)== "private":
-                    content.transition(obj=obj, transition="publish")
-                
-                #reindex of the object
-                obj.reindexObject(
-                    idxs=['objectTitle', 'Title', 'sortable_title', 'ccObjectID'])
 
         return 'all done'
 
@@ -679,3 +680,37 @@ class AdminFixes(BrowserView):
 def get_base_folder(context, portal_type):
     base = portal.get()
     return base.restrictedTraverse(IMPORT_LOCATIONS[portal_type])
+
+def create_and_setup_object(title, container, info, intl):
+    """
+    Create an object with the given title and container, then set its attributes
+    using the provided info and intl dictionaries.
+    """
+    try:
+        obj = api.content.create(
+            type="artwork",
+            title=title,
+            container=container,
+        )
+    except TypeError as e:
+        print(f"Error with data")
+        raise e
+
+    lang = obj.language
+    for k, v in info[lang].items():
+        if v:
+            setattr(obj, k, v)
+
+    for k, v in intl[lang].items():
+        if v:
+            setattr(obj, k, json.dumps(v))
+    
+    # Publish the object if it's private
+    if api.content.get_state(obj) == "private":
+        content.transition(obj=obj, transition="publish")
+    
+    # Reindex the object
+    obj.reindexObject(
+        idxs=['objectTitle', 'Title', 'sortable_title', 'ccObjectID'])
+
+    return obj
