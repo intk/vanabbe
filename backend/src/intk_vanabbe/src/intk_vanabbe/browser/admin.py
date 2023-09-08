@@ -548,12 +548,21 @@ class AdminFixes(BrowserView):
                 "objectCreationFrom": "objectCreationDateFrom", 
                 "objectCreationDateTo": "objectCreationDateTo",
                 "objectID": "objectID",
-                "objectMedium": "objectMedium",
                 "objectYearPurchase": "objectYearPurchase",
                 "recordnumber": "recordnumber",
                 "Dimensions": "dimensions",
                 "objectCredit": "objectCredit"
             }
+
+            language_dependent_fields = {
+                "objectClassification" : "objectClassification",
+                "objectMedium": "objectMedium",
+            }
+
+            for lang in intl.keys():
+                for xml_field, info_field in language_dependent_fields.items():
+                    value = element.xpath(f"//dc_record/{xml_field}[@Language='{lang.upper()}']")
+                    info[lang][info_field] = value[0].text
 
             for xml_field, info_field in fields_to_extract.items():
                 elements = element.xpath(f"//dc_record/{xml_field}")
