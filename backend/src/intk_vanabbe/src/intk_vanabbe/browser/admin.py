@@ -635,8 +635,7 @@ class AdminFixes(BrowserView):
                     info[lang]['objectDescription'] = None
 
             # Check if only one language version of the object with ccObjectID exists 
-            path = '/'.join(container.getphysicalpath())
-            brains = catalog.searchResults(ccObjectID=ccObjectID, path={'query': path})
+            brains = catalog.searchResults(ccObjectID=ccObjectID, path=container)
             if len(brains)==1:
                 lang = brains[0].getObject().language
                 missing_lang = 'en' if lang == 'nl' else 'nl'
@@ -646,8 +645,7 @@ class AdminFixes(BrowserView):
                     obj_en = create_and_setup_object(title, container_en, info, intl) #English version
 
             # Check if object with ccObjectID already exists in the container
-            path = '/'.join(container.getphysicalpath())
-            brains = catalog.searchResults(ccObjectID=ccObjectID, path={'query': path})
+            brains = catalog.searchResults(ccObjectID=ccObjectID, path=container)
             if brains:
                 for brain in brains:
                     # Object exists, so we fetch it and update it
