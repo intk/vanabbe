@@ -771,6 +771,7 @@ def import_images(container, images):
         )
         image = content.create(
             type="Image",
+            # id=image.text,
             title=image.text,
             image=imagefield,
             container=container,
