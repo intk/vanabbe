@@ -593,46 +593,46 @@ class AdminFixes(BrowserView):
                 "objectKeys",
             ]
 
-            # for attr in attrs:
-            #     value = element.xpath(f"//dc_record/{attr}")
-            #     if value:
-            #         info['en'][attr] = str(value[0].text)
-            #         info['nl'][attr] = str(value[0].text)
+            for attr in attrs:
+                value = element.xpath(f"//dc_record/{attr}")
+                if value:
+                    info['en'][attr] = str(value[0].text)
+                    info['nl'][attr] = str(value[0].text)
 
-            #         # If the current attribute is 'objectPosition' and the value is not empty
-            #         if attr == "objectPosition" and str(value[0]).strip():
-            #             info['en']['objectOnDisplay'] = True
-            #             info['nl']['objectOnDisplay'] = True
+                    # If the current attribute is 'objectPosition' and the value is not empty
+                    if attr == "objectPosition" and str(value[0]).strip():
+                        info['en']['objectOnDisplay'] = True
+                        info['nl']['objectOnDisplay'] = True
 
-            # for field in ["ObjectAudio", "ObjectVideo"]:
-            #     for lang in intl.keys():
-            #         els = element.xpath(
-            #             f"//dc_record/{field}[@Language='{lang.upper()}']")
-            #         if not els:
-            #             continue
-            #         intl[lang][field] = [
-            #             {"title": (el.get("Title") or "").strip(),
-            #                 "filename": (el.text or "").strip()}
-            #             for el in els
-            #         ]
+            for field in ["ObjectAudio", "ObjectVideo"]:
+                for lang in intl.keys():
+                    els = element.xpath(
+                        f"//dc_record/{field}[@Language='{lang.upper()}']")
+                    if not els:
+                        continue
+                    intl[lang][field] = [
+                        {"title": (el.get("Title") or "").strip(),
+                            "filename": (el.text or "").strip()}
+                        for el in els
+                    ]
 
-            # for lang in intl.keys():
-            #     objectDescription = element.xpath(f"//dc_record/objectDescription[@Language='{lang.upper()}']")
-            #     if len(objectDescription)>1:
-            #         for e in objectDescription:
-            #             descTitle=e.get('Title')
-            #             descScope=e.get('Scope')
-            #             if descTitle or descScope:
-            #                 info[lang]['objectDescription_extra'] = str(e.text)
-            #                 info[lang]['objectDescription_extra_title'] = descTitle
-            #                 info[lang]['objectDescription_extra_scope'] = descScope
-            #                 print("Now in the desc Title and desc Scope")
-            #             else:
-            #                 info[lang]['objectDescription'] = e.text
-            #     elif objectDescription:
-            #         info[lang]['objectDescription'] = objectDescription[0].text
-            #     else:
-            #         info[lang]['objectDescription'] = None
+            for lang in intl.keys():
+                objectDescription = element.xpath(f"//dc_record/objectDescription[@Language='{lang.upper()}']")
+                if len(objectDescription)>1:
+                    for e in objectDescription:
+                        descTitle=e.get('Title')
+                        descScope=e.get('Scope')
+                        if descTitle or descScope:
+                            info[lang]['objectDescription_extra'] = str(e.text)
+                            info[lang]['objectDescription_extra_title'] = descTitle
+                            info[lang]['objectDescription_extra_scope'] = descScope
+                            print("Now in the desc Title and desc Scope")
+                        else:
+                            info[lang]['objectDescription'] = e.text
+                elif objectDescription:
+                    info[lang]['objectDescription'] = objectDescription[0].text
+                else:
+                    info[lang]['objectDescription'] = None
 
             # Check if only one language version of the object with ccObjectID exists 
             brains = catalog.searchResults(ccObjectID=ccObjectID)
@@ -771,7 +771,6 @@ def import_images(container, images):
         )
         image = content.create(
             type="Image",
-            id=image.text,
             title=image.text,
             image=imagefield,
             container=container,
