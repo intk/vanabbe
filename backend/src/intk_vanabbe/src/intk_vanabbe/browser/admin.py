@@ -664,8 +664,8 @@ class AdminFixes(BrowserView):
                     print(f"Updated Object ID: {obj.getId()}, Path: {obj.absolute_url()}, Workflow State: {api.content.get_state(obj)}")
                     
                     #publish the object
-                    if api.content.get_state(obj)== "private":
-                        content.transition(obj=obj, transition="publish")
+                    # if api.content.get_state(obj)== "private":
+                    #     content.transition(obj=obj, transition="publish")
 
                     # Reindex the updated object
                     obj.reindexObject(idxs=['objectTitle', 'Title', 'sortable_title'])
