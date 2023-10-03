@@ -18,7 +18,10 @@ from plone.app.multilingual.interfaces import ITranslationManager
 from .request import HEADERS
 from plone.namedfile.file import NamedBlobImage
 from plone.folder.interfaces import IExplicitOrdering
-
+from zope.component import getUtility
+from zope.intid.interfaces import IIntIds
+from zope import component
+from zc.relation.interfaces import ICatalog
 
 import json
 import logging
@@ -537,8 +540,7 @@ class AdminFixes(BrowserView):
 
             # print(dc_record_xml)
             element = lxml.etree.fromstring(dc_record_xml)
-            authors = import_authors(self, element)["nl"]
-            authors_en = import_authors(self, element)["en"]
+            authors, authors_en = import_authors(self, element)
 
             info = {'nl': {}, 'en': {}}
             intl = {'nl': {}, 'en': {}}
@@ -628,7 +630,6 @@ class AdminFixes(BrowserView):
                             info[lang]['objectDescription_extra'] = str(e.text)
                             info[lang]['objectDescription_extra_title'] = descTitle
                             info[lang]['objectDescription_extra_scope'] = descScope
-                            print("Now in the desc Title and desc Scope")
                         else:
                             info[lang]['objectDescription'] = e.text
                 elif objectDescription:
@@ -650,7 +651,7 @@ class AdminFixes(BrowserView):
                 else:
                     obj_en = create_and_setup_object(title, container_en, info, intl) #English version
                     for author_en in authors_en:
-                        relation.create(source=obj_en, target=author, relationship="authors")
+                        relation.create(source=obj_en, target=author_en, relationship="authors")
 
             # Check if object with ccObjectID already exists in the container
             brains = catalog.searchResults(ccObjectID=ccObjectID)
@@ -674,9 +675,15 @@ class AdminFixes(BrowserView):
                     #publish the object
                     # if api.content.get_state(obj)== "private":
                     #     content.transition(obj=obj, transition="publish")
+                    if lang == "nl":
+                        for author in authors:
+                            relation.delete(source=obj, target=author, relationship="authors")
+                            relation.create(source=obj, target=author, relationship="authors")
 
-                    for author in authors:
-                        relation.create(source=obj, target=author, relationship="authors")
+                    else:
+                        for author_en in authors_en:
+                            relation.delete(source=obj, target=author_en, relationship="authors")
+                            relation.create(source=obj, target=author_en, relationship="authors")
 
                     # Reindex the updated object
                     obj.reindexObject(idxs=['objectTitle', 'Title', 'sortable_title'])
@@ -799,7 +806,6 @@ def import_images(container, images):
     return "alright"
 
 def import_authors(self, element, use_archive=True):
-
     container = get_base_folder(self.context, "author")
     container_en = get_base_folder(self.context, 'author_en')
     authors = []
@@ -821,8 +827,14 @@ def import_authors(self, element, use_archive=True):
             authorID=authorID,
             Language="nl",
         )
+        found_en = content.find(
+            portal_type="author",
+            authorID=authorID,
+            Language='en',
+        )
         if found:
             authors += [b.getObject() for b in found]
+            authors_en += [b.getObject() for b in found_en]
             continue
 
         x = element.xpath
@@ -871,12 +883,7 @@ def import_authors(self, element, use_archive=True):
             authorURL=get("nl", urls),
             authorURLTitle=get("nl", url_titles),
         )
-        print("this is fields_en")
-        print(fields_en)
 
-
-        print("this is fields_nl")
-        print(fields)
         for k, v in fields.items():
             fields[k] = str(v)
         for k, v in fields_en.items():
@@ -902,6 +909,7 @@ def import_authors(self, element, use_archive=True):
         if not manager.has_translation('en'):
             manager.register_translation('en', author_en)
 
+        relation.create(source=author, target=element, relationship="authors")
 
         authors.append(author)
         authors_en.append(author_en)
@@ -910,4 +918,5 @@ def import_authors(self, element, use_archive=True):
 
         logger.info(f"Created author {author.getId()}")
 
-    return {"nl":authors, "en":authors_en}
+    return [authors, authors_en]
+
