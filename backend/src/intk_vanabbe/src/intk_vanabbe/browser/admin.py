@@ -570,7 +570,10 @@ class AdminFixes(BrowserView):
             for lang in intl.keys():
                 for xml_field, info_field in language_dependent_fields.items():
                     value = element.xpath(f"//dc_record/{xml_field}[@Language='{lang.upper()}']")
-                    info[lang][info_field] = value[0].text
+                    if value:
+                        info[lang][info_field] = value[0].text
+                    else:
+                        info[lang][info_field] = None
 
             for xml_field, info_field in fields_to_extract.items():
                 elements = element.xpath(f"//dc_record/{xml_field}")
