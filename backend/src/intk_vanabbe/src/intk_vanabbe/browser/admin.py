@@ -515,8 +515,16 @@ class AdminFixes(BrowserView):
         return trans
 
 
-    def import_record(self):
-        api_url = "http://62.221.199.184:17718/action=get&command=search&query=ccIndexName=VanAbbeCollectie&fields=*&range=0-1000"
+    def import_record(self, start_range=1000, end_limit=4000, step=100):
+
+        if start_range >= end_limit:
+            return 'All batches processed successfully.'
+        
+        end_range = start_range + step - 1
+
+        # api_url = "http://62.221.199.184:17718/action=get&command=search&query=ccIndexName=VanAbbeCollectie&fields=*&range=0-100"
+        api_url = f"http://62.221.199.184:17718/action=get&command=search&query=ccIndexName=VanAbbeCollectie&fields=*&range={start_range}-{end_range}"
+
         response = requests.get(api_url)
         response.raise_for_status()
         api_answer = response.text
@@ -724,8 +732,14 @@ class AdminFixes(BrowserView):
                     container= obj_en,
                     images=images
                 )
+
+        transaction.commit()
             
-        return('all done')
+        # After processing the current batch, call the function recursively for the next batch
+        next_response = self.import_record(start_range=end_range + 1)
+
+        # Return the current processed range along with the response from the next batches
+        return f"Processed range: {start_range}-{end_range}<br>" + next_response
 
 
     def __call__(self):
