@@ -516,7 +516,7 @@ class AdminFixes(BrowserView):
 
 
     def import_record(self):
-        api_url = "http://62.221.199.184:17718/action=get&command=search&query=ccIndexName=VanAbbeCollectie&fields=*&range=0-100"
+        api_url = "http://62.221.199.184:17718/action=get&command=search&query=ccIndexName=VanAbbeCollectie&fields=*&range=0-1000"
         response = requests.get(api_url)
         response.raise_for_status()
         api_answer = response.text
@@ -673,9 +673,6 @@ class AdminFixes(BrowserView):
 
                     print(f"Updated Object ID: {obj.getId()}, Path: {obj.absolute_url()}, Workflow State: {api.content.get_state(obj)}")
                     
-                    #publish the object
-                    # if api.content.get_state(obj)== "private":
-                    #     content.transition(obj=obj, transition="publish")
                     if lang == "nl":
                         for author in authors:
                             relation.delete(source=obj, target=author, relationship="authors")
@@ -687,7 +684,7 @@ class AdminFixes(BrowserView):
                             relation.create(source=obj, target=author_en, relationship="authors")
 
                     # Reindex the updated object
-                    obj.reindexObject(idxs=['objectTitle', 'Title', 'sortable_title'])
+                    obj.reindexObject(idxs=['objectTitle', 'Title', 'sortable_title', 'authorID', 'authors'])
 
             # Object doesn't exist, so we create a new one
             else:
