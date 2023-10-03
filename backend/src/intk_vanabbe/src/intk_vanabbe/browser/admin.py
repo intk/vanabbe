@@ -595,6 +595,7 @@ class AdminFixes(BrowserView):
                 "objectFormatDepth",
                 "objectFormatLength",
                 "objectKeys",
+                "authorID"
             ]
 
             for attr in attrs:
