@@ -22,6 +22,7 @@ from zope.component import getUtility
 from zope.intid.interfaces import IIntIds
 from zope import component
 from zc.relation.interfaces import ICatalog
+from datetime import datetime
 
 import json
 import logging
@@ -515,10 +516,12 @@ class AdminFixes(BrowserView):
         return trans
 
 
-    def import_record(self, start_range=1000, end_limit=4000, step=100):
+    def import_record(self, start_range=0, end_limit=4000, step=500):
 
         if start_range >= end_limit:
             return 'All batches processed successfully.'
+        
+        start_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')  # Record the start time
         
         end_range = start_range + step - 1
 
@@ -733,13 +736,16 @@ class AdminFixes(BrowserView):
                     images=images
                 )
 
+        finish_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')  # Record the finish time
+
+
         transaction.commit()
             
         # After processing the current batch, call the function recursively for the next batch
         next_response = self.import_record(start_range=end_range + 1)
 
         # Return the current processed range along with the response from the next batches
-        return f"Processed range: {start_range}-{end_range}<br>" + next_response
+        return f"Processed range: {start_range}-{end_range} (Start: {start_time}, Finish: {finish_time})<br>" + next_response
 
 
     def __call__(self):
