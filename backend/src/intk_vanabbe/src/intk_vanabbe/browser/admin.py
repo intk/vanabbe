@@ -530,17 +530,19 @@ class AdminFixes(BrowserView):
         for record in records:
             # Extract <dc_record> element
             dc_record = record.find('.//dc_record')
+
             
             # Convert <dc_record> element to XML string
             dc_record_xml = ET.tostring(dc_record, encoding='unicode')
 
             # print(dc_record_xml)
             element = lxml.etree.fromstring(dc_record_xml)
+            authors = import_authors(self, element)["nl"]
+            authors_en = import_authors(self, element)["en"]
 
             info = {'nl': {}, 'en': {}}
             intl = {'nl': {}, 'en': {}}
             
-
             ccObjectID = element.xpath("//dc_record/ccObjectID")[0].text
             info['nl']['ccObjectID'] = ccObjectID
             info['en']['ccObjectID'] = ccObjectID
@@ -634,15 +636,21 @@ class AdminFixes(BrowserView):
                 else:
                     info[lang]['objectDescription'] = None
 
+
+
             # Check if only one language version of the object with ccObjectID exists 
             brains = catalog.searchResults(ccObjectID=ccObjectID)
             if len(brains)==1:
                 lang = brains[0].getObject().language
                 missing_lang = 'en' if lang == 'nl' else 'nl'
                 if missing_lang == 'nl':
-                    obj = create_and_setup_object(title, container, info, intl) #Dutch version 
+                    obj = create_and_setup_object(title, container, info, intl) #Dutch version
+                    for author in authors:
+                        relation.create(source=obj, target=author, relationship="authors")
                 else:
                     obj_en = create_and_setup_object(title, container_en, info, intl) #English version
+                    for author_en in authors_en:
+                        relation.create(source=obj_en, target=author, relationship="authors")
 
             # Check if object with ccObjectID already exists in the container
             brains = catalog.searchResults(ccObjectID=ccObjectID)
@@ -667,18 +675,26 @@ class AdminFixes(BrowserView):
                     # if api.content.get_state(obj)== "private":
                     #     content.transition(obj=obj, transition="publish")
 
+                    for author in authors:
+                        relation.create(source=obj, target=author, relationship="authors")
+
                     # Reindex the updated object
                     obj.reindexObject(idxs=['objectTitle', 'Title', 'sortable_title'])
-                
+
+            # Object doesn't exist, so we create a new one
             else:
-                # Object doesn't exist, so we create a new one
                 if not title:
                     title = "Untitled Object"  # default value for untitled objects
 
                 obj = create_and_setup_object(title, container, info, intl) #Dutch version
                 obj_en = create_and_setup_object(title, container_en, info, intl) #English version
 
-                logger.info("Created %s", obj.absolute_url(relative=1))
+                for author in authors:
+                    relation.create(source=obj, target=author, relationship="authors")
+                for author_en in authors_en:
+                    relation.create(source=obj_en, target=author_en, relationship="authors")
+
+                logger.info("Created %s", obj.absolute_url(relative=1))        
             
             # Linking two objects as translations of each other
             brains = catalog.searchResults(ccObjectID=ccObjectID, portal_type="artwork")
@@ -700,8 +716,7 @@ class AdminFixes(BrowserView):
                     container= obj_en,
                     images=images
                 )
-
-
+            
         return('all done')
 
 
@@ -782,3 +797,117 @@ def import_images(container, images):
             ordering.moveObjectsToTop([image.getId()])
     
     return "alright"
+
+def import_authors(self, element, use_archive=True):
+
+    container = get_base_folder(self.context, "author")
+    container_en = get_base_folder(self.context, 'author_en')
+    authors = []
+    authors_en = []
+
+    urls = {}
+    url_titles = {}
+
+    def get(lang, d):
+        if lang in d:
+            return d[lang]
+        else:
+            if d:
+                return d[list(d.keys())[0]]
+
+    for authorID in element.xpath("authorID/text()"):
+        found = content.find(
+            portal_type="author",
+            authorID=authorID,
+            Language="nl",
+        )
+        if found:
+            authors += [b.getObject() for b in found]
+            continue
+
+        x = element.xpath
+
+        el = x(f"authorName[@authorID={authorID}]")[0]
+        authorSortName = el.get("authorSortName")
+        authorName = el.text
+
+        authorBirthDate = x(f"authorBirthDate[@authorID={authorID}]/text()")  # noqa
+        if authorBirthDate:
+            authorBirthDate = authorBirthDate[0]
+
+        authorDeathDate = x(f"authorDeathDate[@authorID={authorID}]/text()")  # noqa
+        if authorDeathDate:
+            authorDeathDate = authorDeathDate[0]
+
+        AuthorBio = x(f"AuthorBio[@authorID={authorID}]/text()")
+        if AuthorBio:
+            AuthorBio = AuthorBio[0]
+
+        for el in x(f"authorURL[@authorID={authorID}]"):
+            lang = (el.get("Language") or "nl").lower()
+            urls[lang] = el.text
+            url_titles[lang] = el.get("Title")
+
+        # TODO: setup special folder location for authors
+        fields = dict(
+            title=authorName or authorID,
+            authorID=authorID,
+            AuthorBio=AuthorBio,
+            authorName=authorName,
+            authorSortName=authorSortName,
+            authorBirthDate=authorBirthDate,
+            authorDeathDate=authorDeathDate,
+            authorURL=get("nl", urls),
+            authorURLTitle=get("nl", url_titles),
+        )
+        fields_en = dict(
+            title=authorName or authorID,
+            authorID=authorID,
+            AuthorBio=AuthorBio,
+            authorName=authorName,
+            authorSortName=authorSortName,
+            authorBirthDate=authorBirthDate,
+            authorDeathDate=authorDeathDate,
+            authorURL=get("nl", urls),
+            authorURLTitle=get("nl", url_titles),
+        )
+        print("this is fields_en")
+        print(fields_en)
+
+
+        print("this is fields_nl")
+        print(fields)
+        for k, v in fields.items():
+            fields[k] = str(v)
+        for k, v in fields_en.items():
+            fields_en[k]=str(v)
+
+        if urls.get("en"):
+            fields_en["authorURL"] = urls["en"]
+            fields_en["authorURLTitle"] = url_titles["en"]
+
+        author = content.create(
+            type="author",
+            # id=f'author-{rec["authorID"]}',
+            container=container,
+            **fields,
+        )
+        author_en = content.create(
+            type="author",
+            container=container_en,
+            **fields_en,
+        ) #English version
+
+        manager = ITranslationManager(author)
+        if not manager.has_translation('en'):
+            manager.register_translation('en', author_en)
+
+
+        authors.append(author)
+        authors_en.append(author_en)
+        content.transition(obj=author, transition="publish")
+        content.transition(obj=author_en, transition="publish")
+
+        logger.info(f"Created author {author.getId()}")
+
+    return {"nl":authors, "en":authors_en}
