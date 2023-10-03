@@ -909,7 +909,7 @@ def import_authors(self, element, use_archive=True):
         if not manager.has_translation('en'):
             manager.register_translation('en', author_en)
 
-        relation.create(source=author, target=element, relationship="authors")
+
 
         authors.append(author)
         authors_en.append(author_en)
