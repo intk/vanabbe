@@ -1,8 +1,8 @@
 DATA_REPO = "/Users/cihanandac/Documents/vanabbe/data-import"
 
 IMPORT_LOCATIONS = {
-    "artwork": "nl/collectie",
-    "artwork_en": "en/collection",
+    "artwork": "nl/collectie-x",
+    "artwork_en": "en/collection-x",
     "publication": "nl/collectie-onderzoek/bibliotheek/publicaties",
     "exhibition": "nl/tentoonstellingen",
     "author": "nl/collectie-onderzoek/kunstenaars",
