@@ -516,17 +516,17 @@ class AdminFixes(BrowserView):
         return trans
 
 
-    def import_record(self, start_range=2000, end_limit=2010, step=5):
+    def import_record(self):
 
-        if start_range >= end_limit:
-            return 'All batches processed successfully.'
+        # if start_range >= end_limit:
+        #     return 'All batches processed successfully.'
         
-        start_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')  # Record the start time
+        # start_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')  # Record the start time
         
-        end_range = start_range + step - 1
+        # end_range = start_range + step - 1
 
-        # api_url = "http://62.221.199.184:17718/action=get&command=search&query=ccIndexName=VanAbbeCollectie&fields=*&range=0-100"
-        api_url = f"http://62.221.199.184:17718/action=get&command=search&query=ccIndexName=VanAbbeCollectie&fields=*&range={start_range}-{end_range}"
+        api_url = "http://62.221.199.184:17718/action=get&command=search&query=ccIndexName=VanAbbeCollectie&fields=*&range=0-10"
+        # api_url = f"http://62.221.199.184:17718/action=get&command=search&query=ccIndexName=VanAbbeCollectie&fields=*&range={start_range}-{end_range}"
 
         response = requests.get(api_url)
         response.raise_for_status()
@@ -741,13 +741,13 @@ class AdminFixes(BrowserView):
         finish_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')  # Record the finish time
 
 
-        transaction.commit()
+        # transaction.commit()
             
         # After processing the current batch, call the function recursively for the next batch
-        next_response = self.import_record(start_range=end_range + 1)
+        # next_response = self.import_record(start_range=end_range + 1)
 
         # Return the current processed range along with the response from the next batches
-        return f"Processed range: {start_range}-{end_range} (Start: {start_time}, Finish: {finish_time})<br>" + next_response
+        # return f"Processed range: {start_range}-{end_range} (Start: {start_time}, Finish: {finish_time})<br>" + next_response
         return True
 
     def __call__(self):
