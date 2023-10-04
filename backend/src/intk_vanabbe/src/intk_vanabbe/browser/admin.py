@@ -516,7 +516,7 @@ class AdminFixes(BrowserView):
 
 
     def import_record(self):
-        api_url = "http://62.221.199.184:17718/action=get&command=search&query=ccIndexName=VanAbbeCollectie&fields=*&range=0-1000"
+        api_url = "http://62.221.199.184:17718/action=get&command=search&query=ccIndexName=VanAbbeCollectie&fields=*&range=0-100"
         response = requests.get(api_url)
         response.raise_for_status()
         api_answer = response.text
