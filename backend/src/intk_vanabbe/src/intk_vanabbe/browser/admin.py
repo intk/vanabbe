@@ -653,9 +653,11 @@ class AdminFixes(BrowserView):
                     info[lang]['objectDescription'] = None
 
 
+            # Find the existing object
+            brains = catalog.searchResults(ccObjectID=ccObjectID, portal_type="artwork")
 
             # Check if only one language version of the object with ccObjectID exists 
-            brains = catalog.searchResults(ccObjectID=ccObjectID)
+            # brains = catalog.searchResults(ccObjectID=ccObjectID)
             if len(brains)==1:
                 lang = brains[0].getObject().language
                 missing_lang = 'en' if lang == 'nl' else 'nl'
@@ -669,7 +671,7 @@ class AdminFixes(BrowserView):
                         relation.create(source=obj_en, target=author_en, relationship="authors")
 
             # Check if object with ccObjectID already exists in the container
-            brains = catalog.searchResults(ccObjectID=ccObjectID)
+            # brains = catalog.searchResults(ccObjectID=ccObjectID)
             if brains:
                 for brain in brains:
                     # Object exists, so we fetch it and update it
@@ -677,13 +679,17 @@ class AdminFixes(BrowserView):
 
                     # Update the object's fields with new data
                     lang = obj.language
-                    for k, v in info[lang].items():
-                        if v:
-                            setattr(obj, k, v)
+                    try:
+                        for k, v in info[lang].items():
+                            if v:
+                                setattr(obj, k, v)
 
-                    for k, v in intl[lang].items():
-                        if v:
-                            setattr(obj, k, json.dumps(v))
+                        for k, v in intl[lang].items():
+                            if v:
+                                setattr(obj, k, json.dumps(v))
+                    except KeyError as e:
+                        print(f"KeyError encountered with key: {e}. Current lang value: {lang}")
+
 
                     # print(f"Updated Object ID: {obj.getId()}, Path: {obj.absolute_url()}, Workflow State: {api.content.get_state(obj)}")
                     
@@ -716,7 +722,7 @@ class AdminFixes(BrowserView):
                 logger.info("Created %s", obj.absolute_url(relative=1))        
             
             # Linking two objects as translations of each other
-            brains = catalog.searchResults(ccObjectID=ccObjectID, portal_type="artwork")
+            # brains = catalog.searchResults(ccObjectID=ccObjectID, portal_type="artwork")
             if len(brains)>1:
                 # Split the brains into two based on language
                 obj = None
@@ -757,6 +763,168 @@ class AdminFixes(BrowserView):
 
         # Return the current processed range along with the response from the next batches
         return f"Processed range: {start_range}-{end_range} (Start: {start_time}, Finish: {finish_time})<br>" + next_response
+    
+
+
+    def import_exhibition(self, rec, element, use_archive=True):
+        api_url = "http://62.221.199.184:17718/action=get&command=search&query=ccIndexName=VanabbeTentoonstellingen&fields=*&range=0-1"
+        logger.info(f"Importing exhibition: {rec['recordnumber']}")
+
+        response = requests.get(api_url)
+        response.raise_for_status()
+        api_answer = response.text
+        container = get_base_folder(self.context, "exhibition")
+        # container_en = get_base_folder(self.context, 'exhibition_en')
+        site = api.portal.get()
+        catalog = site.portal_catalog
+        
+        root = ET.fromstring(api_answer)
+        
+        # Extract <record> elements
+        records = root.findall('.//record')
+
+        for record in records:
+            # rec = convert_lists_to_text(
+            #     rec, blacklist=["eventImages", "eventArtist"])
+
+            # if rec.get("eventArtist") and not isinstance(rec["eventArtist"], list):
+            #     rec["eventArtist"] = [rec["eventArtist"]]
+
+            # rec["title"] = rec["eventTitle"]
+            # en_title = None
+            # filenames = rec.get("eventImages", [])
+            # if isinstance(filenames, str):
+            #     filenames = [filenames]
+            # filenames = [f.strip() for f in filenames]
+            # rec["eventImages"] = "\n".join(filenames)
+
+            # if rec.get("eventTitle_EN"):
+            #     en_title = rec["eventTitle_EN"]
+            #     del rec["eventTitle_EN"]
+
+            # obj = content.create(
+            #     type="exhibition",
+            #     # id=f'exh-{str(rec["recordnumber"])}',
+            #     container=container,
+            #     **rec,
+            # )
+            # content.transition(obj=obj, transition="publish")
+            # logger.info(f"Imported exhibition {path(obj)}")
+
+            # if en_title:
+            #     rec["title"] = en_title
+            #     rec["eventTitle"] = en_title
+
+            # import_images(obj, filenames, use_archive)
+
+            # self.translate(obj, rec)
+            # Extract <dc_record> element
+            dc_record = record.find('.//dc_record')
+
+            
+            # Convert <dc_record> element to XML string
+            dc_record_xml = ET.tostring(dc_record, encoding='unicode')
+
+            # print(dc_record_xml)
+            element = lxml.etree.fromstring(dc_record_xml)
+            authors, authors_en = import_authors(self, element)
+
+            info = {'nl': {}, 'en': {}}
+            intl = {'nl': {}, 'en': {}}
+            
+            ccObjectID = element.xpath("//dc_record/ccObjectID")[0].text
+            info['nl']['ccObjectID'] = ccObjectID
+            info['en']['ccObjectID'] = ccObjectID
+
+            fields_to_extract = {
+                "ccIdentifier": "ccIdentifier",
+                "eventCoorporation": "eventCoorporation",
+                "eventTimeFrom": "eventTimeFrom",
+                "eventTimeStart": "eventTimeStart", 
+                "eventTimeEnd": "eventTimeEnd",
+                "recordnumber": "recordnumber",
+            }
+
+            language_dependent_fields = {
+                "eventTitle" : "eventTitle",
+                "objectMedium": "objectMedium",
+            }
+
+            for lang in intl.keys():
+                for xml_field, info_field in language_dependent_fields.items():
+                    value = element.xpath(f"//dc_record/{xml_field}[@Language='{lang.upper()}']")
+                    if value:
+                        info[lang][info_field] = value[0].text
+                    else:
+                        info[lang][info_field] = None
+
+            for xml_field, info_field in fields_to_extract.items():
+                elements = element.xpath(f"//dc_record/{xml_field}")
+                info['nl'][info_field] = elements[0].text if elements else None
+                info['en'][info_field] = elements[0].text if elements else None
+
+            rawdata = element.xpath("//dc_record")[0]
+            info['nl']['rawdata'] = lxml.etree.tostring(rawdata)
+            info['en']['rawdata'] = lxml.etree.tostring(rawdata)
+
+            titles = element.xpath("//dc_record/objectTitle")
+            title = titles[0].text
+            if len(titles) > 1:
+                titles.sort(key=lambda x: x.get("Rangorde") or "")
+                title = titles[0].text
+            info['nl']['objectTitle'] = title
+            info['en']['objectTitle'] = title
+
+            attrs = [
+                "objectPosition",
+                "objectFormatWidth",
+                "objectFormatDepth",
+                "objectFormatLength",
+                "objectKeys",
+                "authorID"
+            ]
+
+            for attr in attrs:
+                value = element.xpath(f"//dc_record/{attr}")
+                if value:
+                    info['en'][attr] = str(value[0].text)
+                    info['nl'][attr] = str(value[0].text)
+
+                    # If the current attribute is 'objectPosition' and the value is not empty
+                    if attr == "objectPosition" and str(value[0]).strip():
+                        info['en']['objectOnDisplay'] = True
+                        info['nl']['objectOnDisplay'] = True
+
+            for field in ["ObjectAudio", "ObjectVideo"]:
+                for lang in intl.keys():
+                    els = element.xpath(
+                        f"//dc_record/{field}[@Language='{lang.upper()}']")
+                    if not els:
+                        continue
+                    intl[lang][field] = [
+                        {"title": (el.get("Title") or "").strip(),
+                            "filename": (el.text or "").strip()}
+                        for el in els
+                    ]
+
+            for lang in intl.keys():
+                objectDescription = element.xpath(f"//dc_record/objectDescription[@Language='{lang.upper()}']")
+                if len(objectDescription)>1:
+                    for e in objectDescription:
+                        descTitle=e.get('Title')
+                        descScope=e.get('Scope')
+                        if descTitle or descScope:
+                            info[lang]['objectDescription_extra'] = str(e.text)
+                            info[lang]['objectDescription_extra_title'] = descTitle
+                            info[lang]['objectDescription_extra_scope'] = descScope
+                        else:
+                            info[lang]['objectDescription'] = e.text
+                elif objectDescription:
+                    info[lang]['objectDescription'] = objectDescription[0].text
+                else:
+                    info[lang]['objectDescription'] = None
+
+        return True
 
 
     def __call__(self):
@@ -952,3 +1120,34 @@ def import_authors(self, element, use_archive=True):
 
     return [authors, authors_en]
 
+
+# Exhibition import
+def path(obj):
+    return obj.absolute_url(relative=1)
+
+def convert_lists_to_text(rec, blacklist=None):
+    blacklist = blacklist or []
+    for k, v in rec.items():
+        if k in blacklist:
+            continue
+        if isinstance(v, list):
+            rec[k] = "\n".join(v)
+
+    return rec
+
+def translate(self, obj, fields):
+    language = "en"
+    trans = translate(obj, language)
+
+    for k, v in fields.items():
+        setattr(trans, k, v)
+
+    for id, child in obj.contentItems():
+        # TODO: use translator instead of copy
+        content.copy(child, trans)
+
+    content.transition(obj=trans, transition="publish")
+    trans._p_changed = True
+    trans.reindexObject()
+
+    return trans
