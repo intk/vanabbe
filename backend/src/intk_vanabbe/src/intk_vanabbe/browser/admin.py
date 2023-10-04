@@ -516,7 +516,7 @@ class AdminFixes(BrowserView):
         return trans
 
 
-    def import_record(self, start_range=500, end_limit=1000, step=100):
+    def import_record(self, start_range=0, end_limit=100, step=10):
 
         if start_range >= end_limit:
             return 'All batches processed successfully.'
