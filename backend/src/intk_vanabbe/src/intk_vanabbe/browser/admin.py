@@ -654,10 +654,10 @@ class AdminFixes(BrowserView):
 
 
             # Find the existing object
-            brains = catalog.searchResults(ccObjectID=ccObjectID, portal_type="artwork")
+            # brains = catalog.searchResults(ccObjectID=ccObjectID, portal_type="artwork")
 
             # Check if only one language version of the object with ccObjectID exists 
-            # brains = catalog.searchResults(ccObjectID=ccObjectID)
+            brains = catalog.searchResults(ccObjectID=ccObjectID)
             if len(brains)==1:
                 lang = brains[0].getObject().language
                 missing_lang = 'en' if lang == 'nl' else 'nl'
@@ -671,7 +671,7 @@ class AdminFixes(BrowserView):
                         relation.create(source=obj_en, target=author_en, relationship="authors")
 
             # Check if object with ccObjectID already exists in the container
-            # brains = catalog.searchResults(ccObjectID=ccObjectID)
+            brains = catalog.searchResults(ccObjectID=ccObjectID)
             if brains:
                 for brain in brains:
                     # Object exists, so we fetch it and update it
@@ -718,7 +718,7 @@ class AdminFixes(BrowserView):
                 logger.info("Created %s", obj.absolute_url(relative=1))        
             
             # Linking two objects as translations of each other
-            # brains = catalog.searchResults(ccObjectID=ccObjectID, portal_type="artwork")
+            brains = catalog.searchResults(ccObjectID=ccObjectID, portal_type="artwork")
             if len(brains)>1:
                 # Split the brains into two based on language
                 obj = None
