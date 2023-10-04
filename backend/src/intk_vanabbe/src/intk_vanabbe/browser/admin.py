@@ -713,11 +713,16 @@ class AdminFixes(BrowserView):
 
                 obj = create_and_setup_object(title, container, info, intl) #Dutch version
                 obj_en = create_and_setup_object(title, container_en, info, intl) #English version
+                
 
-                for author in authors:
-                    relation.create(source=obj, target=author, relationship="authors")
-                for author_en in authors_en:
-                    relation.create(source=obj_en, target=author_en, relationship="authors")
+                try:
+                    for author in authors:
+                        relation.create(source=obj, target=author, relationship="authors")
+                    for author_en in authors_en:
+                        relation.create(source=obj_en, target=author_en, relationship="authors")
+                
+                except KeyError as e:
+                    print(f"KeyError encountered with key: {e}. Current lang value: {lang}")
 
                 logger.info("Created %s", obj.absolute_url(relative=1))        
             
