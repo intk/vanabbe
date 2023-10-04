@@ -516,7 +516,7 @@ class AdminFixes(BrowserView):
 
 
     def import_record(self):
-        api_url = "http://62.221.199.184:17718/action=get&command=search&query=ccIndexName=VanAbbeCollectie&fields=*&range=0-100"
+        api_url = "http://62.221.199.184:17718/action=get&command=search&query=ccIndexName=VanAbbeCollectie&fields=*&range=0-10"
         response = requests.get(api_url)
         response.raise_for_status()
         api_answer = response.text
@@ -674,7 +674,7 @@ class AdminFixes(BrowserView):
                         if v:
                             setattr(obj, k, json.dumps(v))
 
-                    print(f"Updated Object ID: {obj.getId()}, Path: {obj.absolute_url()}, Workflow State: {api.content.get_state(obj)}")
+                    # print(f"Updated Object ID: {obj.getId()}, Path: {obj.absolute_url()}, Workflow State: {api.content.get_state(obj)}")
                     
                     if lang == "nl":
                         for author in authors:
