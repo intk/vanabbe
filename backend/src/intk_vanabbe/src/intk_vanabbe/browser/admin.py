@@ -720,22 +720,11 @@ class AdminFixes(BrowserView):
             # Linking two objects as translations of each other
             brains = catalog.searchResults(ccObjectID=ccObjectID, portal_type="artwork")
             if len(brains)>1:
-                # Split the brains into two based on language
-                obj = None
-                obj_en = None
-                
-                for brain in brains:
-                    current_obj = brain.getObject()
-                    if current_obj.Language() == 'en':
-                        obj_en = current_obj
-                    else:
-                        obj = current_obj
-
-                # Check if both objects were identified correctly
-                if obj and obj_en:
-                    manager = ITranslationManager(obj)
-                    if not manager.has_translation('en'):
-                        manager.register_translation('en', obj_en)
+                obj = brains[0].getObject()
+                obj_en = brains[1].getObject()
+                manager = ITranslationManager(obj)
+                if not manager.has_translation('en'):
+                    manager.register_translation('en', obj_en)
 
             #adding images
             images=element.xpath(f"//dc_record/objectImage")
