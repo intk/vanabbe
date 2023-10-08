@@ -982,7 +982,7 @@ def import_authors(self, element, use_archive=True):
     return [authors, authors_en]
 
 def log_to_file(message):
-    log_file_path = "/home/ubuntu/collectionLogs.txt"
+    log_file_path = "/app/logs/collectionLogs.txt"
     
     # Attempt to create the file if it doesn't exist
     try:
