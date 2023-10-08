@@ -5,10 +5,10 @@ IMPORT_LOCATIONS = {
     "artwork_en": "en/collection",
     "publication": "nl/collectie-onderzoek/bibliotheek/publicaties",
     "exhibition": "nl/tentoonstellingen",
-    # "author": "nl/collectie-onderzoek/kunstenaars",
-    # "author_en": "en/collection-research/artists"
-    "author": "nl/kunstenaars",
-    "author_en": "en/artists",
+    "author": "nl/collectie-onderzoek/kunstenaars",
+    "author_en": "en/collection-research/artists"
+    # "author": "nl/kunstenaars",
+    # "author_en": "en/artists",
 }
 
 # IMAGE_BASE_URL = "https://vanabbemuseum.nl/fileadmin/files/collectie/%s"
