@@ -23,7 +23,6 @@ from zope.intid.interfaces import IIntIds
 from zope import component
 from zc.relation.interfaces import ICatalog
 from datetime import datetime
-from requests.exceptions import RequestException
 
 import time
 import json
@@ -519,13 +518,15 @@ class AdminFixes(BrowserView):
 
 
     def import_record(self):
-        start_range = self.request.form.get('start_range', None)
-        end_range = self.request.form.get('end_range', None)
+        start_range = self.request.form.get('start_range', 0)
+        end_range = self.request.form.get('end_range', 3500)
         
-        # Record the start time
-        start_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')  
+        start_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')  # Record the start time
 
-        # api_url = "http://62.221.199.184:17718/action=get&command=search&query=ccIndexName=VanAbbeCollectie&fields=*&range=0-1000"
+        log_to_file(f"========================")
+        log_to_file(f"========================")
+        log_to_file(f"The sync function started at {start_time} for the range of objects between {start_range} and {end_range} ")
+
         api_url = f"http://62.221.199.184:17718/action=get&command=search&query=ccIndexName=VanAbbeCollectie&fields=*&range={start_range}-{end_range}"
 
         response = requests.get(api_url)
@@ -698,6 +699,8 @@ class AdminFixes(BrowserView):
                         for author_en in authors_en:
                             relation.delete(source=obj, target=author_en, relationship="authors")
                             relation.create(source=obj, target=author_en, relationship="authors")
+                    
+                    log_to_file(f"{ccObjectID} object is updated")
 
                     # Reindex the updated object
                     obj.reindexObject(idxs=['objectTitle', 'Title', 'sortable_title', 'authorID', 'authors'])
@@ -709,6 +712,8 @@ class AdminFixes(BrowserView):
 
                 obj = create_and_setup_object(title, container, info, intl) #Dutch version
                 obj_en = create_and_setup_object(title, container_en, info, intl) #English version
+
+                log_to_file(f"{ccObjectID} object is created")
 
                 for author in authors:
                     relation.create(source=obj, target=author, relationship="authors")
@@ -740,15 +745,9 @@ class AdminFixes(BrowserView):
 
         finish_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')  # Record the finish time
 
-
-        transaction.commit()
-            
-        # After processing the current batch, call the function recursively for the next batch
-        # next_response = self.import_record(start_range=end_range + 1)
-
+        log_to_file(f"Processed range: {start_range}-{end_range} (Start: {start_time}, Finish: {finish_time})") 
         # Return the current processed range along with the response from the next batches
-        return f"Processed range: {start_range}-{end_range} (Start: {start_time}, Finish: {finish_time})"
-        # return True
+        return f"Processed range: {start_range}-{end_range} (Start: {start_time}, Finish: {finish_time})<br>"
 
     def __call__(self):
         alsoProvides(self.request, IDisableCSRFProtection)
@@ -819,6 +818,8 @@ def import_images(container, images):
 
                     if "DOCTYP" in str(data[:10]):
                         continue
+
+                    log_to_file(f"{image.text} image is created") 
                 
                     imagefield = NamedBlobImage(
                         # TODO: are all images jpegs?
@@ -846,6 +847,7 @@ def import_images(container, images):
                     time.sleep(DELAY_SECONDS)
                 else:
                     print(f"Failed to fetch image {image.text} after {MAX_RETRIES} attempts: {e}")
+                    log_to_file(f"failed to create {image.text} image") 
 
         if not success:
             print(f"Skipped image {image.text} due to repeated fetch failures.")
@@ -952,6 +954,8 @@ def import_authors(self, element, use_archive=True):
             **fields_en,
         ) #English version
 
+        log_to_file(f"{authorName} author is created") 
+
         manager = ITranslationManager(author)
         if not manager.has_translation('en'):
             manager.register_translation('en', author_en)
@@ -967,34 +971,14 @@ def import_authors(self, element, use_archive=True):
 
     return [authors, authors_en]
 
+def log_to_file(message):
+    log_file_path = "/home/ubuntu/collectionLogs.txt"
+    
+    # Check if the file doesn't exist and create it
+    if not os.path.exists(log_file_path):
+        with open(log_file_path, 'w') as f:
+            pass
 
-# Exhibition import
-def path(obj):
-    return obj.absolute_url(relative=1)
-
-def convert_lists_to_text(rec, blacklist=None):
-    blacklist = blacklist or []
-    for k, v in rec.items():
-        if k in blacklist:
-            continue
-        if isinstance(v, list):
-            rec[k] = "\n".join(v)
-
-    return rec
-
-def translate(self, obj, fields):
-    language = "en"
-    trans = translate(obj, language)
-
-    for k, v in fields.items():
-        setattr(trans, k, v)
-
-    for id, child in obj.contentItems():
-        # TODO: use translator instead of copy
-        content.copy(child, trans)
-
-    content.transition(obj=trans, transition="publish")
-    trans._p_changed = True
-    trans.reindexObject()
-
-    return trans
+    # Append the log message to the file
+    with open(log_file_path, 'a') as f:
+        f.write(message + "\n")
