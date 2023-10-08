@@ -984,11 +984,17 @@ def import_authors(self, element, use_archive=True):
 def log_to_file(message):
     log_file_path = "/home/ubuntu/collectionLogs.txt"
     
-    # Check if the file doesn't exist and create it
-    if not os.path.exists(log_file_path):
-        with open(log_file_path, 'w') as f:
-            pass
+    # Attempt to create the file if it doesn't exist
+    try:
+        if not os.path.exists(log_file_path):
+            with open(log_file_path, 'w') as f:
+                pass
+    except Exception as e:
+        print(f"Error creating log file: {e}")
 
     # Append the log message to the file
-    with open(log_file_path, 'a') as f:
-        f.write(message + "\n")
+    try:
+        with open(log_file_path, 'a') as f:
+            f.write(message + "\n")
+    except Exception as e:
+        print(f"Error writing to log file: {e}")
