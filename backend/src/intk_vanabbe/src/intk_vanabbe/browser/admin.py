@@ -23,7 +23,9 @@ from zope.intid.interfaces import IIntIds
 from zope import component
 from zc.relation.interfaces import ICatalog
 from datetime import datetime
+from requests.exceptions import RequestException
 
+import time
 import json
 import logging
 import lxml.etree
@@ -794,37 +796,61 @@ def create_and_setup_object(title, container, info, intl):
     return obj
 
 def import_images(container, images):
+    MAX_RETRIES = 3
+    DELAY_SECONDS = 5
+
+    # Delete the existing images inside the container
     for obj in api.content.find(context=container, portal_type='Image'):
         api.content.delete(obj=obj.getObject())
 
     for image in images:
-        primaryDisplay=image.get('PrimaryDisplay')
-        with requests.get(
-            url=f"{IMAGE_BASE_URL}/{image.text}", stream=True, verify=False, headers=HEADERS
-        ) as req:  # noqa
-            data = req.raw.read()
-            if "DOCTYP" in str(data[:10]):  # avoids missing images
-                continue
-        
-        imagefield = NamedBlobImage(
-            # TODO: are all images jpegs?
-            data=data,
-            contentType="image/jpeg",
-            filename=image.text,
-        )
-        image = content.create(
-            type="Image",
-            # id=image.text,
-            title=image.text,
-            image=imagefield,
-            container=container,
-        )
-      
-        if primaryDisplay == '1':
-            ordering = IExplicitOrdering(container)
-            ordering.moveObjectsToTop([image.getId()])
-    
-    return "alright"
+        primaryDisplay = image.get('PrimaryDisplay')
+        retries = 0
+        success = False
+
+        # Tries MAX_RETRIES times and then raise exception
+        while retries < MAX_RETRIES:
+            try:
+                with requests.get(
+                    url=f"{IMAGE_BASE_URL}/{image.text}", stream=True, verify=False, headers=HEADERS
+                ) as req:  # noqa
+                    req.raise_for_status()
+                    data = req.raw.read()
+
+                    if "DOCTYP" in str(data[:10]):
+                        continue
+                
+                    imagefield = NamedBlobImage(
+                        # TODO: are all images jpegs?
+                        data=data,
+                        contentType="image/jpeg",
+                        filename=image.text,
+                    )
+                    image = api.content.create(
+                        type="Image",
+                        title=image.text,
+                        image=imagefield,
+                        container=container,
+                    )
+
+                    if primaryDisplay == '1':
+                        ordering = IExplicitOrdering(container)
+                        ordering.moveObjectsToTop([image.getId()])
+                    
+                    success = True
+                    break
+
+            except requests.RequestException as e:
+                retries += 1
+                if retries < MAX_RETRIES:
+                    time.sleep(DELAY_SECONDS)
+                else:
+                    print(f"Failed to fetch image {image.text} after {MAX_RETRIES} attempts: {e}")
+
+        if not success:
+            print(f"Skipped image {image.text} due to repeated fetch failures.")
+
+    return f"Images {images} created successfully"
 
 def import_authors(self, element, use_archive=True):
     container = get_base_folder(self.context, "author")
