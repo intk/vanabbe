@@ -520,6 +520,9 @@ class AdminFixes(BrowserView):
     def import_record(self):
         start_range = self.request.form.get('start_range', 0)
         end_range = self.request.form.get('end_range', 3500)
+
+        counter = 0
+
         
         start_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')  # Record the start time
 
@@ -742,6 +745,13 @@ class AdminFixes(BrowserView):
                     container= obj_en,
                     images=images
                 )
+            
+            counter += 1
+
+            # Check if counter has reached 500 and commit transaction
+            if counter % 500 == 0:
+                transaction.commit()
+                log_to_file(f"Transaction is committed")
 
         finish_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')  # Record the finish time
 
