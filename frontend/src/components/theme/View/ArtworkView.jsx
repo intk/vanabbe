@@ -216,7 +216,7 @@ export default function ArtworkView(props) {
                         {linkAuthors?.map((auth, index) => (
                           <h2 key={index}>
                             <a
-                              href={auth["@id"]}
+                              href={auth['@id']}
                               // title={auth.detailsHrefTitle}
                             >
                               {auth.title}
