@@ -668,7 +668,6 @@ class AdminFixes(BrowserView):
                 else:
                     info[lang]['objectDescription'] = ''
 
-
             # Find the existing object
             # brains = catalog.searchResults(ccObjectID=ccObjectID, portal_type="artwork")
 
@@ -757,10 +756,6 @@ class AdminFixes(BrowserView):
                     container= obj, 
                     images=images
                     )
-                import_images(
-                    container= obj_en,
-                    images=images
-                )
                 obj.hasImage=True;
             
             obj_en = self.translate(obj, info['en'])
@@ -1001,7 +996,8 @@ def import_authors(self, element, use_archive=True):
     return [authors, authors_en]
 
 def log_to_file(message):
-    log_file_path = "/app/logs/collectionLogs.txt"
+    # log_file_path = "/app/logs/collectionLogs.txt"
+    log_file_path = "/Users/cihanandac/Documents/vanabbe/collectionLogs.txt"
     
     # Attempt to create the file if it doesn't exist
     try:
