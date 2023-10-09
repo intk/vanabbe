@@ -503,6 +503,12 @@ class AdminFixes(BrowserView):
         language = "en"
         trans = translate(obj, language)
 
+        log_to_file(f"{fields}")
+
+        # Ensure the title is set
+        if 'objectTitle' in fields:
+            trans.title = fields['objectTitle']
+
         for k, v in fields.items():
             setattr(trans, k, v)
 
@@ -582,7 +588,7 @@ class AdminFixes(BrowserView):
                 "objectMedium": "objectMedium",
             }
 
-            for lang in intl.keys():
+            for lang in info.keys():
                 for xml_field, info_field in language_dependent_fields.items():
                     value = element.xpath(f"//dc_record/{xml_field}[@Language='{lang.upper()}']")
                     if value:
@@ -628,18 +634,18 @@ class AdminFixes(BrowserView):
                         info['nl']['objectOnDisplay'] = True
 
             for field in ["ObjectAudio", "ObjectVideo"]:
-                for lang in intl.keys():
+                for lang in info.keys():
                     els = element.xpath(
                         f"//dc_record/{field}[@Language='{lang.upper()}']")
                     if not els:
                         continue
-                    intl[lang][field] = [
+                    info[lang][field] = [
                         {"title": (el.get("Title") or "").strip(),
                             "filename": (el.text or "").strip()}
                         for el in els
                     ]
 
-            for lang in intl.keys():
+            for lang in info.keys():
                 objectDescription = element.xpath(f"//dc_record/objectDescription[@Language='{lang.upper()}']")
                 if len(objectDescription)>1:
                     for e in objectDescription:
@@ -666,11 +672,13 @@ class AdminFixes(BrowserView):
                 lang = brains[0].getObject().language
                 missing_lang = 'en' if lang == 'nl' else 'nl'
                 if missing_lang == 'nl':
-                    obj = create_and_setup_object(title, container, info, intl) #Dutch version
+                    obj = create_and_setup_object(title, container, info) #Dutch version
+                    log_to_file(f"{ccObjectID} Dutch version of object is created")
                     for author in authors:
                         relation.create(source=obj, target=author, relationship="authors")
                 else:
-                    obj_en = create_and_setup_object(title, container_en, info, intl) #English version
+                    obj_en = create_and_setup_object(title, container_en, info) #English version
+                    log_to_file(f"{ccObjectID} English version of object is created")
                     for author_en in authors_en:
                         relation.create(source=obj_en, target=author_en, relationship="authors")
 
@@ -706,7 +714,8 @@ class AdminFixes(BrowserView):
                     log_to_file(f"{ccObjectID} object is updated")
 
                     # Reindex the updated object
-                    obj.reindexObject(idxs=['objectTitle', 'Title', 'sortable_title', 'authorID', 'authors'])
+                    obj.reindexObject()
+                    obj.reindexObject(idxs=['objectTitle', 'Title', 'sortable_title', 'authorID'])
 
             # Object doesn't exist, so we create a new one
             else:
@@ -714,7 +723,8 @@ class AdminFixes(BrowserView):
                     title = "Untitled Object"  # default value for untitled objects
 
                 obj = create_and_setup_object(title, container, info, intl) #Dutch version
-                obj_en = create_and_setup_object(title, container_en, info, intl) #English version
+                # obj_en = create_and_setup_object(title, container_en, info, intl) #English version
+                obj_en = self.translate(obj, info['en'])
 
                 log_to_file(f"{ccObjectID} object is created")
 
@@ -725,14 +735,14 @@ class AdminFixes(BrowserView):
 
                 logger.info("Created %s", obj.absolute_url(relative=1))        
             
-            # Linking two objects as translations of each other
-            brains = catalog.searchResults(ccObjectID=ccObjectID)
-            if len(brains)>1:
-                obj = brains[0].getObject()
-                obj_en = brains[1].getObject()
-                manager = ITranslationManager(obj)
-                if not manager.has_translation('en'):
-                    manager.register_translation('en', obj_en)
+            # # Linking two objects as translations of each other
+            # brains = catalog.searchResults(ccObjectID=ccObjectID)
+            # if len(brains)>1:
+            #     obj = brains[0].getObject()
+            #     obj_en = brains[1].getObject()
+            #     manager = ITranslationManager(obj)
+            #     if not manager.has_translation('en'):
+            #         manager.register_translation('en', obj_en)
 
             #adding images
             images=element.xpath(f"//dc_record/objectImage")
@@ -745,6 +755,8 @@ class AdminFixes(BrowserView):
                     container= obj_en,
                     images=images
                 )
+                obj.hasImage=True;
+                obj_en.hasImage=True
             
             counter += 1
 
