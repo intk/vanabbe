@@ -501,9 +501,14 @@ class AdminFixes(BrowserView):
     
     def translate(self, obj, fields):
         language = "en"
-        trans = translate(obj, language)
-
-        log_to_file(f"{fields}")
+        
+        manager = ITranslationManager(obj)
+        
+        # Check if translation in the target language already exists
+        if manager.has_translation(language):
+            trans = manager.get_translation(language)
+        else:
+            trans = translate(obj, language)
 
         # Ensure the title is set
         if 'objectTitle' in fields:
@@ -516,7 +521,8 @@ class AdminFixes(BrowserView):
             # TODO: use translator instead of copy
             content.copy(child, trans)
 
-        content.transition(obj=trans, transition="publish")
+        if api.content.get_state(trans) == "private":
+            content.transition(obj=trans, transition="publish")
         trans._p_changed = True
         trans.reindexObject()
 
@@ -756,7 +762,8 @@ class AdminFixes(BrowserView):
                     images=images
                 )
                 obj.hasImage=True;
-                obj_en.hasImage=True
+            
+            obj_en = self.translate(obj, info['en'])
             
             counter += 1
 
