@@ -819,8 +819,8 @@ def create_and_setup_object(title, container, info, intl):
     return obj
 
 def import_images(container, images):
-    MAX_RETRIES = 3
-    DELAY_SECONDS = 5
+    MAX_RETRIES = 2
+    DELAY_SECONDS = 1
 
     # Delete the existing images inside the container
     for obj in api.content.find(context=container, portal_type='Image'):
