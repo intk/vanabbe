@@ -189,7 +189,8 @@ export default function ArtworkView(props) {
 
     return [...acc, ...local];
   }, []);
-  const linkAuthors = contextLinks?.authors || content.authors;
+  const linkAuthors = content.authors || contextLinks?.authors;
+  console.log(linkAuthors)
 
   return (
     <div className="artwork-view">
@@ -216,8 +217,8 @@ export default function ArtworkView(props) {
                         {linkAuthors.map((auth, index) => (
                           <h2 key={index}>
                             <a
-                              href={auth.detailsHref}
-                              title={auth.detailsHrefTitle}
+                              href={auth["@id"]}
+                              // title={auth.detailsHrefTitle}
                             >
                               {auth.title}
                             </a>
