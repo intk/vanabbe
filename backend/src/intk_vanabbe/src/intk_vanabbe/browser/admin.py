@@ -588,12 +588,12 @@ class AdminFixes(BrowserView):
                     if value:
                         info[lang][info_field] = value[0].text
                     else:
-                        info[lang][info_field] = None
+                        info[lang][info_field] = ''
 
             for xml_field, info_field in fields_to_extract.items():
                 elements = element.xpath(f"//dc_record/{xml_field}")
-                info['nl'][info_field] = elements[0].text if elements else None
-                info['en'][info_field] = elements[0].text if elements else None
+                info['nl'][info_field] = elements[0].text if elements else ''
+                info['en'][info_field] = elements[0].text if elements else ''
 
             rawdata = element.xpath("//dc_record")[0]
             info['nl']['rawdata'] = lxml.etree.tostring(rawdata)
@@ -654,7 +654,7 @@ class AdminFixes(BrowserView):
                 elif objectDescription:
                     info[lang]['objectDescription'] = objectDescription[0].text
                 else:
-                    info[lang]['objectDescription'] = None
+                    info[lang]['objectDescription'] = ''
 
 
             # Find the existing object
