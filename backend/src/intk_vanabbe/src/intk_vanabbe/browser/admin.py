@@ -524,6 +524,10 @@ class AdminFixes(BrowserView):
         if api.content.get_state(trans) == "private":
             content.transition(obj=trans, transition="publish")
         trans._p_changed = True
+
+        if obj.hasImage:
+            trans.hasImage=True
+
         trans.reindexObject()
 
         return trans
