@@ -74,8 +74,8 @@ const TopSideFacets = (props) => {
 
   React.useEffect(() => {
     const allowedPaths = [
-      '/nl/collectie-onderzoek/collectie/kunstwerken',
-      '/en/collection-research/collection/permanent-collection',
+      '/nl/collectie-onderzoek/collectie',
+      '/en/collection-research/collection',
     ];
 
     // Check if the current URL is one of the allowed paths and the specific query isn't present
