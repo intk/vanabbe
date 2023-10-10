@@ -104,7 +104,7 @@ const TopSideFacets = (props) => {
     facets: data.facets?.map((f) => ({
       ...f,
       hidden: f.hidden
-        ? Object.keys(facets).includes(f.field.value) && facets[f.field.value]
+        ? Object.keys(facets).includes(f.field?.value) && facets[f.field?.value]
           ? false
           : true
         : false,
@@ -115,16 +115,16 @@ const TopSideFacets = (props) => {
   let facetOnView = {
     facets: hiddenData.facets?.filter(
       (facet) =>
-        facet.field.value === 'objectOnDisplay' ||
-        facet.field.value === 'hasImage',
+        facet.field?.value === 'objectOnDisplay' ||
+        facet.field?.value === 'hasImage',
     ),
   };
 
   let facetRest = {
     facets: hiddenData.facets?.filter(
       (facet) =>
-        facet.field.value !== 'objectOnDisplay' &&
-        facet.field.value !== 'hasImage',
+        facet.field?.value !== 'objectOnDisplay' &&
+        facet.field?.value !== 'hasImage',
     ),
   };
 
