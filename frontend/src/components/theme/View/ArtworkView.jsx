@@ -70,33 +70,37 @@ const ObjectLinks = ({ content }) => {
   let audio = [];
   let video = [];
 
-  if (content.ObjectAudio) {
+  // Parsing ObjectAudio JSON data
+  if (typeof content.ObjectAudio === 'string') {
     try {
       audio = JSON.parse(content.ObjectAudio);
-    } catch {
-      audio = textToList(content.ObjectAudio).map((v) => ({
-        title: v,
-        filename: v,
-      }));
+    } catch (error) {
+      console.error('Error parsing ObjectAudio JSON:', error);
     }
+  } else if (Array.isArray(content.ObjectAudio)) {
+    audio = content.ObjectAudio;
   }
 
-  if (content.ObjectVideo) {
+  // Parsing ObjectVideo JSON data
+  if (typeof content.ObjectVideo === 'string') {
     try {
       video = JSON.parse(content.ObjectVideo);
-    } catch {
-      video = textToList(content.ObjectVideo).map((v) => ({
-        title: v,
-        filename: v,
-      }));
+    } catch (error) {
+      console.error('Error parsing ObjectVideo JSON:', error);
     }
+  } else if (Array.isArray(content.ObjectVideo)) {
+    video = content.ObjectVideo;
   }
 
   return (
     <>
       {audio.map(({ title, filename }, ix) => (
         <div className="object-audio" key={`audio-${ix}`}>
-          <LuFileAudio style={{ marginRight: '3px' }} />
+          <LuFileAudio
+            style={{
+              marginRight: '3px',
+            }}
+          />
           <a
             key={`${ix}-${filename}`}
             href={`https://mediabank.vanabbemuseum.nl/website/Media/${filename}`}
@@ -105,9 +109,14 @@ const ObjectLinks = ({ content }) => {
           </a>
         </div>
       ))}
+      {console.log('Parsed Audio:', audio)}
       {video.map(({ title, filename }, ix) => (
         <div className="object-video" key={`video-${ix}`}>
-          <LuFileVideo style={{ marginRight: '3px' }} />
+          <LuFileVideo
+            style={{
+              marginRight: '3px',
+            }}
+          />
           <a
             key={`${ix}-${filename}`}
             href={`https://mediabank.vanabbemuseum.nl/website/Media/${filename}`}
