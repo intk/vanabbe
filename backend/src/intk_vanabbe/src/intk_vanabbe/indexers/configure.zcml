@@ -50,4 +50,19 @@
       name="technique_nl"
       />
 
+  <adapter
+      factory=".indexes.artwork_classification"
+      name="classification"
+      />
+
+  <adapter
+      factory=".indexes.artwork_classification_en"
+      name="classification_en"
+      />
+
+  <adapter
+      factory=".indexes.artwork_classification_nl"
+      name="classification_nl"
+      />
+
 </configure>

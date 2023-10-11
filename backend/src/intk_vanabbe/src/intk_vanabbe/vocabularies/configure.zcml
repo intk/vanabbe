@@ -16,6 +16,11 @@
       />
 
   <utility
+      name="classification_vocabulary"
+      component=".searchindex.ClassificationVocabularyFactory"
+      />
+
+  <utility
       name="publication_types_vocabulary"
       component=".searchindex.PublicationTypesVocabularyFactory"
       />

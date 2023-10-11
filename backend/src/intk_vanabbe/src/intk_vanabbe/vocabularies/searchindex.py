@@ -36,6 +36,7 @@ PublicationTypesVocabularyFactory = KeywordsVocabulary("publication_type")
 
 TechniqueVocabularyFactory = MultilingualKeywordsVocabulary("technique")
 
+ClassificationVocabularyFactory = MultilingualKeywordsVocabulary("classification")
 
 # from plone.api import content
 # from zope.schema.interfaces import ISource

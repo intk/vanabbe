@@ -33,7 +33,11 @@
   <index name="hasImage" meta_type="FieldIndex">
     <indexed_attr value="hasImage"/>
   </index>
-  
+
+  <index name="ccObjectID" meta_type="FieldIndex">
+    <indexed_attr value="ccObjectID"/>
+  </index>
+
   <index name="bookArtist" meta_type="KeywordIndex">
     <indexed_attr value="bookArtist"/>
   </index>
@@ -65,7 +69,20 @@
   <index name="technique_nl" meta_type="KeywordIndex">
     <indexed_attr value="technique_nl"/>
   </index>
+
+  <index name="classification" meta_type="KeywordIndex">
+    <indexed_attr value="classification"/>
+  </index> 
   
+  <index name="classification_en" meta_type="KeywordIndex">
+    <indexed_attr value="classification_en"/>
+  </index> 
+  
+  <index name="classification_nl" meta_type="KeywordIndex">
+    <indexed_attr value="classification_nl"/>
+  </index>
+
+
   <index name="authorSortName" meta_type="FieldIndex">
     <indexed_attr value="authorSortName"/>
   </index>

@@ -1,4 +1,5 @@
 from intk_vanabbe.content.artwork import get_decades
+
 from intk_vanabbe.content.artwork import IArtwork
 from intk_vanabbe.content.exhibition import IExhibition
 from intk_vanabbe.content.publication import get_publication_decades
@@ -46,6 +47,32 @@ def publication_decades(obj):
 @indexer(IArtwork)
 def artwork_decades(obj):
     return get_decades(obj)
+
+@indexer(IArtwork)
+def artwork_classification(obj):
+    classification = getattr(obj, "objectClassification", "")
+    if classification:
+        sep = ";" if ";" in classification else ","
+        return [s.strip() for s in classification.split(sep)]
+
+
+@indexer(IArtwork)
+def artwork_classification_en(obj):
+    if obj.language != "en":
+        return
+
+    classification = getattr(obj, "objectClassification", "")
+    if classification:
+        return [s.strip() for s in classification.split(",")]
+
+
+@indexer(IArtwork)
+def artwork_classification_nl(obj):
+    if obj.language != "nl":
+        return
+    classification = getattr(obj, "objectClassification", "")
+    if classification:
+        return [s.strip() for s in classification.split(",")]
 
 
 @indexer(IArtwork)
