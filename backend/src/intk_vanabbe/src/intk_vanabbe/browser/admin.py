@@ -541,12 +541,24 @@ class AdminFixes(BrowserView):
 
         
         start_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')  # Record the start time
+        today_date = datetime.now().strftime('%d-%m-%y') 
+        date_from = self.request.form.get('date_from')
 
         log_to_file(f"========================")
         log_to_file(f"========================")
         log_to_file(f"The sync function started at {start_time} for the range of objects between {start_range} and {end_range} ")
 
-        api_url = f"http://62.221.199.184:17718/action=get&command=search&query=ccIndexName=VanAbbeCollectie&fields=*&range={start_range}-{end_range}"
+        if date_from == None:
+            api_url = f"http://62.221.199.184:17718/action=get&command=search&query=ccIndexName=VanAbbeCollectie&fields=*&range={start_range}-{end_range}"
+        elif date_from == "today":
+            # api_url = f"http://62.221.199.184:17718/action=get&command=search&query=timestamp>{today_date}&fields=*&range={start_range}-{end_range}"
+            api_url = f"http://62.221.199.184:17718/action=get&command=search&query=timestamp={today_date}&ccIndexName=VanAbbeCollectie&fields=*&range={start_range}-{end_range}"
+        else:
+            # api_url = f"http://62.221.199.184:17718/action=get&command=search&query=timestamp>{date_from}&fields=*&range={start_range}-{end_range}"
+            api_url = f"http://62.221.199.184:17718/action=get&command=search&query=timestamp>{date_from}&ccIndexName=VanAbbeCollectie&fields=*&range={start_range}-{end_range}"
+
+        log_to_file(f"{api_url}")
+        # http://62.221.199.184:17718/action=get&command=search&query=timestamp%3E{timestamp}&ccIndexName=VanAbbeCollectie&fields=*&range={start_range}-{end_range}
 
         response = requests.get(api_url)
         response.raise_for_status()
