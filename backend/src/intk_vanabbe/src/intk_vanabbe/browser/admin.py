@@ -830,6 +830,7 @@ def create_and_setup_object(title, container, info, intl):
         )
     except TypeError as e:
         print(f"Error with data")
+        log_to_file(f"Error while creating the Object {title}, -> info {info} -> error {e}")
         raise e
 
     lang = obj.language
