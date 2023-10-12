@@ -513,6 +513,9 @@ class AdminFixes(BrowserView):
         # Ensure the title is set
         if 'objectTitle' in fields:
             trans.title = fields['objectTitle']
+        
+        if 'eventTitle' in fields:
+            trans.title = fields['eventTitle']
 
         for k, v in fields.items():
             setattr(trans, k, v)
@@ -525,8 +528,9 @@ class AdminFixes(BrowserView):
             content.transition(obj=trans, transition="publish")
         trans._p_changed = True
 
-        # if obj.hasImage:
-            # trans.hasImage=True
+        if obj.ccIndexName == "VanAbbeCollectie":
+            if obj.hasImage:
+                trans.hasImage=True
 
         trans.reindexObject()
 
