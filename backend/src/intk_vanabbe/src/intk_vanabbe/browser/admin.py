@@ -926,10 +926,10 @@ class AdminFixes(BrowserView):
                 title = element.xpath("//dc_record/eventTitle")
                 title_en = element.xpath("//dc_record/eventTitle_EN")
                 info['nl']['eventTitle'] = title[0].text
-                if title_en == None:
-                    info['nl']['eventTitle'] = title[0].text
-                # else:
-                    # info['en']['eventTitle'] = title_en[0].text
+                if title_en == None or len(title_en)<1:
+                    info['en']['eventTitle'] = title[0].text
+                else:
+                    info['en']['eventTitle'] = title_en[0].text
 
 
                 eventArtists = element.xpath("//dc_record/eventArtist")
