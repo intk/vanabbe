@@ -974,7 +974,7 @@ class AdminFixes(BrowserView):
                         
 
                     else:
-                        obj_en = create_and_setup_object(title_en[0].text, container_en, info, intl, "exhibition") #English version
+                        obj_en = create_and_setup_object(info['en']['eventTitle'], container_en, info, intl, "exhibition") #English version
                         log_to_file(f"{ccObjectID} English version of object is created")
 
                         manager = ITranslationManager(obj_en)
