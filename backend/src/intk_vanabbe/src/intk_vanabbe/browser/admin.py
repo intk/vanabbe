@@ -1213,59 +1213,59 @@ def import_exhibiton_images(container, images):
     MAX_RETRIES = 2
     DELAY_SECONDS = 1
 
-    # # Delete the existing images inside the container
-    # for obj in api.content.find(context=container, portal_type='Image'):
-    #     api.content.delete(obj=obj.getObject())
+    # Delete the existing images inside the container
+    for obj in api.content.find(context=container, portal_type='Image'):
+        api.content.delete(obj=obj.getObject())
 
-    # for image in images:
-    #     primaryDisplay = image.get('PrimaryDisplay')
-    #     retries = 0
-    #     success = False
+    for image in images:
+        primaryDisplay = image.get('PrimaryDisplay')
+        retries = 0
+        success = False
 
-    #     # Tries MAX_RETRIES times and then raise exception
-    #     while retries < MAX_RETRIES:
-    #         try:
-    #             with requests.get(
-    #                 url=image.text, stream=True, verify=False, headers=HEADERS
-    #             ) as req:  # noqa
-    #                 req.raise_for_status()
-    #                 data = req.raw.read()
+        # Tries MAX_RETRIES times and then raise exception
+        while retries < MAX_RETRIES:
+            try:
+                with requests.get(
+                    url=image.text, stream=True, verify=False, headers=HEADERS
+                ) as req:  # noqa
+                    req.raise_for_status()
+                    data = req.raw.read()
 
-    #                 if "DOCTYP" in str(data[:10]):
-    #                     continue
+                    if "DOCTYP" in str(data[:10]):
+                        continue
 
-    #                 log_to_file(f"{image.text} image is created") 
+                    log_to_file(f"{image.text} image is created") 
                 
-    #                 imagefield = NamedBlobImage(
-    #                     # TODO: are all images jpegs?
-    #                     data=data,
-    #                     contentType="image/jpeg",
-    #                     filename=image.text,
-    #                 )
-    #                 image = api.content.create(
-    #                     type="Image",
-    #                     title=image.text,
-    #                     image=imagefield,
-    #                     container=container,
-    #                 )
+                    imagefield = NamedBlobImage(
+                        # TODO: are all images jpegs?
+                        data=data,
+                        contentType="image/jpeg",
+                        filename=image.text,
+                    )
+                    image = api.content.create(
+                        type="Image",
+                        title=image.text,
+                        image=imagefield,
+                        container=container,
+                    )
 
-    #                 if primaryDisplay == '1':
-    #                     ordering = IExplicitOrdering(container)
-    #                     ordering.moveObjectsToTop([image.getId()])
+                    if primaryDisplay == '1':
+                        ordering = IExplicitOrdering(container)
+                        ordering.moveObjectsToTop([image.getId()])
                     
-    #                 success = True
-    #                 break
+                    success = True
+                    break
 
-    #         except requests.RequestException as e:
-    #             retries += 1
-    #             if retries < MAX_RETRIES:
-    #                 time.sleep(DELAY_SECONDS)
-    #             else:
-    #                 print(f"Failed to fetch image {image.text} after {MAX_RETRIES} attempts: {e}")
-    #                 log_to_file(f"failed to create {image.text} image") 
+            except requests.RequestException as e:
+                retries += 1
+                if retries < MAX_RETRIES:
+                    time.sleep(DELAY_SECONDS)
+                else:
+                    print(f"Failed to fetch image {image.text} after {MAX_RETRIES} attempts: {e}")
+                    log_to_file(f"failed to create {image.text} image") 
 
-    #     if not success:
-    #         print(f"Skipped image {image.text} due to repeated fetch failures.")
+        if not success:
+            print(f"Skipped image {image.text} due to repeated fetch failures.")
 
     return f"Images {images} created successfully"
 
