@@ -938,26 +938,6 @@ class AdminFixes(BrowserView):
                     info['nl']['eventArtist'] = artists
                     info['en']['eventArtist'] = artists 
 
-                # attrs = [
-                #     "objectPosition",
-                #     "objectFormatWidth",
-                #     "objectFormatDepth",
-                #     "objectFormatLength",
-                #     "objectKeys",
-                #     "authorID"
-                # ]
-
-                # for attr in attrs:
-                #     value = element.xpath(f"//dc_record/{attr}")
-                #     if value:
-                #         info['en'][attr] = str(value[0].text)
-                #         info['nl'][attr] = str(value[0].text)
-
-                        # # If the current attribute is 'objectPosition' and the value is not empty
-                        # if attr == "objectPosition" and str(value[0]).strip():
-                        #     info['en']['objectOnDisplay'] = True
-                        #     info['nl']['objectOnDisplay'] = True
-
                 for field in ["eventImages", "eventMedia"]:
                     els = element.xpath(f"//dc_record/{field}")
                     # info[field] = "\n".join(v)
@@ -968,27 +948,6 @@ class AdminFixes(BrowserView):
                     info['en'][field] = full_text
                     
                     log_to_file(f"{field} full_text {full_text}")
-
-
-                # for lang in info.keys():
-                #     objectDescription = element.xpath(f"//dc_record/objectDescription[@Language='{lang.upper()}']")
-                #     if len(objectDescription)>1:
-                #         for e in objectDescription:
-                #             descTitle=e.get('Title')
-                #             descScope=e.get('Scope')
-                #             if descTitle or descScope:
-                #                 info[lang]['objectDescription_extra'] = str(e.text)
-                #                 info[lang]['objectDescription_extra_title'] = descTitle
-                #                 info[lang]['objectDescription_extra_scope'] = descScope
-                #             else:
-                #                 info[lang]['objectDescription'] = e.text
-                #     elif objectDescription:
-                #         info[lang]['objectDescription'] = objectDescription[0].text
-                #     else:
-                #         info[lang]['objectDescription'] = ''
-
-                # Find the existing object
-                # brains = catalog.searchResults(ccObjectID=ccObjectID, portal_type="artwork")
 
                 # Check if only one language version of the object with ccObjectID exists 
                 brains = catalog.searchResults(ccObjectID=ccObjectID)
@@ -1032,7 +991,6 @@ class AdminFixes(BrowserView):
                             # obj_en.hasImage=True;
                         
                 # Check if object with ccObjectID already exists in the container
-                # brains = catalog.searchResults(ccObjectID=ccObjectID)
                 elif brains:
                     for brain in brains:
                         # Object exists, so we fetch it and update it
@@ -1047,8 +1005,6 @@ class AdminFixes(BrowserView):
                         for k, v in intl[lang].items():
                             if v:
                                 setattr(obj, k, json.dumps(v))
-
-                        # print(f"Updated Object ID: {obj.getId()}, Path: {obj.absolute_url()}, Workflow State: {api.content.get_state(obj)}")
                         
                         log_to_file(f"{ccObjectID} object is updated")
 
@@ -1387,8 +1343,8 @@ def import_authors(self, element, use_archive=True):
     return [authors, authors_en]
 
 def log_to_file(message):
-    # log_file_path = "/app/logs/collectionLogs.txt"
-    log_file_path = "/Users/cihanandac/Documents/vanabbe/collectionLogs.txt"
+    log_file_path = "/app/logs/collectionLogs.txt"
+    # log_file_path = "/Users/cihanandac/Documents/vanabbe/collectionLogs.txt"
     
     # Attempt to create the file if it doesn't exist
     try:
