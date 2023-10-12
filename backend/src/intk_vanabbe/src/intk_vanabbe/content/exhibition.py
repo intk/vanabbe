@@ -45,12 +45,20 @@ class IExhibition(model.Schema):
     # link directly to mediabank
     eventMedia = schema.Text(title="eventMedia", required=False)
 
-    eventTimeFrom = schema.TextLine(title="TimeFrom", required=False)
+    eventTimeFrom = schema.TextLine(title="eventTimeFrom", required=False)
 
+    eventTimeStart = schema.TextLine(title="eventTimeStart", required=False)
+
+    eventTimeEnd = schema.TextLine(title="eventTimeEnd", required=False)
+
+    eventSub = schema.TextLine(title="eventSub", required=False)
+    
     # this field is translatable
     eventTitle = schema.TextLine(title="eventTitle", required=False)
 
     recordnumber = schema.TextLine(title="recordnumber", required=False)
+
+    rawdata = schema.Text(title="Rawdata", required=False)
 
     directives.languageindependent(
         "ccObjectID",
