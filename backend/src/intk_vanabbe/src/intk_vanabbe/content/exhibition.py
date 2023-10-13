@@ -47,9 +47,9 @@ class IExhibition(model.Schema):
 
     eventTimeFrom = schema.TextLine(title="eventTimeFrom", required=False)
 
-    eventTimeStart = schema.TextLine(title="eventTimeStart", required=False)
+    eventTimeStart = schema.Date(title="eventTimeStart", required=False)
 
-    eventTimeEnd = schema.TextLine(title="eventTimeEnd", required=False)
+    eventTimeEnd = schema.Date(title="eventTimeEnd", required=False)
 
     eventSub = schema.TextLine(title="eventSub", required=False)
     
