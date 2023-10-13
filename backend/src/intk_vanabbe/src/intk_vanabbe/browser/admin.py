@@ -915,8 +915,17 @@ class AdminFixes(BrowserView):
 
                 for xml_field, info_field in fields_to_extract.items():
                     elements = element.xpath(f"//dc_record/{xml_field}")
-                    info['nl'][info_field] = elements[0].text if elements else ''
-                    info['en'][info_field] = elements[0].text if elements else ''
+                    if elements:
+                        if xml_field in ["eventTimeStart", "eventTimeEnd"]:
+                            date_value = convert_to_date(elements[0].text.split('^')[0])
+                            info['nl'][info_field] = date_value
+                            info['en'][info_field] = date_value
+                        else:
+                            info['nl'][info_field] = elements[0].text
+                            info['en'][info_field] = elements[0].text
+                    else:
+                        info['nl'][info_field] = ''
+                        info['en'][info_field] = ''
 
                 rawdata = element.xpath("//dc_record")[0]
                 info['nl']['rawdata'] = lxml.etree.tostring(rawdata)
