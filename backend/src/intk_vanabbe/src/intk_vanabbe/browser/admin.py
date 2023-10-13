@@ -848,7 +848,6 @@ class AdminFixes(BrowserView):
         elif date_from == "today":
             api_url = f"http://62.221.199.184:17718/action=get&command=search&query=timestamp={today_date}&ccIndexName=VanabbeTentoonstellingen&fields=*&range={start_range}-{end_range}"
         else:
-            # api_url = f"http://62.221.199.184:17718/action=get&command=search&query=timestamp>{date_from}&fields=*&range={start_range}-{end_range}"
             api_url = f"http://62.221.199.184:17718/action=get&command=search&query=timestamp={date_from}&ccIndexName=VanabbeTentoonstellingen&fields=*&range={start_range}-{end_range}"
         
         log_to_file(f"API URL = {api_url}")
@@ -925,12 +924,19 @@ class AdminFixes(BrowserView):
 
                 title = element.xpath("//dc_record/eventTitle")
                 title_en = element.xpath("//dc_record/eventTitle_EN")
-                info['nl']['eventTitle'] = title[0].text
-                if title_en == None or len(title_en)<1:
-                    info['en']['eventTitle'] = title[0].text
+                if len(title) > 0:
+                    title = element.xpath("//dc_record/eventTitle")
+                    title_en = element.xpath("//dc_record/eventTitle_EN")
+                    info['nl']['eventTitle'] = title[0].text
+                    if title_en == None or len(title_en)<1:
+                        info['en']['eventTitle'] = title[0].text
+                    else:
+                        info['en']['eventTitle'] = title_en[0].text
                 else:
-                    info['en']['eventTitle'] = title_en[0].text
-
+                    title = "Naamloze Tentoonstelling";
+                    title_en = "Untitled Exhibition" 
+                    info['nl']['eventTitle'] = title
+                    info['en']['eventTitle'] = title_en
 
                 eventArtists = element.xpath("//dc_record/eventArtist")
                 if eventArtists:
@@ -947,15 +953,13 @@ class AdminFixes(BrowserView):
                     info['nl'][field] = full_text
                     info['en'][field] = full_text
                     
-                    log_to_file(f"{field} full_text {full_text}")
-
                 # Check if only one language version of the object with ccObjectID exists 
                 brains = catalog.searchResults(ccObjectID=ccObjectID)
                 if len(brains)==1:
                     lang = brains[0].getObject().language
                     missing_lang = 'en' if lang == 'nl' else 'nl'
                     if missing_lang == 'nl':
-                        obj = create_and_setup_object(title[0].text, container, info, intl, "exhibition") #Dutch version
+                        obj = create_and_setup_object(info['nl']['eventTitle'], container, info, intl, "exhibition") #Dutch version
                         log_to_file(f"{ccObjectID} Dutch version of object is created")
                         
                         manager = ITranslationManager(obj)
@@ -969,10 +973,7 @@ class AdminFixes(BrowserView):
                                 container= obj, 
                                 images=images
                                 )
-                            # obj.hasImage=True;
                         
-                        
-
                     else:
                         obj_en = create_and_setup_object(info['en']['eventTitle'], container_en, info, intl, "exhibition") #English version
                         log_to_file(f"{ccObjectID} English version of object is created")
@@ -988,7 +989,6 @@ class AdminFixes(BrowserView):
                                 container= obj_en, 
                                 images=images
                                 )
-                            # obj_en.hasImage=True;
                         
                 # Check if object with ccObjectID already exists in the container
                 elif brains:
@@ -1026,9 +1026,7 @@ class AdminFixes(BrowserView):
                     if not title:
                         title = "Untitled Object"  # default value for untitled objects
 
-                    obj = create_and_setup_object(title[0].text, container, info, intl, "exhibition") #Dutch version
-                    # obj_en = create_and_setup_object(title, container_en, info, intl) #English version
-                    # obj_en = self.translate(obj, info['en'])
+                    obj = create_and_setup_object(info['nl']['eventTitle'], container, info, intl, "exhibition") #Dutch version
 
                     log_to_file(f"{ccObjectID} object is created")
 
