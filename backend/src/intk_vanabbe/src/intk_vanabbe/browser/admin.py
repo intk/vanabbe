@@ -1399,8 +1399,7 @@ def convert_to_date(raw_date):
             return None
         if len(year) == 2:  # Handle 2-digit year values, assuming it's 20th century
             year = '19' + year
-        formatted_date = f"{year}/{month}/{day}"
-        return formatted_date
+        return datetime(int(year), int(month), int(day))
     except (ValueError, AttributeError):
         log_to_file(f"there is an error in the date value {raw_date}")
         return None
