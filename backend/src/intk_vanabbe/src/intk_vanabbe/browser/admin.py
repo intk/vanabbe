@@ -1358,3 +1358,32 @@ def log_to_file(message):
             f.write(message + "\n")
     except Exception as e:
         print(f"Error writing to log file: {e}")
+
+def convert_to_date(raw_date):
+    # Remove known prefixes and suffixes
+    known_prefixes = ["van ", "tot ", "van", "tot"]
+    known_suffixes = ["tot", " tot", "van", " van"]
+    for prefix in known_prefixes:
+        if raw_date.startswith(prefix):
+            raw_date = raw_date[len(prefix):]
+            break
+
+    for suffix in known_suffixes:
+        if raw_date.endswith(suffix):
+            raw_date = raw_date[:-len(suffix)].strip()  # The strip() ensures any spaces are removed
+            break
+
+    try:
+        # Make sure the raw_date doesn't contain non-numeric characters other than hyphen
+        if not all(char.isdigit() or char == '-' for char in raw_date):
+            log_to_file(f"there is an error in the date value {raw_date}")
+            return None
+
+        day, month, year = raw_date.split('-')
+        if len(year) == 2:  # Handle 2-digit year values, assuming it's 20th century
+            year = '19' + year
+        formatted_date = f"{year}/{month}/{day}"
+        return DateTime(formatted_date)
+    except (ValueError, AttributeError):
+        log_to_file(f"there is an error in the date value {raw_date}")
+        return None
