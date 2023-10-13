@@ -1374,11 +1374,14 @@ def convert_to_date(raw_date):
     known_suffixes = ["tot", " tot", "van", " van"]
     for prefix in known_prefixes:
         if raw_date.startswith(prefix):
+            log_to_file(f"there is an error in the date value {raw_date}")
             raw_date = raw_date[len(prefix):]
+            log_to_file(f"there is an error in the date value {raw_date}")
             break
 
     for suffix in known_suffixes:
         if raw_date.endswith(suffix):
+            log_to_file(f"there is an error in the date value {raw_date}")
             raw_date = raw_date[:-len(suffix)].strip()  # The strip() ensures any spaces are removed
             break
 
@@ -1389,6 +1392,9 @@ def convert_to_date(raw_date):
             return None
 
         day, month, year = raw_date.split('-')
+        if not is_valid_day(day):
+            log_to_file(f"Invalid day in the date value {raw_date}")
+            return None
         if len(year) == 2:  # Handle 2-digit year values, assuming it's 20th century
             year = '19' + year
         formatted_date = f"{year}/{month}/{day}"
@@ -1396,3 +1402,7 @@ def convert_to_date(raw_date):
     except (ValueError, AttributeError):
         log_to_file(f"there is an error in the date value {raw_date}")
         return None
+
+def is_valid_day(day_str):
+    # Check if day is '00' or above 31
+    return 1 <= int(day_str) <= 31
