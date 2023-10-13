@@ -23,6 +23,8 @@ from zope.intid.interfaces import IIntIds
 from zope import component
 from zc.relation.interfaces import ICatalog
 from datetime import datetime
+from DateTime import DateTime
+
 
 import time
 import json
