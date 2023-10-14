@@ -34,7 +34,7 @@
     <indexed_attr value="hasImage"/>
   </index>
   
-  <index name="eventTimeStart" meta_type="FieldIndex">
+  <index name="eventTimeStart" meta_type="DateIndex">
     <indexed_attr value="eventTimeStart"/>
   </index>
 
