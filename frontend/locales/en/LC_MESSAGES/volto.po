@@ -419,6 +419,11 @@ msgstr ""
 msgid "does_this_contain_innacurate"
 msgstr ""
 
+#: components/blocks/Search/SortOn
+# defaultMessage: Datum
+msgid "event_date"
+msgstr "Date"
+
 #: components/theme/View/ArtworkView
 #: components/theme/View/AuthorView
 # defaultMessage: Exhibitions with {authorName}

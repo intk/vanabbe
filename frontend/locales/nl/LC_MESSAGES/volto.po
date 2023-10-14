@@ -440,6 +440,11 @@ msgstr "Beschrijving"
 msgid "does_this_contain_innacurate"
 msgstr "Bevat deze pagina onnauwkeurige informatie of taal die verbeterd of gewijzigd moet worden?"
 
+#: components/blocks/Search/SortOn
+# defaultMessage: Datum
+msgid "event_date"
+msgstr "Datum"
+
 #: components/theme/View/ArtworkView
 #: components/theme/View/AuthorView
 # defaultMessage: Exhibitions with {authorName}
