@@ -63,6 +63,22 @@
   </records>
 
   <records interface="plone.app.querystring.interfaces.IQueryField"
+         prefix="plone.app.querystring.field.eventTimeStart"
+         purge="false"
+  >
+    <value key="title" i18n:translate="">Event Time Start</value>
+    <value key="description" i18n:translate="" />
+    <value key="enabled">True</value>
+    <value key="sortable">True</value>
+    <value key="operations">
+      <element>plone.app.querystring.operation.date.before</element>
+      <element>plone.app.querystring.operation.date.after</element>
+      <element>plone.app.querystring.operation.date.between</element>
+    </value>
+    <value key="group" i18n:translate="">VanAbbe</value>
+  </records>
+
+  <records interface="plone.app.querystring.interfaces.IQueryField"
            prefix="plone.app.querystring.field.hasImage"
            purge="false"
   >

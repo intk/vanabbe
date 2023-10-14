@@ -33,6 +33,10 @@
   <index name="hasImage" meta_type="FieldIndex">
     <indexed_attr value="hasImage"/>
   </index>
+  
+  <index name="eventTimeStart" meta_type="FieldIndex">
+    <indexed_attr value="eventTimeStart"/>
+  </index>
 
   <index name="ccObjectID" meta_type="FieldIndex">
     <indexed_attr value="ccObjectID"/>
