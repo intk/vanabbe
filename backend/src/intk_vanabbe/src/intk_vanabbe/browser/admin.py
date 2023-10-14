@@ -926,8 +926,13 @@ class AdminFixes(BrowserView):
                             info['nl'][info_field] = elements[0].text
                             info['en'][info_field] = elements[0].text
                     else:
-                        info['nl'][info_field] = ''
-                        info['en'][info_field] = ''
+                        # Check if the field is a date field, and if so, set the default value to None.
+                        if xml_field in ["eventTimeStart", "eventTimeEnd"]:
+                            info['nl'][info_field] = None
+                            info['en'][info_field] = None
+                        else:
+                            info['nl'][info_field] = ''
+                            info['en'][info_field] = ''
 
                 rawdata = element.xpath("//dc_record")[0]
                 info['nl']['rawdata'] = lxml.etree.tostring(rawdata)
