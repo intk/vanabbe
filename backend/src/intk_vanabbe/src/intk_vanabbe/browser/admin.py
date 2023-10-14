@@ -1025,12 +1025,12 @@ class AdminFixes(BrowserView):
                         log_to_file(f"{ccObjectID} object is updated")
 
                         #adding images
-                        images=element.xpath(f"//dc_record/eventImages")
-                        if images:
-                            import_exhibiton_images(
-                                container= obj, 
-                                images=images
-                                )
+                        # images=element.xpath(f"//dc_record/eventImages")
+                        # if images:
+                        #     import_exhibiton_images(
+                        #         container= obj, 
+                        #         images=images
+                        #         )
                         # obj.hasImage=True;
 
                         # Reindex the updated object
