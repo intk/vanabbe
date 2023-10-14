@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2022-05-25 17:12+0000\n"
+"POT-Creation-Date: 2023-10-14 10:01+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,3 +16,112 @@ msgstr ""
 "Language-Name: English\n"
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: intk_vanabbe\n"
+
+#: intk_vanabbe/src/intk_vanabbe/profiles/default/registry.xml
+msgid "Author ID"
+msgstr ""
+
+#: intk_vanabbe/src/intk_vanabbe/profiles/default/registry.xml
+msgid "Author's Sort Name"
+msgstr ""
+
+#: intk_vanabbe/src/intk_vanabbe/profiles/default/registry.xml
+msgid "Book publish date"
+msgstr ""
+
+#: intk_vanabbe/src/intk_vanabbe/profiles/default/registry.xml
+msgid "Classification"
+msgstr ""
+
+#. Default: "Datum"
+#: intk_vanabbe/src/intk_vanabbe/profiles/default/registry.xml
+msgid "Datum"
+msgstr ""
+
+#: intk_vanabbe/src/intk_vanabbe/profiles/default/registry.xml
+msgid "Decades"
+msgstr ""
+
+#: intk_vanabbe/src/intk_vanabbe/vocabularies/__init__.py:11
+msgid "Education"
+msgstr ""
+
+#: intk_vanabbe/src/intk_vanabbe/vocabularies/__init__.py:9
+msgid "Government"
+msgstr ""
+
+#: intk_vanabbe/src/intk_vanabbe/profiles/default/registry.xml
+msgid "Image only"
+msgstr ""
+
+#: intk_vanabbe/src/intk_vanabbe/profiles.zcml:22
+msgid "Initial content for our website."
+msgstr ""
+
+#: intk_vanabbe/src/intk_vanabbe/profiles/default/registry.xml
+msgid "Is featured"
+msgstr ""
+
+#: intk_vanabbe/src/intk_vanabbe/vocabularies/__init__.py:10
+msgid "NGO"
+msgstr ""
+
+#: intk_vanabbe/src/intk_vanabbe/profiles/default/registry.xml
+msgid "Object Position"
+msgstr ""
+
+#: intk_vanabbe/src/intk_vanabbe/profiles/default/registry.xml
+msgid "On display"
+msgstr ""
+
+#: intk_vanabbe/src/intk_vanabbe/profiles/default/registry.xml
+msgid "On view"
+msgstr ""
+
+#: intk_vanabbe/src/intk_vanabbe/profiles.zcml:13
+msgid "Policy package to install our site"
+msgstr ""
+
+#: intk_vanabbe/src/intk_vanabbe/profiles/default/registry.xml
+msgid "Publication Decades"
+msgstr ""
+
+#: intk_vanabbe/src/intk_vanabbe/profiles/default/registry.xml
+msgid "Publication Type"
+msgstr ""
+
+#: intk_vanabbe/src/intk_vanabbe/profiles/default/registry.xml
+msgid "Sortable Last Name"
+msgstr ""
+
+#: intk_vanabbe/src/intk_vanabbe/profiles/default/registry.xml
+msgid "Technique"
+msgstr ""
+
+#: intk_vanabbe/src/intk_vanabbe/profiles/default/registry.xml
+msgid "Text"
+msgstr ""
+
+#: intk_vanabbe/src/intk_vanabbe/profiles/default/registry.xml
+msgid "The item's last name"
+msgstr ""
+
+#: intk_vanabbe/src/intk_vanabbe/profiles.zcml:30
+msgid "Uninstall VanAbbe setup."
+msgstr ""
+
+#: intk_vanabbe/src/intk_vanabbe/profiles/default/registry.xml
+msgid "VanAbbe"
+msgstr ""
+
+#: intk_vanabbe/src/intk_vanabbe/profiles.zcml:22
+msgid "VanAbbe: Initial content"
+msgstr ""
+
+#: intk_vanabbe/src/intk_vanabbe/profiles.zcml:13
+msgid "VanAbbe: Install"
+msgstr ""
+
+#: intk_vanabbe/src/intk_vanabbe/profiles.zcml:30
+msgid "VanAbbe: Uninstall"
+msgstr ""
