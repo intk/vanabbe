@@ -66,7 +66,7 @@
          prefix="plone.app.querystring.field.eventTimeStart"
          purge="false"
   >
-    <value key="title" i18n:translate="Datum">Datum</value>
+    <value key="title" i18n:translate="">Datum</value>
     <value key="description" i18n:translate="" />
     <value key="enabled">True</value>
     <value key="sortable">True</value>
