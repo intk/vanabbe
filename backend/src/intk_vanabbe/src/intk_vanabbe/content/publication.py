@@ -67,8 +67,8 @@ class IPublication(model.Schema):
     BookTitle = schema.TextLine(title="BookTitle", required=False)
     bookVubisid = schema.TextLine(title="bookVubisid", required=False)
     ccIdentifier = schema.TextLine(title="ccIdentifier", required=False)
-    ccindexnameccIndexName = schema.TextLine(
-        title="ccindexnameccIndexName", required=False
+    ccIndexName = schema.TextLine(
+        title="ccIndexName", required=False
     )
     recordnumber = schema.Int(title="recordnumber", required=False)
     vubisID = schema.TextLine(title="vubisID", required=False)
@@ -108,7 +108,7 @@ class IPublication(model.Schema):
         "BookTitle",
         "bookVubisid",
         "ccIdentifier",
-        "ccindexnameccIndexName",
+        "ccIndexName",
         "recordnumber",
         "vubisID",
         "bookLanguage",
