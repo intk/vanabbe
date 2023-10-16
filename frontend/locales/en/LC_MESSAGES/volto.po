@@ -551,6 +551,11 @@ msgstr ""
 msgid "publications_by_author_name"
 msgstr ""
 
+#: components/blocks/Search/SortOn
+# defaultMessage: publiceer datum
+msgid "publish_date"
+msgstr "publish date"
+
 #: components/theme/ScrollToTop/ScrollToTop
 # defaultMessage: Scroll to top
 msgid "scroll_to_top"
@@ -560,6 +565,11 @@ msgstr ""
 # defaultMessage: Showing results for <u>something</u>
 msgid "show.results"
 msgstr ""
+
+#: components/blocks/Search/SortOn
+# defaultMessage: sorteerbare titel
+msgid "sorting_title"
+msgstr "sortable title"
 
 #: components/blocks/Facts/schema
 # defaultMessage: SubTitle

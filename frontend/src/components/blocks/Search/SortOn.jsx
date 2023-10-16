@@ -27,6 +27,18 @@ const messages = defineMessages({
     id: 'Descending',
     defaultMessage: 'Descending',
   },
+  date: {
+    id: 'event_date',
+    defaultMessage: 'Datum',
+  },
+  sortableTitle: {
+    id: 'sorting_title',
+    defaultMessage: 'sorteerbare titel',
+  },
+  publishDate: {
+    id: 'publish_date',
+    defaultMessage: 'publiceer datum',
+  },
 });
 
 const SortOn = (props) => {
@@ -60,7 +72,23 @@ const SortOn = (props) => {
               <Checkbox
                 radio
                 disabled={isEditMode}
-                label={sortable_indexes[opt]?.title || opt}
+                label={
+                  <label>
+                    {(() => {
+                      const title = sortable_indexes[opt]?.title;
+
+                      if (title === 'sorteerbare titel') {
+                        return intl.formatMessage(messages.sortableTitle);
+                      } else if (title === 'Book publish date') {
+                        return intl.formatMessage(messages.publishDate);
+                      } else if (title === 'Datum') {
+                        return intl.formatMessage(messages.date);
+                      } else {
+                        return title || opt;
+                      }
+                    })()}
+                  </label>
+                }
                 checked={opt === value}
                 onChange={() => {
                   setSortOn(opt);

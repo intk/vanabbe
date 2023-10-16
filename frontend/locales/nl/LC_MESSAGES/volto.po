@@ -572,6 +572,11 @@ msgstr "Tijdelijke aanduiding"
 msgid "publications_by_author_name"
 msgstr "Publicaties met of over {authorName}"
 
+#: components/blocks/Search/SortOn
+# defaultMessage: publiceer datum
+msgid "publish_date"
+msgstr "publiceer datum"
+
 #: components/theme/ScrollToTop/ScrollToTop
 # defaultMessage: Scroll to top
 msgid "scroll_to_top"
@@ -581,6 +586,11 @@ msgstr "Scroll naar boven"
 # defaultMessage: Showing results for <u>something</u>
 msgid "show.results"
 msgstr "Resultaten tonen voor <u>iets</u>"
+
+#: components/blocks/Search/SortOn
+# defaultMessage: sorteerbare titel
+msgid "sorting_title"
+msgstr "sorteerbare titel"
 
 #: components/blocks/Facts/schema
 # defaultMessage: SubTitle
