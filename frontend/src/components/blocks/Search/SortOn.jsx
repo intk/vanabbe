@@ -77,7 +77,7 @@ const SortOn = (props) => {
                     {(() => {
                       const title = sortable_indexes[opt]?.title;
 
-                      if (title === 'sorteerbare titel') {
+                      if (title === 'Sorteerbare titel' || title === 'Sortable Title') {
                         return intl.formatMessage(messages.sortableTitle);
                       } else if (title === 'Book publish date') {
                         return intl.formatMessage(messages.publishDate);
