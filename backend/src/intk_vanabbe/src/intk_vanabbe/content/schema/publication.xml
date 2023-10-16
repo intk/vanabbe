@@ -90,7 +90,7 @@
       <required>False</required>
       <title>ccIdentifier</title>
     </field>
-    <field name="ccindexnameccIndexName" type="zope.schema.TextLine" lingua:independent="true">
+    <field name="ccIndexName" type="zope.schema.TextLine" lingua:independent="true">
       <description/>
       <required>False</required>
       <title>ccIndexName</title>
