@@ -4,6 +4,7 @@ IMPORT_LOCATIONS = {
     "artwork": "nl/collectie",
     "artwork_en": "en/collection",
     "publication": "nl/collectie-onderzoek/bibliotheek/publicaties",
+    "publication_en": "en/collection-research/library/publications",
     "exhibition": "nl/tentoonstellingen",
     "exhibition_en": "en/exhibitions",
     "author": "nl/collectie-onderzoek/kunstenaars",

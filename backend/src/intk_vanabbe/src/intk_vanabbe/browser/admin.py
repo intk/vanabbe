@@ -1072,6 +1072,289 @@ class AdminFixes(BrowserView):
         # Return the current processed range along with the response from the next batches
         return f"Processed range: {start_range}-{end_range} (Start: {start_time}, Finish: {finish_time})<br>"
 
+    def import_publications(self):
+        start_range = self.request.form.get('start_range', 0)
+        end_range = self.request.form.get('end_range', 3500)
+
+        counter = 0
+
+        
+        start_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')  # Record the start time
+        today_date = datetime.now().strftime('%d-%m-%y') 
+        date_from = self.request.form.get('date_from')
+
+        log_to_file(f"========================")
+        log_to_file(f"========================")
+        log_to_file(f"The sync function started at {start_time} for the range of objects between {start_range} and {end_range} ")
+
+        if date_from == None:
+            api_url = f"http://62.221.199.184:17718/action=get&command=search&query=ccIndexName=VanAbbeBibliotheek&fields=*&range={start_range}-{end_range}"
+        elif date_from == "today":
+            api_url = f"http://62.221.199.184:17718/action=get&command=search&query=timestamp={today_date}&ccIndexName=VanAbbeBibliotheek&fields=*&range={start_range}-{end_range}"
+        else:
+            api_url = f"http://62.221.199.184:17718/action=get&command=search&query=timestamp={date_from}&ccIndexName=VanAbbeBibliotheek&fields=*&range={start_range}-{end_range}"
+        
+        log_to_file(f"API URL = {api_url}")
+
+        response = requests.get(api_url)
+        response.raise_for_status()
+        api_answer = response.text
+        container = get_base_folder(self.context, "publication")
+        container_en = get_base_folder(self.context, 'publication_en')
+        site = api.portal.get()
+        catalog = site.portal_catalog
+        
+        root = ET.fromstring(api_answer)
+        
+        # Extract <record> elements
+        records = root.findall('.//record')
+
+        for record in records:
+            # Extract <dc_record> element
+            dc_record = record.find('.//dc_record')
+
+            if not dc_record:
+                log_to_file(f"this is not artwork") 
+                continue 
+
+            index_name = dc_record.find('.//ccIndexName')
+            if index_name is not None and index_name.text == "VanAbbeBibliotheek":
+                # Convert <dc_record> element to XML string
+                dc_record_xml = ET.tostring(dc_record, encoding='unicode')
+
+                # print(dc_record_xml)
+                element = lxml.etree.fromstring(dc_record_xml)
+
+                info = {'nl': {}, 'en': {}}
+                intl = {'nl': {}, 'en': {}}
+                
+
+                ccObjectID = element.xpath("//dc_record/ccObjectID")[0].text
+                info['nl']['ccObjectID'] = ccObjectID
+                info['en']['ccObjectID'] = ccObjectID
+
+                fields_to_extract = {
+                    "bookAnnotation" : "bookAnnotation",
+                    "bookauthorName" : "bookauthorName",
+                    "bookBarcode" : "bookBarcode",
+                    "bookBBCode" : "bookBBCode",
+                    "bookBbnummer" : "bookBbnummer",
+                    "bookBinding" : "bookBinding",
+                    "bookCity" : "bookCity",
+                    "bookCountry" : "bookCountry",
+                    "bookDatePublished" : "bookDatePublished",
+                    "bookDescription" : "bookDescription",
+                    "bookPublisher" : "bookPublisher",
+                    "bookShelfmark" : "bookShelfmark",
+                    "BookSubTitle" : "BookSubTitle",
+                    "BookTitle" : "BookTitle",
+                    "bookVubisid" : "bookVubisid",
+                    "ccIdentifier": "ccIdentifier",
+                    "ccIndexName" : "ccIndexName",
+                    "recordnumber" : "recordnumber",
+                    "VubisID" : "VubisID",
+                    "bookLanguage" : "bookLanguage",
+                    "bookStream" : "bookStream",
+                    "bookMaterial" : "bookMaterial",
+                    "bookTitle_ALT" : "bookTitle_ALT",
+                }
+
+                # language_dependent_fields = {
+                #     "eventTitle": "eventTitle",
+                # }
+
+                # for lang in info.keys():
+                #     for xml_field, info_field in language_dependent_fields.items():
+                #         value = element.xpath(f"//dc_record/{xml_field}[@Language='{lang.upper()}']")
+                #         if value:
+                #             info[lang][info_field] = value[0].text
+                #         else:
+                #             info[lang][info_field] = ''
+
+                for xml_field, info_field in fields_to_extract.items():
+                    elements = element.xpath(f"//dc_record/{xml_field}")
+                    if elements:
+                        info['nl'][info_field] = elements[0].text
+                        info['en'][info_field] = elements[0].text
+                    else:
+                        info['nl'][info_field] = ''
+                        info['en'][info_field] = ''
+
+                rawdata = element.xpath("//dc_record")[0]
+                info['nl']['rawdata'] = lxml.etree.tostring(rawdata)
+                info['en']['rawdata'] = lxml.etree.tostring(rawdata)
+
+                title = element.xpath("//dc_record/BookTitle")
+                if title:
+                    info['nl']['BookTitle'] = title
+                    info['en']['BookTitle'] = title
+                else:
+                    info['nl']['BookTitle'] = "Naamloze boek"
+                    info['en']['BookTitle'] = "Untitled book" 
+
+                bookArtist = element.xpath("//dc_record/bookArtist")
+                if bookArtist:
+                    artists = [artist.text for artist in bookArtist if artist.text]
+                    info['nl']['bookArtist'] = artists
+                    info['en']['bookArtist'] = artists 
+
+                for field in ["bookIllustrations", "bookIllustrations"]:
+                    els = element.xpath(f"//dc_record/{field}")
+                    # info[field] = "\n".join(v)
+                    full_text = ""
+                    for el in els:
+                        full_text += el.text + "\n"
+                    info['nl'][field] = full_text
+                    info['en'][field] = full_text
+                    
+                # Check if only one language version of the object with ccObjectID exists 
+                brains = catalog.searchResults(ccObjectID=ccObjectID)
+                if len(brains)==1:
+                    lang = brains[0].getObject().language
+                    missing_lang = 'en' if lang == 'nl' else 'nl'
+                    if missing_lang == 'nl':
+                        obj = create_and_setup_object(info['nl']['BookTitle'], container, info, intl, "publication") #Dutch version
+                        log_to_file(f"{ccObjectID} Dutch version of object is created")
+                        
+                        manager = ITranslationManager(obj)
+                        if not manager.has_translation('en'):
+                            manager.register_translation('en', brains[0].getObject())
+                        
+                        #adding images
+                        images=element.xpath(f"//dc_record/eventImages")
+                        if images:
+                            import_exhibiton_images(
+                                container= obj, 
+                                images=images
+                                )
+                        
+                    else:
+                        obj_en = create_and_setup_object(info['en']['BookTitle'], container_en, info, intl, "publication") #English version
+                        log_to_file(f"{ccObjectID} English version of object is created")
+
+                        manager = ITranslationManager(obj_en)
+                        if not manager.has_translation('nl'):
+                            manager.register_translation('nl', brains[0].getObject())
+                        
+                        #adding images
+                        images=element.xpath(f"//dc_record/eventImages")
+                        if images:
+                            import_exhibiton_images(
+                                container= obj_en, 
+                                images=images
+                                )
+                        
+                # Check if object with ccObjectID already exists in the container
+                elif brains:
+                    for brain in brains:
+                        # Object exists, so we fetch it and update it
+                        obj = brain.getObject()
+
+                        # Update the object's fields with new data
+                        lang = obj.language
+                        for k, v in info[lang].items():
+                            if v:
+                                setattr(obj, k, v)
+
+                        for k, v in intl[lang].items():
+                            if v:
+                                setattr(obj, k, json.dumps(v))
+                        
+                        log_to_file(f"{ccObjectID} object is updated")
+
+                        #adding images
+                        images=element.xpath(f"//dc_record/eventImages")
+                        if images:
+                            import_exhibiton_images(
+                                container= obj, 
+                                images=images
+                                )
+                        # obj.hasImage=True;
+
+                        # Reindex the updated object
+                        obj.reindexObject()
+                        # obj.reindexObject(idxs=['objectTitle', 'Title', 'sortable_title', 'authorID'])
+
+                # Object doesn't exist, so we create a new one
+                else:
+                    if not title:
+                        title = "Untitled Object"  # default value for untitled objects
+
+                    obj = create_and_setup_object(info['nl']['BookTitle'], container, info, intl, "publication") #Dutch version
+
+                    log_to_file(f"{ccObjectID} object is created")
+
+                    logger.info("Created %s", obj.absolute_url(relative=1))        
+
+                    #adding images
+                    images=element.xpath(f"//dc_record/eventImages")
+                    if images:
+                        import_exhibiton_images(
+                            container= obj, 
+                            images=images
+                            )
+                        # obj.hasImage=True;
+                    
+                    obj_en = self.translate(obj, info['en'])
+                
+                counter += 1
+
+                # Check if counter has reached 500 and commit transaction
+                if counter % 500 == 0:
+                    transaction.commit()
+                    log_to_file(f"Transaction is committed")
+
+        finish_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')  # Record the finish time
+
+        log_to_file(f"Processed range: {start_range}-{end_range} (Start: {start_time}, Finish: {finish_time})") 
+        # Return the current processed range along with the response from the next batches
+        return f"Processed range: {start_range}-{end_range} (Start: {start_time}, Finish: {finish_time})<br>"
+        
+    def delete_publications(self):
+        container = get_base_folder(self.context, "publication")
+        brains = api.content.find(context=container, portal_type='publication')
+        
+        count = 0
+        for brain in brains:
+            count += 1
+            obj = brain.getObject()
+
+            api.content.delete(obj=obj)
+            log_to_file(f"deleted obj {obj.title}")
+
+            # Commit every 1000 objects
+            if count % 1000 == 0:
+                transaction.commit()
+            
+        # Ensure any remaining changes are committed
+        transaction.commit()
+
+        return "zort"
+
+    def correct_publications(self):
+        container = get_base_folder(self.context, "publication")
+        
+        # Fetch all Publication objects
+        brains = api.content.find(context=container, portal_type='publication')
+        
+        count = 0
+        for brain in brains:
+            count += 1
+            obj = brain.getObject()
+            try:
+                obj.reindexObject()
+            except Exception as e:
+                # Log the error
+                print(f"Error with object {obj.id} at {obj.absolute_url()}: {e}")
+
+            # Commit every 1000 objects
+            if count % 1000 == 0:
+                transaction.commit()
+            
+        # Ensure any remaining changes are committed
+        transaction.commit()
+
+        return 'all fixed'
 
     def __call__(self):
         alsoProvides(self.request, IDisableCSRFProtection)
