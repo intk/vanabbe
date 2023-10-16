@@ -1336,7 +1336,7 @@ class AdminFixes(BrowserView):
         # Ensure any remaining changes are committed
         transaction.commit()
 
-        return "zort"
+        return "deleted all of the publications"
 
     def correct_publications(self):
         container = get_base_folder(self.context, "publication")
