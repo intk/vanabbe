@@ -519,6 +519,9 @@ class AdminFixes(BrowserView):
         if 'eventTitle' in fields:
             trans.title = fields['eventTitle']
 
+        if 'BookTitle' in fields:
+            trans.title = fields['BookTitle']
+
         for k, v in fields.items():
             setattr(trans, k, v)
 
@@ -1114,7 +1117,7 @@ class AdminFixes(BrowserView):
             dc_record = record.find('.//dc_record')
 
             if not dc_record:
-                log_to_file(f"this is not artwork") 
+                log_to_file(f"this is not object") 
                 continue 
 
             index_name = dc_record.find('.//ccIndexName')
@@ -1185,12 +1188,9 @@ class AdminFixes(BrowserView):
                 info['en']['rawdata'] = lxml.etree.tostring(rawdata)
 
                 title = element.xpath("//dc_record/BookTitle")
-                if title:
-                    info['nl']['BookTitle'] = title
-                    info['en']['BookTitle'] = title
-                else:
-                    info['nl']['BookTitle'] = "Naamloze boek"
-                    info['en']['BookTitle'] = "Untitled book" 
+                log_to_file(f"title {title}")
+                info['nl']['BookTitle'] = title[0].text
+                info['en']['BookTitle'] = title[0].text
 
                 bookArtist = element.xpath("//dc_record/bookArtist")
                 if bookArtist:
@@ -1221,7 +1221,7 @@ class AdminFixes(BrowserView):
                             manager.register_translation('en', brains[0].getObject())
                         
                         #adding images
-                        images=element.xpath(f"//dc_record/eventImages")
+                        images=element.xpath(f"//dc_record/bookIllustrations")
                         if images:
                             import_exhibiton_images(
                                 container= obj, 
@@ -1237,7 +1237,7 @@ class AdminFixes(BrowserView):
                             manager.register_translation('nl', brains[0].getObject())
                         
                         #adding images
-                        images=element.xpath(f"//dc_record/eventImages")
+                        images=element.xpath(f"//dc_record/bookIllustrations")
                         if images:
                             import_exhibiton_images(
                                 container= obj_en, 
@@ -1263,7 +1263,7 @@ class AdminFixes(BrowserView):
                         log_to_file(f"{ccObjectID} object is updated")
 
                         #adding images
-                        images=element.xpath(f"//dc_record/eventImages")
+                        images=element.xpath(f"//dc_record/bookIllustrations")
                         if images:
                             import_exhibiton_images(
                                 container= obj, 
@@ -1278,7 +1278,7 @@ class AdminFixes(BrowserView):
                 # Object doesn't exist, so we create a new one
                 else:
                     if not title:
-                        title = "Untitled Object"  # default value for untitled objects
+                        title = "Untitled Publication"  # default value for untitled objects
 
                     obj = create_and_setup_object(info['nl']['BookTitle'], container, info, intl, "publication") #Dutch version
 
@@ -1287,7 +1287,7 @@ class AdminFixes(BrowserView):
                     logger.info("Created %s", obj.absolute_url(relative=1))        
 
                     #adding images
-                    images=element.xpath(f"//dc_record/eventImages")
+                    images=element.xpath(f"//dc_record/bookIllustrations")
                     if images:
                         import_exhibiton_images(
                             container= obj, 
@@ -1311,7 +1311,7 @@ class AdminFixes(BrowserView):
         return f"Processed range: {start_range}-{end_range} (Start: {start_time}, Finish: {finish_time})<br>"
         
     def delete_publications(self):
-        container = get_base_folder(self.context, "publication")
+        container = get_base_folder(self.context, "publication_en")
         brains = api.content.find(context=container, portal_type='publication')
         
         count = 0
