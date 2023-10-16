@@ -1311,7 +1311,12 @@ class AdminFixes(BrowserView):
         return f"Processed range: {start_range}-{end_range} (Start: {start_time}, Finish: {finish_time})<br>"
         
     def delete_publications(self):
-        container = get_base_folder(self.context, "publication_en")
+        range = self.request.form.get('range', 0)
+        lang = self.request.form.get('lang', 'nl')
+        if lang == 'nl':
+          container = get_base_folder(self.context, 'publication')
+        else:
+          container = get_base_folder(self.context, 'publication_en')
         brains = api.content.find(context=container, portal_type='publication')
         
         count = 0
@@ -1325,6 +1330,8 @@ class AdminFixes(BrowserView):
             # Commit every 1000 objects
             if count % 1000 == 0:
                 transaction.commit()
+            if count == int(range):
+                return(f"stop at range")
             
         # Ensure any remaining changes are committed
         transaction.commit()
