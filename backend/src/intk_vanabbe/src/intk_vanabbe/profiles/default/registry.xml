@@ -28,6 +28,9 @@
     <value key="enabled">True</value>
     <value key="sortable">True</value>
     <value key="operations">
+      <element>plone.app.querystring.operation.int.is</element>
+      <element>plone.app.querystring.operation.int.lessThan</element>
+      <element>plone.app.querystring.operation.int.largerThan</element>
     </value>
     <value key="group" i18n:translate="" >VanAbbe</value>
   </records>
