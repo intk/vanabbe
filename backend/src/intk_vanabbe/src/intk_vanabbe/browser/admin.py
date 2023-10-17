@@ -1138,7 +1138,6 @@ class AdminFixes(BrowserView):
 
                 fields_to_extract = {
                     "bookAnnotation" : "bookAnnotation",
-                    "bookauthorName" : "bookauthorName",
                     "bookBarcode" : "bookBarcode",
                     "bookBBCode" : "bookBBCode",
                     "bookBbnummer" : "bookBbnummer",
@@ -1149,13 +1148,13 @@ class AdminFixes(BrowserView):
                     "bookDescription" : "bookDescription",
                     "bookPublisher" : "bookPublisher",
                     "bookShelfmark" : "bookShelfmark",
-                    "BookSubTitle" : "BookSubTitle",
+                    "BookSubTitle" : "bookSubTitle",
                     "BookTitle" : "BookTitle",
                     "bookVubisid" : "bookVubisid",
                     "ccIdentifier": "ccIdentifier",
                     "ccIndexName" : "ccIndexName",
                     "recordnumber" : "recordnumber",
-                    "VubisID" : "VubisID",
+                    "VubisID" : "vubisID",
                     "bookLanguage" : "bookLanguage",
                     "bookStream" : "bookStream",
                     "bookMaterial" : "bookMaterial",
@@ -1197,7 +1196,7 @@ class AdminFixes(BrowserView):
                     info['nl']['bookArtist'] = artists
                     info['en']['bookArtist'] = artists 
 
-                for field in ["bookIllustrations", "bookIllustrations", "bookauthorName"]:
+                for field in ["bookIllustrations", "bookMedia", "bookauthorName"]:
                     els = element.xpath(f"//dc_record/{field}")
                     # info[field] = "\n".join(v)
                     full_text = ""
