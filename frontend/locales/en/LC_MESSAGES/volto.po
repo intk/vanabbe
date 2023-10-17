@@ -549,7 +549,7 @@ msgstr ""
 #: components/theme/View/AuthorView
 # defaultMessage: Publications with or about {authorName}
 msgid "publications_by_author_name"
-msgstr ""
+msgstr "Literature by or about {authorName}"
 
 #: components/blocks/Search/SortOn
 # defaultMessage: publiceer datum

@@ -570,7 +570,7 @@ msgstr "Tijdelijke aanduiding"
 #: components/theme/View/AuthorView
 # defaultMessage: Publications with or about {authorName}
 msgid "publications_by_author_name"
-msgstr "Publicaties met of over {authorName}"
+msgstr "Literatuur door of over {authorName}"
 
 #: components/blocks/Search/SortOn
 # defaultMessage: publiceer datum
