@@ -24,7 +24,7 @@ const Header = (props) => {
   const { navigationItems } = props;
   const { pathname } = useLocation();
   const content = useSelector((state) => state.content.data);
-  const { title, description, objectTitle, BookTitle } = content || {};
+  const { title, description, objectTitle, BookTitle, eventSub } = content || {};
   const previewImage = usePreviewImage(pathname);
   const previewImageUrl = previewImage?.scales?.huge?.download;
   const contentType = content?.['@type'];
@@ -35,6 +35,7 @@ const Header = (props) => {
   const [searchPopupOpen, setSearchPopupOpen] = React.useState(false);
 
   const headerTitle = BookTitle || objectTitle || title;
+  const headerDescription = description || eventSub;
 
   return (
     <>
@@ -94,7 +95,7 @@ const Header = (props) => {
               {headerTitle && <h1 className="content-title">{headerTitle}</h1>}
               <div id="description">
                 <p className="content-description">
-                  {description && <> {description}</>}
+                  {headerDescription && <>{headerDescription}</>}
                 </p>
               </div>
             </div>
