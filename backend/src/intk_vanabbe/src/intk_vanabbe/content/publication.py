@@ -70,7 +70,7 @@ class IPublication(model.Schema):
     ccIndexName = schema.TextLine(
         title="ccIndexName", required=False
     )
-    recordnumber = schema.Int(title="recordnumber", required=False)
+    recordnumber = schema.TextLine(title="recordnumber", required=False)
     vubisID = schema.TextLine(title="vubisID", required=False)
 
     # TODO: is this a line or text?
