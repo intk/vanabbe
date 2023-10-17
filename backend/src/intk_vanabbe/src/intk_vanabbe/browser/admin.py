@@ -1197,7 +1197,7 @@ class AdminFixes(BrowserView):
                     info['nl']['bookArtist'] = artists
                     info['en']['bookArtist'] = artists 
 
-                for field in ["bookIllustrations", "bookIllustrations"]:
+                for field in ["bookIllustrations", "bookIllustrations", "bookauthorName"]:
                     els = element.xpath(f"//dc_record/{field}")
                     # info[field] = "\n".join(v)
                     full_text = ""
