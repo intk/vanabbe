@@ -45,7 +45,7 @@ const getItem = (info, content) => {
         title: (
           <FormattedMessage
             id="publications_by_author_name"
-            defaultMessage="Publications with or about {authorName}"
+            defaultMessage="Literature by or about {authorName}"
             values={info}
           />
         ),
