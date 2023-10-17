@@ -41,3 +41,5 @@ live.cfg
 inituser
 pip-wheel-metadata
 pyvenv.cfg
+data/
+data-import/*
