@@ -569,7 +569,7 @@ msgstr ""
 #: components/blocks/Search/SortOn
 # defaultMessage: sorteerbare titel
 msgid "sorting_title"
-msgstr "sortable title"
+msgstr "sort by title"
 
 #: components/blocks/Facts/schema
 # defaultMessage: SubTitle
