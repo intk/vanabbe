@@ -24,7 +24,8 @@ const Header = (props) => {
   const { navigationItems } = props;
   const { pathname } = useLocation();
   const content = useSelector((state) => state.content.data);
-  const { title, description, objectTitle, BookTitle, eventSub } = content || {};
+  const { title, description, objectTitle, BookTitle, eventSub } =
+    content || {};
   const previewImage = usePreviewImage(pathname);
   const previewImageUrl = previewImage?.scales?.huge?.download;
   const contentType = content?.['@type'];
