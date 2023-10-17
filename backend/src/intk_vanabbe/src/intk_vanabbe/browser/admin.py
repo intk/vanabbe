@@ -1159,7 +1159,7 @@ class AdminFixes(BrowserView):
                     "bookLanguage" : "bookLanguage",
                     "bookStream" : "bookStream",
                     "bookMaterial" : "bookMaterial",
-                    "bookTitle_ALT" : "bookTitle_ALT",
+                    "BookTitle_ALT" : "bookTitle_ALT",
                 }
 
                 # language_dependent_fields = {
@@ -1188,7 +1188,6 @@ class AdminFixes(BrowserView):
                 info['en']['rawdata'] = lxml.etree.tostring(rawdata)
 
                 title = element.xpath("//dc_record/BookTitle")
-                log_to_file(f"title {title}")
                 info['nl']['BookTitle'] = title[0].text
                 info['en']['BookTitle'] = title[0].text
 
@@ -1214,7 +1213,7 @@ class AdminFixes(BrowserView):
                     missing_lang = 'en' if lang == 'nl' else 'nl'
                     if missing_lang == 'nl':
                         obj = create_and_setup_object(info['nl']['BookTitle'], container, info, intl, "publication") #Dutch version
-                        log_to_file(f"{ccObjectID} Dutch version of object is created")
+                        log_to_file(f"{ccObjectID} Dutch version of publication is created")
                         
                         manager = ITranslationManager(obj)
                         if not manager.has_translation('en'):
@@ -1230,7 +1229,7 @@ class AdminFixes(BrowserView):
                         
                     else:
                         obj_en = create_and_setup_object(info['en']['BookTitle'], container_en, info, intl, "publication") #English version
-                        log_to_file(f"{ccObjectID} English version of object is created")
+                        log_to_file(f"{ccObjectID} English version of publication is created")
 
                         manager = ITranslationManager(obj_en)
                         if not manager.has_translation('nl'):
@@ -1260,7 +1259,7 @@ class AdminFixes(BrowserView):
                             if v:
                                 setattr(obj, k, json.dumps(v))
                         
-                        log_to_file(f"{ccObjectID} object is updated")
+                        log_to_file(f"{ccObjectID} publication is updated")
 
                         #adding images
                         images=element.xpath(f"//dc_record/bookIllustrations")
@@ -1282,7 +1281,7 @@ class AdminFixes(BrowserView):
 
                     obj = create_and_setup_object(info['nl']['BookTitle'], container, info, intl, "publication") #Dutch version
 
-                    log_to_file(f"{ccObjectID} object is created")
+                    log_to_file(f"{ccObjectID} publication is created")
 
                     logger.info("Created %s", obj.absolute_url(relative=1))        
 
