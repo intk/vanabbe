@@ -92,6 +92,7 @@ class IArtwork(model.Schema):
     ObjectAudio = schema.Text(title="ObjectAudio", required=False)
     ObjectVideo = schema.Text(title="ObjectVideo", required=False)
     objectClassification = schema.TextLine(title='objectClassification', required=False)
+    authorID = schema.TextLine(title="authorID", required=False)
 
     # custom fields
     objectDescription_extra = schema.Text(
