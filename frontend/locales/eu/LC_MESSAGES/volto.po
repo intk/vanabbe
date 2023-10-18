@@ -552,7 +552,7 @@ msgstr ""
 
 #: components/theme/View/ArtworkView
 #: components/theme/View/AuthorView
-# defaultMessage: Publications with or about {authorName}
+# defaultMessage: Literature by or about {authorName}
 msgid "publications_by_author_name"
 msgstr ""
 
@@ -569,6 +569,16 @@ msgstr ""
 #: components/blocks/SearchOverview/SearchOverviewView
 # defaultMessage: Showing results for <u>something</u>
 msgid "show.results"
+msgstr ""
+
+#: components/blocks/Search/SortOn
+# defaultMessage: newest
+msgid "sortNewest"
+msgstr ""
+
+#: components/blocks/Search/SortOn
+# defaultMessage: oldest
+msgid "sortOldest"
 msgstr ""
 
 #: components/blocks/Search/SortOn
