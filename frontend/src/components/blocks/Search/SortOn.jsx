@@ -136,7 +136,9 @@ const SortOn = (props) => {
                         radio
                         disabled={isEditMode}
                         label={
-                          <label>{intl.formatMessage(messages.sortNewest)}</label>
+                          <label>
+                            {intl.formatMessage(messages.sortNewest)}
+                          </label>
                         }
                         checked={opt === value && sortOrder === 'descending'}
                         onChange={() => {
@@ -154,7 +156,9 @@ const SortOn = (props) => {
                         radio
                         disabled={isEditMode}
                         label={
-                          <label>{intl.formatMessage(messages.sortOldest)}</label>
+                          <label>
+                            {intl.formatMessage(messages.sortOldest)}
+                          </label>
                         }
                         checked={opt === value && sortOrder === 'ascending'}
                         onChange={() => {
@@ -177,7 +181,9 @@ const SortOn = (props) => {
                         radio
                         disabled={isEditMode}
                         label={
-                          <label>{intl.formatMessage(messages.sortOldest)}</label>
+                          <label>
+                            {intl.formatMessage(messages.sortOldest)}
+                          </label>
                         }
                         checked={opt === value && sortOrder === 'ascending'}
                         onChange={() => {
