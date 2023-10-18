@@ -39,6 +39,14 @@ const messages = defineMessages({
     id: 'publish_date',
     defaultMessage: 'publiceer datum',
   },
+  sortOldest: {
+    id: 'sortOldest',
+    defaultMessage: 'oldest',
+  },
+  sortNewest: {
+    id: 'sortNewest',
+    defaultMessage: 'newest',
+  },
 });
 
 const SortOn = (props) => {
@@ -65,43 +73,208 @@ const SortOn = (props) => {
         <span className="sort-label">
           {intl.formatMessage(messages.sortOn)}
         </span>
+        {console.log(sortOnOptions)}
 
         <div className="entries">
-          {sortOnOptions.map((opt, i) => (
-            <div className="entry" key={i}>
-              <Checkbox
-                radio
-                disabled={isEditMode}
-                label={
-                  <label>
-                    {(() => {
-                      const title = sortable_indexes[opt]?.title;
+          {sortOnOptions.map((opt, i) => {
+            const title = sortable_indexes[opt]?.title;
+            let labelTitle;
 
-                      if (
-                        title === 'Sorteerbare titel' ||
-                        title === 'Sortable Title'
-                      ) {
-                        return intl.formatMessage(messages.sortableTitle);
-                      } else if (title === 'Book publish date') {
-                        return intl.formatMessage(messages.publishDate);
-                      } else if (title === 'Datum') {
-                        return intl.formatMessage(messages.date);
-                      } else {
-                        return title || opt;
-                      }
-                    })()}
-                  </label>
-                }
-                checked={opt === value}
-                onChange={() => {
-                  setSortOn(opt);
-                }}
-              />
-            </div>
-          ))}
+            if (title === 'orteerbare titel' || title === 'Sortable Title') {
+              labelTitle = intl.formatMessage(messages.sortableTitle);
+            } else if (title === 'Book publish date') {
+              labelTitle = intl.formatMessage(messages.publishDate);
+            } else if (title === 'Datum') {
+              labelTitle = intl.formatMessage(messages.date);
+            } else {
+              labelTitle = title || opt;
+            }
+
+            if (opt === 'sortable_title') {
+              return (
+                <>
+                  <React.Fragment key={i}>
+                    <div className="entry">
+                      <Checkbox
+                        radio
+                        disabled={isEditMode}
+                        label={<label>A-Z</label>}
+                        checked={opt === value && sortOrder === 'ascending'}
+                        onChange={() => {
+                          setSortOn(opt);
+                        }}
+                        onClick={() => {
+                          !isEditMode && setSortOrder('ascending');
+                        }}
+                      />
+                    </div>
+                  </React.Fragment>
+                  <React.Fragment key={i + 1}>
+                    <div className="entry">
+                      <Checkbox
+                        radio
+                        disabled={isEditMode}
+                        label={<label>Z-A</label>}
+                        checked={opt === value && sortOrder === 'descending'}
+                        onChange={() => {
+                          setSortOn(opt);
+                        }}
+                        onClick={() => {
+                          !isEditMode && setSortOrder('descending');
+                        }}
+                      />
+                    </div>
+                  </React.Fragment>
+                </>
+              );
+            } else if (opt === 'objectCreationDate') {
+              return (
+                <>
+                  <React.Fragment key={i}>
+                    <div className="entry">
+                      <Checkbox
+                        radio
+                        disabled={isEditMode}
+                        label={
+                          <label>{intl.formatMessage(messages.sortNewest)}</label>
+                        }
+                        checked={opt === value && sortOrder === 'descending'}
+                        onChange={() => {
+                          setSortOn(opt);
+                        }}
+                        onClick={() => {
+                          !isEditMode && setSortOrder('descending');
+                        }}
+                      />
+                    </div>
+                  </React.Fragment>
+                  <React.Fragment key={i + 1}>
+                    <div className="entry">
+                      <Checkbox
+                        radio
+                        disabled={isEditMode}
+                        label={
+                          <label>{intl.formatMessage(messages.sortOldest)}</label>
+                        }
+                        checked={opt === value && sortOrder === 'ascending'}
+                        onChange={() => {
+                          setSortOn(opt);
+                        }}
+                        onClick={() => {
+                          !isEditMode && setSortOrder('ascending');
+                        }}
+                      />
+                    </div>
+                  </React.Fragment>
+                </>
+              );
+            } else if (opt === 'bookDatePublished') {
+              return (
+                <>
+                  <React.Fragment key={i}>
+                    <div className="entry">
+                      <Checkbox
+                        radio
+                        disabled={isEditMode}
+                        label={
+                          <label>{intl.formatMessage(messages.sortOldest)}</label>
+                        }
+                        checked={opt === value && sortOrder === 'ascending'}
+                        onChange={() => {
+                          setSortOn(opt);
+                        }}
+                        onClick={() => {
+                          !isEditMode && setSortOrder('ascending');
+                        }}
+                      />
+                    </div>
+                  </React.Fragment>
+                  <React.Fragment key={i + 1}>
+                    <div className="entry">
+                      <Checkbox
+                        radio
+                        disabled={isEditMode}
+                        label={
+                          <label>
+                            {intl.formatMessage(messages.sortNewest)}
+                          </label>
+                        }
+                        checked={opt === value && sortOrder === 'descending'}
+                        onChange={() => {
+                          setSortOn(opt);
+                        }}
+                        onClick={() => {
+                          !isEditMode && setSortOrder('descending');
+                        }}
+                      />
+                    </div>
+                  </React.Fragment>
+                </>
+              );
+            } else if (opt === 'eventTimeStart') {
+              return (
+                <>
+                  <React.Fragment key={i}>
+                    <div className="entry">
+                      <Checkbox
+                        radio
+                        disabled={isEditMode}
+                        label={
+                          <label>
+                            {intl.formatMessage(messages.sortOldest)}
+                          </label>
+                        }
+                        checked={opt === value && sortOrder === 'ascending'}
+                        onChange={() => {
+                          setSortOn(opt);
+                        }}
+                        onClick={() => {
+                          !isEditMode && setSortOrder('ascending');
+                        }}
+                      />
+                    </div>
+                  </React.Fragment>
+                  <React.Fragment key={i + 1}>
+                    <div className="entry">
+                      <Checkbox
+                        radio
+                        disabled={isEditMode}
+                        label={
+                          <label>
+                            {intl.formatMessage(messages.sortNewest)}
+                          </label>
+                        }
+                        checked={opt === value && sortOrder === 'descending'}
+                        onChange={() => {
+                          setSortOn(opt);
+                        }}
+                        onClick={() => {
+                          !isEditMode && setSortOrder('descending');
+                        }}
+                      />
+                    </div>
+                  </React.Fragment>
+                </>
+              );
+            } else {
+              return (
+                <div className="entry" key={i}>
+                  <Checkbox
+                    radio
+                    disabled={isEditMode}
+                    label={<label>{labelTitle}</label>}
+                    checked={opt === value}
+                    onChange={() => {
+                      setSortOn(opt);
+                    }}
+                  />
+                </div>
+              );
+            }
+          })}
         </div>
       </div>
-      <Button
+      {/* <Button
         icon
         basic
         compact
@@ -128,7 +301,7 @@ const SortOn = (props) => {
         }}
       >
         <Icon name={downSVG} size="25px" />
-      </Button>
+      </Button> */}
     </div>
   );
 };
