@@ -726,6 +726,7 @@ class AdminFixes(BrowserView):
                                 images=images
                                 )
                             obj.hasImage=True; 
+                        obj.reindexObject()
 
                     else:
                         obj_en = create_and_setup_object(title, container_en, info, intl, "artwork") #English version
@@ -745,6 +746,7 @@ class AdminFixes(BrowserView):
                                 images=images
                                 )
                             obj_en.hasImage=True;
+                        obj_en.reindexObject()
                         
                 # Check if object with ccObjectID already exists in the container
                 # brains = catalog.searchResults(ccObjectID=ccObjectID)
@@ -788,7 +790,6 @@ class AdminFixes(BrowserView):
 
                         # Reindex the updated object
                         obj.reindexObject()
-                        obj.reindexObject(idxs=['objectTitle', 'Title', 'sortable_title', 'authorID'])
 
                 # Object doesn't exist, so we create a new one
                 else:
