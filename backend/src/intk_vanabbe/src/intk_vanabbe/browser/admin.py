@@ -1200,12 +1200,19 @@ class AdminFixes(BrowserView):
 
                 for field in ["bookIllustrations", "bookMedia", "bookauthorName"]:
                     els = element.xpath(f"//dc_record/{field}")
-                    # info[field] = "\n".join(v)
-                    full_text = ""
-                    for el in els:
-                        full_text += el.text + "\n"
-                    info['nl'][field] = full_text
-                    info['en'][field] = full_text
+
+                    # Check if els is not empty
+                    if els:
+                        full_text = ""
+                        for el in els:
+                            # Safely access the text attribute of the element
+                            if el is not None and el.text is not None:
+                                full_text += el.text + "\n"
+                        info['nl'][field] = full_text
+                        info['en'][field] = full_text
+                    else:
+                        # Optionally log or print that the XPath returned no results
+                        log_to_file(f"XPath for {field} returned no results.")
                     
                 # Check if only one language version of the object with ccObjectID exists 
                 brains = catalog.searchResults(ccObjectID=ccObjectID)
@@ -1227,7 +1234,8 @@ class AdminFixes(BrowserView):
                                 container= obj, 
                                 images=images
                                 )
-                        
+                        obj.reindexObject()                      
+
                     else:
                         obj_en = create_and_setup_object(info['en']['BookTitle'], container_en, info, intl, "publication") #English version
                         log_to_file(f"{ccObjectID} English version of publication is created")
@@ -1243,6 +1251,7 @@ class AdminFixes(BrowserView):
                                 container= obj_en, 
                                 images=images
                                 )
+                        obj_en.reindexObject()
                         
                 # Check if object with ccObjectID already exists in the container
                 elif brains:
