@@ -1189,8 +1189,12 @@ class AdminFixes(BrowserView):
                 info['en']['rawdata'] = lxml.etree.tostring(rawdata)
 
                 title = element.xpath("//dc_record/BookTitle")
-                info['nl']['BookTitle'] = title[0].text
-                info['en']['BookTitle'] = title[0].text
+                if title:
+                    info['nl']['BookTitle'] = title[0].text
+                    info['en']['BookTitle'] = title[0].text
+                else:
+                    info['nl']['BookTitle'] = "Titelloze publicatie"
+                    info['en']['BookTitle'] = "Untitled publication"
 
                 bookArtist = element.xpath("//dc_record/bookArtist")
                 if bookArtist:
@@ -1682,7 +1686,6 @@ def convert_to_date(raw_date):
         if raw_date.startswith(prefix):
             log_to_file(f"there is an error in the date value {raw_date}")
             raw_date = raw_date[len(prefix):]
-            log_to_file(f"there is an error in the date value {raw_date}")
             break
 
     for suffix in known_suffixes:
