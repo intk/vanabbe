@@ -617,7 +617,8 @@ class AdminFixes(BrowserView):
                     "objectYearPurchase": "objectYearPurchase",
                     "recordnumber": "recordnumber",
                     "Dimensions": "dimensions",
-                    "objectCredit": "objectCredit"
+                    "objectCredit": "objectCredit",
+                    "authorID": "authorID"
                 }
 
                 language_dependent_fields = {
