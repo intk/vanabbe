@@ -182,26 +182,6 @@ const SortOn = (props) => {
                         disabled={isEditMode}
                         label={
                           <label>
-                            {intl.formatMessage(messages.sortOldest)}
-                          </label>
-                        }
-                        checked={opt === value && sortOrder === 'ascending'}
-                        onChange={() => {
-                          setSortOn(opt);
-                        }}
-                        onClick={() => {
-                          !isEditMode && setSortOrder('ascending');
-                        }}
-                      />
-                    </div>
-                  </React.Fragment>
-                  <React.Fragment key={i + 1}>
-                    <div className="entry">
-                      <Checkbox
-                        radio
-                        disabled={isEditMode}
-                        label={
-                          <label>
                             {intl.formatMessage(messages.sortNewest)}
                           </label>
                         }
@@ -211,6 +191,26 @@ const SortOn = (props) => {
                         }}
                         onClick={() => {
                           !isEditMode && setSortOrder('descending');
+                        }}
+                      />
+                    </div>
+                  </React.Fragment>
+                  <React.Fragment key={i+1}>
+                    <div className="entry">
+                      <Checkbox
+                        radio
+                        disabled={isEditMode}
+                        label={
+                          <label>
+                            {intl.formatMessage(messages.sortOldest)}
+                          </label>
+                        }
+                        checked={opt === value && sortOrder === 'ascending'}
+                        onChange={() => {
+                          setSortOn(opt);
+                        }}
+                        onClick={() => {
+                          !isEditMode && setSortOrder('ascending');
                         }}
                       />
                     </div>
@@ -227,26 +227,6 @@ const SortOn = (props) => {
                         disabled={isEditMode}
                         label={
                           <label>
-                            {intl.formatMessage(messages.sortOldest)}
-                          </label>
-                        }
-                        checked={opt === value && sortOrder === 'ascending'}
-                        onChange={() => {
-                          setSortOn(opt);
-                        }}
-                        onClick={() => {
-                          !isEditMode && setSortOrder('ascending');
-                        }}
-                      />
-                    </div>
-                  </React.Fragment>
-                  <React.Fragment key={i + 1}>
-                    <div className="entry">
-                      <Checkbox
-                        radio
-                        disabled={isEditMode}
-                        label={
-                          <label>
                             {intl.formatMessage(messages.sortNewest)}
                           </label>
                         }
@@ -256,6 +236,26 @@ const SortOn = (props) => {
                         }}
                         onClick={() => {
                           !isEditMode && setSortOrder('descending');
+                        }}
+                      />
+                    </div>
+                  </React.Fragment>
+                  <React.Fragment key={i+1}>
+                    <div className="entry">
+                      <Checkbox
+                        radio
+                        disabled={isEditMode}
+                        label={
+                          <label>
+                            {intl.formatMessage(messages.sortOldest)}
+                          </label>
+                        }
+                        checked={opt === value && sortOrder === 'ascending'}
+                        onChange={() => {
+                          setSortOn(opt);
+                        }}
+                        onClick={() => {
+                          !isEditMode && setSortOrder('ascending');
                         }}
                       />
                     </div>
