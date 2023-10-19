@@ -212,13 +212,14 @@ a {
   min-height: 300px;
 
   &:before {
-    position: fixed;
+    position: absolute;
     top: 0;
-    right: 0;
+    // right: 0;
     bottom: 0;
-    left: 0;
+    left: calc( -1 * (100vw - 100%) );
     // background-color: var(--background-color);
     content: ' ';
+    width: 200vw;
   }
 }
 
