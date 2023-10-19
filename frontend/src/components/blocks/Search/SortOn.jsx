@@ -195,7 +195,7 @@ const SortOn = (props) => {
                       />
                     </div>
                   </React.Fragment>
-                  <React.Fragment key={i+1}>
+                  <React.Fragment key={i + 1}>
                     <div className="entry">
                       <Checkbox
                         radio
@@ -240,7 +240,7 @@ const SortOn = (props) => {
                       />
                     </div>
                   </React.Fragment>
-                  <React.Fragment key={i+1}>
+                  <React.Fragment key={i + 1}>
                     <div className="entry">
                       <Checkbox
                         radio
