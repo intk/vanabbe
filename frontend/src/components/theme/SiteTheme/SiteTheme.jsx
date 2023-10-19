@@ -50,6 +50,8 @@ const SiteTheme = (props) => {
 
     if (theme !== contextPageTheme) {
       setPageTheme(theme);
+    } else if (theme === 'default') {
+      setPageTheme(getRandomTheme(siteThemes));
     }
     document.body.setAttribute('data-theme', theme);
   }, [cmsView, pageTheme, contrastMode, contextPageTheme]);
