@@ -91,6 +91,10 @@
     <indexed_attr value="authorSortName"/>
   </index>
 
+  <index name="objectCreationDate" meta_type="FieldIndex">
+    <indexed_attr value="objectCreationDate"/>
+  </index>
+
   <column value="authorName"/>
   <!-- <column value="authorSortName"/> -->
   <column value="objectCreationDate"/>
