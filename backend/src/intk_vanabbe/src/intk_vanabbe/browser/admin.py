@@ -1214,9 +1214,9 @@ class AdminFixes(BrowserView):
                                 full_text += el.text + "\n"
                         info['nl'][field] = full_text
                         info['en'][field] = full_text
-                    else:
+                    # else:
                         # Optionally log or print that the XPath returned no results
-                        log_to_file(f"XPath for {field} returned no results.")
+                        # log_to_file(f"XPath for {field} returned no results.")
                     
                 # Check if only one language version of the object with ccObjectID exists 
                 brains = catalog.searchResults(ccObjectID=ccObjectID)
