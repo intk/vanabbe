@@ -519,7 +519,7 @@ class AdminFixes(BrowserView):
         if 'eventTitle' in fields:
             trans.title = fields['eventTitle']
 
-        if 'BookTitle' in fields:
+        if 'BookTitle' in fields and trans is not None:
             trans.title = fields['BookTitle']
 
         for k, v in fields.items():
