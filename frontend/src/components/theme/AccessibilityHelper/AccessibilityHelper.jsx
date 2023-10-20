@@ -2,12 +2,18 @@ import React from 'react';
 import { Button } from 'semantic-ui-react';
 import { Icon } from '@plone/volto/components';
 import { useSelector } from 'react-redux';
-
 import icon from './icons/readspeaker.svg';
 
 import './rs.less';
 
 const customerId = '10194';
+
+const messages = {
+  listenAudio: {
+    en: 'Listen',
+    nl: 'Lees voor',
+  },
+};
 
 function addRs() {
   var oHead = document.getElementsByTagName('HEAD').item(0);
@@ -27,6 +33,7 @@ export default function AccessibilityHelper(props) {
   React.useEffect(() => {
     if (!window.rsConf) {
       window.rsConf = {
+        general: { usePost: true },
         params: `//cdn-eu.readspeaker.com/script/${customerId}/webReader/webReader.js?pids=wr`,
       };
       addRs();
@@ -50,14 +57,14 @@ export default function AccessibilityHelper(props) {
             rel="nofollow"
             className="rsbtn_play"
             title="Listen to this page using ReadSpeaker"
-            href={`https://app-eu.readspeaker.com/cgi-bin/rsent?customerid=${customerId}&amp;lang=${currentLang}&amp;readclass=pure-u-md-3-4&amp;url=`}
+            href={`https://app-eu.readspeaker.com/cgi-bin/rsent?customerid=${customerId}&amp;lang=${currentLang}&amp;readclass=sticky-heading,hero-container,content-area&amp;url=`}
           >
             <span className="rsbtn_left rsimg rspart">
               <span className="rsbtn_text">
-                <span>Listen</span>
+                <span>{messages['listenAudio'][currentLang]}</span>
               </span>
             </span>
-            <span className="rsbtn_right rsimg rsplay rspart"></span>
+            {/* <span className="rsbtn_right rsimg rsplay rspart"></span> */}
           </a>
         </div>
       ) : null}
