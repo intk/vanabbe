@@ -30,7 +30,7 @@ const AgendaListingTemplate = (data) => {
 
       <div className="az-listing-nav">
         {Object.keys(groups)
-          .sort()
+          .sort((a, b) => a.localeCompare(b))
           .map((letter) => (
             <HashLink
               smooth
@@ -45,7 +45,7 @@ const AgendaListingTemplate = (data) => {
 
       <div className="az-listing-content">
         {Object.keys(groups)
-          .sort()
+          .sort((a, b) => a.localeCompare(b))
           .map((letter) => (
             <div key={letter}>
               <h4 className="letter" id={`g-${letter}`}>
