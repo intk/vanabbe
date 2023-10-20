@@ -34,9 +34,9 @@ const Card = ({
         <div className="card-details">
           <div className="card-meta">
             {item.meta ? <span>{item.meta}</span> : null}
-            {showDate && !!item.effective && (
+            {/* {showDate && !!item.effective && (
               <FormattedDate date={item.effective} format={dateOptions} />
-            )}
+            )} */}
             {showContentType && <span>{item['@type']}</span>}
             {showTag && <span>{tag}</span>}
           </div>
