@@ -89,7 +89,7 @@ const FormView = ({
   onSubmit,
   resetFormState,
 }) => {
-  const intl = useIntl();
+  // const intl = useIntl();
 
   const captcha = !!process.env.RAZZLE_HCAPTCHA_KEY
     ? 'HCaptcha'

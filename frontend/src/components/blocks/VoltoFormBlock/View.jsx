@@ -9,12 +9,12 @@ import { formatDate } from '@plone/volto/helpers/Utils/Date';
 import config from '@plone/volto/registry';
 import { Captcha } from 'volto-form-block/components/Widget';
 
-const messages = defineMessages({
-  formSubmitted: {
-    id: 'formSubmitted',
-    defaultMessage: 'Form successfully submitted',
-  },
-});
+// const messages = defineMessages({
+//   formSubmitted: {
+//     id: 'formSubmitted',
+//     defaultMessage: 'Form successfully submitted',
+//   },
+// });
 
 const Translations = {
   success: {

@@ -1,7 +1,8 @@
 -c constraints.txt
 -e src/intk_vanabbe
 
-collective.volto.formsupport
+# collective.volto.formsupport
+git+https://github.com/intk/collective.volto.formsupport.git
 collective.volto.cookieconsent
 lxml
 requests
