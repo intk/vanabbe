@@ -1,14 +1,14 @@
 import React from 'react';
 import { Button, Checkbox } from 'semantic-ui-react';
 import { defineMessages, injectIntl } from 'react-intl';
-import cx from 'classnames';
+// import cx from 'classnames';
 import { compose } from 'redux';
-import { Icon } from '@plone/volto/components';
+// import { Icon } from '@plone/volto/components';
 
 import { injectLazyLibs } from '@plone/volto/helpers/Loadable/Loadable';
 
-import upSVG from '@plone/volto/icons/sort-up.svg';
-import downSVG from '@plone/volto/icons/sort-down.svg';
+// import upSVG from '@plone/volto/icons/sort-up.svg';
+// import downSVG from '@plone/volto/icons/sort-down.svg';
 
 const messages = defineMessages({
   noSelection: {
@@ -73,7 +73,6 @@ const SortOn = (props) => {
         <span className="sort-label">
           {intl.formatMessage(messages.sortOn)}
         </span>
-        {console.log(sortOnOptions)}
 
         <div className="entries">
           {sortOnOptions.map((opt, i) => {

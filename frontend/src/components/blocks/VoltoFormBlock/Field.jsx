@@ -103,7 +103,7 @@ const Field = ({
           choices={[...(input_values?.map((v) => [v, v]) ?? [])]}
           value={value}
           onChange={onChange}
-          placeholder={Translations['select'][currentLang]}
+          placeholder={intl.formatMessage(messages.select_a_value)}
           aria-label={intl.formatMessage(messages.select_a_value)}
           classNamePrefix="react-select"
           isDisabled={disabled}

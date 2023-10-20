@@ -109,7 +109,6 @@ const ObjectLinks = ({ content }) => {
           </a>
         </div>
       ))}
-      {console.log('Parsed Audio:', audio)}
       {video.map(({ title, filename }, ix) => (
         <div className="object-video" key={`video-${ix}`}>
           <LuFileVideo
@@ -188,7 +187,6 @@ export default function ArtworkView(props) {
   };
 
   const authors = content.authors.map((auth) => auth.title).join(', ');
-  // console.log(contextLinks.items);
   const contextLinkCards = contextLinks.items?.reduce((acc, info) => {
     const local = info.items
       ? info.items.map((item, index) => (
