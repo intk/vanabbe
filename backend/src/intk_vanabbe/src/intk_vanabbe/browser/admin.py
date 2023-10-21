@@ -1163,18 +1163,6 @@ class AdminFixes(BrowserView):
                     "BookTitle_ALT" : "bookTitle_ALT",
                 }
 
-                # language_dependent_fields = {
-                #     "eventTitle": "eventTitle",
-                # }
-
-                # for lang in info.keys():
-                #     for xml_field, info_field in language_dependent_fields.items():
-                #         value = element.xpath(f"//dc_record/{xml_field}[@Language='{lang.upper()}']")
-                #         if value:
-                #             info[lang][info_field] = value[0].text
-                #         else:
-                #             info[lang][info_field] = ''
-
                 for xml_field, info_field in fields_to_extract.items():
                     elements = element.xpath(f"//dc_record/{xml_field}")
                     if elements:
@@ -1282,11 +1270,9 @@ class AdminFixes(BrowserView):
                                 container= obj, 
                                 images=images
                                 )
-                        # obj.hasImage=True;
 
                         # Reindex the updated object
                         obj.reindexObject()
-                        # obj.reindexObject(idxs=['objectTitle', 'Title', 'sortable_title', 'authorID'])
 
                 # Object doesn't exist, so we create a new one
                 else:
@@ -1306,9 +1292,11 @@ class AdminFixes(BrowserView):
                             container= obj, 
                             images=images
                             )
-                        # obj.hasImage=True;
                     
-                    obj_en = self.translate(obj, info['en'])
+                    try:
+                        obj_en = self.translate(obj, info['en'])
+                    except:
+                        log_to_file(f"the eng translation object was not able to create")
                 
                 counter += 1
 
