@@ -217,6 +217,28 @@
   </records>
 
   <records interface="plone.app.querystring.interfaces.IQueryField"
+           prefix="plone.app.querystring.field.bookMaterial"
+           purge="false"
+  >
+    <value key="title"
+           i18n:translate=""
+    >Publication Type</value>
+    <value key="description"
+           i18n:translate=""
+    />
+    <value key="enabled">True</value>
+    <value key="sortable">True</value>
+    <value key="operations">
+      <element>plone.app.querystring.operation.selection.any</element>
+      <element>plone.app.querystring.operation.selection.all</element>
+    </value>
+    <value key="group"
+           i18n:translate=""
+    >VanAbbe</value>
+    <value key="vocabulary">bookMaterial_vocabulary</value>
+  </records>
+
+  <records interface="plone.app.querystring.interfaces.IQueryField"
            prefix="plone.app.querystring.field.authorID"
            purge="false"
   >

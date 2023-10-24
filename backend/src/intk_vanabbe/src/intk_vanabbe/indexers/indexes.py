@@ -38,6 +38,10 @@ def publication_type(obj):
         return None
     return [binding.split(';', 1)[0].strip()]
 
+@indexer(IPublication)
+def bookMaterial(obj):
+    return obj.bookMaterial
+
 
 @indexer(IPublication)
 def publication_decades(obj):

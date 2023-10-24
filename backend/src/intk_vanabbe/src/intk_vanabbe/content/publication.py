@@ -87,6 +87,7 @@ class IPublication(model.Schema):
     )
 
     bookTitle_ALT = schema.TextLine(title="bookTitle_ALT", required=False)
+    bookMaterial = schema.TextLine(title="bookMaterial", required=False)
 
     rawdata = schema.Text(title="Rawdata", required=False)
 

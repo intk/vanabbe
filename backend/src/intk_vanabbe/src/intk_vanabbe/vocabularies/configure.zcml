@@ -24,5 +24,9 @@
       name="publication_types_vocabulary"
       component=".searchindex.PublicationTypesVocabularyFactory"
       />
+  <utility
+      name="bookMaterial_vocabulary"
+      component=".searchindex.bookMaterialVocabularyFactory"
+      />
 
 </configure>

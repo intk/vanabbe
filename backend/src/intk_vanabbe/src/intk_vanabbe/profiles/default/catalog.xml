@@ -66,6 +66,10 @@
     <indexed_attr value="publication_type"/>
   </index>
 
+  <index name="bookMaterial" meta_type="KeywordIndex">
+    <indexed_attr value="bookMaterial"/>
+  </index>
+
   <index name="technique_en" meta_type="KeywordIndex">
     <indexed_attr value="technique_en"/>
   </index>
@@ -104,6 +108,7 @@
   <column value="recurrence" />
   <column value="recurence_description"/>
   <column value="publication_type"/>
+  <column value="bookMaterial"/>
   <column value="bookDatePublished"/>
 
 </object>

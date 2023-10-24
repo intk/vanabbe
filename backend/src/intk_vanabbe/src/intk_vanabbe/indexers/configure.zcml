@@ -34,6 +34,10 @@
       factory=".indexes.publication_type"
       name="publication_type"
       />
+  <adapter
+      factory=".indexes.bookMaterial"
+      name="bookMaterial"
+      />
 
   <adapter
       factory=".indexes.artwork_technique"

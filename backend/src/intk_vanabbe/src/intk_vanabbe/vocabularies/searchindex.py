@@ -34,6 +34,8 @@ PublicationDecadesVocabularyFactory = KeywordsVocabulary("publication_decades")
 
 PublicationTypesVocabularyFactory = KeywordsVocabulary("publication_type")
 
+bookMaterialVocabularyFactory = KeywordsVocabulary("bookMaterial")
+
 TechniqueVocabularyFactory = MultilingualKeywordsVocabulary("technique")
 
 ClassificationVocabularyFactory = MultilingualKeywordsVocabulary("classification")
