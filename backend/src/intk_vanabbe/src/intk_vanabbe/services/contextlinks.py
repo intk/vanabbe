@@ -117,7 +117,7 @@ class AuthorContextLinks(object):
                 {
                     "i": "SearchableText",
                     "o": "plone.app.querystring.operation.string.contains",
-                    "v": self.context.authorSortName,
+                    "v": f'"{self.context.authorSortName}"'
                 }
             ]  # extra
             encoded = quote(json.dumps(query), safe=QUOTE_SAFE)
@@ -135,7 +135,7 @@ class AuthorContextLinks(object):
                 {
                     "i": "SearchableText",
                     "o": "plone.app.querystring.operation.string.contains",
-                    "v": self.context.authorSortName,
+                    "v": f'"{self.context.authorSortName}"'
                 }
             ]  # extra
             encoded = quote(json.dumps(query), safe=QUOTE_SAFE)
