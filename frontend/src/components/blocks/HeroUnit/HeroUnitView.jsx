@@ -51,7 +51,9 @@ const HeroUnitView = (props) => {
   useEffect(() => {
     if (isTopOfPage) {
       setLogoTopPosition('auto');
-      setIsActive(false);
+      setTimeout(() => {
+        setIsActive(false);
+      }, 150);
     }
   }, [isTopOfPage]);
 
@@ -66,7 +68,7 @@ const HeroUnitView = (props) => {
 
   useEffect(() => {
     const handleScroll = () => {
-      let currentPosition = window.pageYOffset;
+      let currentPosition = window.scrollY;
 
       if (currentPosition > bottom) {
         setScrollDown(true);
@@ -77,9 +79,13 @@ const HeroUnitView = (props) => {
       if (currentPosition === 0) {
         setLogoTopPosition('auto');
         setScrollCount(0);
-        setIsTopOfPage(true);
+        setTimeout(() => {
+          setIsTopOfPage(true);
+        }, 150);
       } else {
-        setIsTopOfPage(false);
+        setTimeout(() => {
+          setIsTopOfPage(false);
+        }, 150);
       }
 
       setBottom(currentPosition <= 0 ? 0 : currentPosition);
@@ -96,13 +102,15 @@ const HeroUnitView = (props) => {
         return;
       }
       if (scrollDown || KEYS[e.keyCode]) {
-        setIsActive(true);
-        if (isActive) {
-          setTimeout(() => {
-            setScrollCount(scrollCount + 1);
-          }, animationDuration);
-        }
-        e.preventDefault();
+        setTimeout(() => {
+          setIsActive(true);
+          if (isActive) {
+            setTimeout(() => {
+              setScrollCount(scrollCount + 1);
+            }, animationDuration);
+          }
+          e.preventDefault();
+        }, 150);
       }
     };
 
@@ -124,8 +132,10 @@ const HeroUnitView = (props) => {
     const logoBottomPosition = loginHeight + height;
 
     if (scrollDown) {
-      setIsActive(true);
-      setLogoTopPosition(windowHeight - logoBottomPosition);
+      setTimeout(() => {
+        setIsActive(true);
+        setLogoTopPosition(windowHeight - logoBottomPosition);
+      }, 150);
     }
 
     if (!isTopOfPage && !scrollDown) {
