@@ -22,7 +22,7 @@ const AgendaListingTemplate = (data) => {
     acc[key] = group.sort((a, b) => {
       const aValue = a[field] || a.title;
       const bValue = b[field] || b.title;
-      return aValue.localeCompare(bValue, 'sv');
+      return aValue.localeCompare(bValue, undefined, { sensitivity: 'base' });
     });
     return acc;
   }, {});
