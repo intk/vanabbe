@@ -13,16 +13,19 @@ const scrollWithOffset = (el) => {
 const AgendaListingTemplate = (data) => {
   const { items = [], titleField } = data;
   const field = titleField?.value || 'title';
-  const groups = items.reduce(
-    (acc, item) => ({
-      ...acc,
-      [(item[field] || item.title)[0].toLowerCase()]: [
-        ...(acc[(item[field] || item.title)[0].toLowerCase()] || []),
-        item,
-      ],
-    }),
-    {},
-  );
+
+  // Create and sort groups
+  const groups = items.reduce((acc, item) => {
+    const key = (item[field] || item.title)[0].toLowerCase();
+    const group = acc[key] || [];
+    group.push(item);
+    acc[key] = group.sort((a, b) => {
+      const aValue = a[field] || a.title;
+      const bValue = b[field] || b.title;
+      return aValue.localeCompare(bValue, 'sv');
+    });
+    return acc;
+  }, {});
 
   return (
     <div className="az-listing">
