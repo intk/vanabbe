@@ -1080,7 +1080,7 @@ class AdminFixes(BrowserView):
     def import_publications(self):
         start_range = self.request.form.get('start_range', 0)
         end_range = self.request.form.get('end_range', 3500)
-
+#adding counter for logging purposes
         counter = 0
 
         
