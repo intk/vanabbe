@@ -1401,6 +1401,7 @@ class AdminFixes(BrowserView):
         for record in records:
             # Extract <dc_record> element
             dc_record = record.find(".//dc_record")
+            log_to_file(f"{counter}. object")
 
             if not dc_record:
                 log_to_file(f"this is not object")
@@ -1412,16 +1413,19 @@ class AdminFixes(BrowserView):
                     container = get_base_folder(self.context, "publication")
                     container_en = get_base_folder(self.context, "publication_en")
                     import_one_publication(self, dc_record=dc_record, container=container, container_en=container_en, catalog=catalog)
+                    counter = counter + 1
                 elif index_name is not None and index_name.text == "VanAbbeCollectie":
                     container = get_base_folder(self.context, "artwork")
                     container_en = get_base_folder(self.context, "artwork_en")
                     import_one_record(self, dc_record=dc_record, container=container, container_en=container_en, catalog=catalog)
+                    counter = counter + 1
                 elif (
                     index_name is not None and index_name.text == "VanabbeTentoonstellingen"
                 ):
                     container = get_base_folder(self.context, "exhibition")
                     container = get_base_folder(self.context, "exhibition_en")
                     import_one_exhibition(self, dc_record=dc_record, container=container, container_en=container_en, catalog=catalog)
+                    counter = counter + 1
                 else:
                     pass
             except Exception as e:
