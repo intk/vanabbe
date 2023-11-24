@@ -1362,7 +1362,81 @@ class AdminFixes(BrowserView):
         # Ensure any remaining changes are committed
         transaction.commit()
 
-        return 'all fixed'
+    def sync_new_objects(self, date_from, start_range="0", end_range='5000'):
+        # start_range = self.request.form.get("start_range", 0)
+        # end_range = self.request.form.get("end_range", 5000)
+
+        start_time = datetime.now().strftime(
+            "%Y-%m-%d %H:%M:%S"
+        )  # Record the start time
+        today_date = datetime.now().strftime("%d-%m-%y")
+        date_from = self.request.form.get("date_from")
+
+        log_to_file(f"========================")
+        log_to_file(f"========================")
+        log_to_file(
+            f"The sync function started at {start_time} for the range of objects between {start_range} and {end_range} "
+        )
+
+        if date_from != None:
+            api_url = f"http://62.221.199.184:17718/action=get&command=search&query=timestamp>{date_from}&fields=*&range={start_range}-{end_range}"
+        else:
+            api_url = f"http://62.221.199.184:17718/action=get&command=search&query=timestamp={today_date}&fields=*&range={start_range}-{end_range}"
+
+        log_to_file(f"API URL = {api_url}")
+
+        response = requests.get(api_url)
+        response.raise_for_status()
+        api_answer = response.text
+        container = get_base_folder(self.context, "publication")
+        container_en = get_base_folder(self.context, "publication_en")
+        site = api.portal.get()
+        catalog = site.portal_catalog
+
+        root = ET.fromstring(api_answer)
+
+        # Extract <record> elements
+        records = root.findall(".//record")
+
+        for record in records:
+            # Extract <dc_record> element
+            dc_record = record.find(".//dc_record")
+
+            if not dc_record:
+                log_to_file(f"this is not object")
+                continue
+
+            index_name = dc_record.find(".//ccIndexName")
+            try:
+                if index_name is not None and index_name.text == "VanAbbeBibliotheek":
+                    container = get_base_folder(self.context, "publication")
+                    container_en = get_base_folder(self.context, "publication_en")
+                    import_one_publication(self, dc_record=dc_record, container=container, container_en=container_en, catalog=catalog)
+                elif index_name is not None and index_name.text == "VanAbbeCollectie":
+                    container = get_base_folder(self.context, "artwork")
+                    container_en = get_base_folder(self.context, "artwork_en")
+                    import_one_record(self, dc_record=dc_record, container=container, container_en=container_en, catalog=catalog)
+                elif (
+                    index_name is not None and index_name.text == "VanabbeTentoonstellingen"
+                ):
+                    container = get_base_folder(self.context, "exhibition")
+                    container = get_base_folder(self.context, "exhibition_en")
+                    import_one_exhibition(self, dc_record=dc_record, container=container, container_en=container_en, catalog=catalog)
+                else:
+                    pass
+            except Exception as e:
+                log_to_file(
+                    f"Error importing record: {record}. error = {e}"
+                )
+        
+        transaction.commit()
+
+    def serial_import(self):
+        date_from = self.request.form.get("date_from")
+        start_range = self.request.form.get("start_range", "0")
+        end_range = self.request.form.get("end_range", "10000")
+        for offset in range(int(start_range), int(end_range), 1000):
+            self.sync_new_objects(start_range=offset, end_range=offset+1000, date_from=date_from)
 
     def __call__(self):
         alsoProvides(self.request, IDisableCSRFProtection)
