@@ -833,7 +833,6 @@ class AdminFixes(BrowserView):
         # Return the current processed range along with the response from the next batches
         return f"Processed range: {start_range}-{end_range} (Start: {start_time}, Finish: {finish_time})<br>"
 
-
     # Import function for exhibitions
     def import_exhibitions(self):
         start_range = self.request.form.get('start_range', 0)
@@ -1805,7 +1804,6 @@ def is_valid_day(day_str):
     # Check if day is '00' or above 31
     return 1 <= int(day_str) <= 31
 
-
 def import_one_record(self, dc_record, container, container_en, catalog):
     # Convert <dc_record> element to XML string
     dc_record_xml = ET.tostring(dc_record, encoding="unicode")
@@ -2037,7 +2035,6 @@ def import_one_record(self, dc_record, container, container_en, catalog):
 
         obj_en = self.translate(obj, info["en"])
 
-
 def import_one_exhibition(self, dc_record, container, container_en, catalog):
     # Convert <dc_record> element to XML string
     dc_record_xml = ET.tostring(dc_record, encoding="unicode")
@@ -2215,7 +2212,6 @@ def import_one_exhibition(self, dc_record, container, container_en, catalog):
             # obj.hasImage=True;
 
         obj_en = self.translate(obj, info["en"])
-
 
 def import_one_publication(self, dc_record, container, container_en, catalog):
     # Convert <dc_record> element to XML string
