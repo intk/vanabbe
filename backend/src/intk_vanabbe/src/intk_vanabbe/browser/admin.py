@@ -1367,7 +1367,7 @@ class AdminFixes(BrowserView):
         # start_range = self.request.form.get("start_range", 0)
         # end_range = self.request.form.get("end_range", 5000)
         counter = 0
-
+        start_time_count = datetime.now()
         start_time = datetime.now().strftime(
             "%Y-%m-%d %H:%M:%S"
         )  # Record the start time
@@ -1473,6 +1473,8 @@ class AdminFixes(BrowserView):
         log_to_file(f"total count of objects for update = {total_count}")
         for offset in range(int(start_range), int(total_count), 1000):
             self.sync_new_objects(start_range=offset, end_range=offset+1000, date_from=date_from)
+        
+        return "all done"
 
     def __call__(self):
         alsoProvides(self.request, IDisableCSRFProtection)
