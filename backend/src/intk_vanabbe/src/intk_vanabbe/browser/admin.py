@@ -1080,7 +1080,7 @@ class AdminFixes(BrowserView):
     def import_publications(self):
         start_range = self.request.form.get('start_range', 0)
         end_range = self.request.form.get('end_range', 3500)
-#adding counter for logging purposes
+        #adding counter for logging purposes
         counter = 0
 
         
@@ -1361,10 +1361,13 @@ class AdminFixes(BrowserView):
             
         # Ensure any remaining changes are committed
         transaction.commit()
+        
+        return 'all fixed'
 
     def sync_new_objects(self, date_from, start_range="0", end_range='5000'):
         # start_range = self.request.form.get("start_range", 0)
         # end_range = self.request.form.get("end_range", 5000)
+        counter = 0
 
         start_time = datetime.now().strftime(
             "%Y-%m-%d %H:%M:%S"
@@ -1438,8 +1441,29 @@ class AdminFixes(BrowserView):
     def serial_import(self):
         date_from = self.request.form.get("date_from")
         start_range = self.request.form.get("start_range", "0")
-        end_range = self.request.form.get("end_range", "10000")
-        for offset in range(int(start_range), int(end_range), 1000):
+        # end_range = self.request.form.get("end_range", "100")
+        end_range=100
+        today_date = datetime.now().strftime("%d-%m-%y")
+
+        if date_from != None:
+            api_url = f"http://62.221.199.184:17718/action=get&command=search&query=timestamp>{date_from}&fields=*&range={start_range}-{end_range}"
+        else:
+            api_url = f"http://62.221.199.184:17718/action=get&command=search&query=timestamp={today_date}&fields=*&range={start_range}-{end_range}"
+        
+
+        response = requests.get(api_url)
+        response.raise_for_status()
+        api_answer = response.text
+        root = ET.fromstring(api_answer)
+
+        # Extract the total count
+        total_count = int(root.find(".//count").text)
+
+        log_to_file("==================================================")
+        log_to_file("==================================================")
+        log_to_file(f"Starting the sync function for the date after {date_from}")
+        log_to_file(f"total count of objects for update = {total_count}")
+        for offset in range(int(start_range), int(total_count), 1000):
             self.sync_new_objects(start_range=offset, end_range=offset+1000, date_from=date_from)
 
     def __call__(self):
