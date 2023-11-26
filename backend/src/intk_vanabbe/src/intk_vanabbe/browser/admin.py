@@ -1425,16 +1425,25 @@ class AdminFixes(BrowserView):
                     index_name is not None and index_name.text == "VanabbeTentoonstellingen"
                 ):
                     container = get_base_folder(self.context, "exhibition")
-                    container = get_base_folder(self.context, "exhibition_en")
+                    container_en = get_base_folder(self.context, "exhibition_en")
                     import_one_exhibition(self, dc_record=dc_record, container=container, container_en=container_en, catalog=catalog)
                     counter = counter + 1
                 else:
+                    counter = counter + 1
                     pass
             except Exception as e:
                 log_to_file(
                     f"Error importing record: {record}. error = {e}"
                 )
-        
+        end_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        end_time_couunt = datetime.now()
+        duration = end_time_couunt - start_time_count
+        durationhours = duration.total_seconds() // 3600
+        durationminutes = (duration.total_seconds() % 3600) // 60
+        durationseconds = duration.total_seconds() % 60
+        log_to_file(
+            f"The sync function ended at {end_time} for the range of objects between {start_range} and {end_range}. It took {durationhours} hour {durationminutes} minutes and {durationseconds} seconds."
+        ) 
         transaction.commit()
 
     def serial_import(self):
