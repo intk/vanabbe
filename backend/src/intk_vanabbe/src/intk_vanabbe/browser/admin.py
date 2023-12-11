@@ -1471,8 +1471,8 @@ class AdminFixes(BrowserView):
         log_to_file("==================================================")
         log_to_file(f"Starting the sync function for the date after {date_from}")
         log_to_file(f"total count of objects for update = {total_count}")
-        for offset in range(int(start_range), int(total_count), 1000):
-            self.sync_new_objects(start_range=offset, end_range=offset+1000, date_from=date_from)
+        for offset in range(int(start_range), int(total_count), 500):
+            self.sync_new_objects(start_range=offset, end_range=offset+500, date_from=date_from)
         
         return "all done"
 
@@ -2149,7 +2149,7 @@ def import_one_exhibition(self, dc_record, container, container_en, catalog):
             obj = create_and_setup_object(
                 info["nl"]["eventTitle"], container, info, intl, "exhibition"
             )  # Dutch version
-            log_to_file(f"{ccObjectID} Dutch version of object is created")
+            log_to_file(f"{ccObjectID} Dutch version of exhibition is created")
 
             manager = ITranslationManager(obj)
             if not manager.has_translation("en"):
@@ -2164,7 +2164,7 @@ def import_one_exhibition(self, dc_record, container, container_en, catalog):
             obj_en = create_and_setup_object(
                 info["en"]["eventTitle"], container_en, info, intl, "exhibition"
             )  # English version
-            log_to_file(f"{ccObjectID} English version of object is created")
+            log_to_file(f"{ccObjectID} English version of exhibition is created")
 
             manager = ITranslationManager(obj_en)
             if not manager.has_translation("nl"):
@@ -2191,7 +2191,7 @@ def import_one_exhibition(self, dc_record, container, container_en, catalog):
                 if v:
                     setattr(obj, k, json.dumps(v))
 
-            log_to_file(f"{ccObjectID} object is updated")
+            log_to_file(f"{ccObjectID} exhibition is updated")
 
             # adding images
             images = element.xpath(f"//dc_record/eventImages")
@@ -2212,7 +2212,7 @@ def import_one_exhibition(self, dc_record, container, container_en, catalog):
             info["nl"]["eventTitle"], container, info, intl, "exhibition"
         )  # Dutch version
 
-        log_to_file(f"{ccObjectID} object is created")
+        log_to_file(f"{ccObjectID} exhibition is created")
 
         logger.info("Created %s", obj.absolute_url(relative=1))
 
