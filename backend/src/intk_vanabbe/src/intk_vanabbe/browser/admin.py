@@ -1444,7 +1444,6 @@ class AdminFixes(BrowserView):
         log_to_file(
             f"The sync function ended at {end_time} for the range of objects between {start_range} and {end_range}. It took {durationhours} hour {durationminutes} minutes and {durationseconds} seconds."
         ) 
-        transaction.commit()
 
     def serial_import(self):
         date_from = self.request.form.get("date_from")
@@ -1643,6 +1642,7 @@ def import_exhibiton_images(container, images):
     return f"Images {images} created successfully"
 
 def import_authors(self, element, use_archive=True):
+    transaction.begin()
     container = get_base_folder(self.context, "author")
     container_en = get_base_folder(self.context, 'author_en')
     authors = []
@@ -1757,6 +1757,7 @@ def import_authors(self, element, use_archive=True):
 
         logger.info(f"Created author {author.getId()}")
 
+    transaction.commit()
     return [authors, authors_en]
 
 def log_to_file(message):
@@ -1816,6 +1817,7 @@ def is_valid_day(day_str):
     return 1 <= int(day_str) <= 31
 
 def import_one_record(self, dc_record, container, container_en, catalog):
+    transaction.begin()
     # Convert <dc_record> element to XML string
     dc_record_xml = ET.tostring(dc_record, encoding="unicode")
 
@@ -2045,8 +2047,12 @@ def import_one_record(self, dc_record, container, container_en, catalog):
             obj.hasImage = True
 
         obj_en = self.translate(obj, info["en"])
+    
+    transaction.commit()
+    return
 
 def import_one_exhibition(self, dc_record, container, container_en, catalog):
+    transaction.begin()
     # Convert <dc_record> element to XML string
     dc_record_xml = ET.tostring(dc_record, encoding="unicode")
 
@@ -2223,8 +2229,12 @@ def import_one_exhibition(self, dc_record, container, container_en, catalog):
             # obj.hasImage=True;
 
         obj_en = self.translate(obj, info["en"])
+    
+    transaction.commit()
+    return
 
 def import_one_publication(self, dc_record, container, container_en, catalog):
+    transaction.begin()
     # Convert <dc_record> element to XML string
     dc_record_xml = ET.tostring(dc_record, encoding="unicode")
 
@@ -2391,3 +2401,6 @@ def import_one_publication(self, dc_record, container, container_en, catalog):
             obj_en = self.translate(obj, info["en"])
         except:
             log_to_file(f"the eng translation object was not able to create")
+    
+    transaction.commit()
+    return
