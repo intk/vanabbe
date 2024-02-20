@@ -1448,15 +1448,14 @@ class AdminFixes(BrowserView):
     def serial_import(self):
         date_from = self.request.form.get("date_from")
         start_range = self.request.form.get("start_range", "0")
-        # end_range = self.request.form.get("end_range", "100")
-        end_range=100
+        end_range = self.request.form.get("end_range", "100")
+
         today_date = datetime.now().strftime("%d-%m-%y")
 
-        if date_from != None:
-            api_url = f"http://62.221.199.184:17718/action=get&command=search&query=timestamp>{date_from}&fields=*&range={start_range}-{end_range}"
-        else:
-            api_url = f"http://62.221.199.184:17718/action=get&command=search&query=timestamp={today_date}&fields=*&range={start_range}-{end_range}"
-        
+        if date_from == None:
+            date_from = today_date;
+
+        api_url = f"http://62.221.199.184:17718/action=get&command=search&query=timestamp>{date_from}"        
 
         response = requests.get(api_url)
         response.raise_for_status()
