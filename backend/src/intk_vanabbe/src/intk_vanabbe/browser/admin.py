@@ -1448,7 +1448,7 @@ class AdminFixes(BrowserView):
     def serial_import(self):
         date_from = self.request.form.get("date_from")
         start_range = self.request.form.get("start_range", "0")
-        end_range = self.request.form.get("end_range", "100")
+        # end_range = self.request.form.get("end_range", "100")
 
         today_date = datetime.now().strftime("%d-%m-%y")
 
