@@ -1472,8 +1472,7 @@ class AdminFixes(BrowserView):
         for offset in range(int(start_range), int(total_count), 500):
             self.sync_new_objects(start_range=offset, end_range=offset+500, date_from=date_from)
 
-            # Call garbage collector after processing each batch
-            gc.collect()
+            transaction.commit()
         
         return "all done"
 
