@@ -24,7 +24,7 @@ from zope import component
 from zc.relation.interfaces import ICatalog
 from datetime import datetime
 from DateTime import DateTime
-
+import gc
 
 import time
 import json
@@ -1471,6 +1471,9 @@ class AdminFixes(BrowserView):
         log_to_file(f"total count of objects for update = {total_count}")
         for offset in range(int(start_range), int(total_count), 500):
             self.sync_new_objects(start_range=offset, end_range=offset+500, date_from=date_from)
+
+            # Call garbage collector after processing each batch
+            gc.collect()
         
         return "all done"
 
