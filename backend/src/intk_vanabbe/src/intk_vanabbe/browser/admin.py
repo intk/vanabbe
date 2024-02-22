@@ -1469,12 +1469,13 @@ class AdminFixes(BrowserView):
         log_to_file("==================================================")
         log_to_file(f"Starting the sync function for the date after {date_from}")
         log_to_file(f"total count of objects for update = {total_count}")
+        transaction.begin()
         for offset in range(int(start_range), int(total_count), 500):
-            transaction.begin()
             self.sync_new_objects(start_range=offset, end_range=offset+500, date_from=date_from)
-            transaction.commit()
+            sp = transaction.savepoint(optimistic=True)
             gc.collect()
         
+        transaction.commit()
         return "all done"
 
     def __call__(self):
@@ -1644,7 +1645,6 @@ def import_exhibiton_images(container, images):
     return f"Images {images} created successfully"
 
 def import_authors(self, element, use_archive=True):
-    transaction.begin()
     container = get_base_folder(self.context, "author")
     container_en = get_base_folder(self.context, 'author_en')
     authors = []
@@ -1759,7 +1759,6 @@ def import_authors(self, element, use_archive=True):
 
         logger.info(f"Created author {author.getId()}")
 
-    transaction.commit()
     return [authors, authors_en]
 
 def log_to_file(message):
@@ -1819,7 +1818,6 @@ def is_valid_day(day_str):
     return 1 <= int(day_str) <= 31
 
 def import_one_record(self, dc_record, container, container_en, catalog):
-    transaction.begin()
     # Convert <dc_record> element to XML string
     dc_record_xml = ET.tostring(dc_record, encoding="unicode")
 
@@ -2050,11 +2048,9 @@ def import_one_record(self, dc_record, container, container_en, catalog):
 
         obj_en = self.translate(obj, info["en"])
     
-    transaction.commit()
     return
 
 def import_one_exhibition(self, dc_record, container, container_en, catalog):
-    transaction.begin()
     # Convert <dc_record> element to XML string
     dc_record_xml = ET.tostring(dc_record, encoding="unicode")
 
@@ -2232,11 +2228,9 @@ def import_one_exhibition(self, dc_record, container, container_en, catalog):
 
         obj_en = self.translate(obj, info["en"])
     
-    transaction.commit()
     return
 
 def import_one_publication(self, dc_record, container, container_en, catalog):
-    transaction.begin()
     # Convert <dc_record> element to XML string
     dc_record_xml = ET.tostring(dc_record, encoding="unicode")
 
@@ -2404,5 +2398,4 @@ def import_one_publication(self, dc_record, container, container_en, catalog):
         except:
             log_to_file(f"the eng translation object was not able to create")
     
-    transaction.commit()
     return
