@@ -1900,13 +1900,14 @@ def import_one_record(self, dc_record, container, container_en, catalog):
     for attr in attrs:
         value = element.xpath(f"//dc_record/{attr}")
         if value:
-            info["en"][attr] = str(value[0].text)
-            info["nl"][attr] = str(value[0].text)
+            info["en"][attr] = str(value[0].text) if value else ""
+            info["nl"][attr] = str(value[0].text) if value else ""
 
             # If the current attribute is 'objectPosition' and the value is not empty
-            if attr == "objectPosition" and str(value[0]).strip():
-                info["en"]["objectOnDisplay"] = True
-                info["nl"]["objectOnDisplay"] = True
+            if attr == "objectPosition":
+                is_on_display = bool(value and str(value[0].text).strip()) 
+                info["en"]["objectOnDisplay"] = is_on_display
+                info["nl"]["objectOnDisplay"] = is_on_display
 
     for field in ["ObjectAudio", "ObjectVideo"]:
         for lang in info.keys():
