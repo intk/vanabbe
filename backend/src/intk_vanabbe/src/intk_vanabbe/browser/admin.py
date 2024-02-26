@@ -1908,6 +1908,14 @@ def import_one_record(self, dc_record, container, container_en, catalog):
                 is_on_display = bool(value and str(value[0].text).strip()) 
                 info["en"]["objectOnDisplay"] = is_on_display
                 info["nl"]["objectOnDisplay"] = is_on_display
+        else:
+            # If the attribute is not found in the XML, set its value to an empty string
+            info["en"][attr] = ""
+            info["nl"][attr] = ""
+
+            if attr == "objectPosition":
+                info["en"]["objectOnDisplay"] = False
+                info["nl"]["objectOnDisplay"] = False
 
     for field in ["ObjectAudio", "ObjectVideo"]:
         for lang in info.keys():
