@@ -6,7 +6,7 @@ version: "3.3"
 
 services:
   frontend:
-    image: intkbv/vanabbemuseum-frontend:Bugfixes
+    image: intkbv/vanabbemuseum-frontend:sha-5efdda4
     environment:
       RAZZLE_INTERNAL_API_PATH: http://backend:8080/Plone
       RAZZLE_DEV_PROXY_API_PATH: http://backend:8080/Plone
@@ -21,7 +21,7 @@ services:
       replicas: 2
 
   backend:
-    image: intkbv/vanabbemuseum-backend:Bugfixes
+    image: intkbv/vanabbemuseum-backend:sha-bc154b1
     environment:
       ZEO_ADDRESS: zeo:8100
       # ADDONS: "kaitconcept.seo"
@@ -40,6 +40,27 @@ services:
       - 8080:8080
     deploy:
       replicas: 4
+
+  backend-sync:
+    image: intkbv/vanabbemuseum-backend:sha-bc154b1
+    environment:
+      ZEO_ADDRESS: zeo:8100
+      # ADDONS: "kaitconcept.seo"
+      # ADDONS: "collective.volto.cookieconsent collective.volto.formsupport"
+      #/app/src/collective.previewimage -e
+      DEVELOP: "/app/src/intk_vanabbe"
+    volumes:
+      - vanabbe-cache:/data
+      - /var/local/vanabbe:/app/logs
+      # - /var/local/vanabbe/backend/src:/app/src
+      # - /var/local/vanabbe/data-import:/data-import
+    networks:
+      # - nw-webserver
+      - backend
+    ports:
+      - 8081:8080
+    deploy:
+      replicas: 1
 
   zeo:
     image: plone/plone-zeo:latest
