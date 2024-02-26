@@ -1448,22 +1448,27 @@ class AdminFixes(BrowserView):
     def serial_import(self):
         date_from = self.request.form.get("date_from")
         start_range = self.request.form.get("start_range", "0")
-        # end_range = self.request.form.get("end_range", "100")
+        total_count_provided = self.request.form.get("total_count")
+
+        today_date = datetime.now().strftime("%d-%m-%y")
+
 
         today_date = datetime.now().strftime("%d-%m-%y")
 
         if date_from == None:
             date_from = today_date;
 
-        api_url = f"http://62.221.199.184:17718/action=get&command=search&query=timestamp>{date_from}"        
-
-        response = requests.get(api_url)
-        response.raise_for_status()
-        api_answer = response.text
-        root = ET.fromstring(api_answer)
-
-        # Extract the total count
-        total_count = int(root.find(".//count").text)
+        if total_count_provided is None:
+            # If total_count is not provided, fetch it from the API
+            api_url = f"http://62.221.199.184:17718/action=get&command=search&query=timestamp>{date_from}"
+            response = requests.get(api_url)
+            response.raise_for_status()
+            api_answer = response.text
+            root = ET.fromstring(api_answer)
+            total_count = int(root.find(".//count").text)
+        else:
+            # If total_count is provided, use it directly
+            total_count = int(total_count_provided)
 
         log_to_file("==================================================")
         log_to_file("==================================================")
