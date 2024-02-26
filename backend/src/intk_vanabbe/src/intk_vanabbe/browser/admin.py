@@ -1469,14 +1469,19 @@ class AdminFixes(BrowserView):
         log_to_file("==================================================")
         log_to_file(f"Starting the sync function for the date after {date_from}")
         log_to_file(f"total count of objects for update = {total_count}")
+        
         transaction.begin()
         for offset in range(int(start_range), int(total_count), 500):
-            self.sync_new_objects(start_range=offset, end_range=offset+500, date_from=date_from)
-            sp = transaction.savepoint(optimistic=True)
-            gc.collect()
+            try:
+                self.sync_new_objects(start_range=offset, end_range=offset+500, date_from=date_from)
+                transaction.commit()
+            except Exception as e:
+                log_to_file(f"Failure processing batch {offset}-{offset+500}: {e}")
+                transaction.abort()
+                break 
         
-        transaction.commit()
-        return "all done"
+        gc.collect()
+        return "Finished syncing"
 
     def __call__(self):
         alsoProvides(self.request, IDisableCSRFProtection)
