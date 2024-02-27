@@ -242,45 +242,6 @@ class AdminFixes(BrowserView):
 
         return "ok"
 
-    # def import_images(self):
-    #     to_import = find_files("</objectImage>")
-    #     print(f"To import: {len(to_import)}")
-
-    #     site = portal.get()
-    #     catalog = site.portal_catalog
-
-    #     processed_brains = 0
-    #     error_urls = []
-    #     for fpath in to_import:
-    #         with open(fpath) as f:
-    #             xml = f.read()
-    #         element = lxml.etree.fromstring(xml)
-    #         img_urls = element.xpath("//dc_record/objectImage/text()")
-    #         img_count = len(img_urls)
-
-    #         recordnumber = fpath.rsplit('/', 1)[-1].split('.')[0]
-    #         brains = catalog.searchResults(recordnumber=int(recordnumber))
-
-    #         for brain in brains:
-    #             obj = brain.getObject()
-
-    #             if obj.portal_type == 'artwork':
-    #                 urls = []
-    #                 for fname in img_urls:
-    #                     if 'http' not in fname:
-    #                         fname = IMAGE_BASE_URL % fname
-    #                     urls.append(fname)
-    #                 img_urls = urls
-
-    #             childrenIds = obj.contentIds()
-
-    #             if len(childrenIds) != img_count:
-    #                 processed_brains += 1
-    #                 errors = import_images(obj, img_urls, use_archive=True)
-    #                 error_urls.extend(errors)
-
-    #     return f"Processed: {processed_brains}\n{error_urls}"
-
     def import_artworks(self):
         to_import = find_files("</AuthorBio>")
 
@@ -470,32 +431,6 @@ class AdminFixes(BrowserView):
                 obj.reindexObject()
 
         return "ok"
-
-    # def fix_booktitle(self):
-    #     site = portal.get()
-    #     catalog = site.portal_catalog
-    #
-    #     # nls = catalog(portal_type="publication", Language="nl")
-    #     ens = catalog(portal_type=["publication"], Language="en")
-    #
-    #     for b in ens:
-    #         if not b.Title:
-    #             logger.info(f"Fixing {b.getURL()}")
-    #             obj = b.getObject()
-    #             trans = catalog(
-    #                 TranslationGroup=b.TranslationGroup, Language="nl")
-    #             if not trans:
-    #                 logger.info("No translations")
-    #                 continue
-    #             trans = trans[0].getObject()
-    #             obj.Title = trans.Title
-    #
-    #             if obj.portal_type == 'publication':
-    #                 obj.bookTitle = trans.bookTitle
-    #
-    #             obj.reindexObject()
-    #
-    #     return "ok"
 
     def get_base_folder(context, portal_type):
         base = portal.get()
@@ -1974,6 +1909,8 @@ def import_one_record(self, dc_record, container, container_en, catalog):
             if images:
                 import_images(container=obj, images=images)
                 obj.hasImage = True
+            else:
+                obj_en.hasImage = False
             obj.reindexObject()
 
         else:
@@ -1993,6 +1930,8 @@ def import_one_record(self, dc_record, container, container_en, catalog):
             if images:
                 import_images(container=obj_en, images=images)
                 obj_en.hasImage = True
+            else:
+                obj_en.hasImage = False
             obj_en.reindexObject()
 
     # Check if object with ccObjectID already exists in the container
@@ -2034,7 +1973,9 @@ def import_one_record(self, dc_record, container, container_en, catalog):
             images = element.xpath(f"//dc_record/objectImage")
             if images:
                 import_images(container=obj, images=images)
-            obj.hasImage = True
+                obj.hasImage = True
+            else:
+                obj_en.hasImage = False
 
             # Reindex the updated object
             obj.reindexObject()
@@ -2064,6 +2005,8 @@ def import_one_record(self, dc_record, container, container_en, catalog):
         if images:
             import_images(container=obj, images=images)
             obj.hasImage = True
+        else:
+            obj_en.hasImage = False
 
         obj_en = self.translate(obj, info["en"])
     
