@@ -1410,14 +1410,14 @@ class AdminFixes(BrowserView):
         log_to_file(f"Starting the sync function for the date after {date_from}")
         log_to_file(f"total count of objects for update = {total_count}")
         
-        transaction.begin()
+        # transaction.begin()
         for offset in range(int(start_range), int(total_count), 500):
             try:
                 self.sync_new_objects(start_range=offset, end_range=offset+500, date_from=date_from)
-                transaction.commit()
+                # transaction.commit()
             except Exception as e:
                 log_to_file(f"Failure processing batch {offset}-{offset+500}: {e}")
-                transaction.abort()
+                # transaction.abort()
                 break 
         
         gc.collect()
@@ -1763,6 +1763,7 @@ def is_valid_day(day_str):
     return 1 <= int(day_str) <= 31
 
 def import_one_record(self, dc_record, container, container_en, catalog):
+    transaction.begin()
     # Convert <dc_record> element to XML string
     dc_record_xml = ET.tostring(dc_record, encoding="unicode")
 
@@ -2010,9 +2011,11 @@ def import_one_record(self, dc_record, container, container_en, catalog):
 
         obj_en = self.translate(obj, info["en"])
     
+    transaction.commit()
     return
 
 def import_one_exhibition(self, dc_record, container, container_en, catalog):
+    transaction.begin()
     # Convert <dc_record> element to XML string
     dc_record_xml = ET.tostring(dc_record, encoding="unicode")
 
@@ -2190,9 +2193,11 @@ def import_one_exhibition(self, dc_record, container, container_en, catalog):
 
         obj_en = self.translate(obj, info["en"])
     
+    transaction.commit()
     return
 
 def import_one_publication(self, dc_record, container, container_en, catalog):
+    transaction.begin()
     # Convert <dc_record> element to XML string
     dc_record_xml = ET.tostring(dc_record, encoding="unicode")
 
@@ -2360,4 +2365,5 @@ def import_one_publication(self, dc_record, container, container_en, catalog):
         except:
             log_to_file(f"the eng translation object was not able to create")
     
+    transaction.commit()
     return
