@@ -1949,12 +1949,10 @@ def import_one_record(self, dc_record, container, container_en, catalog):
             # Update the object's fields with new data
             lang = obj.language
             for k, v in info[lang].items():
-                if v:
-                    setattr(obj, k, v)
+                setattr(obj, k, v)
 
             for k, v in intl[lang].items():
-                if v:
-                    setattr(obj, k, json.dumps(v))
+                setattr(obj, k, json.dumps(v))
 
             # print(f"Updated Object ID: {obj.getId()}, Path: {obj.absolute_url()}, Workflow State: {api.content.get_state(obj)}")
 
