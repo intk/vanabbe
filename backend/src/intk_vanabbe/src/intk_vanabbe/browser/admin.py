@@ -1838,6 +1838,7 @@ def import_one_record(self, dc_record, container, container_en, catalog):
         log_to_file(f"{attr} attribute is here")
 
         if value:
+            log_to_file(f"attribute :{attr}, value: {value}")
             info["en"][attr] = str(value[0].text) if value else ""
             info["nl"][attr] = str(value[0].text) if value else ""
 
