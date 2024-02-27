@@ -1835,6 +1835,8 @@ def import_one_record(self, dc_record, container, container_en, catalog):
 
     for attr in attrs:
         value = element.xpath(f"//dc_record/{attr}")
+        log_to_file(f"{attr} attribute is here")
+
         if value:
             info["en"][attr] = str(value[0].text) if value else ""
             info["nl"][attr] = str(value[0].text) if value else ""
@@ -1845,6 +1847,7 @@ def import_one_record(self, dc_record, container, container_en, catalog):
                 info["en"]["objectOnDisplay"] = is_on_display
                 info["nl"]["objectOnDisplay"] = is_on_display
         else:
+            log_to_file(f"{attr} doesn't exist")
             # If the attribute is not found in the XML, set its value to an empty string
             info["en"][attr] = ""
             info["nl"][attr] = ""
