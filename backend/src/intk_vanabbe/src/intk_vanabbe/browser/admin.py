@@ -1410,14 +1410,14 @@ class AdminFixes(BrowserView):
         log_to_file(f"Starting the sync function for the date after {date_from}")
         log_to_file(f"total count of objects for update = {total_count}")
         
-        # transaction.begin()
+        transaction.begin()
         for offset in range(int(start_range), int(total_count), 500):
             try:
                 self.sync_new_objects(start_range=offset, end_range=offset+500, date_from=date_from)
-                # transaction.commit()
+                transaction.commit()
             except Exception as e:
                 log_to_file(f"Failure processing batch {offset}-{offset+500}: {e}")
-                # transaction.abort()
+                transaction.abort()
                 break 
         
         gc.collect()
@@ -1763,7 +1763,6 @@ def is_valid_day(day_str):
     return 1 <= int(day_str) <= 31
 
 def import_one_record(self, dc_record, container, container_en, catalog):
-    transaction.begin()
     # Convert <dc_record> element to XML string
     dc_record_xml = ET.tostring(dc_record, encoding="unicode")
 
@@ -1835,10 +1834,8 @@ def import_one_record(self, dc_record, container, container_en, catalog):
 
     for attr in attrs:
         value = element.xpath(f"//dc_record/{attr}")
-        log_to_file(f"{attr} attribute is here")
 
         if value:
-            log_to_file(f"attribute :{attr}, value: {value}")
             info["en"][attr] = str(value[0].text) if value else ""
             info["nl"][attr] = str(value[0].text) if value else ""
 
@@ -1848,7 +1845,6 @@ def import_one_record(self, dc_record, container, container_en, catalog):
                 info["en"]["objectOnDisplay"] = is_on_display
                 info["nl"]["objectOnDisplay"] = is_on_display
         else:
-            log_to_file(f"{attr} doesn't exist")
             # If the attribute is not found in the XML, set its value to an empty string
             info["en"][attr] = ""
             info["nl"][attr] = ""
@@ -2013,11 +2009,9 @@ def import_one_record(self, dc_record, container, container_en, catalog):
 
         obj_en = self.translate(obj, info["en"])
     
-    transaction.commit()
     return
 
 def import_one_exhibition(self, dc_record, container, container_en, catalog):
-    transaction.begin()
     # Convert <dc_record> element to XML string
     dc_record_xml = ET.tostring(dc_record, encoding="unicode")
 
@@ -2155,12 +2149,10 @@ def import_one_exhibition(self, dc_record, container, container_en, catalog):
             # Update the object's fields with new data
             lang = obj.language
             for k, v in info[lang].items():
-                if v:
-                    setattr(obj, k, v)
+                setattr(obj, k, v)
 
             for k, v in intl[lang].items():
-                if v:
-                    setattr(obj, k, json.dumps(v))
+                setattr(obj, k, json.dumps(v))
 
             log_to_file(f"{ccObjectID} exhibition is updated")
 
@@ -2195,11 +2187,9 @@ def import_one_exhibition(self, dc_record, container, container_en, catalog):
 
         obj_en = self.translate(obj, info["en"])
     
-    transaction.commit()
     return
 
 def import_one_publication(self, dc_record, container, container_en, catalog):
-    transaction.begin()
     # Convert <dc_record> element to XML string
     dc_record_xml = ET.tostring(dc_record, encoding="unicode")
 
@@ -2327,12 +2317,10 @@ def import_one_publication(self, dc_record, container, container_en, catalog):
             # Update the object's fields with new data
             lang = obj.language
             for k, v in info[lang].items():
-                if v:
-                    setattr(obj, k, v)
+                setattr(obj, k, v)
 
             for k, v in intl[lang].items():
-                if v:
-                    setattr(obj, k, json.dumps(v))
+                setattr(obj, k, json.dumps(v))
 
             log_to_file(f"{ccObjectID} publication is updated")
 
@@ -2367,5 +2355,4 @@ def import_one_publication(self, dc_record, container, container_en, catalog):
         except:
             log_to_file(f"the eng translation object was not able to create")
     
-    transaction.commit()
     return
