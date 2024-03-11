@@ -1941,14 +1941,16 @@ def import_one_record(self, dc_record, container, container_en, catalog):
         for brain in brains:
             # Object exists, so we fetch it and update it
             obj = brain.getObject()
-
+            reset_object_fields(obj, "artwork")
             # Update the object's fields with new data
             lang = obj.language
             for k, v in info[lang].items():
-                setattr(obj, k, v)
+                if v:
+                    setattr(obj, k, v)
 
             for k, v in intl[lang].items():
-                setattr(obj, k, json.dumps(v))
+                if v:
+                    setattr(obj, k, json.dumps(v))
 
             # print(f"Updated Object ID: {obj.getId()}, Path: {obj.absolute_url()}, Workflow State: {api.content.get_state(obj)}")
 
@@ -2145,14 +2147,17 @@ def import_one_exhibition(self, dc_record, container, container_en, catalog):
         for brain in brains:
             # Object exists, so we fetch it and update it
             obj = brain.getObject()
+            reset_object_fields(obj, "exhibition")
 
             # Update the object's fields with new data
             lang = obj.language
             for k, v in info[lang].items():
-                setattr(obj, k, v)
+                if v:
+                    setattr(obj, k, v)
 
             for k, v in intl[lang].items():
-                setattr(obj, k, json.dumps(v))
+                if v:
+                    setattr(obj, k, json.dumps(v))
 
             log_to_file(f"{ccObjectID} exhibition is updated")
 
@@ -2313,14 +2318,17 @@ def import_one_publication(self, dc_record, container, container_en, catalog):
         for brain in brains:
             # Object exists, so we fetch it and update it
             obj = brain.getObject()
+            reset_object_fields(obj, "publication")
 
             # Update the object's fields with new data
             lang = obj.language
             for k, v in info[lang].items():
-                setattr(obj, k, v)
+                if v:
+                    setattr(obj, k, v)
 
             for k, v in intl[lang].items():
-                setattr(obj, k, json.dumps(v))
+                if v:
+                    setattr(obj, k, json.dumps(v))
 
             log_to_file(f"{ccObjectID} publication is updated")
 
@@ -2356,3 +2364,44 @@ def import_one_publication(self, dc_record, container, container_en, catalog):
             log_to_file(f"the eng translation object was not able to create")
     
     return
+
+def reset_object_fields(obj, type):
+    # Define the fields you want to preserve and not reset
+    preserved_fields = ["priref"]
+
+    if type == 'artwork':
+        interface = IArtwork
+    elif type == 'exhibition':
+        interface = IExhibition
+    elif type == 'publication':
+        interface = IPublication
+    else:
+        raise ValueError("Invalid type specified. Must be 'artwork', 'exhibition', or 'publication'.")
+
+    # Iterate over all fields defined in the IArtwork schema
+    for fieldname in interface:
+        # Skip over preserved fields
+        if fieldname in preserved_fields:
+            continue
+
+        # Access the field from the schema
+        field = IArtwork[fieldname]
+
+        # Determine the default 'empty' value for the field based on its type
+        if IRichText.providedBy(field):
+            default_value = RichTextValue(
+                raw="", mimeType="text/plain", outputMimeType="text/x-html-safe"
+            )
+        elif IList.providedBy(field):
+            default_value = []
+        elif IText.providedBy(field) or ITextLine.providedBy(field):
+            default_value = ""
+        else:
+            default_value = field.missing_value
+
+        # Reset the field value using the mutator if available or directly
+        mutator = getattr(obj, "set%s" % fieldname.capitalize(), None)
+        if mutator:
+            mutator(default_value)
+        else:
+            setattr(obj, fieldname, default_value)
