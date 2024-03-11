@@ -2402,7 +2402,7 @@ def import_one_publication(self, dc_record, container, container_en, catalog):
 
 def reset_object_fields(obj, type):
     # Define the fields you want to preserve and not reset
-    preserved_fields = ["priref"]
+    preserved_fields = ["ccObjectID"]
 
     if type == 'artwork':
         interface = IArtwork
