@@ -24,6 +24,16 @@ from zope import component
 from zc.relation.interfaces import ICatalog
 from datetime import datetime
 from DateTime import DateTime
+from intk_vanabbe.content.artwork import IArtwork
+from intk_vanabbe.content.exhibition import IExhibition
+from intk_vanabbe.content.publication import IPublication
+
+from plone.app.textfield.interfaces import IRichText
+from plone.app.textfield.value import RichTextValue
+from zope.schema.interfaces import IList
+from zope.schema.interfaces import IText
+from zope.schema.interfaces import ITextLine
+
 import gc
 
 import time
