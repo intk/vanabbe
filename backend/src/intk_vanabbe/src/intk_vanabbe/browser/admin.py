@@ -1369,6 +1369,7 @@ class AdminFixes(BrowserView):
         records = root.findall(".//record")
 
         for record in records:
+            transaction.begin()
             # Extract <dc_record> element
             dc_record = record.find(".//dc_record")
             log_to_file(f"{counter}. object")
@@ -1399,10 +1400,13 @@ class AdminFixes(BrowserView):
                         import_one_exhibition(self, dc_record=dc_record, container=container, container_en=container_en, catalog=catalog)
                     else:
                         pass
+
+                    transaction.commit()
                 except Exception as e:
                     log_to_file(
                         f"Error importing record: {record}. error = {e}"
                     )
+                    transaction.abort()
                 
                 counter = counter + 1
 
@@ -1447,11 +1451,9 @@ class AdminFixes(BrowserView):
         log_to_file(f"Starting the sync function for the date after {date_from}")
         log_to_file(f"total count of objects for update = {total_count}")
         
-        transaction.begin()
         for offset in range(int(start_range), int(total_count), 500):
             try:
                 self.sync_new_objects(start_range=offset, end_range=offset+500, date_from=date_from)
-                transaction.commit()
             except Exception as e:
                 log_to_file(f"Failure processing batch {offset}-{offset+500}: {e}")
             
