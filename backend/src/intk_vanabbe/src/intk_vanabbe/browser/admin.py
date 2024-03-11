@@ -1311,6 +1311,8 @@ class AdminFixes(BrowserView):
     def sync_new_objects(self, date_from, start_range="0", end_range='5000'):
         # start_range = self.request.form.get("start_range", 0)
         # end_range = self.request.form.get("end_range", 5000)
+        MAX_RETRIES = 2
+        DELAY_SECONDS = 1
         counter = 0
         start_time_count = datetime.now()
         start_time = datetime.now().strftime(
@@ -1332,7 +1334,28 @@ class AdminFixes(BrowserView):
 
         log_to_file(f"API URL = {api_url}")
 
-        response = requests.get(api_url)
+
+        retries = 0
+        success = False
+        
+        while retries < MAX_RETRIES and success == False:
+            try:
+                response = requests.post(api_url)
+                success = True
+            except Exception as e:
+                retries += 1
+                if retries < MAX_RETRIES:
+                    time.sleep(DELAY_SECONDS)
+                    log_to_file(
+                        f"Temprary failure while fetching API DATA, will try again. Retries {retries}"
+                    )
+                else:
+                    log_to_file(
+                        f"Failure in the batch: start: {start_range}, end: {end_range}. Error: {e}"
+                    )
+                    # TODO: add sending mail for the failed attempt of batch
+                    return
+
         response.raise_for_status()
         api_answer = response.text
         container = get_base_folder(self.context, "publication")
@@ -1349,37 +1372,40 @@ class AdminFixes(BrowserView):
             # Extract <dc_record> element
             dc_record = record.find(".//dc_record")
             log_to_file(f"{counter}. object")
+            retries = 0
+            success = False
 
             if not dc_record:
                 log_to_file(f"this is not object")
                 continue
 
             index_name = dc_record.find(".//ccIndexName")
-            try:
-                if index_name is not None and index_name.text == "VanAbbeBibliotheek":
-                    container = get_base_folder(self.context, "publication")
-                    container_en = get_base_folder(self.context, "publication_en")
-                    import_one_publication(self, dc_record=dc_record, container=container, container_en=container_en, catalog=catalog)
-                    counter = counter + 1
-                elif index_name is not None and index_name.text == "VanAbbeCollectie":
-                    container = get_base_folder(self.context, "artwork")
-                    container_en = get_base_folder(self.context, "artwork_en")
-                    import_one_record(self, dc_record=dc_record, container=container, container_en=container_en, catalog=catalog)
-                    counter = counter + 1
-                elif (
-                    index_name is not None and index_name.text == "VanabbeTentoonstellingen"
-                ):
-                    container = get_base_folder(self.context, "exhibition")
-                    container_en = get_base_folder(self.context, "exhibition_en")
-                    import_one_exhibition(self, dc_record=dc_record, container=container, container_en=container_en, catalog=catalog)
-                    counter = counter + 1
-                else:
-                    counter = counter + 1
-                    pass
-            except Exception as e:
-                log_to_file(
-                    f"Error importing record: {record}. error = {e}"
-                )
+            
+            while retries < MAX_RETRIES and success == False:
+                try:
+                    if index_name is not None and index_name.text == "VanAbbeBibliotheek":
+                        container = get_base_folder(self.context, "publication")
+                        container_en = get_base_folder(self.context, "publication_en")
+                        import_one_publication(self, dc_record=dc_record, container=container, container_en=container_en, catalog=catalog)
+                    elif index_name is not None and index_name.text == "VanAbbeCollectie":
+                        container = get_base_folder(self.context, "artwork")
+                        container_en = get_base_folder(self.context, "artwork_en")
+                        import_one_record(self, dc_record=dc_record, container=container, container_en=container_en, catalog=catalog)
+                    elif (
+                        index_name is not None and index_name.text == "VanabbeTentoonstellingen"
+                    ):
+                        container = get_base_folder(self.context, "exhibition")
+                        container_en = get_base_folder(self.context, "exhibition_en")
+                        import_one_exhibition(self, dc_record=dc_record, container=container, container_en=container_en, catalog=catalog)
+                    else:
+                        pass
+                except Exception as e:
+                    log_to_file(
+                        f"Error importing record: {record}. error = {e}"
+                    )
+                
+                counter = counter + 1
+
         end_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         end_time_couunt = datetime.now()
         duration = end_time_couunt - start_time_count
@@ -1388,7 +1414,8 @@ class AdminFixes(BrowserView):
         durationseconds = duration.total_seconds() % 60
         log_to_file(
             f"The sync function ended at {end_time} for the range of objects between {start_range} and {end_range}. It took {durationhours} hour {durationminutes} minutes and {durationseconds} seconds."
-        ) 
+        )
+        return "all done" 
 
     def serial_import(self):
         date_from = self.request.form.get("date_from")
@@ -1427,10 +1454,8 @@ class AdminFixes(BrowserView):
                 transaction.commit()
             except Exception as e:
                 log_to_file(f"Failure processing batch {offset}-{offset+500}: {e}")
-                transaction.abort()
-                break 
-        
-        gc.collect()
+            
+            gc.collect()
         return "Finished syncing"
 
     def __call__(self):
