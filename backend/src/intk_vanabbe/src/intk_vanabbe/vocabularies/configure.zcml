@@ -24,6 +24,12 @@
       name="publication_types_vocabulary"
       component=".searchindex.PublicationTypesVocabularyFactory"
       />
+
+  <utility
+      name="publication_types_filtered_vocabulary"
+      component=".searchindex.FilteredPublicationTypesVocabularyFactory"
+      />
+
   <utility
       name="bookMaterial_vocabulary"
       component=".searchindex.bookMaterialVocabularyFactory"

@@ -213,7 +213,7 @@
     <value key="group"
            i18n:translate=""
     >VanAbbe</value>
-    <value key="vocabulary">publication_types_vocabulary</value>
+    <value key="vocabulary">publication_types_filtered_vocabulary</value>
   </records>
 
   <records interface="plone.app.querystring.interfaces.IQueryField"

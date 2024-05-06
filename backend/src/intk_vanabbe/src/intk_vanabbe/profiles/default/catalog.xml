@@ -66,6 +66,10 @@
     <indexed_attr value="publication_type"/>
   </index>
 
+  <index name="publication_type_filtered" meta_type="KeywordIndex">
+    <indexed_attr value="publication_type_filtered"/>
+  </index>
+
   <index name="bookMaterial" meta_type="KeywordIndex">
     <indexed_attr value="bookMaterial"/>
   </index>

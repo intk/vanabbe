@@ -13,6 +13,25 @@ class KeywordsVocabulary(BKV):
 
 
 @implementer(IVocabularyFactory)
+class FilteredPublicationTypeVocabulary(BKV):
+    """Filtered Publication Type Vocabulary."""
+    def __init__(self, index):
+        self.keyword_index = index
+        self.allowed_publication_types = {
+            "Affiche", "Boek", "Cassette", "CD", "DVD", "LP", "Naslagwerk"
+        }
+
+    def __call__(self, registry):
+        original_vocabulary = super(
+            FilteredPublicationTypeVocabulary, self).__call__(registry)
+
+        filtered_terms = [
+            term for term in original_vocabulary if term.value in self.allowed_publication_types]
+        return original_vocabulary.__class__(terms=filtered_terms)
+
+
+
+@implementer(IVocabularyFactory)
 class MultilingualKeywordsVocabulary(BKV):
     """KeywordsVocabulary"""
 
@@ -33,6 +52,9 @@ DecadesVocabularyFactory = KeywordsVocabulary("decades")
 PublicationDecadesVocabularyFactory = KeywordsVocabulary("publication_decades")
 
 PublicationTypesVocabularyFactory = KeywordsVocabulary("publication_type")
+
+FilteredPublicationTypesVocabularyFactory = FilteredPublicationTypeVocabulary(
+    "publication_type")
 
 bookMaterialVocabularyFactory = KeywordsVocabulary("bookMaterial")
 
