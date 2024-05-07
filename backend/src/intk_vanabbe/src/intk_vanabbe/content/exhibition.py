@@ -82,3 +82,16 @@ class IExhibition(model.Schema):
     searchable("eventTimeFrom")
     searchable("recordnumber")
     searchable("eventTitle")
+
+
+def get_exhibition_year(obj):
+    date = getattr(obj, "eventTimeStart", None)
+    if not date:
+        return None
+
+    try:
+        year = str(date.year)
+    except AttributeError:
+        return None
+
+    return year
