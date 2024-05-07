@@ -30,6 +30,9 @@
 .section-zien-en-doen.section-geweest,
 .section-see-and-do.section-previous{
   #view{
+    .search-filters-sort{
+      display: none !important;
+    }
     .react-select__control, .react-select__menu{
       width: 130px !important;
     }

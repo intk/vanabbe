@@ -93,6 +93,20 @@ const TopSideFacets = (props) => {
     }
   }, []);
 
+
+  React.useEffect(() => {
+    const allowedPaths = [
+      '/nl/zien-en-doen/geweest',
+      '/en/see-and-do/previous',
+    ];
+
+    // Check if the current URL is one of the allowed paths and the specific query isn't present
+    if (allowedPaths.includes(location.pathname)) {
+      // Construct the new URL
+      setShowFilters(true);
+    }
+  }, []);
+
   const defaultOpened = isDirty(
     searchData.query || [],
     data.query?.query || [],
