@@ -93,7 +93,6 @@ const TopSideFacets = (props) => {
     }
   }, []);
 
-
   React.useEffect(() => {
     const allowedPaths = [
       '/nl/zien-en-doen/geweest',
