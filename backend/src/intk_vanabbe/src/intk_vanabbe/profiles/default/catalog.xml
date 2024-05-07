@@ -37,6 +37,10 @@
   <index name="eventTimeStart" meta_type="DateIndex">
     <indexed_attr value="eventTimeStart"/>
   </index>
+  
+  <index name="exhibition_year" meta_type="KeywordIndex">
+    <indexed_attr value="exhibition_year"/>
+  </index>
 
   <index name="ccObjectID" meta_type="FieldIndex">
     <indexed_attr value="ccObjectID"/>

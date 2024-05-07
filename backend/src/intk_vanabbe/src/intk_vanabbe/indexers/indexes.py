@@ -3,6 +3,7 @@ from intk_vanabbe.content.artwork import get_decades
 from intk_vanabbe.content.artwork import IArtwork
 from intk_vanabbe.content.exhibition import IExhibition
 from intk_vanabbe.content.publication import get_publication_decades
+from intk_vanabbe.content.exhibition import get_exhibition_year
 from intk_vanabbe.content.publication import IPublication
 from plone.indexer.decorator import indexer
 
@@ -25,6 +26,9 @@ def exhibition_image_indexer(obj):
 def exhibition_description(obj):
     return obj.eventDescription
 
+@indexer(IExhibition)
+def exhibition_year(obj):
+    return get_exhibition_year(obj)
 
 @indexer(IPublication)
 def author_name(obj):

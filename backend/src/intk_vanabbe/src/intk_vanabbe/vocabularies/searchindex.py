@@ -53,6 +53,8 @@ PublicationDecadesVocabularyFactory = KeywordsVocabulary("publication_decades")
 
 PublicationTypesVocabularyFactory = KeywordsVocabulary("publication_type")
 
+ExhibitionYearVocabularyFactory = KeywordsVocabulary("exhibition_year")
+
 FilteredPublicationTypesVocabularyFactory = FilteredPublicationTypeVocabulary(
     "publication_type")
 

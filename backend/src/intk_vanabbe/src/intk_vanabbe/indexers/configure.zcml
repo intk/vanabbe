@@ -11,6 +11,11 @@
       />
 
   <adapter
+      factory=".indexes.exhibition_year"
+      name="exhibition_year"
+      />
+
+  <adapter
       factory=".indexes.author_name"
       name="authorName"
       />
@@ -34,6 +39,7 @@
       factory=".indexes.publication_type"
       name="publication_type"
       />
+
   <adapter
       factory=".indexes.bookMaterial"
       name="bookMaterial"
