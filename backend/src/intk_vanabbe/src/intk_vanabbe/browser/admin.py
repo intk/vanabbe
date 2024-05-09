@@ -41,7 +41,7 @@ import requests
 import time
 import transaction
 import xml.etree.ElementTree as ET
-
+import re
 
 logger = logging.getLogger("vubis")
 
@@ -1907,14 +1907,20 @@ def import_one_record(self, dc_record, container, container_en, catalog):
     # Convert <dc_record> element to XML string
     dc_record_xml = ET.tostring(dc_record, encoding="unicode")
 
-    # print(dc_record_xml)
     element = lxml.etree.fromstring(dc_record_xml)
+
+    ccObjectID = element.xpath("//dc_record/ccObjectID")[0].text
+    timestamp = element.xpath("//dc_record/timestamp")[0].text
+
+    brains = catalog.searchResults(
+        ccObjectID=ccObjectID, portal_type="artwork")
+    
     authors, authors_en = import_authors(self, element)
 
     info = {"nl": {}, "en": {}}
     intl = {"nl": {}, "en": {}}
 
-    ccObjectID = element.xpath("//dc_record/ccObjectID")[0].text
+    # ccObjectID = element.xpath("//dc_record/ccObjectID")[0].text
     info["nl"]["ccObjectID"] = ccObjectID
     info["en"]["ccObjectID"] = ccObjectID
 
@@ -1996,7 +2002,8 @@ def import_one_record(self, dc_record, container, container_en, catalog):
 
     for field in ["ObjectAudio", "ObjectVideo"]:
         for lang in info.keys():
-            els = element.xpath(f"//dc_record/{field}[@Language='{lang.upper()}']")
+            els = element.xpath(
+                f"//dc_record/{field}[@Language='{lang.upper()}']")
             if not els:
                 continue
             info[lang][field] = [
@@ -2040,7 +2047,8 @@ def import_one_record(self, dc_record, container, container_en, catalog):
             )  # Dutch version
             log_to_file(f"{ccObjectID} Dutch version of object is created")
             for author in authors:
-                relation.create(source=obj, target=author, relationship="authors")
+                relation.create(source=obj, target=author,
+                                relationship="authors")
 
             manager = ITranslationManager(obj)
             if not manager.has_translation("en"):
@@ -2052,7 +2060,7 @@ def import_one_record(self, dc_record, container, container_en, catalog):
                 import_images(container=obj, images=images)
                 obj.hasImage = True
             else:
-                obj_en.hasImage = False
+                obj.hasImage = False
             obj.reindexObject()
 
         else:
@@ -2061,7 +2069,8 @@ def import_one_record(self, dc_record, container, container_en, catalog):
             )  # English version
             log_to_file(f"{ccObjectID} English version of object is created")
             for author_en in authors_en:
-                relation.create(source=obj_en, target=author_en, relationship="authors")
+                relation.create(source=obj_en, target=author_en,
+                                relationship="authors")
 
             manager = ITranslationManager(obj_en)
             if not manager.has_translation("nl"):
@@ -2097,8 +2106,10 @@ def import_one_record(self, dc_record, container, container_en, catalog):
 
             if lang == "nl":
                 for author in authors:
-                    relation.delete(source=obj, target=author, relationship="authors")
-                    relation.create(source=obj, target=author, relationship="authors")
+                    relation.delete(source=obj, target=author,
+                                    relationship="authors")
+                    relation.create(source=obj, target=author,
+                                    relationship="authors")
 
             else:
                 for author_en in authors_en:
@@ -2117,7 +2128,7 @@ def import_one_record(self, dc_record, container, container_en, catalog):
                 import_images(container=obj, images=images)
                 obj.hasImage = True
             else:
-                obj_en.hasImage = False
+                obj.hasImage = False
 
             # Reindex the updated object
             obj.reindexObject()
@@ -2138,7 +2149,8 @@ def import_one_record(self, dc_record, container, container_en, catalog):
         for author in authors:
             relation.create(source=obj, target=author, relationship="authors")
         for author_en in authors_en:
-            relation.create(source=obj_en, target=author_en, relationship="authors")
+            relation.create(source=obj_en, target=author_en,
+                            relationship="authors")
 
         logger.info("Created %s", obj.absolute_url(relative=1))
 
@@ -2148,24 +2160,30 @@ def import_one_record(self, dc_record, container, container_en, catalog):
             import_images(container=obj, images=images)
             obj.hasImage = True
         else:
-            obj_en.hasImage = False
+            obj.hasImage = False
 
         obj_en = self.translate(obj, info["en"])
 
-    return
+    return True
 
 
 def import_one_exhibition(self, dc_record, container, container_en, catalog):
     # Convert <dc_record> element to XML string
     dc_record_xml = ET.tostring(dc_record, encoding="unicode")
 
-    # print(dc_record_xml)
     element = lxml.etree.fromstring(dc_record_xml)
+
+    ccObjectID = element.xpath("//dc_record/ccObjectID")[0].text
+
+    log_to_file(f"ccObjectID: {ccObjectID}")
+    brains = catalog.searchResults(
+        ccObjectID=ccObjectID, portal_type="exhibition")
+
+
 
     info = {"nl": {}, "en": {}}
     intl = {"nl": {}, "en": {}}
 
-    ccObjectID = element.xpath("//dc_record/ccObjectID")[0].text
     info["nl"]["ccObjectID"] = ccObjectID
     info["en"]["ccObjectID"] = ccObjectID
 
@@ -2250,7 +2268,6 @@ def import_one_exhibition(self, dc_record, container, container_en, catalog):
         info["en"][field] = full_text
 
     # Check if only one language version of the object with ccObjectID exists
-    brains = catalog.searchResults(ccObjectID=ccObjectID)
     if len(brains) == 1:
         lang = brains[0].getObject().language
         missing_lang = "en" if lang == "nl" else "nl"
@@ -2273,7 +2290,8 @@ def import_one_exhibition(self, dc_record, container, container_en, catalog):
             obj_en = create_and_setup_object(
                 info["en"]["eventTitle"], container_en, info, intl, "exhibition"
             )  # English version
-            log_to_file(f"{ccObjectID} English version of exhibition is created")
+            log_to_file(
+                f"{ccObjectID} English version of exhibition is created")
 
             manager = ITranslationManager(obj_en)
             if not manager.has_translation("nl"):
@@ -2334,7 +2352,7 @@ def import_one_exhibition(self, dc_record, container, container_en, catalog):
 
         obj_en = self.translate(obj, info["en"])
 
-    return
+    return True
 
 
 def import_one_publication(self, dc_record, container, container_en, catalog):
@@ -2344,10 +2362,15 @@ def import_one_publication(self, dc_record, container, container_en, catalog):
     # print(dc_record_xml)
     element = lxml.etree.fromstring(dc_record_xml)
 
+    ccObjectID = element.xpath("//dc_record/ccObjectID")[0].text
+    timestamp = element.xpath("//dc_record/timestamp")[0].text
+
+    brains = catalog.searchResults(
+        ccObjectID=ccObjectID, portal_type="publication")
+
     info = {"nl": {}, "en": {}}
     intl = {"nl": {}, "en": {}}
 
-    ccObjectID = element.xpath("//dc_record/ccObjectID")[0].text
     info["nl"]["ccObjectID"] = ccObjectID
     info["en"]["ccObjectID"] = ccObjectID
 
@@ -2428,7 +2451,8 @@ def import_one_publication(self, dc_record, container, container_en, catalog):
             obj = create_and_setup_object(
                 info["nl"]["BookTitle"], container, info, intl, "publication"
             )  # Dutch version
-            log_to_file(f"{ccObjectID} Dutch version of publication is created")
+            log_to_file(
+                f"{ccObjectID} Dutch version of publication is created")
 
             manager = ITranslationManager(obj)
             if not manager.has_translation("en"):
@@ -2444,7 +2468,8 @@ def import_one_publication(self, dc_record, container, container_en, catalog):
             obj_en = create_and_setup_object(
                 info["en"]["BookTitle"], container_en, info, intl, "publication"
             )  # English version
-            log_to_file(f"{ccObjectID} English version of publication is created")
+            log_to_file(
+                f"{ccObjectID} English version of publication is created")
 
             manager = ITranslationManager(obj_en)
             if not manager.has_translation("nl"):
@@ -2506,7 +2531,7 @@ def import_one_publication(self, dc_record, container, container_en, catalog):
         except:
             log_to_file(f"the eng translation object was not able to create")
 
-    return
+    return True
 
 
 def reset_object_fields(obj, type):
