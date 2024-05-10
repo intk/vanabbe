@@ -159,7 +159,7 @@ class AdminFixes(BrowserView):
             object_id = match.group(1)
 
 
-        api_url = f"http://62.221.199.184:17718/action=get&command=search&query=ccObjectId={object_id}&ccIndexName={index_name}&fields=*"
+        api_url = f"http://62.221.199.184:17718/action=get&command=search&query=and(ccObjectId={object_id};ccIndexName={index_name})&fields=*"
 
         log_to_file(f"API URL = {api_url}")
 
