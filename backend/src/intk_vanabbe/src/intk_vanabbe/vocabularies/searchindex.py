@@ -18,7 +18,13 @@ class FilteredPublicationTypeVocabulary(BKV):
     def __init__(self, index):
         self.keyword_index = index
         self.allowed_publication_types = {
-            "Affiche", "Boek", "Cassette", "CD", "DVD", "LP", "Naslagwerk"
+            "Affiches",
+            "Boek",
+            "Cassette",
+            "CD",
+            "DVD",
+            "LP",
+            "Naslagwerk",
         }
 
     def __call__(self, registry):
