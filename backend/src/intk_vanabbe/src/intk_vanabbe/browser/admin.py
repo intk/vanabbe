@@ -401,29 +401,39 @@ def import_exhibiton_images(container, images):
                     url=image.text, stream=True, verify=False, headers=HEADERS
                 ) as req:  # noqa
                     req.raise_for_status()
+
+                    # Ensure the response is an image
+                    if "image" not in req.headers["Content-Type"]:
+                        log_to_file(f"Skipped {image.text}: not an image")
+                        break
+
                     data = req.raw.read()
 
-                    if "DOCTYP" in str(data[:10]):
-                        continue
+                    # Attempt to open the image with PIL to check integrity
+                    try:
+                        Image.open(BytesIO(data)).verify()
+                    except (IOError, SyntaxError) as e:
+                        log_to_file(
+                            f"Skipped {image.text}: invalid image data")
+                        break
 
-                    log_to_file(f"{image.text} image is created")
 
                     imagefield = NamedBlobImage(
-                        # TODO: are all images jpegs?
                         data=data,
-                        contentType="image/jpeg",
+                        contentType=req.headers["Content-Type"],
                         filename=image.text,
                     )
-                    image = api.content.create(
+                    image_obj = api.content.create(
                         type="Image",
                         title=image.text,
                         image=imagefield,
                         container=container,
                     )
+                    log_to_file(f"{image.text} image is created")
 
                     if primaryDisplay == "1":
                         ordering = IExplicitOrdering(container)
-                        ordering.moveObjectsToTop([image.getId()])
+                        ordering.moveObjectsToTop([image_obj.getId()])
 
                     success = True
                     break
@@ -433,12 +443,11 @@ def import_exhibiton_images(container, images):
                 if retries < MAX_RETRIES:
                     time.sleep(DELAY_SECONDS)
                 else:
-                    print(
-                        f"Failed to fetch image {image.text} after {MAX_RETRIES} attempts: {e}"
-                    )
-                    log_to_file(f"failed to create {image.text} image")
+                    log_to_file(f"Failed to fetch image {image.text} after {MAX_RETRIES} attempts: {e}")
+                    print(f"Failed to fetch image {image.text} after {MAX_RETRIES} attempts: {e}")
 
         if not success:
+            log_to_file(f"Skipped image {image.text} due to repeated fetch failures.")
             print(f"Skipped image {image.text} due to repeated fetch failures.")
 
     return f"Images {images} created successfully"
