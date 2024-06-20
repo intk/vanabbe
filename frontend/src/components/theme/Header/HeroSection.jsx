@@ -26,7 +26,7 @@ function HeroSection(props) {
               <img
                 className="herosection-content-image document-image"
                 src={image_url}
-                style={{maxWidth: '100%', display:'none'}}
+                style={{ maxWidth: '100%', display: 'none' }}
               />
               <div className="caption">
                 {preview_caption && (
