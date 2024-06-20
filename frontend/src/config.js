@@ -124,6 +124,7 @@ export default function applyConfig(config) {
     siteDataPageId: 'site-data',
     siteThemes: THEMES,
     navDepth: 3,
+    contentMetadataTagsImageField: 'preview_image',
     breakpointColumnsObj: {
       default: 4,
       1100: 3,
