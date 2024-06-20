@@ -17,16 +17,17 @@ function HeroSection(props) {
           {!hide_header_image && image_url ? (
             <>
               <BodyClass className="has-hero-image" />
-              <div
+              {/* <div
                 className="herosection-content-image document-image"
                 style={{
                   backgroundImage: `url(${image_url})`,
                 }}
-              />
+              /> */}
               <img
                 className="herosection-content-image document-image"
                 src={image_url}
-                style={{ maxWidth: '100%', display: 'none' }}
+                style={{ maxWidth: '100%' }}
+                alt={preview_caption ? preview_caption : ''}
               />
               <div className="caption">
                 {preview_caption && (
