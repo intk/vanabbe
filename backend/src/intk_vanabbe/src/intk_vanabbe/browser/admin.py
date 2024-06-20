@@ -31,6 +31,8 @@ from zope.intid.interfaces import IIntIds
 from zope.schema.interfaces import IList
 from zope.schema.interfaces import IText
 from zope.schema.interfaces import ITextLine
+from PIL import Image
+from io import BytesIO
 
 import gc
 import json
